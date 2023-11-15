@@ -17,6 +17,6 @@ interface SerachParams {
 	target: string;
 }
 
-const KakaoSearch = (params: SerachParams) => {
+export const KakaoSearch = (params: SerachParams) => {
 	return Kakao.get('v3/search/book', { params });
 };
