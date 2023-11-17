@@ -3,12 +3,18 @@ import { KakaoSearch } from '../../Api/kakaoApi';
 
 export default function SearchMain() {
 	const [books, setBooks] = useState([]);
+	const [searchTitle, setSearchTitle] = useState('');
 
-	const getBooks = async () => {
+	const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchTitle(e.target.value);
+	};
+
+	const getBooks = async (e: React.FormEvent) => {
+		e.preventDefault();
 		try {
 			const params = {
-				query: '도라에몽',
-				size: 45,
+				query: searchTitle,
+				size: 5,
 				target: 'title',
 			};
 			const result = await KakaoSearch(params);
@@ -24,7 +30,16 @@ export default function SearchMain() {
 
 	return (
 		<>
-			<button onClick={getBooks}>클릭</button>
+			<form onSubmit={getBooks}>
+				<label htmlFor='searchTtitle'></label>
+				<input
+					id='searchTtitle'
+					type='text'
+					onChange={handleInputTitle}
+					value={searchTitle}
+				/>
+				<button>클릭</button>
+			</form>
 		</>
 	);
 }
