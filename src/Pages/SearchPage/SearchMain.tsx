@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { KakaoSearch } from '../../Api/kakaoApi';
+import { getBooks } from '../../Api/searchApi';
 
 export default function SearchMain() {
 	const [books, setBooks] = useState([]);
@@ -9,28 +10,19 @@ export default function SearchMain() {
 		setSearchTitle(e.target.value);
 	};
 
-	const getBooks = async (e: React.FormEvent) => {
+	const handleGetBooks = async (e: React.FormEvent) => {
 		e.preventDefault();
-		try {
-			const params = {
-				query: searchTitle,
-				size: 5,
-				target: 'title',
-			};
-			const result = await KakaoSearch(params);
-
-			if (result) {
-				setBooks(result.data.documents);
-				console.log(result.data.documents);
-			}
-		} catch (error) {
-			console.log(error);
-		}
+		const booksData = await getBooks(searchTitle);
+		setBooks(booksData);
 	};
+
+	useEffect(() => {
+		console.log(books);
+	}, [books]);
 
 	return (
 		<>
-			<form onSubmit={getBooks}>
+			<form onSubmit={handleGetBooks}>
 				<label htmlFor='searchTtitle'></label>
 				<input
 					id='searchTtitle'
