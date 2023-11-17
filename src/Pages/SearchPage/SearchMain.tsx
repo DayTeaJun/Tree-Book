@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { KakaoSearch } from '../../Api/kakaoApi';
 import { getBooks } from '../../Api/searchApi';
 
 export default function SearchMain() {
