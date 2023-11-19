@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SerachParams } from '../Types/bookData';
 
 // 카카오 API
 const KAKAO_API = '07366720722caa7583ba2e82c577f145';
@@ -10,12 +11,6 @@ const Kakao = axios.create({
 		Authorization: 'KakaoAK ' + KAKAO_API,
 	},
 });
-
-interface SerachParams {
-	query: string;
-	size: number;
-	target: string;
-}
 
 export const KakaoSearch = (params: SerachParams) => {
 	return Kakao.get('v3/search/book', { params });
