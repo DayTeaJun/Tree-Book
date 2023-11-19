@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
+import { BData } from '../../Types/bookData';
 
 export default function SearchMain() {
 	const [searchTitle, setSearchTitle] = useState('');
@@ -8,20 +9,6 @@ export default function SearchMain() {
 	const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTitle(e.target.value);
 	};
-
-	interface BData {
-		authors: string[];
-		contents: string;
-		datetime: string;
-		isbn: string;
-		price: number;
-		publisher: string;
-		sale_price: number;
-		status: string;
-		title: string;
-		translators: string[];
-		url: string[];
-	}
 
 	const {
 		data: books,
