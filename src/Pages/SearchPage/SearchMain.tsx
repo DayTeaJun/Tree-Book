@@ -14,7 +14,7 @@ export default function SearchMain() {
 		data: books,
 		isLoading,
 		refetch,
-	} = useQuery<BData>({
+	} = useQuery({
 		queryKey: ['books', searchTitle],
 		queryFn: () => getBooks(searchTitle),
 		enabled: false,
@@ -23,10 +23,9 @@ export default function SearchMain() {
 	const handleGetBooks = async (e: React.FormEvent) => {
 		e.preventDefault();
 		refetch();
+		console.log(books);
+		console.log(isLoading);
 	};
-
-	console.log(books);
-	console.log(isLoading);
 
 	return (
 		<>
@@ -40,6 +39,12 @@ export default function SearchMain() {
 				/>
 				<button>클릭</button>
 			</form>
+
+			{!isLoading && books ? (
+				books.map((el: BData, i: number) => <h2 key={i}>{el.authors}</h2>)
+			) : (
+				<h2>not found</h2>
+			)}
 		</>
 	);
 }
