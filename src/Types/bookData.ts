@@ -8,6 +8,7 @@ export interface BData {
 	publisher: string;
 	sale_price: number;
 	status: string;
+	thumbnail: string;
 	title: string;
 	translators: string[];
 	url: string[];

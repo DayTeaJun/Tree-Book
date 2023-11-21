@@ -46,7 +46,14 @@ export default function SearchMain() {
 				isFetching ? (
 					<h2>not found</h2>
 				) : (
-					books.map((el: BData) => <h2 key={el.isbn}>{el.authors}</h2>)
+					books.map((el: BData) => (
+						<div key={el.isbn}>
+							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
+							<h2>{el.authors}</h2>
+							<h2>출판사 : {el.publisher}</h2>
+							<p>{el.price}원</p>
+						</div>
+					))
 				)
 			) : null}
 		</>
