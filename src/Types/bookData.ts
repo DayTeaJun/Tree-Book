@@ -17,7 +17,6 @@ export interface BData {
 // 검색 API
 export interface SerachParams {
 	query: string;
-	display?: number;
-	start?: number;
-	sort?: string;
+	size: number;
+	target: string;
 }
