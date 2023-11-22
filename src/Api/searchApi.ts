@@ -1,16 +1,14 @@
-import { KakaoSearch } from './kakaoApi';
+import { NaverSearch } from './NaverApi';
 
 export const getBooks = async (searchTitle: string) => {
 	try {
 		const params = {
 			query: searchTitle,
-			size: 5,
-			target: 'title',
 		};
-		const result = await KakaoSearch(params);
+		const result = await NaverSearch(params);
 
 		if (result) {
-			return result.data.documents;
+			return result;
 		}
 	} catch (error) {
 		console.log('에러발생', error);

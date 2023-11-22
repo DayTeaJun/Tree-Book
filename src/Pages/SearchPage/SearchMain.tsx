@@ -27,6 +27,9 @@ export default function SearchMain() {
 		refetchOnWindowFocus: false,
 	});
 
+	console.log(books);
+	console.log(encodeURI(searchTitle));
+
 	// const handleGetBooks = async (e: React.FormEvent) => {
 	// 	e.preventDefault();
 	// 	refetch();
@@ -42,11 +45,11 @@ export default function SearchMain() {
 				<button>클릭</button>
 			</form>
 
-			{books ? (
+			{/* {books ? (
 				isFetching ? (
 					<h2>not found</h2>
 				) : (
-					books.map((el: BData) => (
+					books.map((el) => (
 						<div key={el.isbn}>
 							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
 							<h2>{el.authors}</h2>
@@ -55,7 +58,7 @@ export default function SearchMain() {
 						</div>
 					))
 				)
-			) : null}
+			) : null} */}
 		</>
 	);
 }
