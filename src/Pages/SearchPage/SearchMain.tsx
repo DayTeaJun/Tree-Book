@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { FormEventHandler, useRef, useState } from 'react';
 import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 
 export default function SearchMain() {
 	const [searchTitle, setSearchTitle] = useState('');
+	const inputRef = useRef<HTMLInputElement>(null);
 
-	const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchTitle(e.target.value);
+	const handleSubmit: FormEventHandler = (e) => {
+		e.preventDefault();
+		console.log('hello');
+		if (!inputRef.current) return;
+
+		setSearchTitle(inputRef.current.value);
 	};
 
 	const {
@@ -18,27 +23,22 @@ export default function SearchMain() {
 	} = useQuery({
 		queryKey: ['books', searchTitle],
 		queryFn: () => getBooks(searchTitle),
-		enabled: false,
+		enabled: !!searchTitle,
 		refetchOnWindowFocus: false,
 	});
 
-	const handleGetBooks = async (e: React.FormEvent) => {
-		e.preventDefault();
-		refetch();
-		console.log(books);
-		console.log(isLoading);
-	};
+	// const handleGetBooks = async (e: React.FormEvent) => {
+	// 	e.preventDefault();
+	// 	refetch();
+	// 	console.log(books);
+	// 	console.log(isLoading);
+	// };
 
 	return (
 		<>
-			<form onSubmit={handleGetBooks}>
+			<form onSubmit={handleSubmit}>
 				<label htmlFor='searchTtitle'></label>
-				<input
-					id='searchTtitle'
-					type='text'
-					onChange={handleInputTitle}
-					value={searchTitle}
-				/>
+				<input id='searchTtitle' type='text' ref={inputRef} />
 				<button>클릭</button>
 			</form>
 
