@@ -1,11 +1,11 @@
 import GlobalStyles from './GlobalStyled';
-import SearchMain from './Pages/SearchPage/SearchMain';
+import Router from './Router/Router';
 
 function App() {
 	return (
 		<>
 			<GlobalStyles />
-			<SearchMain />
+			<Router />
 		</>
 	);
 }
