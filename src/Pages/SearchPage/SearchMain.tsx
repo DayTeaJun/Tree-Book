@@ -18,7 +18,6 @@ export default function SearchMain() {
 	const {
 		data: books,
 		isLoading,
-		refetch,
 		isFetching,
 	} = useQuery({
 		queryKey: ['books', searchTitle],
@@ -36,8 +35,8 @@ export default function SearchMain() {
 			</form>
 
 			{books ? (
-				isFetching ? (
-					<h2>not found</h2>
+				isLoading ? (
+					<h2>Loading...</h2>
 				) : (
 					books.map((el: BData) => (
 						<div key={el.isbn}>
@@ -48,7 +47,9 @@ export default function SearchMain() {
 						</div>
 					))
 				)
-			) : null}
+			) : (
+				<h2>not found</h2>
+			)}
 		</>
 	);
 }
