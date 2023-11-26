@@ -15,11 +15,7 @@ export default function SearchMain() {
 		setSearchTitle(inputRef.current.value);
 	};
 
-	const {
-		data: books,
-		isLoading,
-		isFetching,
-	} = useQuery({
+	const { data: books, isLoading } = useQuery({
 		queryKey: ['books', searchTitle],
 		queryFn: () => getBooks(searchTitle),
 		enabled: !!searchTitle,
@@ -34,22 +30,22 @@ export default function SearchMain() {
 				<button>클릭</button>
 			</form>
 
-			{books ? (
-				isLoading ? (
-					<h2>Loading...</h2>
-				) : (
-					books.map((el: BData) => (
+			{books && books.length !== 0 ? (
+				<>
+					{books.map((el: BData) => (
 						<div key={el.isbn}>
 							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
 							<h2>{el.authors}</h2>
 							<h2>출판사 : {el.publisher}</h2>
 							<p>{el.price}원</p>
 						</div>
-					))
-				)
+					))}
+				</>
 			) : (
-				<h2>not found</h2>
+				books && books.length === 0 && <h2>not found</h2>
 			)}
+
+			{isLoading && <h2>Loading...</h2>}
 		</>
 	);
 }
