@@ -34,7 +34,7 @@ export default function Search() {
 			{books && books.length !== 0 ? (
 				<>
 					{books.map((el: BData) => (
-						<Link to={'./detail'} state={{ bookData: el }} key={el.isbn}>
+						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
 							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
 							<h2>{el.authors}</h2>
 							<h2>출판사 : {el.publisher}</h2>
