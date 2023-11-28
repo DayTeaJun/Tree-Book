@@ -3,6 +3,7 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 export default function Search() {
 	const [searchTitle, setSearchTitle] = useState('');
@@ -25,10 +26,10 @@ export default function Search() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit}>
+			<form style={{ display: 'flex', gap: '10px' }} onSubmit={handleSubmit}>
 				<label htmlFor='searchTtitle'></label>
 				<input id='searchTtitle' type='text' ref={inputRef} />
-				<button>클릭</button>
+				<Button variant='contained'>클릭</Button>
 			</form>
 
 			{books && books.length !== 0 ? (
