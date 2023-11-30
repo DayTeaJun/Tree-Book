@@ -26,8 +26,9 @@ export default function BookDetail() {
 						<h2>{books[books.length - 1].authors}</h2>
 						<h2>출판사 : {books[books.length - 1].publisher}</h2>
 						<p>{books[books.length - 1].price}원</p>
-						<p>{books[books.length - 1].contents}</p>
+						<p>내용 : {books[books.length - 1].contents}</p>
 						<p>{books[books.length - 1].isbn}</p>
+						<p>출판일 : {books[books.length - 1].datetime.substr(0, 10)}</p>
 						<button onClick={onWebsiteView}>다음 검색으로 이동</button>
 					</div>
 				</>
