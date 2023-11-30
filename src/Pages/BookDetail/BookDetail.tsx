@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
-import { BData } from '../../Types/bookData';
 
 export default function BookDetail() {
 	const BD: string = useParams().bookDetail || '';
@@ -10,6 +9,10 @@ export default function BookDetail() {
 		queryFn: () => getBooks(BD),
 		enabled: !!BD,
 	});
+
+	const onWebsiteView = () => {
+		window.open(books[books.length - 1].url);
+	};
 
 	return (
 		<>
@@ -25,6 +28,7 @@ export default function BookDetail() {
 						<p>{books[books.length - 1].price}원</p>
 						<p>{books[books.length - 1].contents}</p>
 						<p>{books[books.length - 1].isbn}</p>
+						<button onClick={onWebsiteView}>다음 검색으로 이동</button>
 					</div>
 				</>
 			) : (

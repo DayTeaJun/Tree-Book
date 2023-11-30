@@ -11,7 +11,6 @@ export default function Search() {
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
-		console.log('hello');
 		if (!inputRef.current) return;
 
 		setSearchTitle(inputRef.current.value);
@@ -23,6 +22,8 @@ export default function Search() {
 		enabled: !!searchTitle,
 		refetchOnWindowFocus: false,
 	});
+
+	console.log(books);
 
 	return (
 		<>
