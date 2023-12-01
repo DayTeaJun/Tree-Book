@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.header`
+export const TopNavbar = styled.header`
 	position: relative;
 	width: 100%;
 	height: 48px;
 	display: flex;
-	align-items: center;
+	justify-content: center;
+	padding: 5px;
 `;

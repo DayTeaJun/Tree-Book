@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { TopNavbar } from '../../Layouts/topNavbar.styled';
 
 export default function Search() {
 	const [searchTitle, setSearchTitle] = useState('');
@@ -23,15 +24,20 @@ export default function Search() {
 		refetchOnWindowFocus: false,
 	});
 
-	console.log(books);
-
 	return (
 		<>
-			<form style={{ display: 'flex', gap: '10px' }} onSubmit={handleSubmit}>
-				<label htmlFor='searchTtitle'></label>
-				<input id='searchTtitle' type='text' ref={inputRef} />
-				<Button variant='contained'>클릭</Button>
-			</form>
+			<TopNavbar>
+				<form style={{ display: 'flex' }} onSubmit={handleSubmit}>
+					<label htmlFor='searchTtitle'></label>
+					<input
+						id='searchTtitle'
+						style={{ marginRight: '10px' }}
+						type='text'
+						ref={inputRef}
+					/>
+					<Button variant='contained'>클릭</Button>
+				</form>
+			</TopNavbar>
 
 			{books && books.length !== 0 ? (
 				<>
