@@ -35,12 +35,14 @@ export default function Search() {
 						type='text'
 						ref={inputRef}
 					/>
-					<Button variant='contained'>클릭</Button>
+					<Button style={{ height: '100%' }} variant='contained'>
+						검색
+					</Button>
 				</form>
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
-				<>
+				<section style={{ display: 'flex', gap: '10px' }}>
 					{books.map((el: BData) => (
 						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
 							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
@@ -49,7 +51,7 @@ export default function Search() {
 							<p>{el.price}원</p>
 						</Link>
 					))}
-				</>
+				</section>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
