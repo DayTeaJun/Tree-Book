@@ -42,9 +42,20 @@ export default function Search() {
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
-				<section style={{ display: 'flex', gap: '10px' }}>
+				<section
+					style={{
+						display: 'flex',
+						gap: '5px',
+						flexWrap: 'wrap',
+					}}
+				>
 					{books.map((el: BData) => (
-						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
+						<Link
+							to={`./${el.title}`}
+							state={{ bookData: el }}
+							key={el.isbn}
+							style={{ width: '150px' }}
+						>
 							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
 							<h2>{el.authors}</h2>
 							<h2>출판사 : {el.publisher}</h2>

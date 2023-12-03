@@ -5,7 +5,7 @@ export const getBooks = async (searchTitle: string) => {
 		const params = {
 			query: searchTitle,
 			sort: 'latest',
-			size: 5,
+			size: 20,
 			target: 'title',
 		};
 		const result = await KakaoSearch(params);
