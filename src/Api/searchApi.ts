@@ -4,6 +4,7 @@ export const getBooks = async (searchTitle: string) => {
 	try {
 		const params = {
 			query: searchTitle,
+			sort: 'latest',
 			size: 5,
 			target: 'title',
 		};
