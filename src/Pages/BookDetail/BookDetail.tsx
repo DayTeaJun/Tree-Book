@@ -18,17 +18,17 @@ export default function BookDetail() {
 		<>
 			{books && books.length !== 0 ? (
 				<>
-					<div key={books[books.length - 1].isbn}>
+					<div key={books[0].isbn}>
 						<img
-							src={books[books.length - 1].thumbnail}
-							alt={`책 ${books[books.length - 1].title}의 이미지`}
+							src={books[0].thumbnail}
+							alt={`책 ${books[0].title}의 이미지`}
 						/>
-						<h2>{books[books.length - 1].authors}</h2>
-						<h2>출판사 : {books[books.length - 1].publisher}</h2>
-						<p>{books[books.length - 1].price}원</p>
-						<p>내용 : {books[books.length - 1].contents}</p>
-						<p>{books[books.length - 1].isbn}</p>
-						<p>출판일 : {books[books.length - 1].datetime.substr(0, 10)}</p>
+						<h2>{books[0].authors}</h2>
+						<h2>출판사 : {books[0].publisher}</h2>
+						<p>{books[0].price}원</p>
+						<p>내용 : {books[0].contents}</p>
+						<p>{books[0].isbn}</p>
+						<p>출판일 : {books[0].datetime.substr(0, 10)}</p>
 						<button onClick={onWebsiteView}>다음 검색으로 이동</button>
 					</div>
 				</>
