@@ -3,7 +3,6 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
 import { TopNavbar } from '../../Layouts/topNavbar.styled';
 
 export default function Search() {
@@ -13,7 +12,6 @@ export default function Search() {
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
 		if (!inputRef.current) return;
-
 		setSearchTitle(inputRef.current.value);
 	};
 
@@ -35,16 +33,17 @@ export default function Search() {
 						type='text'
 						ref={inputRef}
 					/>
-					<Button style={{ height: '100%' }} variant='contained'>
-						검색
-					</Button>
+					<button style={{ height: '100%' }}>검색</button>
 				</form>
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
 				<section
 					style={{
+						width: '100%',
+						padding: '20px',
 						display: 'flex',
+						justifyContent: 'center',
 						gap: '5px',
 						flexWrap: 'wrap',
 					}}
@@ -54,12 +53,23 @@ export default function Search() {
 							to={`./${el.title}`}
 							state={{ bookData: el }}
 							key={el.isbn}
-							style={{ width: '150px' }}
+							style={{ padding: '10px', width: '150px' }}
 						>
-							<img src={el.thumbnail} alt={`책 ${el.title}의 이미지`} />
-							<h2>{el.authors}</h2>
-							<h2>출판사 : {el.publisher}</h2>
-							<p>{el.price}원</p>
+							<img
+								style={{ borderRadius: '5px' }}
+								src={el.thumbnail}
+								alt={`책 ${el.title}의 이미지`}
+							/>
+							<h2
+								style={{
+									textAlign: 'center',
+									fontSize: '14px',
+									fontWeight: 'bold',
+									marginTop: '5px',
+								}}
+							>
+								{el.title}
+							</h2>
 						</Link>
 					))}
 				</section>

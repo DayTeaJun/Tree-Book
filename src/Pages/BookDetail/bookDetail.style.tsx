@@ -15,6 +15,7 @@ export const BookDetailSection = styled.section`
 	img {
 		height: 100%;
 		text-align: center;
+		border-radius: 10px;
 	}
 
 	div {
