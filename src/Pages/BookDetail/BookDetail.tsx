@@ -11,26 +11,44 @@ export default function BookDetail() {
 	});
 
 	const onWebsiteView = () => {
-		window.open(books[books.length - 1].url);
+		window.open(books[0].url);
 	};
 
 	return (
 		<>
 			{books && books.length !== 0 ? (
 				<>
-					<div key={books[0].isbn}>
+					<section
+						key={books[0].isbn}
+						style={{
+							display: 'flex',
+							gap: '20px',
+							maxWidth: '800px',
+							padding: '20px',
+						}}
+					>
 						<img
+							style={{ height: '100%', textAlign: 'center' }}
 							src={books[0].thumbnail}
 							alt={`책 ${books[0].title}의 이미지`}
 						/>
-						<h2>{books[0].authors}</h2>
-						<h2>출판사 : {books[0].publisher}</h2>
-						<p>{books[0].price}원</p>
-						<p>내용 : {books[0].contents}</p>
-						<p>{books[0].isbn}</p>
-						<p>출판일 : {books[0].datetime.substr(0, 10)}</p>
-						<button onClick={onWebsiteView}>다음 검색으로 이동</button>
-					</div>
+						<div
+							style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+						>
+							<h2>작가 | {books[0].authors}</h2>
+							<h2>출판사 | {books[0].publisher}</h2>
+							<p>가격 | {books[0].price}원</p>
+							<p>내용 | {books[0].contents}</p>
+							<p>ISBN | {books[0].isbn}</p>
+							<p>출판일 | {books[0].datetime.substr(0, 10)}</p>
+							<a
+								style={{ cursor: 'pointer', color: 'skyblue' }}
+								onClick={onWebsiteView}
+							>
+								다음 검색으로 이동
+							</a>
+						</div>
+					</section>
 				</>
 			) : (
 				<>{books && books.length === 0 && <h2>not found</h2>}</>
