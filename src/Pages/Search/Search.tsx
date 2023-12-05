@@ -24,30 +24,11 @@ export default function Search() {
 
 	return (
 		<>
-			<TopNavbar>
-				<form style={{ display: 'flex' }} onSubmit={handleSubmit}>
-					<label htmlFor='searchTtitle'></label>
-					<input
-						id='searchTtitle'
-						style={{
-							marginRight: '10px',
-							padding: '10px',
-							borderBottom: 'solid 1px black',
-						}}
-						type='text'
-						ref={inputRef}
-					/>
-					<button
-						style={{
-							border: '0',
-							borderRadius: '5px',
-							background: 'skyblue',
-							padding: '10px',
-							color: '#fff',
-						}}
-					>
-						검색
-					</button>
+			<TopNavbar formTag={true}>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor='searchTtitle'>도서 검색창</label>
+					<input id='searchTtitle' type='text' ref={inputRef} />
+					<button>검색</button>
 				</form>
 			</TopNavbar>
 
