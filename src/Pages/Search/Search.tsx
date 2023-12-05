@@ -29,11 +29,25 @@ export default function Search() {
 					<label htmlFor='searchTtitle'></label>
 					<input
 						id='searchTtitle'
-						style={{ marginRight: '10px' }}
+						style={{
+							marginRight: '10px',
+							padding: '10px',
+							borderBottom: 'solid 1px black',
+						}}
 						type='text'
 						ref={inputRef}
 					/>
-					<button style={{ height: '100%' }}>검색</button>
+					<button
+						style={{
+							border: '0',
+							borderRadius: '5px',
+							background: 'skyblue',
+							padding: '10px',
+							color: '#fff',
+						}}
+					>
+						검색
+					</button>
 				</form>
 			</TopNavbar>
 
