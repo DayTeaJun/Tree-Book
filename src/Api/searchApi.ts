@@ -1,11 +1,11 @@
 import { KakaoSearch } from './KakaoApi';
 
-export const getBooks = async (searchTitle: string) => {
+export const getBooks = async (searchTitle: string, size: number = 12) => {
 	try {
 		const params = {
 			query: searchTitle,
 			sort: 'latest',
-			size: 12,
+			size: size,
 			target: 'title',
 		};
 		const result = await KakaoSearch(params);
