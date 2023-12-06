@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
 import { TopNavbar } from '../../Layouts/topNavbar.styled';
+import { SearchSection } from './search.style';
 
 export default function Search() {
 	const [searchTitle, setSearchTitle] = useState('');
@@ -33,41 +34,18 @@ export default function Search() {
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
-				<section
-					style={{
-						width: '100%',
-						padding: '20px',
-						display: 'flex',
-						justifyContent: 'center',
-						gap: '5px',
-						flexWrap: 'wrap',
-					}}
-				>
+				<SearchSection>
 					{books.map((el: BData) => (
-						<Link
-							to={`./${el.title}`}
-							state={{ bookData: el }}
-							key={el.isbn}
-							style={{ padding: '10px', width: '150px' }}
-						>
+						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
 							<img
 								style={{ borderRadius: '5px' }}
 								src={el.thumbnail}
 								alt={`책 ${el.title}의 이미지`}
 							/>
-							<h2
-								style={{
-									textAlign: 'center',
-									fontSize: '14px',
-									fontWeight: 'bold',
-									marginTop: '5px',
-								}}
-							>
-								{el.title}
-							</h2>
+							<h2>{el.title}</h2>
 						</Link>
 					))}
-				</section>
+				</SearchSection>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
