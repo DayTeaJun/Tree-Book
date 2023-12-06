@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SearchSection = styled.section`
-	width: 100%;
+	width: 1080px;
 	padding: 20px;
 	display: flex;
 	justify-content: center;
