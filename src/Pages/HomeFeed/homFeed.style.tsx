@@ -12,15 +12,14 @@ const bannermove = keyframes`
 export const HomeFeedSection = styled.section`
 	overflow: hidden;
 	position: relative;
-	width: 1080px; // 이미지 보여지는 뷰 부분
 	height: 200px;
 
 	div {
-		width: 1080px; // 원본+클론의 총 합
+		width: 820px;
 		height: 100%;
 		display: flex;
 		flex-wrap: nowrap;
-		animation: ${bannermove} 10s linear infinite;
+		animation: ${bannermove} 1s linear infinite;
 		gap: 20px;
 	}
 

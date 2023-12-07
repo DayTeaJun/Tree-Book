@@ -6,10 +6,12 @@ import { HomeFeedSection } from './homFeed.style';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['books', '자바스크립트', 6],
-		queryFn: () => getBooks('자바스크립트'),
+		queryKey: ['books', '자바스크립트'],
+		queryFn: () => getBooks('자바스크립트', 6),
 		refetchOnWindowFocus: false,
 	});
+
+	console.log(books);
 
 	return (
 		<>
