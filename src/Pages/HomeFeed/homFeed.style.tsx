@@ -19,7 +19,7 @@ export const HomeFeedSection = styled('section')`
 		height: 100%;
 		display: flex;
 		flex-wrap: nowrap;
-		animation: ${bannermove} 5s linear infinite;
+		animation: ${bannermove} 10s linear infinite;
 		gap: 20px;
 	}
 
