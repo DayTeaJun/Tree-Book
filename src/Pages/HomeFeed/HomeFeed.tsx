@@ -6,8 +6,8 @@ import { HomeFeedSection } from './homFeed.style';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['books', '자바스크립트'],
-		queryFn: () => getBooks('자바스크립트', 6),
+		queryKey: ['books'],
+		queryFn: () => getBooks('리액트', 6),
 		refetchOnWindowFocus: false,
 	});
 
@@ -22,7 +22,11 @@ export default function HomeFeed() {
 				<HomeFeedSection>
 					<div>
 						{books.map((el: BData) => (
-							<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
+							<Link
+								to={`./search/${el.title}`}
+								state={{ bookData: el }}
+								key={el.isbn}
+							>
 								<img
 									style={{ borderRadius: '5px' }}
 									src={el.thumbnail}

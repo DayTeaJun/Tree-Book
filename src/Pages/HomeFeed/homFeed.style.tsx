@@ -1,15 +1,15 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const bannermove = keyframes`
     0% {
-      transform: translate(0, 0);
+      transform: translate(100%, 0);
   }
   100% {
-      transform: translate(-50%, 0);
+      transform: translate(-100%, 0);
   }
 `;
 
-export const HomeFeedSection = styled.section`
+export const HomeFeedSection = styled('section')`
 	overflow: hidden;
 	position: relative;
 	height: 200px;
@@ -19,7 +19,7 @@ export const HomeFeedSection = styled.section`
 		height: 100%;
 		display: flex;
 		flex-wrap: nowrap;
-		animation: ${bannermove} 1s linear infinite;
+		animation: ${bannermove} 5s linear infinite;
 		gap: 20px;
 	}
 
