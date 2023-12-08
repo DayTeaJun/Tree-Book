@@ -1,4 +1,13 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const bannermove = keyframes`
+    0% {
+      transform: translate(100%, 0);
+  }
+  100% {
+      transform: translate(-100%, 0);
+  }
+`;
 
 interface BooksPageProps {
 	Detail?: boolean;
@@ -13,6 +22,23 @@ export const Books = styled.section<BooksPageProps>`
 		text-align: center;
 		border-radius: 10px;
 	}
+
+	${({ Home }) =>
+		Home &&
+		css`
+			overflow: hidden;
+			position: relative;
+			height: 200px;
+
+			div {
+				width: 820px;
+				height: 100%;
+				display: flex;
+				flex-wrap: nowrap;
+				animation: ${bannermove} 10s linear infinite;
+				gap: 20px;
+			}
+		`}
 
 	${({ Search }) =>
 		Search &&
