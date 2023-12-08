@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
-import { BookDetailSection } from './bookDetail.style';
+import { Books } from '../../Components/Books/books.style';
 
 export default function BookDetail() {
 	const BD: string = useParams().bookDetail || '';
@@ -19,7 +19,7 @@ export default function BookDetail() {
 		<>
 			{books && books.length !== 0 ? (
 				<>
-					<BookDetailSection key={books[0].isbn}>
+					<Books Detail={true} key={books[0].isbn}>
 						<div>
 							<img
 								src={books[0].thumbnail}
@@ -27,6 +27,7 @@ export default function BookDetail() {
 							/>
 							<a onClick={onWebsiteView}>다음 검색으로 이동</a>
 						</div>
+
 						<div>
 							<h2>{books[0].title}</h2>
 							<dl>
@@ -54,7 +55,7 @@ export default function BookDetail() {
 								<dd>{books[0].datetime.substr(0, 10)}</dd>
 							</dl>
 						</div>
-					</BookDetailSection>
+					</Books>
 				</>
 			) : (
 				<>{books && books.length === 0 && <h2>not found</h2>}</>

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
 import { TopNavbar } from '../../Layouts/topNavbar.styled';
-import { SearchSection } from './search.style';
+import { Books } from '../../Components/Books/books.style';
 
 export default function Search() {
 	const [searchTitle, setSearchTitle] = useState('');
@@ -34,7 +34,7 @@ export default function Search() {
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
-				<SearchSection>
+				<Books Search={true}>
 					{books.map((el: BData) => (
 						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
 							<img
@@ -45,7 +45,7 @@ export default function Search() {
 							<h2>{el.title}</h2>
 						</Link>
 					))}
-				</SearchSection>
+				</Books>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
