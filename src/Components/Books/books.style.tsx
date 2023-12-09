@@ -9,10 +9,20 @@ const bannermove = keyframes`
   }
 `;
 
+const bannermoveR = keyframes`
+    0% {
+      transform: translate(-100%, 0);
+  }
+  100% {
+      transform: translate(100%, 0);
+  }
+`;
+
 interface BooksPageProps {
-	Detail?: boolean;
-	Home?: boolean;
-	Search?: boolean;
+	home?: boolean;
+	detail?: boolean;
+	search?: boolean;
+	rev?: 'yes';
 }
 
 export const Books = styled.section<BooksPageProps>`
@@ -23,25 +33,28 @@ export const Books = styled.section<BooksPageProps>`
 		border-radius: 10px;
 	}
 
-	${({ Home }) =>
-		Home &&
+	${({ home, rev }) =>
+		home &&
 		css`
 			overflow: hidden;
 			position: relative;
-			height: 200px;
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
 
 			div {
 				width: 820px;
 				height: 100%;
 				display: flex;
 				flex-wrap: nowrap;
-				animation: ${bannermove} 10s linear infinite;
+				animation: ${rev === 'yes' ? bannermoveR : bannermove} 10s linear
+					infinite;
 				gap: 20px;
 			}
 		`}
 
-	${({ Search }) =>
-		Search &&
+	${({ search }) =>
+		search &&
 		css`
 			width: 1080px;
 			padding: 20px;
@@ -61,8 +74,8 @@ export const Books = styled.section<BooksPageProps>`
 			}
 		`}
 
-	${({ Detail }) =>
-		Detail &&
+	${({ detail }) =>
+		detail &&
 		css`
 			display: flex;
 			gap: 20px;

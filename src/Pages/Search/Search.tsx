@@ -34,7 +34,7 @@ export default function Search() {
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
-				<Books Search={true}>
+				<Books search={true}>
 					{books.map((el: BData) => (
 						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
 							<img

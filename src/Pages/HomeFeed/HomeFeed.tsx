@@ -11,6 +11,12 @@ export default function HomeFeed() {
 		refetchOnWindowFocus: false,
 	});
 
+	const { data: books2 } = useQuery({
+		queryKey: ['books2'],
+		queryFn: () => getBooks('리액트', 6, 2),
+		refetchOnWindowFocus: false,
+	});
+
 	console.log(books);
 
 	return (
@@ -18,10 +24,26 @@ export default function HomeFeed() {
 			<h1>Home</h1>
 			<p>메인 페이지</p>
 			<Link to='/search'>검색 페이지 이동</Link>
-			{books && books.length !== 0 ? (
-				<Books Home={true}>
+			{books && books2 && books.length !== 0 ? (
+				<Books home={true}>
 					<div>
 						{books.map((el: BData) => (
+							<Link
+								to={`./search/${el.title}`}
+								state={{ bookData: el }}
+								key={el.isbn}
+							>
+								<img
+									style={{ borderRadius: '5px' }}
+									src={el.thumbnail}
+									alt={`책 ${el.title}의 이미지`}
+								/>
+							</Link>
+						))}
+					</div>
+
+					<div rev='yes'>
+						{books2.map((el: BData) => (
 							<Link
 								to={`./search/${el.title}`}
 								state={{ bookData: el }}
