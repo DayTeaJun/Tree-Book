@@ -9,6 +9,16 @@ const bannermove = keyframes`
   }
 `;
 
+const bannermoveR = keyframes`
+    0% {
+      transform: translate(-100%, 0);
+  }
+  100% {
+      
+      transform: translate(100%, 0);
+  }
+`;
+
 interface BooksPageProps {
 	Detail?: boolean;
 	Home?: boolean;
