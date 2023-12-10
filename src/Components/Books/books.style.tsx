@@ -32,21 +32,14 @@ export const BookImg = styled.div<BookImg>`
 	overflow: hidden;
 	position: relative;
 	display: flex;
-	flex-direction: column;
-	gap: 40px;
-
-	div {
-		width: 820px;
+	gap: 30px;
+	a {
+		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-wrap: nowrap;
-		animation: ${(props) =>
-			props.rev === true
-				? css`
-						${bannerMoveR} 10s linear infinite;
-				  `
-				: `${bannerMove} 10s linear infinite`};
-
+		animation: ${(props) => (props.rev === true ? bannerMoveR : bannerMove)} 5s
+			linear infinite;
 		gap: 20px;
 	}
 `;
@@ -59,7 +52,7 @@ export const Books = styled.section<BooksPageProps>`
 		border-radius: 10px;
 	}
 
-	${({ home }) =>
+	/* ${({ home }) =>
 		home &&
 		css`
 			overflow: hidden;
@@ -73,10 +66,10 @@ export const Books = styled.section<BooksPageProps>`
 				height: 100%;
 				display: flex;
 				flex-wrap: nowrap;
-				animation: ${bannerMoveR} 10s linear infinite;
+				/* animation: ${bannerMoveR} 10s linear infinite; */
 				gap: 20px;
 			}
-		`}
+		`} */
 
 	${({ search }) =>
 		search &&
