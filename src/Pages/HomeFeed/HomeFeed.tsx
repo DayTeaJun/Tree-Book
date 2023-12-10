@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
-import { Books } from '../../Components/Books/books.style';
+import { BookImg, Books } from '../../Components/Books/books.style';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -26,7 +26,7 @@ export default function HomeFeed() {
 			<Link to='/search'>검색 페이지 이동</Link>
 			{books && books2 && books.length !== 0 ? (
 				<Books home={true}>
-					<div>
+					<BookImg>
 						{books.map((el: BData) => (
 							<Link
 								to={`./search/${el.title}`}
@@ -40,9 +40,9 @@ export default function HomeFeed() {
 								/>
 							</Link>
 						))}
-					</div>
+					</BookImg>
 
-					<div rev='yes'>
+					<BookImg rev={true}>
 						{books2.map((el: BData) => (
 							<Link
 								to={`./search/${el.title}`}
@@ -56,7 +56,7 @@ export default function HomeFeed() {
 								/>
 							</Link>
 						))}
-					</div>
+					</BookImg>
 				</Books>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>

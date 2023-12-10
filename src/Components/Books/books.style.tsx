@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-const bannermove = keyframes`
+const bannerMove = keyframes`
     0% {
       transform: translate(100%, 0);
   }
@@ -9,7 +9,7 @@ const bannermove = keyframes`
   }
 `;
 
-const bannermoveR = keyframes`
+const bannerMoveR = keyframes`
     0% {
       transform: translate(-100%, 0);
   }
@@ -23,8 +23,33 @@ interface BooksPageProps {
 	home?: boolean;
 	detail?: boolean;
 	search?: boolean;
-	rev?: 'yes';
 }
+interface BookImg {
+	rev?: boolean;
+}
+
+export const BookImg = styled.div<BookImg>`
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+
+	div {
+		width: 820px;
+		height: 100%;
+		display: flex;
+		flex-wrap: nowrap;
+		animation: ${(props) =>
+			props.rev === true
+				? css`
+						${bannerMoveR} 10s linear infinite;
+				  `
+				: `${bannerMove} 10s linear infinite`};
+
+		gap: 20px;
+	}
+`;
 
 export const Books = styled.section<BooksPageProps>`
 	img {
@@ -34,7 +59,7 @@ export const Books = styled.section<BooksPageProps>`
 		border-radius: 10px;
 	}
 
-	${({ home, rev }) =>
+	${({ home }) =>
 		home &&
 		css`
 			overflow: hidden;
@@ -48,8 +73,7 @@ export const Books = styled.section<BooksPageProps>`
 				height: 100%;
 				display: flex;
 				flex-wrap: nowrap;
-				animation: ${rev === 'yes' ? bannermoveR : bannermove} 10s linear
-					infinite;
+				animation: ${bannerMoveR} 10s linear infinite;
 				gap: 20px;
 			}
 		`}
