@@ -19,7 +19,7 @@ export default function BookDetail() {
 		<>
 			{books && books.length !== 0 ? (
 				<>
-					<Books detail={true} key={books[0].isbn}>
+					<Books $detail={true} key={books[0].isbn}>
 						<div>
 							<img
 								src={books[0].thumbnail}

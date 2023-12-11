@@ -25,7 +25,7 @@ export default function HomeFeed() {
 			<p>메인 페이지</p>
 			<Link to='/search'>검색 페이지 이동</Link>
 			{books && books2 && books.length !== 0 ? (
-				<Books home={true}>
+				<Books $home={true}>
 					<BookImg>
 						{books.map((el: BData) => (
 							<Link
@@ -42,7 +42,7 @@ export default function HomeFeed() {
 						))}
 					</BookImg>
 
-					<BookImg rev={true}>
+					<BookImg $rev={true}>
 						{books2.map((el: BData) => (
 							<Link
 								to={`./search/${el.title}`}

@@ -25,7 +25,7 @@ export default function Search() {
 
 	return (
 		<>
-			<TopNavbar formTag={true}>
+			<TopNavbar $formTag={true}>
 				<form onSubmit={handleSubmit}>
 					<label htmlFor='searchTtitle'>도서 검색창</label>
 					<input id='searchTtitle' type='text' ref={inputRef} />
@@ -34,7 +34,7 @@ export default function Search() {
 			</TopNavbar>
 
 			{books && books.length !== 0 ? (
-				<Books search={true}>
+				<Books $search={true}>
 					{books.map((el: BData) => (
 						<Link to={`./${el.title}`} state={{ bookData: el }} key={el.isbn}>
 							<img

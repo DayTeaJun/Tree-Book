@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface TopNavbarProps {
-	formTag: boolean;
+	$formTag: boolean;
 }
 
 export const TopNavbar = styled('header')<TopNavbarProps>`
@@ -11,8 +11,8 @@ export const TopNavbar = styled('header')<TopNavbarProps>`
 	justify-content: center;
 	padding: 5px;
 
-	${({ formTag }) =>
-		formTag &&
+	${({ $formTag }) =>
+		$formTag &&
 		css`
 			form {
 				display: flex;
