@@ -52,24 +52,16 @@ export const Books = styled.section<BooksPageProps>`
 		border-radius: 10px;
 	}
 
-	/* ${({ $home }) =>
+	${({ $home }) =>
 		$home &&
 		css`
 			overflow: hidden;
+			padding: 10px;
 			position: relative;
 			display: flex;
 			flex-direction: column;
 			gap: 40px;
-
-			div {
-				width: 820px;
-				height: 100%;
-				display: flex;
-				flex-wrap: nowrap;
-				/* animation: ${bannerMoveR} 10s linear infinite; */
-				gap: 20px;
-			}
-		`} */
+		`}
 
 	${({ $search }) =>
 		$search &&
