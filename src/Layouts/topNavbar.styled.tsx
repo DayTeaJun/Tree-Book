@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 interface TopNavbarProps {
 	$formTag?: boolean;
+	$linkTag?: boolean;
 }
 
 export const TopNavbar = styled('header')<TopNavbarProps>`
@@ -9,6 +10,19 @@ export const TopNavbar = styled('header')<TopNavbarProps>`
 	display: flex;
 	justify-content: center;
 	padding: 5px;
+	gap: 10px;
+
+	${({ $linkTag }) =>
+		$linkTag &&
+		css`
+			a {
+				padding: 10px;
+				background: #2e2e2e;
+				color: #fff;
+				font-weight: bold;
+				border-radius: 10px;
+			}
+		`}
 
 	${({ $formTag }) =>
 		$formTag &&
