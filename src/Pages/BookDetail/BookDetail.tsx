@@ -32,16 +32,29 @@ export default function BookDetail() {
 							<h2>{books[0].title}</h2>
 							<dl>
 								<dt>작가</dt>
-								<dd>{books[0].authors}</dd>
+								<dd>
+									{books[0].author !== undefined || ''
+										? books[0].authors
+										: '미상'}
+								</dd>
 							</dl>
 							<dl>
 								<dt>출판사</dt>
-								<dd>{books[0].publisher}</dd>
+								<dd>
+									{books[0].publisher !== (undefined || '')
+										? books[0].publisher
+										: '미상'}
+								</dd>
 							</dl>
-							<dl>
-								<dt>내용</dt>
-								<dd>{books[0].contents}</dd>
-							</dl>
+							{books[0].contents !== (undefined || '') ? (
+								<dl>
+									<dt>내용</dt>
+									<dd>{books[0].contents}</dd>
+								</dl>
+							) : (
+								<></>
+							)}
+
 							<dl>
 								<dt>가격</dt>
 								<dd>{books[0].price}원</dd>
