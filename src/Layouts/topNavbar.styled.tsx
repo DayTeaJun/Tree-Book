@@ -1,7 +1,4 @@
 import styled, { css } from 'styled-components';
-import { getBooks } from '../Api/searchApi';
-import { FormEventHandler, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 interface TopNavbarProps {
 	$formTag?: boolean;
 }
@@ -48,33 +45,3 @@ export const TopNavbar = styled('header')<TopNavbarProps>`
 			}
 		`}
 `;
-
-export const SearchForm = () => {
-	const [searchTitle, setSearchTitle] = useState('');
-	const inputRef = useRef<HTMLInputElement>(null);
-
-	const handleSubmit: FormEventHandler = (e) => {
-		e.preventDefault();
-		if (!inputRef.current) return;
-		setSearchTitle(inputRef.current.value);
-	};
-
-	const { data: books, isLoading } = useQuery({
-		queryKey: ['books', searchTitle],
-		queryFn: () => getBooks(searchTitle),
-		enabled: !!searchTitle,
-		refetchOnWindowFocus: false,
-	});
-
-	return (
-		<>
-			<TopNavbar $formTag={true}>
-				<form onSubmit={handleSubmit}>
-					<label htmlFor='searchTtitle'>도서 검색창</label>
-					<input id='searchTtitle' type='text' ref={inputRef} />
-					<button>검색</button>
-				</form>
-			</TopNavbar>
-		</>
-	);
-};

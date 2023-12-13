@@ -3,14 +3,35 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
-import { SearchForm, TopNavbar } from '../../Layouts/topNavbar.styled';
+import { TopNavbar } from '../../Layouts/topNavbar.styled';
 import { Books } from '../../Components/Books/books.style';
 
 export default function Search() {
-	const [bookData, setBookData] = useState('');
+	const [searchTitle, setSearchTitle] = useState('');
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	const handleSubmit: FormEventHandler = (e) => {
+		e.preventDefault();
+		if (!inputRef.current) return;
+		setSearchTitle(inputRef.current.value);
+	};
+
+	const { data: books, isLoading } = useQuery({
+		queryKey: ['books', searchTitle],
+		queryFn: () => getBooks(searchTitle),
+		enabled: !!searchTitle,
+		refetchOnWindowFocus: false,
+	});
+
 	return (
 		<>
-			<SearchForm />
+			<TopNavbar $formTag={true}>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor='searchTtitle'>도서 검색창</label>
+					<input id='searchTtitle' type='text' ref={inputRef} />
+					<button>검색</button>
+				</form>
+			</TopNavbar>
 
 			{books && books.length !== 0 ? (
 				<Books $search={true}>
