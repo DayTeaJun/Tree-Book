@@ -8,7 +8,7 @@ export const getBooks = async (
 	try {
 		const params = {
 			query: searchTitle,
-			sort: 'latest',
+			sort: 'accuracy',
 			size: size,
 			target: 'title',
 			page: page,
