@@ -66,7 +66,6 @@ export const Books = styled.section<BooksPageProps>`
 	${({ $search }) =>
 		$search &&
 		css`
-			width: 1080px;
 			padding: 20px;
 			display: flex;
 			justify-content: center;
@@ -89,7 +88,6 @@ export const Books = styled.section<BooksPageProps>`
 		css`
 			display: flex;
 			gap: 20px;
-			max-width: 800px;
 			padding: 20px;
 
 			h2 {
