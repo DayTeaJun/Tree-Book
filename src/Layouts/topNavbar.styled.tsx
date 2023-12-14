@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import HomeOutline from '../Assets/home-line.svg';
 interface TopNavbarProps {
 	$formTag?: boolean;
 	$linkTag?: boolean;
@@ -16,11 +17,13 @@ export const TopNavbar = styled('header')<TopNavbarProps>`
 		$linkTag &&
 		css`
 			a {
-				padding: 10px;
+				width: 50px;
+				height: 50px;
 				background: #2e2e2e;
 				color: #fff;
 				font-weight: bold;
 				border-radius: 10px;
+				background: url(${HomeOutline}) no-repeat center;
 			}
 		`}
 

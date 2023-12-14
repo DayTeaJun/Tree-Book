@@ -26,7 +26,7 @@ export default function Search() {
 	return (
 		<>
 			<TopNavbar $formTag={true} $linkTag={true}>
-				<Link to='/'>홈으로</Link>
+				<Link to='/'></Link>
 				<form onSubmit={handleSubmit}>
 					<label htmlFor='searchTtitle'>도서 검색창</label>
 					<input id='searchTtitle' type='text' ref={inputRef} />
