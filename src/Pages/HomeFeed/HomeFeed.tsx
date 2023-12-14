@@ -17,13 +17,8 @@ export default function HomeFeed() {
 		refetchOnWindowFocus: false,
 	});
 
-	console.log(books);
-
 	return (
 		<>
-			<h1>Home</h1>
-			<p>메인 페이지</p>
-			<Link to='/search'>검색 페이지 이동</Link>
 			{books && books2 && books.length !== 0 ? (
 				<Books $home={true}>
 					<BookImg>
