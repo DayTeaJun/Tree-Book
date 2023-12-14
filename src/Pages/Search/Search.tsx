@@ -16,6 +16,7 @@ export default function Search() {
 	useEffect(() => {
 		if (searchTitle !== '') {
 			navigate(`/search/${searchTitle}`);
+			setSearchTitle('');
 		}
 	}, [searchTitle]);
 
