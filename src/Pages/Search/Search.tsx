@@ -1,4 +1,4 @@
-import { FormEventHandler, useRef, useState } from 'react';
+import { FormEventHandler, useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TopNavbar } from '../../Layouts/topNavbar.styled';
 
@@ -11,10 +11,13 @@ export default function Search() {
 		e.preventDefault();
 		if (!inputRef.current) return;
 		setSearchTitle(inputRef.current.value);
+	};
+
+	useEffect(() => {
 		if (searchTitle !== '') {
 			navigate(`/search/${searchTitle}`);
 		}
-	};
+	}, [searchTitle]);
 
 	return (
 		<>
