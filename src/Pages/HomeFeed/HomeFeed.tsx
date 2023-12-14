@@ -24,7 +24,7 @@ export default function HomeFeed() {
 					<BookImg>
 						{books.map((el: BData) => (
 							<Link
-								to={`./search/${el.title}`}
+								to={`/search/detail/${el.title}`}
 								state={{ bookData: el }}
 								key={el.isbn}
 							>
@@ -40,7 +40,7 @@ export default function HomeFeed() {
 					<BookImg $rev={true}>
 						{books2.map((el: BData) => (
 							<Link
-								to={`./search/${el.title}`}
+								to={`/search/detail/${el.title}`}
 								state={{ bookData: el }}
 								key={el.isbn}
 							>
