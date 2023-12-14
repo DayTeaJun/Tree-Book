@@ -22,7 +22,12 @@ export default function Search() {
 				<Link to='/' />
 				<form onSubmit={handleSubmit}>
 					<label htmlFor='searchTtitle'>도서 검색창</label>
-					<input id='searchTtitle' type='text' ref={inputRef} />
+					<input
+						id='searchTtitle'
+						type='text'
+						ref={inputRef}
+						spellCheck='false'
+					/>
 					<button>검색</button>
 				</form>
 			</TopNavbar>

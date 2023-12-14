@@ -7,6 +7,8 @@ import SearchView from '../Pages/Search/SearchView';
 export default function Router() {
 	return (
 		<BrowserRouter basename='/'>
+			<Search />
+
 			<Routes>
 				<Route path='/' element={<HomeFeed />} />
 				<Route path='/search/' element={<Outlet />}>
