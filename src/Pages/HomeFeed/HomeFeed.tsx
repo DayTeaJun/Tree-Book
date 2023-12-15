@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
 import { BookImg, Books } from '../../Components/Books/books.style';
+import errorImg from '../../Assets/No-img.svg';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -19,7 +20,7 @@ export default function HomeFeed() {
 
 	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
 		const target = e.target as HTMLImageElement;
-		target.src = '../Assets/No-img.svg';
+		target.src = errorImg;
 	};
 
 	return (
