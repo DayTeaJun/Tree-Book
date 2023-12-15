@@ -15,6 +15,11 @@ export default function BookDetail() {
 		window.open(books[0].url);
 	};
 
+	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		const target = e.target as HTMLImageElement;
+		target.src = '../Assets/No-img.svg';
+	};
+
 	return (
 		<>
 			{books && books.length !== 0 ? (
@@ -24,6 +29,7 @@ export default function BookDetail() {
 							<img
 								src={books[0].thumbnail}
 								alt={`책 ${books[0].title}의 이미지`}
+								onError={onErrorImg}
 							/>
 							<a onClick={onWebsiteView}>다음 검색으로 이동</a>
 						</div>

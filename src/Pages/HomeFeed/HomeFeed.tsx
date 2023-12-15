@@ -17,6 +17,11 @@ export default function HomeFeed() {
 		refetchOnWindowFocus: false,
 	});
 
+	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		const target = e.target as HTMLImageElement;
+		target.src = '../Assets/No-img.svg';
+	};
+
 	return (
 		<>
 			{books && books2 && books.length !== 0 ? (
@@ -32,6 +37,7 @@ export default function HomeFeed() {
 									style={{ borderRadius: '5px' }}
 									src={el.thumbnail}
 									alt={`책 ${el.title}의 이미지`}
+									onError={onErrorImg}
 								/>
 							</Link>
 						))}
@@ -48,6 +54,7 @@ export default function HomeFeed() {
 									style={{ borderRadius: '5px' }}
 									src={el.thumbnail}
 									alt={`책 ${el.title}의 이미지`}
+									onError={onErrorImg}
 								/>
 							</Link>
 						))}
