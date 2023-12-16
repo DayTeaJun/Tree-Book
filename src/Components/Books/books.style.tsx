@@ -2,20 +2,20 @@ import styled, { css, keyframes } from 'styled-components';
 
 const bannerMove = keyframes`
     0% {
-      transform: translate(100%, 0);
+      transform: translate(-30%, 0);
   }
   100% {
-      transform: translate(-100%, 0);
+      transform: translate(30%, 0);
   }
 `;
 
 const bannerMoveR = keyframes`
     0% {
-      transform: translate(-100%, 0);
+      transform: translate(30%, 0);
   }
   100% {
       
-      transform: translate(100%, 0);
+      transform: translate(-30%, 0);
   }
 `;
 
@@ -33,13 +33,14 @@ export const BookImg = styled.div<BookImg>`
 	position: relative;
 	display: flex;
 	gap: 30px;
+	animation: ${(props) => (props.$rev === true ? bannerMoveR : bannerMove)} 10s
+		linear infinite;
 	a {
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-wrap: nowrap;
-		animation: ${(props) => (props.$rev === true ? bannerMoveR : bannerMove)} 5s
-			linear infinite;
+
 		gap: 20px;
 	}
 `;
