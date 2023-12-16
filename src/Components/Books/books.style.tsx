@@ -37,6 +37,7 @@ export const Books = styled.section<BooksPageProps>`
 			padding: 20px;
 			display: flex;
 			justify-content: center;
+			align-items: center;
 			gap: 5px;
 			flex-wrap: wrap;
 			a {
@@ -48,6 +49,12 @@ export const Books = styled.section<BooksPageProps>`
 				font-size: 14px;
 				font-weight: bold;
 				margin-top: 5px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 		`}
 
