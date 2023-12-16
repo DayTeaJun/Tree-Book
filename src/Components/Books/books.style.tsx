@@ -1,49 +1,10 @@
 import styled, { css, keyframes } from 'styled-components';
 
-const bannerMove = keyframes`
-    0% {
-      transform: translate(-30%, 0);
-  }
-  100% {
-      transform: translate(30%, 0);
-  }
-`;
-
-const bannerMoveR = keyframes`
-    0% {
-      transform: translate(30%, 0);
-  }
-  100% {
-      
-      transform: translate(-30%, 0);
-  }
-`;
-
 interface BooksPageProps {
 	$home?: boolean;
 	$detail?: boolean;
 	$search?: boolean;
 }
-interface BookImg {
-	$rev?: boolean;
-}
-
-export const BookImg = styled.div<BookImg>`
-	overflow: hidden;
-	position: relative;
-	display: flex;
-	gap: 30px;
-	animation: ${(props) => (props.$rev === true ? bannerMoveR : bannerMove)} 10s
-		linear infinite;
-	a {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-wrap: nowrap;
-
-		gap: 20px;
-	}
-`;
 
 export const Books = styled.section<BooksPageProps>`
 	img {
@@ -53,16 +14,22 @@ export const Books = styled.section<BooksPageProps>`
 		border-radius: 10px;
 	}
 
-	${({ $home }) =>
+	/* ${({ $home }) =>
 		$home &&
 		css`
-			overflow: hidden;
-			padding: 10px;
-			position: relative;
+			padding: 20px;
 			display: flex;
-			flex-direction: column;
-			gap: 40px;
-		`}
+			justify-content: center;
+			gap: 30px;
+			flex-wrap: wrap;
+
+			img {
+				filter: grayscale(100%);
+				&:hover {
+					filter: grayscale(0%);
+				}
+			}
+		`} */
 
 	${({ $search }) =>
 		$search &&
