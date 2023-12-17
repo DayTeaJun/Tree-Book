@@ -1,4 +1,3 @@
-import { FormEventHandler, useRef, useState } from 'react';
 import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
@@ -8,7 +7,6 @@ import errorImg from '../../Assets/No-img.svg';
 
 export default function SearchView() {
 	const searchTitle: string = useParams().searchView || '';
-	const inputRef = useRef<HTMLInputElement>(null);
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books', searchTitle],
