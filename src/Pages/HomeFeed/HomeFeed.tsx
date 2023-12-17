@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
-import { Books } from '../../Components/Books/books.style';
+import { Books } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 
 export default function HomeFeed() {

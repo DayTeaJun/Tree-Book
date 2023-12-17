@@ -2,7 +2,7 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
 import { Link, useParams } from 'react-router-dom';
-import { Books } from '../../Components/Books/books.style';
+import { Books } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 
 export default function SearchView() {

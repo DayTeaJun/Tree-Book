@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
-import { Books } from '../../Components/Books/books.style';
+import { Books } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 
 export default function BookDetail() {
