@@ -4,6 +4,7 @@ import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
 import { Books } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
+import CarouselSlick from '../../Components/Carousel/Carousel';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -19,6 +20,7 @@ export default function HomeFeed() {
 
 	return (
 		<>
+			<CarouselSlick />
 			{books && books.length !== 0 ? (
 				<Books $search={true}>
 					{books.map((el: BData) => (
