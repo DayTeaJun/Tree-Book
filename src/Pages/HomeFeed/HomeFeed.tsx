@@ -20,24 +20,26 @@ export default function HomeFeed() {
 
 	return (
 		<>
-			<CarouselSlick />
 			{books && books.length !== 0 ? (
-				<Books $search={true}>
-					{books.map((el: BData) => (
-						<Link
-							to={`/search/detail/${el.title}`}
-							state={{ bookData: el }}
-							key={el.isbn}
-						>
-							<img
-								style={{ borderRadius: '5px' }}
-								src={el.thumbnail}
-								alt={`책 ${el.title}의 이미지`}
-								onError={onErrorImg}
-							/>
-						</Link>
-					))}
-				</Books>
+				<>
+					<CarouselSlick bookData={books} />
+					<Books $search={true}>
+						{books.map((el: BData) => (
+							<Link
+								to={`/search/detail/${el.title}`}
+								state={{ bookData: el }}
+								key={el.isbn}
+							>
+								<img
+									style={{ borderRadius: '5px' }}
+									src={el.thumbnail}
+									alt={`책 ${el.title}의 이미지`}
+									onError={onErrorImg}
+								/>
+							</Link>
+						))}
+					</Books>
+				</>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
