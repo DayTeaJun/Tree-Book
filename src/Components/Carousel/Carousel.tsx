@@ -6,7 +6,7 @@ import { BData } from '../../Types/bookData';
 import { Link } from 'react-router-dom';
 
 type BookProps = {
-	bookData: any;
+	bookData: BData[];
 };
 
 const CarouselSlick = ({ bookData }: BookProps) => {
