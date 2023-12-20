@@ -14,11 +14,17 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 		dots: true,
 		infinite: true,
 		speed: 500,
+		autoplaySpeed: 4000,
+		autoplay: true,
+		slidesToshow: 4,
+		slidesToScroll: 1,
+		centerMode: true,
+		centerPadding: '0px',
 	};
 
 	return (
 		<>
-			<Slider {...sliderSettings}>
+			<StyledSlider {...sliderSettings}>
 				{bookData.map((el: BData) => (
 					<Link
 						to={`/search/detail/${el.title}`}
@@ -32,7 +38,7 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 						/>
 					</Link>
 				))}
-			</Slider>
+			</StyledSlider>
 		</>
 	);
 };

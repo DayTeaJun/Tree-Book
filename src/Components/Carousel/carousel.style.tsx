@@ -2,13 +2,15 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 
 export const StyledSlider = styled(Slider)`
-	height: 128px;
-	overflow: hidden;
+	a {
+		display: flex;
+		justify-content: center;
+	}
 
 	.slick-list {
 		// 부모
+		width: 1080px;
 		height: 100%;
-		margin: 0 -10px;
 		box-sizing: border-box;
 	}
 
