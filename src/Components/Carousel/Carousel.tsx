@@ -20,6 +20,26 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 		slidesToScroll: 1,
 		centerMode: true,
 		centerPadding: '0px',
+		responsive: [
+			// 반응형 속성 설정
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1,
+					infinite: true,
+					dots: true,
+				},
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					initialSlide: 1, // 초기 슬라이드 위치
+				},
+			},
+		],
 	};
 	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
 		const target = e.target as HTMLImageElement;
