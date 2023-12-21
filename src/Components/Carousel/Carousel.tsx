@@ -1,4 +1,4 @@
-import Slider from 'react-slick';
+import errorImg from '../../Assets/No-img.svg';
 import { StyledSlider } from './carousel.style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -21,6 +21,10 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 		centerMode: true,
 		centerPadding: '0px',
 	};
+	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		const target = e.target as HTMLImageElement;
+		target.src = errorImg;
+	};
 
 	return (
 		<>
@@ -35,6 +39,7 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 							style={{ borderRadius: '5px' }}
 							src={el.thumbnail}
 							alt={`책 ${el.title}의 이미지`}
+							onError={onErrorImg}
 						/>
 					</Link>
 				))}
