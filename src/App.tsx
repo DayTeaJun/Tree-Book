@@ -1,6 +1,6 @@
 import GlobalStyles from './GlobalStyled';
 import { Layout, MediaLayout } from './Layouts/fullLayout.style';
-import Router from './Router/Router';
+import Router from './Router/router';
 
 function App() {
 	return (
