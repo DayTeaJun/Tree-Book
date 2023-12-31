@@ -1,8 +1,8 @@
 import { FormEventHandler, useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { TopNavbar } from '../../Layouts/topNavbar.styled';
+import { TopNavbarStyle } from './topNavbar.styled';
 
-export default function Search() {
+export default function TopNavbar() {
 	const [searchTitle, setSearchTitle] = useState('');
 	const inputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function Search() {
 
 	return (
 		<>
-			<TopNavbar $formTag={true} $linkTag={true}>
+			<TopNavbarStyle $formTag={true} $linkTag={true}>
 				<Link to='/' />
 				<form onSubmit={handleSubmit}>
 					<label htmlFor='searchTtitle'>도서 검색창</label>
@@ -34,7 +34,7 @@ export default function Search() {
 					/>
 					<button>검색</button>
 				</form>
-			</TopNavbar>
+			</TopNavbarStyle>
 		</>
 	);
 }

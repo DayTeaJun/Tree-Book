@@ -5,7 +5,7 @@ interface TopNavbarProps {
 	$linkTag?: boolean;
 }
 
-export const TopNavbar = styled('header')<TopNavbarProps>`
+export const TopNavbarStyle = styled('header')<TopNavbarProps>`
 	position: relative;
 	width: 100%;
 	display: flex;
