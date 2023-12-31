@@ -13,10 +13,18 @@ export const TopNavbarStyle = styled('header')<TopNavbarProps>`
 	padding: 5px;
 	gap: 10px;
 
+	strong {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translate(0, -50%);
+		font-size: 1.2em;
+	}
+
 	${({ $linkTag }) =>
 		$linkTag &&
 		css`
-			a {
+			& > a {
 				width: 50px;
 				height: 50px;
 				background: #2e2e2e;

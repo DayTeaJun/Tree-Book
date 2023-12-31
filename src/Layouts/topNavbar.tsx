@@ -34,6 +34,9 @@ export default function TopNavbar() {
 					/>
 					<button>검색</button>
 				</form>
+				<strong>
+					<Link to='/signup'>회원가입</Link> | <Link to='/login'>로그인</Link>
+				</strong>
 			</TopNavbarStyle>
 		</>
 	);
