@@ -1,10 +1,12 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { SignupForm } from './signup.style';
+import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 
 export default function Signup() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayName, setDisplayName] = useState('');
+	const { error, isPending, signup } = useSignup();
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === 'email') {
@@ -19,7 +21,7 @@ export default function Signup() {
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
 		console.log(email, password, displayName);
-		// signup(email, password, displayName);
+		signup({ email, password, displayName });
 	};
 
 	return (

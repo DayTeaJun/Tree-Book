@@ -2,10 +2,10 @@ import { createContext, ReactNode, useEffect, useReducer } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { appAuth } from '../Firebase/config';
 
-interface AuthContextProps {
+export interface AuthContextProps {
 	user: User | null;
 	isAuthReady: boolean;
-	dispatch?: React.Dispatch<AuthAction>;
+	dispatch: React.Dispatch<AuthAction>;
 }
 
 type AuthAction =
@@ -32,7 +32,11 @@ const authReducer = (
 	}
 };
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextProps>({
+	user: null,
+	isAuthReady: false,
+	dispatch: () => {},
+});
 
 interface Props {
 	children: JSX.Element | JSX.Element[];
@@ -41,7 +45,7 @@ interface Props {
 const AuthContextProvider = ({ children }: Props) => {
 	const [state, dispatch] = useReducer<
 		React.Reducer<AuthContextProps, AuthAction>
-	>(authReducer, { user: null, isAuthReady: false });
+	>(authReducer, { user: null, isAuthReady: false, dispatch: () => {} });
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(appAuth, (user) => {
