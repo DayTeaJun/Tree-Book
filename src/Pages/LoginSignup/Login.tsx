@@ -2,32 +2,27 @@ import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { SignupForm } from './LoginSignup.style';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 
-export default function Signup() {
+export default function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [displayName, setDisplayName] = useState('');
-	const { error, isPending, signup } = useSignup();
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === 'email') {
 			setEmail(e.target.value);
 		} else if (e.target.type === 'password') {
 			setPassword(e.target.value);
-		} else if (e.target.type === 'text') {
-			setDisplayName(e.target.value);
 		}
 	};
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
-		console.log(email, password, displayName);
-		signup({ email, password, displayName });
+		console.log(email, password);
 	};
 
 	return (
 		<SignupForm onSubmit={handleSubmit}>
 			<fieldset>
-				<legend>회원가입</legend>
+				<legend>로그인</legend>
 				<label htmlFor='myEmail'>Email</label>
 				<input
 					type='email'
@@ -46,16 +41,7 @@ export default function Signup() {
 					onChange={handleData}
 				/>
 
-				<label htmlFor='myNickName'>Nickname</label>
-				<input
-					type='text'
-					id='myNickName'
-					required
-					value={displayName}
-					onChange={handleData}
-				/>
-
-				<button type='submit'>회원가입</button>
+				<button type='submit'>로그인</button>
 			</fieldset>
 		</SignupForm>
 	);
