@@ -4,8 +4,10 @@ import { getBooks } from '../../Api/searchApi';
 import { Books } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { Comments } from '../../Components/Comments/Comments';
+import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 
 export default function BookDetail() {
+	const { user } = useAuthContext();
 	const BD: string = useParams().bookDetail || '';
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', BD],
@@ -84,7 +86,7 @@ export default function BookDetail() {
 
 			{isLoading && <h2>Loading...</h2>}
 
-			<Comments />
+			{user && <Comments uid={user.uid} />}
 		</main>
 	);
 }
