@@ -1,14 +1,16 @@
-import { CommentsStyle } from './Comments.style';
+import { CommentsForm, CommentsList } from './Comments.style';
 
 export function Comments() {
 	return (
-		<CommentsStyle>
-			<ul>
+		<>
+			<CommentsForm>
 				<li>
 					<form>
 						<h4>댓글쓰기</h4>
 						<div>
+							<label htmlFor='commentInput'>댓글 입력</label>
 							<input
+								id='commentInput'
 								type='text'
 								placeholder='댓글 내용을 입력해주세요.'
 								name='content'
@@ -19,7 +21,15 @@ export function Comments() {
 					</form>
 				</li>
 				<li></li>
-			</ul>
-		</CommentsStyle>
+			</CommentsForm>
+
+			<CommentsList>
+				<div>
+					<strong>닉네임</strong>
+					<p>날짜</p>
+				</div>
+				<p>코멘트</p>
+			</CommentsList>
+		</>
 	);
 }
