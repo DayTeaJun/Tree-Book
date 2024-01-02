@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { Books } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
+import { Comments } from '../../Components/Comments/Comments';
 
 export default function BookDetail() {
 	const BD: string = useParams().bookDetail || '';
@@ -22,7 +23,7 @@ export default function BookDetail() {
 	};
 
 	return (
-		<>
+		<main style={{ display: 'flex', flexDirection: 'column' }}>
 			{books && books.length !== 0 ? (
 				<>
 					<Books $detail={true} key={books[0].isbn}>
@@ -82,6 +83,8 @@ export default function BookDetail() {
 			)}
 
 			{isLoading && <h2>Loading...</h2>}
-		</>
+
+			<Comments />
+		</main>
 	);
 }

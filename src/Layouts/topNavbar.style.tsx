@@ -19,6 +19,7 @@ export const TopNavbarStyle = styled('header')<TopNavbarProps>`
 		right: 0;
 		transform: translate(0, -50%);
 		font-size: 1.2em;
+		cursor: pointer;
 	}
 	${({ $linkTag }) =>
 		$linkTag &&
