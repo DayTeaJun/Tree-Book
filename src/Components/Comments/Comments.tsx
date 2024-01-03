@@ -1,7 +1,8 @@
-import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { CommentsForm, CommentsList } from './Comments.style';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { useCollectionComment } from '../../Hook/FirebaseHook/useCollectionComment';
 
 interface CommentsProps {
 	uid: string;
@@ -9,6 +10,7 @@ interface CommentsProps {
 export function Comments({ uid }: CommentsProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
+	const { documents, error } = useCollectionComment('comments');
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -21,6 +23,15 @@ export function Comments({ uid }: CommentsProps) {
 			comments,
 		});
 	};
+	if (documents) {
+		console.log(documents[0].createdTime);
+	}
+
+	useEffect(() => {
+		if (response.success) {
+			setComments('');
+		}
+	}, [response.success]);
 
 	return (
 		<>
@@ -45,14 +56,16 @@ export function Comments({ uid }: CommentsProps) {
 				</li>
 				<li></li>
 			</CommentsForm>
-
-			<CommentsList>
-				<div>
-					<strong>닉네임</strong>
-					<p>날짜</p>
-				</div>
-				<p>코멘트</p>
-			</CommentsList>
+			{documents &&
+				documents.map((comments) => (
+					<CommentsList key={comments.uid}>
+						<div>
+							<strong>{comments.uid}</strong>
+							<p>{comments.createdTime}</p>
+						</div>
+						<p>{comments.comments}</p>
+					</CommentsList>
+				))}
 		</>
 	);
 }

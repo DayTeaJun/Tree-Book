@@ -1,5 +1,4 @@
 import {
-	DocumentData,
 	DocumentReference,
 	addDoc,
 	collection,
@@ -9,6 +8,7 @@ import {
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { FirebaseError } from 'firebase/app';
+import firebase from 'firebase/app';
 
 interface StoreState {
 	document: DocumentReference | null;
@@ -61,9 +61,10 @@ const storeReducer = (state: StoreState, action: StoreAction) => {
 	}
 };
 
-interface FirestoreDocument {
+export interface FirestoreDocument {
 	uid: string;
-	comments: string;
+	comments?: string;
+	createdTime?: string | null;
 }
 
 interface FirestoreHook {
@@ -72,7 +73,7 @@ interface FirestoreHook {
 	response: StoreState;
 }
 
-export const useFirestore = (transaction: string) => {
+export const useFirestore = (transaction: string): FirestoreHook => {
 	const [response, dispatch] = useReducer(storeReducer, initState);
 	const colRef = collection(appFirestore, transaction);
 	const addDocument = async (doc: FirestoreDocument) => {
