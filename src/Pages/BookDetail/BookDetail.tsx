@@ -86,7 +86,7 @@ export default function BookDetail() {
 
 			{isLoading && <h2>Loading...</h2>}
 
-			{user && <Comments uid={user.uid} />}
+			{user && <Comments uid={user.uid} displayName={user.displayName || ''} />}
 		</main>
 	);
 }

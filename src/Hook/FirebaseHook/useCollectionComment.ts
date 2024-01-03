@@ -2,10 +2,12 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from './useFirestore';
+import { useAuthContext } from './useAuthContext';
 
 export const useCollectionComment = (transaction: string) => {
 	const [documents, setDocuments] = useState<FirestoreDocument[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
+	const { user } = useAuthContext();
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
@@ -23,6 +25,7 @@ export const useCollectionComment = (transaction: string) => {
 						...data,
 						createdTime: createdTime,
 						uid: doc.id,
+						displayName: user?.displayName,
 					});
 				});
 

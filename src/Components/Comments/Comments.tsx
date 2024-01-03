@@ -6,8 +6,9 @@ import { useCollectionComment } from '../../Hook/FirebaseHook/useCollectionComme
 
 interface CommentsProps {
 	uid: string;
+	displayName: string;
 }
-export function Comments({ uid }: CommentsProps) {
+export function Comments({ uid, displayName }: CommentsProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
 	const { documents, error } = useCollectionComment('comments');
@@ -21,6 +22,7 @@ export function Comments({ uid }: CommentsProps) {
 		addDocument({
 			uid,
 			comments,
+			displayName,
 		});
 	};
 
@@ -54,13 +56,13 @@ export function Comments({ uid }: CommentsProps) {
 				<li></li>
 			</CommentsForm>
 			{documents &&
-				documents.map((comments) => (
-					<CommentsList key={comments.uid}>
+				documents.map((comment) => (
+					<CommentsList key={comment.uid}>
 						<div>
-							<strong>{comments.uid}</strong>
-							<p>{comments.createdTime}</p>
+							<strong>{comment.displayName}</strong>
+							<p>{comment.createdTime}</p>
 						</div>
-						<p>{comments.comments}</p>
+						<p>{comment.comments}</p>
 					</CommentsList>
 				))}
 		</>
