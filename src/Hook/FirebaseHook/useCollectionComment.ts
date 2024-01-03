@@ -2,7 +2,6 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from './useFirestore';
-import { useAuthContext } from './useAuthContext';
 
 export const useCollectionComment = (transaction: string) => {
 	const [documents, setDocuments] = useState<FirestoreDocument[] | null>(null);

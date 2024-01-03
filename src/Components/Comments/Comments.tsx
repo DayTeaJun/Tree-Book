@@ -3,6 +3,7 @@ import { CommentsForm, CommentsList } from './Comments.style';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useCollectionComment } from '../../Hook/FirebaseHook/useCollectionComment';
+import { useParams } from 'react-router-dom';
 
 interface CommentsProps {
 	uid: string;
@@ -13,6 +14,7 @@ export function Comments({ uid, displayName }: CommentsProps) {
 	const { addDocument, response } = useFirestore('comments');
 	const { documents, error } = useCollectionComment('comments');
 	const { deleteDocument } = useFirestore('comments');
+	const book: string = useParams().bookDetail || '';
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -23,6 +25,7 @@ export function Comments({ uid, displayName }: CommentsProps) {
 		addDocument({
 			uid,
 			comments,
+			book,
 			displayName,
 		});
 	};
@@ -57,29 +60,32 @@ export function Comments({ uid, displayName }: CommentsProps) {
 				<li></li>
 			</CommentsForm>
 			{documents &&
-				documents.map((comment) => (
-					<CommentsList key={comment.uid}>
-						<div>
-							<div>
-								<strong>{comment.displayName}</strong>
-								<p>{comment.createdTime}</p>
-							</div>
-							{displayName !== comment.displayName ? (
-								<button type='button'>신고</button>
-							) : (
-								<>
-									<button
-										type='button'
-										onClick={() => deleteDocument(comment.uid)}
-									>
-										삭제
-									</button>
-								</>
-							)}
-						</div>
-						<p>{comment.comments}</p>
-					</CommentsList>
-				))}
+				documents.map(
+					(comment) =>
+						comment.book === book && (
+							<CommentsList key={comment.uid}>
+								<div>
+									<div>
+										<strong>{comment.displayName}</strong>
+										<p>{comment.createdTime}</p>
+									</div>
+									{displayName !== comment.displayName ? (
+										<button type='button'>신고</button>
+									) : (
+										<>
+											<button
+												type='button'
+												onClick={() => deleteDocument(comment.uid)}
+											>
+												삭제
+											</button>
+										</>
+									)}
+								</div>
+								<p>{comment.comments}</p>
+							</CommentsList>
+						)
+				)}
 		</>
 	);
 }

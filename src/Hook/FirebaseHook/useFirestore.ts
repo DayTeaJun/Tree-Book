@@ -8,7 +8,6 @@ import {
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { FirebaseError } from 'firebase/app';
-import firebase from 'firebase/app';
 
 interface StoreState {
 	document: DocumentReference | null;
@@ -63,6 +62,7 @@ const storeReducer = (state: StoreState, action: StoreAction) => {
 
 export interface FirestoreDocument {
 	uid: string;
+	book?: string;
 	displayName?: string;
 	comments?: string;
 	createdTime?: string | null;
