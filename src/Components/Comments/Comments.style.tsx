@@ -66,7 +66,7 @@ export const CommentsList = styled.div`
 	div {
 		display: flex;
 		align-items: center;
-		gap: 20px;
+		justify-content: space-between;
 	}
 
 	strong {
@@ -78,11 +78,22 @@ export const CommentsList = styled.div`
 		font-size: 1.1em;
 		font-weight: bold;
 		color: #a1a1a1;
-		border-left: 1px solid #a1a1a1;
-		padding-left: 10px;
+		padding-left: 20px;
 	}
 
 	& > p {
 		font-size: 1em;
+	}
+
+	button {
+		width: 80px;
+		height: 100%;
+		padding: 5px;
+		font-size: 1em;
+		font-weight: bold;
+		border: none;
+		border-radius: 4px;
+		background-color: skyblue;
+		color: white;
 	}
 `;

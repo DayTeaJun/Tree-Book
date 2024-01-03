@@ -12,6 +12,7 @@ export function Comments({ uid, displayName }: CommentsProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
 	const { documents, error } = useCollectionComment('comments');
+	const { deleteDocument } = useFirestore('comments');
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -59,8 +60,22 @@ export function Comments({ uid, displayName }: CommentsProps) {
 				documents.map((comment) => (
 					<CommentsList key={comment.uid}>
 						<div>
-							<strong>{comment.displayName}</strong>
-							<p>{comment.createdTime}</p>
+							<div>
+								<strong>{comment.displayName}</strong>
+								<p>{comment.createdTime}</p>
+							</div>
+							{displayName !== comment.displayName ? (
+								<button type='button'>신고</button>
+							) : (
+								<>
+									<button
+										type='button'
+										onClick={() => deleteDocument(comment.uid)}
+									>
+										삭제
+									</button>
+								</>
+							)}
 						</div>
 						<p>{comment.comments}</p>
 					</CommentsList>

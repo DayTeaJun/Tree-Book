@@ -93,8 +93,8 @@ export const useFirestore = (transaction: string): FirestoreHook => {
 	const deleteDocument = async (id: string) => {
 		dispatch({ type: 'isPending' });
 		try {
-			const docRef = await deleteDoc(doc(colRef, id));
-			// dispatch({ type: 'deleteDoc', payload: docRef });
+			const docRef = (await deleteDoc(doc(colRef, id))) as any;
+			dispatch({ type: 'deleteDoc', payload: docRef });
 		} catch (error) {
 			const firebaseError = error as FirebaseError;
 			dispatch({ type: 'error', payload: firebaseError.message });
