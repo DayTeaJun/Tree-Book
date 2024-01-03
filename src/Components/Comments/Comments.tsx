@@ -23,9 +23,6 @@ export function Comments({ uid }: CommentsProps) {
 			comments,
 		});
 	};
-	if (documents) {
-		console.log(documents[0].createdTime);
-	}
 
 	useEffect(() => {
 		if (response.success) {

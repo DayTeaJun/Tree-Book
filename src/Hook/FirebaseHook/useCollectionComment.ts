@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from './useFirestore';
@@ -9,7 +9,10 @@ export const useCollectionComment = (transaction: string) => {
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
-			collection(appFirestore, transaction),
+			query(
+				collection(appFirestore, transaction),
+				orderBy('createdTime', 'desc')
+			),
 			(snapshot) => {
 				let result: FirestoreDocument[] = [];
 				snapshot.docs.forEach((doc) => {
