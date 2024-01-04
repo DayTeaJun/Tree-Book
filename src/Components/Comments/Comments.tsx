@@ -5,16 +5,14 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useCollectionComment } from '../../Hook/FirebaseHook/useCollectionComment';
 import { useParams } from 'react-router-dom';
 
-interface CommentsProps {
-	uid: string;
-	displayName: string;
-}
-export function Comments({ uid, displayName }: CommentsProps) {
+export function Comments() {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
 	const { documents, error } = useCollectionComment('comments');
 	const { deleteDocument } = useFirestore('comments');
 	const book: string = useParams().bookDetail || '';
+	const { user } = useAuthContext();
+	const displayName = user?.displayName || '';
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -22,12 +20,17 @@ export function Comments({ uid, displayName }: CommentsProps) {
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
-		addDocument({
-			uid,
-			comments,
-			book,
-			displayName,
-		});
+		if (user) {
+			const uid = user.uid;
+			addDocument({
+				uid,
+				comments,
+				book,
+				displayName,
+			});
+		} else {
+			alert('로그인해주세요');
+		}
 	};
 
 	useEffect(() => {
