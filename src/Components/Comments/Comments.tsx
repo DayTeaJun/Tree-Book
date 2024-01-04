@@ -13,6 +13,7 @@ export function Comments() {
 	const book: string = useParams().bookDetail || '';
 	const { user } = useAuthContext();
 	const displayName = user?.displayName || '';
+	const id = user?.uid || '';
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -21,12 +22,11 @@ export function Comments() {
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
 		if (user) {
-			const uid = user.uid;
 			addDocument({
-				uid,
 				comments,
 				book,
 				displayName,
+				id,
 			});
 		} else {
 			alert('로그인해주세요');
@@ -72,13 +72,13 @@ export function Comments() {
 										<strong>{comment.displayName}</strong>
 										<p>{comment.createdTime}</p>
 									</div>
-									{displayName !== comment.displayName ? (
+									{(user && user.uid) !== comment.id ? (
 										<button type='button'>신고</button>
 									) : (
 										<>
 											<button
 												type='button'
-												onClick={() => deleteDocument(comment.uid)}
+												onClick={() => deleteDocument(comment.uid!)}
 											>
 												삭제
 											</button>

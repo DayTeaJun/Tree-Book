@@ -50,6 +50,7 @@ export const CommentsForm = styled.ul`
 		border-radius: 4px;
 		background-color: skyblue;
 		color: white;
+		cursor: pointer;
 	}
 `;
 
@@ -95,5 +96,6 @@ export const CommentsList = styled.div`
 		border-radius: 4px;
 		background-color: skyblue;
 		color: white;
+		cursor: pointer;
 	}
 `;

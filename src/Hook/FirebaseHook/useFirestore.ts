@@ -61,7 +61,8 @@ const storeReducer = (state: StoreState, action: StoreAction) => {
 };
 
 export interface FirestoreDocument {
-	uid: string;
+	uid?: string;
+	id?: string;
 	book?: string;
 	displayName?: string;
 	comments?: string;
