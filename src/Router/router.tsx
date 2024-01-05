@@ -12,6 +12,7 @@ import TopNavbar from '../Layouts/topNavbar';
 import Signup from '../Pages/LoginSignup/Signup';
 import Login from '../Pages/LoginSignup/Login';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
+import { Profile } from '../Pages/Profile/Profile';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
@@ -34,6 +35,10 @@ export default function Router() {
 					<Route path='/search/' element={<Outlet />}>
 						<Route path='detail/:bookDetail' element={<BookDetail />} />
 						<Route path=':searchView' element={<SearchView />} />
+					</Route>
+					<Route path='/profile'>
+						<Route path='' element={<Profile />}></Route>
+						<Route path=':userProfile' element={<Profile />}></Route>
 					</Route>
 				</Routes>
 			) : (
