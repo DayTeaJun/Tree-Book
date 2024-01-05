@@ -4,6 +4,7 @@ import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useCollectionComment } from '../../Hook/FirebaseHook/useCollectionComment';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function Comments() {
 	const [comments, setComments] = useState('');
@@ -69,7 +70,12 @@ export function Comments() {
 							<CommentsList key={comment.uid}>
 								<div>
 									<div>
-										<strong>{comment.displayName}</strong>
+										<Link
+											to={`/profile/${comment.displayName}`}
+											state={{ userProfile: comment }}
+										>
+											{comment.displayName}
+										</Link>
 										<p>{comment.createdTime}</p>
 									</div>
 									{(user && user.uid) !== comment.id ? (

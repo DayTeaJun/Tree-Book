@@ -5,6 +5,7 @@ import { ProfileMain } from './Profile.style';
 export function Profile() {
 	const { user } = useAuthContext();
 	const anotherUser = useParams().userProfile || '';
+	console.log(anotherUser);
 
 	return (
 		<ProfileMain>

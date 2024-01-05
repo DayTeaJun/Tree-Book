@@ -70,9 +70,10 @@ export const CommentsList = styled.div`
 		justify-content: space-between;
 	}
 
-	strong {
+	a {
 		font-size: 1.1em;
 		font-weight: bold;
+		cursor: pointer;
 	}
 
 	div > p {

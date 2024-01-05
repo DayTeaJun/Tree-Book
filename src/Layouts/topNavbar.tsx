@@ -45,6 +45,7 @@ export default function TopNavbar() {
 				)}
 				{isAuthReady && user && (
 					<strong>
+						<Link to='/profile'>내 프로필</Link> |{' '}
 						<a onClick={logout}>로그아웃</a>
 					</strong>
 				)}
