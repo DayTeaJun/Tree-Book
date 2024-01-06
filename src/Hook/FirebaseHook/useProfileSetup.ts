@@ -1,7 +1,7 @@
 import { updateProfile } from 'firebase/auth';
 import { appAuth } from '../../Firebase/config';
 
-const useProfileSetup = (displayName: string) => {
+export const useProfileSetup = (displayName: string) => {
 	if (appAuth.currentUser) {
 		updateProfile(appAuth.currentUser, {
 			displayName: displayName,

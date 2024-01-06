@@ -13,6 +13,7 @@ import Signup from '../Pages/LoginSignup/Signup';
 import Login from '../Pages/LoginSignup/Login';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
+import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
@@ -38,6 +39,7 @@ export default function Router() {
 					</Route>
 					<Route path='/profile'>
 						<Route path='' element={<Profile />}></Route>
+						<Route path='edit' element={<ProfileEdit />}></Route>
 						<Route path=':userProfile' element={<Profile />}></Route>
 					</Route>
 				</Routes>

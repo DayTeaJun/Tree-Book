@@ -10,4 +10,13 @@ export const ProfileMain = styled.main`
 	padding: 20px 24px;
 	min-height: 200px;
 	gap: 10px;
+
+	a {
+		margin-top: 20px;
+		padding: 10px 12px;
+		font-size: 1.1em;
+		border-radius: 10px;
+		background-color: skyblue;
+		color: white;
+	}
 `;
