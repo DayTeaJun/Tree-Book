@@ -3,10 +3,12 @@ import { ProfileMain } from './Profile.style';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { appAuth } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState('');
+	const navigate = useNavigate();
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
 		setDisplayName(e.target.value);
@@ -20,6 +22,7 @@ export function ProfileEdit() {
 			})
 				.then(() => {
 					alert('닉네임이 변경되었습니다!');
+					navigate('../');
 				})
 				.catch((error) => {
 					throw new Error(error.message);
