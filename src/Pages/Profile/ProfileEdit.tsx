@@ -1,12 +1,14 @@
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { ProfileMain } from './Profile.style';
-import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { ProfileEditMain } from './ProfileEdit.style';
+import persImg from '../../Assets/No-img.svg';
+import { Link } from 'react-router-dom';
 
 export function ProfileEdit() {
-	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState('');
 	const navigate = useNavigate();
 
@@ -31,19 +33,25 @@ export function ProfileEdit() {
 	};
 
 	return (
-		<ProfileMain>
-			<h1>{user?.displayName}의 프로필</h1>
-			<form onSubmit={handleSubmit}>
-				<label id='nickNameEdit'>프로필 수정</label>
-				<input
-					id='nickNameEdit'
-					type='text'
-					placeholder='변경할 닉네임을 입력해주세요.'
-					value={displayName}
-					onChange={handleName}
-				/>
-				<button type='submit'>변경</button>
-			</form>
-		</ProfileMain>
+		<ProfileEditMain>
+			<h1>프로필 수정</h1>
+			<p>프로필을 수정 하실 수 있습니다</p>
+			<div>
+				<img src={persImg} />
+				<form onSubmit={handleSubmit}>
+					<label id='nickNameEdit'>닉네임</label>
+					<input
+						id='nickNameEdit'
+						type='text'
+						placeholder='변경할 닉네임을 입력해주세요.'
+						value={displayName}
+						onChange={handleName}
+					/>
+					<div>
+						<button type='submit'>변경</button>
+					</div>
+				</form>
+			</div>
+		</ProfileEditMain>
 	);
 }
