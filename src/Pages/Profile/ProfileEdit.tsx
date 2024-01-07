@@ -49,6 +49,10 @@ export function ProfileEdit() {
 					/>
 					<div>
 						<button type='submit'>변경</button>
+
+						<button type='button' onClick={() => navigate(-1)}>
+							취소
+						</button>
 					</div>
 				</form>
 			</div>
