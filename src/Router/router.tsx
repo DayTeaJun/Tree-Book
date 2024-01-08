@@ -38,17 +38,20 @@ export default function Router() {
 						<Route path=':searchView' element={<SearchView />} />
 					</Route>
 					<Route path='/profile'>
-						<Route path='' element={<Profile />}></Route>
+						<Route
+							path=''
+							element={user ? <Profile /> : <Navigate replace={true} to='/' />}
+						></Route>
 						<Route
 							path='edit'
 							element={
-								!user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
+								user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
 							}
 						></Route>
 						<Route
 							path=':userProfile'
 							element={
-								!user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
+								user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
 							}
 						></Route>
 					</Route>
