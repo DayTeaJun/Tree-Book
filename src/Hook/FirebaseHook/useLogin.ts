@@ -9,29 +9,32 @@ export interface LoginType {
 }
 
 export const useLogin = () => {
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext();
 
-	const login = ({ email, password }: LoginType) => {
-		setError(null);
-		setIsPending(true);
+	const login = async ({ email, password }: LoginType) => {
+		try {
+			setError(null);
+			setIsPending(true);
+			const userCreadential = await signInWithEmailAndPassword(
+				appAuth,
+				email,
+				password
+			);
 
-		signInWithEmailAndPassword(appAuth, email, password)
-			.then((userCreadential) => {
-				const user = userCreadential.user;
-				dispatch({ type: 'login', payload: user });
-				setError(null);
-				setIsPending(false);
-				console.log(user);
-				if (!user) {
-					throw new Error('로그인 실패');
-				}
-			})
-			.catch((err) => {
-				setError(err.message);
-				setIsPending(false);
-			});
+			const user = userCreadential.user;
+			if (!user) {
+				throw new Error('로그인 실패');
+			}
+			dispatch({ type: 'login', payload: user });
+			setError(null);
+			setIsPending(false);
+			console.log(user);
+		} catch (error) {
+			setError((error as Error).message);
+			setIsPending(false);
+		}
 	};
 	return { error, isPending, login };
 };
