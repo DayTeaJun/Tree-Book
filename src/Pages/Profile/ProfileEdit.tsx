@@ -2,7 +2,7 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { ProfileMain } from './Profile.style';
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth } from '../../Firebase/config';
-import { updateProfile } from 'firebase/auth';
+import { updatePassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { ProfileEditMain } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
@@ -10,25 +10,25 @@ import { Link } from 'react-router-dom';
 
 export function ProfileEdit() {
 	const [displayName, setDisplayName] = useState('');
+	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
 		setDisplayName(e.target.value);
 	};
 
-	const handleSubmit: FormEventHandler = (e) => {
-		e.preventDefault();
-		if (appAuth.currentUser) {
-			updateProfile(appAuth.currentUser, {
-				displayName: displayName,
-			})
-				.then(() => {
-					alert('닉네임이 변경되었습니다!');
-					navigate('../');
-				})
-				.catch((error) => {
-					throw new Error(error.message);
+	const handleSubmit: FormEventHandler = async (e) => {
+		try {
+			e.preventDefault();
+			if (appAuth.currentUser) {
+				await updateProfile(appAuth.currentUser, {
+					displayName: displayName,
 				});
+				alert('닉네임이 변경되었습니다!');
+				navigate('../');
+			}
+		} catch (error) {
+			console.log('에러발생');
 		}
 	};
 
