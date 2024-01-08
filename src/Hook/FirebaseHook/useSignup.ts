@@ -10,45 +10,39 @@ export interface SignupType {
 	displayName: string;
 }
 export const useSignup = () => {
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext() as AuthContextProps;
 
-	const signup = ({ email, password, displayName }: SignupType) => {
-		setError(null); // 아직 에러 없음
-		setIsPending(true); // 통신 진행중
+	const signup = async ({ email, password, displayName }: SignupType) => {
+		try {
+			setError(null);
+			setIsPending(true);
 
-		// 회원가입
-		createUserWithEmailAndPassword(appAuth, email, password)
-			.then((userCreadential) => {
-				// 회원가입 완료시 사용자 정보 저장
-				const user = userCreadential.user;
-				console.log(user);
-				console.log(typeof user);
-
-				if (!user) {
-					throw new Error('회원가입 실패');
+			const userCreadential = await createUserWithEmailAndPassword(
+				appAuth,
+				email,
+				password
+			);
+			const user = userCreadential.user;
+			if (!user) {
+				throw new Error('회원가입 실패');
+			}
+			if (appAuth.currentUser) {
+				try {
+					await updateProfile(appAuth.currentUser, { displayName });
+					dispatch({ type: 'login', payload: user });
+					setError(null);
+					setIsPending(false);
+				} catch (error) {
+					setError((error as Error).message);
+					setIsPending(false);
 				}
-
-				// 회웝가입 진행이 되면, 유저 정보 업데이트(닉네임 업데이트)
-				// appAuth.currentUser 는 현재 로그인한 유저의 정보
-				if (appAuth.currentUser) {
-					updateProfile(appAuth.currentUser, { displayName })
-						.then(() => {
-							dispatch({ type: 'login', payload: user });
-							setError(null);
-							setIsPending(false);
-						})
-						.catch((err) => {
-							setError(err.message);
-							setIsPending(false);
-						});
-				}
-			})
-			.catch((err) => {
-				setError(err.message);
-				setIsPending(false);
-			});
+			}
+		} catch (error) {
+			setError((error as Error).message);
+			setIsPending(false);
+		}
 	};
 	return { error, isPending, signup };
 };
