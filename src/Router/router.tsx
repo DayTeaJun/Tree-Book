@@ -39,8 +39,18 @@ export default function Router() {
 					</Route>
 					<Route path='/profile'>
 						<Route path='' element={<Profile />}></Route>
-						<Route path='edit' element={<ProfileEdit />}></Route>
-						<Route path=':userProfile' element={<Profile />}></Route>
+						<Route
+							path='edit'
+							element={
+								!user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
+							}
+						></Route>
+						<Route
+							path=':userProfile'
+							element={
+								!user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
+							}
+						></Route>
 					</Route>
 				</Routes>
 			) : (
