@@ -1,6 +1,13 @@
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { ProfileMain } from './Profile.style';
-import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEventHandler,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { appAuth } from '../../Firebase/config';
 import { updatePassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 export function ProfileEdit() {
 	const [displayName, setDisplayName] = useState('');
-	const [password, setPassword] = useState('');
+	const inputRef = useRef<HTMLInputElement | null>(null);
 	const navigate = useNavigate();
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +39,16 @@ export function ProfileEdit() {
 		}
 	};
 
+	const onUploadImage = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			if (!e.target.files) {
+				return;
+			}
+			console.log(e.target.files[0].name);
+		},
+		[]
+	);
+
 	return (
 		<ProfileEditMain>
 			<h1>프로필 수정</h1>
@@ -46,6 +63,12 @@ export function ProfileEdit() {
 						placeholder='변경할 닉네임을 입력해주세요.'
 						value={displayName}
 						onChange={handleName}
+					/>
+					<input
+						type='file'
+						accept='image/*'
+						ref={inputRef}
+						onChange={onUploadImage}
 					/>
 					<div>
 						<button type='submit'>변경</button>
