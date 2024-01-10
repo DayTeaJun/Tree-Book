@@ -24,6 +24,7 @@ export function ProfileEdit() {
 			if (appAuth.currentUser) {
 				await updateProfile(appAuth.currentUser, {
 					displayName: displayName,
+					photoURL: profileImg || '',
 				});
 				alert('닉네임이 변경되었습니다!');
 				navigate('../');
@@ -53,7 +54,7 @@ export function ProfileEdit() {
 			<h1>프로필 수정</h1>
 			<p>프로필을 수정 하실 수 있습니다</p>
 			<div>
-				<img src={profileImg || persImg} />
+				<img src={profileImg || user?.photoURL || persImg} />
 				<form onSubmit={handleSubmit}>
 					<label id='nickNameEdit'>닉네임</label>
 					<input
