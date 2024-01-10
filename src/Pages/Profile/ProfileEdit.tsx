@@ -1,19 +1,10 @@
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
-import { ProfileMain } from './Profile.style';
-import {
-	ChangeEvent,
-	FormEventHandler,
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { ChangeEvent, FormEventHandler, useRef, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
-import { updatePassword, updateProfile } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { ProfileEditMain } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
-import { Link } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export function ProfileEdit() {
