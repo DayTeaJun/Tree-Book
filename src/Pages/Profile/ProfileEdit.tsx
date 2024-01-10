@@ -17,11 +17,11 @@ import { Link } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export function ProfileEdit() {
-	const [displayName, setDisplayName] = useState('');
+	const { user } = useAuthContext();
+	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const [profileImg, setProfileImg] = useState('');
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const navigate = useNavigate();
-	const { user } = useAuthContext();
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
 		setDisplayName(e.target.value);
