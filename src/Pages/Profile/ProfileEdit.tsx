@@ -18,6 +18,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export function ProfileEdit() {
 	const [displayName, setDisplayName] = useState('');
+	const [profileImg, setProfileImg] = useState('');
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
@@ -41,15 +42,19 @@ export function ProfileEdit() {
 		}
 	};
 
-	const onUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const onUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files) {
 			return;
 		}
-		const image = e.target.files[0];
-		const storageRef = ref(storage, `profile/${user?.uid}`);
-		uploadBytes(storageRef, image).then((snapshot) => {
-			getDownloadURL(snapshot.ref).then((downUrl) => console.log(downUrl));
-		});
+		try {
+			const image = e.target.files[0];
+			const storageRef = ref(storage, `profile/${user?.uid}`);
+			const snapshot = await uploadBytes(storageRef, image);
+			const downUrl = await getDownloadURL(snapshot.ref);
+			setProfileImg(downUrl);
+		} catch (error) {
+			console.log('에러발생');
+		}
 	};
 
 	return (
@@ -57,7 +62,7 @@ export function ProfileEdit() {
 			<h1>프로필 수정</h1>
 			<p>프로필을 수정 하실 수 있습니다</p>
 			<div>
-				<img src={persImg} />
+				<img src={profileImg || persImg} />
 				<form onSubmit={handleSubmit}>
 					<label id='nickNameEdit'>닉네임</label>
 					<input
