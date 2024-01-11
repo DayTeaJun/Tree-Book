@@ -1,15 +1,25 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { ProfileMain } from './Profile.style';
 import { Link } from 'react-router-dom';
 import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
+import { useEffect } from 'react';
 
 export function Profile() {
 	const { user } = useAuthContext();
 	const { documents } = useCollection('user');
 	const anotherUser = useParams().userProfile || '';
+	const navigate = useNavigate();
 	console.log(anotherUser);
+
+	useEffect(() => {
+		if (user) {
+			if (user.displayName === anotherUser) {
+				navigate('/profile');
+			}
+		}
+	}, []);
 
 	return (
 		<ProfileMain>
@@ -27,7 +37,7 @@ export function Profile() {
 						)
 				)}
 
-			{user && (
+			{!anotherUser && user && (
 				<>
 					<img src={user.photoURL || persImg} />
 					<h1>{user.displayName}의 프로필</h1>

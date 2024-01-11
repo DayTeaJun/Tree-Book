@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useRef, useState } from 'react';
 import { SignupForm } from './LoginSignup.style';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 

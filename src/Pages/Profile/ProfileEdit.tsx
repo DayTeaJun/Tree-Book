@@ -11,7 +11,6 @@ export function ProfileEdit() {
 	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const [profileImg, setProfileImg] = useState('');
-	const inputRef = useRef<HTMLInputElement | null>(null);
 	const navigate = useNavigate();
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,12 +63,7 @@ export function ProfileEdit() {
 						value={displayName}
 						onChange={handleName}
 					/>
-					<input
-						type='file'
-						accept='image/*'
-						ref={inputRef}
-						onChange={onUploadImage}
-					/>
+					<input type='file' accept='image/*' onChange={onUploadImage} />
 					<div>
 						<button type='submit'>변경</button>
 

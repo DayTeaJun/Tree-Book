@@ -71,9 +71,7 @@ export function Comments() {
 								<div>
 									<div>
 										{user && user.uid === comment.id ? (
-											<Link to={`/profile`} state={{ userProfile: comment }}>
-												{comment.displayName}
-											</Link>
+											<Link to={`/profile`}>{comment.displayName}</Link>
 										) : (
 											<Link to={`/profile/${comment.displayName}`}>
 												{comment.displayName}
