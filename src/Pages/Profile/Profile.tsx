@@ -14,6 +14,7 @@ export function Profile() {
 	return (
 		<ProfileMain>
 			{anotherUser &&
+				anotherUser !== user?.displayName &&
 				documents &&
 				documents.map(
 					(users) =>
