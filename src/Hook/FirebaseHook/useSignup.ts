@@ -10,6 +10,7 @@ export interface SignupType {
 	email: string;
 	password: string;
 	displayName: string;
+	photoURL?: string;
 }
 export const useSignup = () => {
 	const [error, setError] = useState<string | null>(null);

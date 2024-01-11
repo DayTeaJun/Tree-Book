@@ -43,13 +43,11 @@ export default function Router() {
 							element={user ? <Profile /> : <Navigate replace={true} to='/' />}
 						></Route>
 						<Route
-							path='edit'
-							element={
-								user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
-							}
+							path=':userProfile'
+							element={user ? <Profile /> : <Navigate replace={true} to='/' />}
 						></Route>
 						<Route
-							path=':userProfile'
+							path='edit'
 							element={
 								user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
 							}

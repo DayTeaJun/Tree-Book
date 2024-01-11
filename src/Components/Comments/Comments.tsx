@@ -70,12 +70,15 @@ export function Comments() {
 							<CommentsList key={comment.uid}>
 								<div>
 									<div>
-										<Link
-											to={`/profile/${comment.displayName}`}
-											state={{ userProfile: comment }}
-										>
-											{comment.displayName}
-										</Link>
+										{user && user.uid === comment.id ? (
+											<Link to={`/profile`} state={{ userProfile: comment }}>
+												{comment.displayName}
+											</Link>
+										) : (
+											<Link to={`/profile/${comment.displayName}`}>
+												{comment.displayName}
+											</Link>
+										)}
 										<p>{comment.createdTime}</p>
 									</div>
 									{(user && user.uid) !== comment.id ? (
