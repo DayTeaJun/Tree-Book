@@ -1,23 +1,18 @@
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
-import {
-	ChangeEvent,
-	FormEventHandler,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { ProfileEditMain } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { ImgPreview } from '../../Hook/useImgPreview';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
-	const [profileImg, setProfileImg] = useState('');
 	const navigate = useNavigate();
+	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
 		setDisplayName(e.target.value);
@@ -26,29 +21,18 @@ export function ProfileEdit() {
 	const handleSubmit: FormEventHandler = async (e) => {
 		try {
 			e.preventDefault();
-			if (appAuth.currentUser) {
+			if (appAuth.currentUser && imgUrl) {
+				const storageRef = ref(storage, `profile/${user?.uid}`);
+				const snapshot = await uploadBytes(storageRef, imgUrl);
+				const downUrl = await getDownloadURL(snapshot.ref);
+
 				await updateProfile(appAuth.currentUser, {
 					displayName: displayName,
-					photoURL: profileImg || '',
+					photoURL: downUrl || '',
 				});
 				alert('프로필이 변경되었습니다!');
 				navigate('../');
 			}
-		} catch (error) {
-			console.log('에러발생');
-		}
-	};
-
-	const onUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (!e.target.files) {
-			return;
-		}
-		try {
-			const image = e.target.files[0];
-			const storageRef = ref(storage, `profile/${user?.uid}`);
-			const snapshot = await uploadBytes(storageRef, image);
-			const downUrl = await getDownloadURL(snapshot.ref);
-			setProfileImg(downUrl);
 		} catch (error) {
 			console.log('에러발생');
 		}
@@ -59,7 +43,7 @@ export function ProfileEdit() {
 			<h1>프로필 수정</h1>
 			<p>프로필을 수정 하실 수 있습니다</p>
 			<div>
-				<img src={profileImg || user?.photoURL || persImg} />
+				<img src={imageSrc || user?.photoURL || persImg} />
 				<form onSubmit={handleSubmit}>
 					<label id='nickNameEdit'>닉네임</label>
 					<input
@@ -69,7 +53,7 @@ export function ProfileEdit() {
 						value={displayName}
 						onChange={handleName}
 					/>
-					<input type='file' accept='image/*' onChange={onUploadImage} />
+					<input type='file' accept='image/*' onChange={(e) => onUpload(e)} />
 					<div>
 						<button type='submit'>변경</button>
 
