@@ -1,5 +1,11 @@
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
-import { ChangeEvent, FormEventHandler, useRef, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEventHandler,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +31,7 @@ export function ProfileEdit() {
 					displayName: displayName,
 					photoURL: profileImg || '',
 				});
-				alert('닉네임이 변경되었습니다!');
+				alert('프로필이 변경되었습니다!');
 				navigate('../');
 			}
 		} catch (error) {
