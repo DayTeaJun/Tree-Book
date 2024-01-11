@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from './useFirestore';
 
-export const useCollectionComment = (transaction: string) => {
+export const useCollection = (transaction: string) => {
 	const [documents, setDocuments] = useState<FirestoreDocument[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
 

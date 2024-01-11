@@ -2,14 +2,14 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { CommentsForm, CommentsList } from './Comments.style';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
-import { useCollectionComment } from '../../Hook/FirebaseHook/useCollectionComment';
+import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export function Comments() {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
-	const { documents, error } = useCollectionComment('comments');
+	const { documents, error } = useCollection('comments');
 	const { deleteDocument } = useFirestore('comments');
 	const book: string = useParams().bookDetail || '';
 	const { user } = useAuthContext();

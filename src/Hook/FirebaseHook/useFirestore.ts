@@ -67,6 +67,8 @@ export interface FirestoreDocument {
 	displayName?: string;
 	comments?: string;
 	createdTime?: string | null;
+	email?: string;
+	password?: string;
 }
 
 interface FirestoreHook {
