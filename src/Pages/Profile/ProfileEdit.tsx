@@ -41,7 +41,7 @@ export function ProfileEdit() {
 					});
 					const colRef = collection(appFirestore, 'user');
 
-					const docRef = doc(colRef, 'user');
+					const docRef = doc(colRef, user!.uid);
 					await updateDoc(docRef, { displayName: displayName });
 				}
 
