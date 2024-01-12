@@ -7,12 +7,16 @@ import { ProfileEditMain } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { ImgPreview } from '../../Hook/useImgPreview';
+import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
+import { collection, doc, updateDoc } from 'firebase/firestore';
+import { appFirestore } from '../../Firebase/config';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const navigate = useNavigate();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
+	const { addDocument, response } = useFirestore('user');
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
 		setDisplayName(e.target.value);
@@ -35,13 +39,17 @@ export function ProfileEdit() {
 					await updateProfile(appAuth.currentUser, {
 						displayName: displayName,
 					});
+					const colRef = collection(appFirestore, 'user');
+
+					const docRef = doc(colRef, 'user');
+					await updateDoc(docRef, { displayName: displayName });
 				}
 
 				alert('프로필이 변경되었습니다!');
 				navigate('../');
 			}
 		} catch (error) {
-			console.log('에러발생');
+			console.log(error);
 		}
 	};
 

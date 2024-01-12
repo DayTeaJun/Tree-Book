@@ -48,6 +48,7 @@ const storeReducer = (state: StoreState, action: StoreAction) => {
 				success: true,
 				error: null,
 			};
+
 		case 'error':
 			return {
 				isPending: false,
@@ -81,7 +82,7 @@ interface FirestoreHook {
 export const useFirestore = (transaction: string): FirestoreHook => {
 	const [response, dispatch] = useReducer(storeReducer, initState);
 	const colRef = collection(appFirestore, transaction);
-	const addDocument = async (doc: FirestoreDocument) => {
+	const addDocument = async (doc: FirestoreDocument, id?: string) => {
 		dispatch({ type: 'isPending' });
 		try {
 			const createdTime = timestamp.fromDate(new Date());

@@ -21,6 +21,7 @@ export function Comments() {
 	const { addDocument, response } = useFirestore('comments');
 	const { documents, error } = useCollection('comments');
 	const { deleteDocument } = useFirestore('comments');
+
 	const book: string = useParams().bookDetail || '';
 	const { user } = useAuthContext();
 	const displayName = user?.displayName || '';

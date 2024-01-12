@@ -1,10 +1,11 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useState } from 'react';
-import { appAuth, storage } from '../../Firebase/config';
+import { appAuth, appFirestore, storage } from '../../Firebase/config';
 import { useAuthContext } from './useAuthContext';
 import { AuthContextProps } from '../../Context/AuthContext';
 import { useFirestore } from './useFirestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 export interface SignupType {
 	email: string;
@@ -43,12 +44,16 @@ export const useSignup = () => {
 				const storageRef = ref(storage, `profile/${user?.uid}`);
 				const snapshot = await uploadBytes(storageRef, imgUrl);
 				const photoURL = await getDownloadURL(snapshot.ref);
+				const uid = user.uid;
 
-				addDocument({
+				const userDocRef = doc(collection(appFirestore, 'user'), uid);
+
+				await setDoc(userDocRef, {
 					email,
 					password,
 					displayName,
 					photoURL,
+					uid,
 				});
 
 				try {
