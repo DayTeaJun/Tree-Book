@@ -7,6 +7,9 @@ export function ImgPreview() {
 	const onUpload = (e: any) => {
 		const file = e.target.files[0];
 		setImgUrl(file);
+		if (!file) {
+			return;
+		}
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 
