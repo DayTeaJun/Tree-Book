@@ -21,15 +21,22 @@ export function ProfileEdit() {
 	const handleSubmit: FormEventHandler = async (e) => {
 		try {
 			e.preventDefault();
-			if (appAuth.currentUser && imgUrl) {
-				const storageRef = ref(storage, `profile/${user?.uid}`);
-				const snapshot = await uploadBytes(storageRef, imgUrl);
-				const downUrl = await getDownloadURL(snapshot.ref);
+			if (appAuth.currentUser) {
+				if (imgUrl) {
+					const storageRef = ref(storage, `profile/${user?.uid}`);
+					const snapshot = await uploadBytes(storageRef, imgUrl);
+					const downUrl = await getDownloadURL(snapshot.ref);
 
-				await updateProfile(appAuth.currentUser, {
-					displayName: displayName,
-					photoURL: downUrl || '',
-				});
+					await updateProfile(appAuth.currentUser, {
+						displayName: displayName,
+						photoURL: downUrl || '',
+					});
+				} else {
+					await updateProfile(appAuth.currentUser, {
+						displayName: displayName,
+					});
+				}
+
 				alert('프로필이 변경되었습니다!');
 				navigate('../');
 			}
