@@ -1,12 +1,15 @@
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react';
 import { SignupForm } from './LoginSignup.style';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
+import persImg from '../../Assets/No-img.svg';
+import { ImgPreview } from '../../Hook/useImgPreview';
 
 export default function Signup() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayName, setDisplayName] = useState('');
 	const { error, isPending, signup } = useSignup();
+	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === 'email') {
@@ -28,6 +31,14 @@ export default function Signup() {
 		<SignupForm onSubmit={handleSubmit}>
 			<fieldset>
 				<legend>회원가입</legend>
+				<label htmlFor='profileImg'>프로필 이미지</label>
+				<img src={imageSrc || persImg} />
+				<input
+					id='profileImg'
+					type='file'
+					accept='image/*'
+					onChange={(e) => onUpload(e)}
+				/>
 				<label htmlFor='myEmail'>Email</label>
 				<input
 					type='email'

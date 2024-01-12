@@ -2,10 +2,18 @@ import styled from 'styled-components';
 
 export const SignupForm = styled.form`
 	max-width: 360px;
-	margin: 60px auto;
+	margin: 20px auto;
 	padding: 20px;
 	border: solid 1px black;
 	border-radius: 5px;
+
+	img {
+		margin: 20px auto;
+		width: 150x;
+		height: 150px;
+		display: flex;
+		justify-content: center;
+	}
 
 	legend {
 		font-size: 1.5em;
