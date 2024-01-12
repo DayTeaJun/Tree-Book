@@ -43,7 +43,7 @@ export function ProfileEdit() {
 			<h1>프로필 수정</h1>
 			<p>프로필을 수정 하실 수 있습니다</p>
 			<div>
-				<img src={imageSrc || user?.photoURL || persImg} />
+				<img src={(imgUrl && imageSrc) || user?.photoURL || persImg} />
 				<form onSubmit={handleSubmit}>
 					<label id='nickNameEdit'>닉네임</label>
 					<input

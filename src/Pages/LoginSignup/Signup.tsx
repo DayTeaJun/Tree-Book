@@ -35,7 +35,7 @@ export default function Signup() {
 			<fieldset>
 				<legend>회원가입</legend>
 				<label htmlFor='profileImg'>프로필 이미지</label>
-				<img src={imageSrc || persImg} />
+				<img src={(imgUrl && imageSrc) || persImg} />
 				<input
 					id='profileImg'
 					type='file'
