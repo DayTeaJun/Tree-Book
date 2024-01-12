@@ -18,7 +18,6 @@ export default function Login() {
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
-		console.log(email, password);
 		login({ email, password });
 	};
 

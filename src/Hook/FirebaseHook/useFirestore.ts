@@ -88,7 +88,6 @@ export const useFirestore = (transaction: string): FirestoreHook => {
 			const createdTime = timestamp.fromDate(new Date());
 			const docRef = await addDoc(colRef, { ...doc, createdTime });
 			dispatch({ type: 'addDoc', payload: docRef });
-			console.log(docRef);
 		} catch (error) {
 			const firebaseError = error as FirebaseError;
 			dispatch({ type: 'error', payload: firebaseError.message });

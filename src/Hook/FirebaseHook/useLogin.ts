@@ -30,7 +30,6 @@ export const useLogin = () => {
 			dispatch({ type: 'login', payload: user });
 			setError(null);
 			setIsPending(false);
-			console.log(user);
 		} catch (error) {
 			setError((error as Error).message);
 			setIsPending(false);
