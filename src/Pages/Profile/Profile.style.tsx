@@ -11,6 +11,11 @@ export const ProfileMain = styled.main`
 	min-height: 200px;
 	gap: 10px;
 
+	img {
+		width: 150px;
+		height: 150px;
+	}
+
 	a {
 		margin-top: 20px;
 		padding: 10px 12px;
