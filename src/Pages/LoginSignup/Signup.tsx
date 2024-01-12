@@ -23,8 +23,11 @@ export default function Signup() {
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
-		console.log(email, password, displayName);
-		signup({ email, password, displayName });
+		if (imgUrl) {
+			signup({ email, password, displayName, imgUrl });
+		} else {
+			alert('프로필 이미지를 등록해주세요!');
+		}
 	};
 
 	return (

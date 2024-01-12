@@ -12,6 +12,7 @@ export function Profile() {
 	const anotherUser = useParams().userProfile || '';
 	const navigate = useNavigate();
 	console.log(anotherUser);
+	console.log(user);
 
 	useEffect(() => {
 		if (user) {
