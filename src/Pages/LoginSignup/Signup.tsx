@@ -34,14 +34,16 @@ export default function Signup() {
 		<SignupForm onSubmit={handleSubmit}>
 			<fieldset>
 				<legend>회원가입</legend>
-				<label htmlFor='profileImg'>프로필 이미지</label>
-				<img src={(imgUrl && imageSrc) || persImg} />
-				<input
-					id='profileImg'
-					type='file'
-					accept='image/*'
-					onChange={(e) => onUpload(e)}
-				/>
+				<div>
+					<img src={(imgUrl && imageSrc) || persImg} />
+					<label htmlFor='profileImg'>프로필 이미지</label>
+					<input
+						id='profileImg'
+						type='file'
+						accept='image/*'
+						onChange={(e) => onUpload(e)}
+					/>
+				</div>
 				<label htmlFor='myEmail'>Email</label>
 				<input
 					type='email'
