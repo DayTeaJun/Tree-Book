@@ -19,7 +19,10 @@ export const ProfileEditMain = styled.main`
 	}
 
 	img {
-		width: 150px;
+		width: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
 	}
 
 	& > div {
@@ -44,7 +47,7 @@ export const ProfileEditMain = styled.main`
 		color: white;
 	}
 
-	input {
+	form > input {
 		width: 50%;
 		height: 30px;
 		padding: 5px;
@@ -53,13 +56,42 @@ export const ProfileEditMain = styled.main`
 		border-radius: 4px;
 	}
 
-	form > div {
+	form > div > input {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		opacity: 0;
+		z-index: 1;
+		cursor: pointer;
+	}
+
+	form > div > label {
+		clip: rect(1px, 1px, 1px, 1px);
+		clip-path: inset(50%);
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+	}
+
+	form > div:nth-child(1) {
+		width: 110px;
+		height: 110px;
+		margin-bottom: 10px;
+		padding: 0;
+		display: flex;
+		position: relative;
+		cursor: pointer;
+	}
+
+	form > div:last-child {
 		display: flex;
 		gap: 20px;
 	}
 
-	div > button,
-	a {
+	div > button {
 		width: 50px;
 		height: 30px;
 		font-size: 1em;

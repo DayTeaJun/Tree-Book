@@ -58,9 +58,18 @@ export function ProfileEdit() {
 			<h1>프로필 수정</h1>
 			<p>프로필을 수정 하실 수 있습니다</p>
 			<div>
-				<img src={(imgUrl && imageSrc) || user?.photoURL || persImg} />
 				<form onSubmit={handleSubmit}>
-					<label id='nickNameEdit'>닉네임</label>
+					<div>
+						<img src={(imgUrl && imageSrc) || user?.photoURL || persImg} />
+						<label htmlFor='profileImgEdit'>프로필 이미지 수정</label>
+						<input
+							id='profileImgEdit'
+							type='file'
+							accept='image/*'
+							onChange={(e) => onUpload(e)}
+						/>
+					</div>
+					<label htmlFor='nickNameEdit'>닉네임</label>
 					<input
 						id='nickNameEdit'
 						type='text'
@@ -68,7 +77,6 @@ export function ProfileEdit() {
 						value={displayName}
 						onChange={handleName}
 					/>
-					<input type='file' accept='image/*' onChange={(e) => onUpload(e)} />
 					<div>
 						<button type='submit'>변경</button>
 
