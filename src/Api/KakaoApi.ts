@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SerachParams } from '../Types/bookData';
 
-const KAKAO_API = '07366720722caa7583ba2e82c577f145';
+const KAKAO_API = process.env.REACT_APP_KAKAO_API;
 
 const Kakao = axios.create({
 	baseURL: 'https://dapi.kakao.com',

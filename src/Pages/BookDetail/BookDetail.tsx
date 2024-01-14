@@ -7,7 +7,6 @@ import { Comments } from '../../Components/Comments/Comments';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 
 export default function BookDetail() {
-	const { user } = useAuthContext();
 	const BD: string = useParams().bookDetail || '';
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', BD],
