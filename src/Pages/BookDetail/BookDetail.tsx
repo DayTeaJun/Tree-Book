@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
-import { Books } from '../../Components/Books/Books/books.style';
+import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { Comments } from '../../Components/Comments/Comments';
-import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { D } from './bookDetail.style';
 
 export default function BookDetail() {
 	const BD: string = useParams().bookDetail || '';
@@ -24,60 +24,60 @@ export default function BookDetail() {
 	};
 
 	return (
-		<main style={{ display: 'flex', flexDirection: 'column' }}>
+		<D.Main>
 			{books && books.length !== 0 ? (
 				<>
-					<Books $detail={true} key={books[0].isbn}>
-						<div>
-							<img
+					<D.Section key={books[0].isbn}>
+						<D.Container>
+							<BookImg
 								src={books[0].thumbnail}
 								alt={`책 ${books[0].title}의 이미지`}
 								onError={onErrorImg}
 							/>
-							<a onClick={onWebsiteView}>다음 검색으로 이동</a>
-						</div>
+							<D.Alink onClick={onWebsiteView}>다음 검색으로 이동</D.Alink>
+						</D.Container>
 
-						<div>
-							<h2>{books[0].title}</h2>
-							<dl>
-								<dt>작가</dt>
-								<dd>
+						<D.Container>
+							<D.H2>{books[0].title}</D.H2>
+							<D.Dl>
+								<D.Dt>작가</D.Dt>
+								<D.Dd>
 									{books[0].author !== undefined || ''
 										? books[0].authors
 										: '미상'}
-								</dd>
-							</dl>
-							<dl>
-								<dt>출판사</dt>
-								<dd>
+								</D.Dd>
+							</D.Dl>
+							<D.Dl>
+								<D.Dt>출판사</D.Dt>
+								<D.Dd>
 									{books[0].publisher !== (undefined || '')
 										? books[0].publisher
 										: '미상'}
-								</dd>
-							</dl>
+								</D.Dd>
+							</D.Dl>
 							{books[0].contents !== (undefined || '') ? (
-								<dl>
-									<dt>내용</dt>
-									<dd>{books[0].contents}</dd>
-								</dl>
+								<D.Dl>
+									<D.Dt>내용</D.Dt>
+									<D.Dd>{books[0].contents}</D.Dd>
+								</D.Dl>
 							) : (
 								<></>
 							)}
 
-							<dl>
-								<dt>가격</dt>
-								<dd>{books[0].price}원</dd>
-							</dl>
-							<dl>
-								<dt>ISBN</dt>
-								<dd>{books[0].isbn}</dd>
-							</dl>
-							<dl>
-								<dt>출판일</dt>
-								<dd>{books[0].datetime.substr(0, 10)}</dd>
-							</dl>
-						</div>
-					</Books>
+							<D.Dl>
+								<D.Dt>가격</D.Dt>
+								<D.Dd>{books[0].price}원</D.Dd>
+							</D.Dl>
+							<D.Dl>
+								<D.Dt>ISBN</D.Dt>
+								<D.Dd>{books[0].isbn}</D.Dd>
+							</D.Dl>
+							<D.Dl>
+								<D.Dt>출판일</D.Dt>
+								<D.Dd>{books[0].datetime.substr(0, 10)}</D.Dd>
+							</D.Dl>
+						</D.Container>
+					</D.Section>
 				</>
 			) : (
 				<>{books && books.length === 0 && <h2>not found</h2>}</>
@@ -86,6 +86,6 @@ export default function BookDetail() {
 			{isLoading && <h2>Loading...</h2>}
 
 			<Comments />
-		</main>
+		</D.Main>
 	);
 }

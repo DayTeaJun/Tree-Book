@@ -21,7 +21,6 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 		centerMode: true,
 		centerPadding: '0px',
 		responsive: [
-			// 반응형 속성 설정
 			{
 				breakpoint: 1024,
 				settings: {
@@ -36,7 +35,7 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
-					initialSlide: 1, // 초기 슬라이드 위치
+					initialSlide: 1,
 				},
 			},
 		],
