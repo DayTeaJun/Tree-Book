@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
-import { Books } from '../../Components/Books/Books/books.style';
+import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import CarouselSlick from '../../Components/Carousel/Carousel';
+import { S } from './homFeed.style';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomeFeed() {
+	const navigate = useNavigate();
+
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books'],
 		queryFn: () => getBooks('자바스크립트', 12),
@@ -23,22 +26,25 @@ export default function HomeFeed() {
 			{books && books.length !== 0 ? (
 				<>
 					<CarouselSlick bookData={books} />
-					<Books $search={true}>
+					<S.Section>
 						{books.map((el: BData) => (
-							<Link
-								to={`/search/detail/${el.title}`}
-								state={{ bookData: el }}
+							<S.Container
+								onClick={() => {
+									navigate(`/search/detail/${el.title}`, {
+										state: { bookData: el },
+									});
+								}}
 								key={el.isbn}
 							>
-								<img
+								<BookImg
 									style={{ borderRadius: '5px' }}
 									src={el.thumbnail}
 									alt={`책 ${el.title}의 이미지`}
 									onError={onErrorImg}
 								/>
-							</Link>
+							</S.Container>
 						))}
-					</Books>
+					</S.Section>
 				</>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>

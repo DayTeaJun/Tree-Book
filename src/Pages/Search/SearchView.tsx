@@ -1,12 +1,14 @@
 import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
-import { Link, useParams } from 'react-router-dom';
-import { Books } from '../../Components/Books/Books/books.style';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
+import { S } from '../HomeFeed/homFeed.style';
 
 export default function SearchView() {
 	const searchTitle: string = useParams().searchView || '';
+	const navigate = useNavigate();
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books', searchTitle],
@@ -23,23 +25,26 @@ export default function SearchView() {
 	return (
 		<>
 			{books && books.length !== 0 ? (
-				<Books $search={true}>
+				<S.Section>
 					{books.map((el: BData) => (
-						<Link
-							to={`/search/detail/${el.title}`}
-							state={{ bookData: el }}
+						<S.Container
+							onClick={() => {
+								navigate(`/search/detail/${el.title}`, {
+									state: { bookData: el },
+								});
+							}}
 							key={el.isbn}
 						>
-							<img
+							<BookImg
 								style={{ borderRadius: '5px' }}
 								src={el.thumbnail}
 								alt={`책 ${el.title}의 이미지`}
 								onError={onErrorImg}
 							/>
-							<h2>{el.title}</h2>
-						</Link>
+							<S.H2>{el.title}</S.H2>
+						</S.Container>
 					))}
-				</Books>
+				</S.Section>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
