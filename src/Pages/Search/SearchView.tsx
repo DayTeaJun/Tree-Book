@@ -1,7 +1,7 @@
 import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BData } from '../../Types/bookData';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { S } from '../HomeFeed/homFeed.style';

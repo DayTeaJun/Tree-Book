@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
-import { SignupForm } from './LoginSignup.style';
-import { useSignup } from '../../Hook/FirebaseHook/useSignup';
+import { LS } from './LoginSignup.style';
 import { useLogin } from '../../Hook/FirebaseHook/useLogin';
 
 export default function Login() {
@@ -22,11 +21,11 @@ export default function Login() {
 	};
 
 	return (
-		<SignupForm onSubmit={handleSubmit}>
+		<LS.Form onSubmit={handleSubmit}>
 			<fieldset>
-				<legend>로그인</legend>
-				<label htmlFor='myEmail'>Email</label>
-				<input
+				<LS.Legend>로그인</LS.Legend>
+				<LS.Label htmlFor='myEmail'>Email</LS.Label>
+				<LS.Input
 					type='email'
 					id='myEmail'
 					required
@@ -34,8 +33,8 @@ export default function Login() {
 					onChange={handleData}
 				/>
 
-				<label htmlFor='myPassword'>Password</label>
-				<input
+				<LS.Label htmlFor='myPassword'>Password</LS.Label>
+				<LS.Input
 					type='password'
 					id='myPassword'
 					required
@@ -43,8 +42,8 @@ export default function Login() {
 					onChange={handleData}
 				/>
 
-				<button type='submit'>로그인</button>
+				<LS.Button type='submit'>로그인</LS.Button>
 			</fieldset>
-		</SignupForm>
+		</LS.Form>
 	);
 }

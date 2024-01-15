@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react';
-import { SignupForm } from './LoginSignup.style';
+import { LS } from './LoginSignup.style';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 import persImg from '../../Assets/No-img.svg';
 import { ImgPreview } from '../../Hook/useImgPreview';
@@ -31,21 +31,21 @@ export default function Signup() {
 	};
 
 	return (
-		<SignupForm onSubmit={handleSubmit}>
+		<LS.Form onSubmit={handleSubmit}>
 			<fieldset>
-				<legend>회원가입</legend>
-				<div>
-					<img src={(imgUrl && imageSrc) || persImg} />
-					<label htmlFor='profileImg'>프로필 이미지</label>
-					<input
+				<LS.Legend>회원가입</LS.Legend>
+				<LS.Container>
+					<LS.Img src={(imgUrl && imageSrc) || persImg} />
+					<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
+					<LS.ImgInput
 						id='profileImg'
 						type='file'
 						accept='image/*'
 						onChange={(e) => onUpload(e)}
 					/>
-				</div>
-				<label htmlFor='myEmail'>Email</label>
-				<input
+				</LS.Container>
+				<LS.Label htmlFor='myEmail'>Email</LS.Label>
+				<LS.Input
 					type='email'
 					id='myEmail'
 					required
@@ -53,8 +53,8 @@ export default function Signup() {
 					onChange={handleData}
 				/>
 
-				<label htmlFor='myPassword'>Password</label>
-				<input
+				<LS.Label htmlFor='myPassword'>Password</LS.Label>
+				<LS.Input
 					type='password'
 					id='myPassword'
 					required
@@ -62,8 +62,8 @@ export default function Signup() {
 					onChange={handleData}
 				/>
 
-				<label htmlFor='myNickName'>Nickname</label>
-				<input
+				<LS.Label htmlFor='myNickName'>Nickname</LS.Label>
+				<LS.Input
 					type='text'
 					id='myNickName'
 					required
@@ -71,8 +71,8 @@ export default function Signup() {
 					onChange={handleData}
 				/>
 
-				<button type='submit'>회원가입</button>
+				<LS.Button type='submit'>회원가입</LS.Button>
 			</fieldset>
-		</SignupForm>
+		</LS.Form>
 	);
 }
