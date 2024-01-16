@@ -1,6 +1,11 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useState } from 'react';
-import { appAuth, appFirestore, storage } from '../../Firebase/config';
+import {
+	appAuth,
+	appFirestore,
+	storage,
+	timestamp,
+} from '../../Firebase/config';
 import { useAuthContext } from './useAuthContext';
 import { AuthContextProps } from '../../Context/AuthContext';
 import { useFirestore } from './useFirestore';
@@ -44,6 +49,7 @@ export const useSignup = () => {
 				const snapshot = await uploadBytes(storageRef, imgUrl);
 				const photoURL = await getDownloadURL(snapshot.ref);
 				const uid = user.uid;
+				const createdTime = timestamp.fromDate(new Date());
 
 				const userDocRef = doc(collection(appFirestore, 'user'), uid);
 
@@ -53,6 +59,7 @@ export const useSignup = () => {
 					displayName,
 					photoURL,
 					uid,
+					createdTime,
 				});
 
 				try {
