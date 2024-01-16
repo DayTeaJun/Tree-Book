@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
-import { Comments } from '../../Components/Comments/Comments';
+import { CommentForm } from '../../Components/Comments/CommentForm';
 import { D } from './bookDetail.style';
 
 export default function BookDetail() {
@@ -85,7 +85,7 @@ export default function BookDetail() {
 
 			{isLoading && <h2>Loading...</h2>}
 
-			<Comments />
+			<CommentForm />
 		</D.Main>
 	);
 }
