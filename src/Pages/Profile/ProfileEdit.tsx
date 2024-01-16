@@ -3,7 +3,7 @@ import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { ProfileEditMain } from './ProfileEdit.style';
+import { PE } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { ImgPreview } from '../../Hook/useImgPreview';
@@ -54,41 +54,39 @@ export function ProfileEdit() {
 	};
 
 	return (
-		<ProfileEditMain>
-			<h1>프로필 수정</h1>
-			<p>프로필을 수정 하실 수 있습니다</p>
-			<div>
-				<form onSubmit={handleSubmit}>
-					<div>
-						<img
-							src={(imgUrl && imageSrc) || user?.photoURL || persImg}
-							alt={'프로필 이미지 사진입니다.'}
-						/>
-						<label htmlFor='profileImgEdit'>프로필 이미지 수정</label>
-						<input
-							id='profileImgEdit'
-							type='file'
-							accept='image/*'
-							onChange={(e) => onUpload(e)}
-						/>
-					</div>
-					<label htmlFor='nickNameEdit'>닉네임</label>
-					<input
-						id='nickNameEdit'
-						type='text'
-						placeholder='변경할 닉네임을 입력해주세요.'
-						value={displayName}
-						onChange={handleName}
+		<PE.Main>
+			<PE.H1>프로필 수정</PE.H1>
+			<PE.P>프로필을 수정 하실 수 있습니다</PE.P>
+			<PE.Form onSubmit={handleSubmit}>
+				<PE.ContainerImg>
+					<PE.Img
+						src={(imgUrl && imageSrc) || user?.photoURL || persImg}
+						alt={'프로필 이미지 사진입니다.'}
 					/>
-					<div>
-						<button type='submit'>변경</button>
+					<PE.Label htmlFor='profileImgEdit'>프로필 이미지 수정</PE.Label>
+					<PE.ImgInput
+						id='profileImgEdit'
+						type='file'
+						accept='image/*'
+						onChange={(e) => onUpload(e)}
+					/>
+				</PE.ContainerImg>
+				<PE.Label htmlFor='nickNameEdit'>닉네임</PE.Label>
+				<PE.Input
+					id='nickNameEdit'
+					type='text'
+					placeholder='변경할 닉네임을 입력해주세요.'
+					value={displayName}
+					onChange={handleName}
+				/>
+				<PE.ContainerBtn>
+					<PE.Button type='submit'>변경</PE.Button>
 
-						<button type='button' onClick={() => navigate(-1)}>
-							취소
-						</button>
-					</div>
-				</form>
-			</div>
-		</ProfileEditMain>
+					<PE.Button type='button' onClick={() => navigate(-1)}>
+						취소
+					</PE.Button>
+				</PE.ContainerBtn>
+			</PE.Form>
+		</PE.Main>
 	);
 }
