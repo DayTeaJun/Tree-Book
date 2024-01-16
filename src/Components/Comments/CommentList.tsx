@@ -9,7 +9,6 @@ export function CommentList() {
 	const book: string = useParams().bookDetail || '';
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
-	console.log(documents);
 
 	return (
 		<>

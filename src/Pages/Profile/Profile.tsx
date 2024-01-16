@@ -20,10 +20,6 @@ export function Profile() {
 		}
 	}, []);
 
-	if (documents) {
-		console.log(documents);
-	}
-
 	return (
 		<P.Main>
 			{anotherUser &&
