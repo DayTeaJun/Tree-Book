@@ -7,15 +7,16 @@ export const useCollection = (transaction: string) => {
 	const [documents, setDocuments] = useState<FirestoreDocument[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	console.log(transaction);
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
-			query(collection(appFirestore, transaction)),
+			query(
+				collection(appFirestore, transaction),
+				orderBy('createdTime', 'desc')
+			),
 			(snapshot) => {
 				setIsLoading(true);
 				let result: FirestoreDocument[] = [];
-				console.log(snapshot.docs);
 				snapshot.docs.forEach((doc) => {
 					const data = doc.data();
 					if (data.createdTime) {
@@ -31,7 +32,6 @@ export const useCollection = (transaction: string) => {
 							uid: doc.id,
 						});
 					}
-					console.log(data);
 				});
 
 				setDocuments(result);
