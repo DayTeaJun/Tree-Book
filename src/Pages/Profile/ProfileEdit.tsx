@@ -60,7 +60,10 @@ export function ProfileEdit() {
 			<div>
 				<form onSubmit={handleSubmit}>
 					<div>
-						<img src={(imgUrl && imageSrc) || user?.photoURL || persImg} />
+						<img
+							src={(imgUrl && imageSrc) || user?.photoURL || persImg}
+							alt={'프로필 이미지 사진입니다.'}
+						/>
 						<label htmlFor='profileImgEdit'>프로필 이미지 수정</label>
 						<input
 							id='profileImgEdit'

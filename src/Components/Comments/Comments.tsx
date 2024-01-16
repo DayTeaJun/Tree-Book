@@ -84,7 +84,10 @@ export function Comments() {
 								<div>
 									<FlexImgBtn>
 										<FlexImgLink>
-											<ProfileImg src={comment.photoURL} />
+											<ProfileImg
+												src={comment.photoURL}
+												alt={`${comment.displayName}의 프로필 사진입니다.`}
+											/>
 
 											<FlexNameComment>
 												<FlexNameDate>

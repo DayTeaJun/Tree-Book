@@ -28,7 +28,10 @@ export function Profile() {
 					(users) =>
 						users.displayName === anotherUser && (
 							<>
-								<P.Img src={users.photoURL || persImg} />
+								<P.Img
+									src={users.photoURL || persImg}
+									alt={`${users.displayName}의 프로필 사진입니다.`}
+								/>
 								<h1>{users.displayName}의 프로필</h1>
 								<h2>{users.email}</h2>
 							</>
@@ -37,7 +40,10 @@ export function Profile() {
 
 			{!anotherUser && user && (
 				<>
-					<P.Img src={user.photoURL || persImg} />
+					<P.Img
+						src={user.photoURL || persImg}
+						alt={`${user.displayName}의 프로필 사진입니다.`}
+					/>
 					<h1>{user.displayName}의 프로필</h1>
 					<h2>{user.email}</h2>
 					<P.ALink to='./edit'>프로필 수정하기</P.ALink>

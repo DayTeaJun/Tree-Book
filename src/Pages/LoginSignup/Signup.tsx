@@ -35,7 +35,10 @@ export default function Signup() {
 			<fieldset>
 				<LS.Legend>회원가입</LS.Legend>
 				<LS.Container>
-					<LS.Img src={(imgUrl && imageSrc) || persImg} />
+					<LS.Img
+						src={(imgUrl && imageSrc) || persImg}
+						alt={'프로필 이미지 등록'}
+					/>
 					<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
 					<LS.ImgInput
 						id='profileImg'
