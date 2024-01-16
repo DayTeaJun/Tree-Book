@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import {
+	CF,
 	CommentDate,
-	CommentsForm,
 	CommentsList,
 	DelOrReport,
 	FlexImgBtn,
@@ -57,27 +57,22 @@ export function Comments() {
 
 	return (
 		<>
-			<CommentsForm>
-				<li>
-					<form onSubmit={handleSubmit}>
-						<h4>댓글쓰기</h4>
-						<div>
-							<label htmlFor='commentInput'>댓글 입력</label>
-							<input
-								id='commentInput'
-								type='text'
-								placeholder='댓글 내용을 입력해주세요.'
-								name='content'
-								value={comments}
-								onChange={handleData}
-							/>
+			<CF.Form onSubmit={handleSubmit}>
+				<CF.H2>댓글쓰기</CF.H2>
+				<CF.Container>
+					<CF.Label htmlFor='commentInput'>댓글 입력</CF.Label>
+					<CF.Input
+						id='commentInput'
+						type='text'
+						placeholder='댓글 내용을 입력해주세요.'
+						name='content'
+						value={comments}
+						onChange={handleData}
+					/>
 
-							<button type='submit'>등록</button>
-						</div>
-					</form>
-				</li>
-				<li></li>
-			</CommentsForm>
+					<CF.Button type='submit'>등록</CF.Button>
+				</CF.Container>
+			</CF.Form>
 			{documents &&
 				documents.map(
 					(comment) =>
