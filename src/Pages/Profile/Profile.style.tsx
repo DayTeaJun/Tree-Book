@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const ProfileMain = styled.main`
+const Main = styled.main`
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
@@ -10,18 +11,24 @@ export const ProfileMain = styled.main`
 	padding: 20px 24px;
 	min-height: 200px;
 	gap: 10px;
-
-	img {
-		width: 150px;
-		height: 150px;
-	}
-
-	a {
-		margin-top: 20px;
-		padding: 10px 12px;
-		font-size: 1.1em;
-		border-radius: 10px;
-		background-color: skyblue;
-		color: white;
-	}
 `;
+
+const Img = styled.img`
+	width: 150px;
+	height: 150px;
+`;
+
+const ALink = styled(Link)`
+	margin-top: 20px;
+	padding: 10px 12px;
+	font-size: 1.1em;
+	border-radius: 10px;
+	background-color: skyblue;
+	color: white;
+`;
+
+export const P = {
+	Main,
+	Img,
+	ALink,
+};
