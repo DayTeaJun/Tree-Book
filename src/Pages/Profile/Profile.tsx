@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
@@ -7,9 +7,10 @@ import { useEffect } from 'react';
 
 export function Profile() {
 	const { user } = useAuthContext();
-	const { documents } = useCollection('user');
+	const { documents, error, isLoading } = useCollection('user');
 	const anotherUser = useParams().userProfile || '';
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		if (user) {
@@ -19,6 +20,10 @@ export function Profile() {
 		}
 	}, []);
 
+	if (documents) {
+		console.log(documents);
+	}
+
 	return (
 		<P.Main>
 			{anotherUser &&
@@ -26,7 +31,7 @@ export function Profile() {
 				documents &&
 				documents.map(
 					(users) =>
-						users.displayName === anotherUser && (
+						users.uid === location.state.id && (
 							<>
 								<P.Img
 									src={users.photoURL || persImg}

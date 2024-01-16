@@ -17,7 +17,6 @@ export const useSignup = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext() as AuthContextProps;
-	const { addDocument, response } = useFirestore('user');
 
 	const signup = async ({
 		email,

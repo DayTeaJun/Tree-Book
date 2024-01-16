@@ -47,6 +47,8 @@ export function Comments() {
 		}
 	};
 
+	console.log(documents);
+
 	useEffect(() => {
 		if (response.success) {
 			setComments('');
@@ -94,7 +96,10 @@ export function Comments() {
 													{user && user.uid === comment.id ? (
 														<Link to={`/profile`}>{comment.displayName}</Link>
 													) : (
-														<Link to={`/profile/${comment.displayName}`}>
+														<Link
+															to={`/profile/${comment.displayName}`}
+															state={{ id: comment.id }}
+														>
 															{comment.displayName}
 														</Link>
 													)}
