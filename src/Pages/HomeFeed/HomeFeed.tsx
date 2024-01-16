@@ -3,7 +3,6 @@ import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
 import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
-import CarouselSlick from '../../Components/Carousel/Carousel';
 import { S } from './homFeed.style';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +24,6 @@ export default function HomeFeed() {
 		<>
 			{books && books.length !== 0 ? (
 				<>
-					<CarouselSlick bookData={books} />
 					<S.Section>
 						{books.map((el: BData) => (
 							<S.Container
