@@ -20,3 +20,9 @@ export interface SerachParams {
 	size: number;
 	target: string;
 }
+
+export interface ItemProps {
+	item: BData;
+	search: string;
+	id: number;
+}

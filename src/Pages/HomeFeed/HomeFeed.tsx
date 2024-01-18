@@ -4,11 +4,8 @@ import { BData } from '../../Types/bookData';
 import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { S } from './homFeed.style';
-import { useNavigate } from 'react-router-dom';
 
 export default function HomeFeed() {
-	const navigate = useNavigate();
-
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books'],
 		queryFn: () => getBooks('자바스크립트', 12),
@@ -25,19 +22,12 @@ export default function HomeFeed() {
 			{books && books.length !== 0 ? (
 				<>
 					<S.Section>
-						{books.map((el: BData) => (
-							<S.Container
-								onClick={() => {
-									navigate(`/search/detail/${el.title}`, {
-										state: { bookData: el },
-									});
-								}}
-								key={el.isbn}
-							>
+						{books.map((item: BData, index: number) => (
+							<S.Container>
 								<BookImg
 									style={{ borderRadius: '5px' }}
-									src={el.thumbnail}
-									alt={`책 ${el.title}의 이미지`}
+									src={item.thumbnail}
+									alt={`책 ${item.title}의 이미지`}
 									onError={onErrorImg}
 								/>
 							</S.Container>
