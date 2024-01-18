@@ -11,7 +11,7 @@ export interface BData {
 	thumbnail: string;
 	title: string;
 	translators: string[];
-	url: string[];
+	url: string;
 }
 
 // 검색 API

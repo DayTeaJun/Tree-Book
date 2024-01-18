@@ -25,27 +25,32 @@ export default function BookDetail() {
 		setBookItem(bookItem);
 	}, [books]);
 
-	const onWebsiteView = () => {
-		window.open(books.url);
-	};
-
-	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
-		const target = e.target as HTMLImageElement;
-		target.src = errorImg;
-	};
-
 	return (
 		<D.Main>
 			{bookItem ? (
 				<>
 					<D.Section key={bookItem.isbn}>
 						<D.Container>
-							<BookImg
-								src={bookItem.thumbnail}
-								alt={`책 ${bookItem.title}의 이미지`}
-								onError={onErrorImg}
-							/>
-							<D.Alink onClick={onWebsiteView}>다음 검색으로 이동</D.Alink>
+							{bookItem.thumbnail ? (
+								<BookImg
+									style={{ borderRadius: '5px' }}
+									src={bookItem.thumbnail}
+									alt={`책 ${bookItem.title}의 이미지`}
+								/>
+							) : (
+								<BookImg
+									style={{ borderRadius: '5px' }}
+									src={errorImg}
+									alt={`책 ${bookItem.title}의 이미지`}
+								/>
+							)}
+							<D.Alink
+								onClick={() => {
+									window.open(bookItem.url);
+								}}
+							>
+								다음 검색으로 이동
+							</D.Alink>
 						</D.Container>
 
 						<D.Container>
@@ -85,7 +90,9 @@ export default function BookDetail() {
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>출판일</D.Dt>
-								<D.Dd>{bookItem.datetime.substr(0, 10)}</D.Dd>
+								<D.Dd>
+									{bookItem.datetime.substr(0, 10).replaceAll('-', '. ')}
+								</D.Dd>
 							</D.Dl>
 						</D.Container>
 					</D.Section>
