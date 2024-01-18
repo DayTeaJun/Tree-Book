@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { BookImg } from '../../Components/Books/Books/books.style';
-import { ItemProps } from '../../Types/bookData';
-import { S } from '../HomeFeed/homFeed.style';
+import { B, BookImg } from './bookItem.style';
 import errorImg from '../../Assets/No-img.svg';
+import { ItemProps } from '../../Types/bookData';
 
 const BookItem = ({ item, id, search }: ItemProps) => {
 	const navigate = useNavigate();
@@ -12,7 +11,7 @@ const BookItem = ({ item, id, search }: ItemProps) => {
 	};
 
 	return (
-		<S.Container onClick={onMoveBookDetail}>
+		<B.Container onClick={onMoveBookDetail}>
 			{item.thumbnail ? (
 				<BookImg
 					style={{ borderRadius: '5px' }}
@@ -26,12 +25,12 @@ const BookItem = ({ item, id, search }: ItemProps) => {
 					alt={`책 ${item.title}의 이미지`}
 				/>
 			)}
-			<S.H2>{item.title}</S.H2>
-			<S.P>
+			<B.H2>{item.title}</B.H2>
+			<B.P>
 				{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
-			</S.P>
-			<S.Price>{item.price.toLocaleString('ko-KR')}원</S.Price>
-		</S.Container>
+			</B.P>
+			<B.Price>{item.price.toLocaleString('ko-KR')}원</B.Price>
+		</B.Container>
 	);
 };
 

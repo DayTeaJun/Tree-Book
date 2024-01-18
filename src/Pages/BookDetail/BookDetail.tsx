@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
-import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { CommentForm } from '../../Components/Comments/CommentForm';
 import { D } from './bookDetail.style';
 import { BData } from '../../Types/bookData';
 import { useEffect, useState } from 'react';
+import { BookImg } from '../../Components/Books/bookItem.style';
 
 export default function BookDetail() {
 	const { id, search } = useParams<{ id: string; search: string }>();

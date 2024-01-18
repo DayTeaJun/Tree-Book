@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';
 import { BData } from '../../Types/bookData';
-import { BookImg } from '../../Components/Books/Books/books.style';
-import errorImg from '../../Assets/No-img.svg';
+import BookItem from '../../Components/Books/BookItem';
 import { S } from './homFeed.style';
-import BookItem from '../Search/BookItem';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -12,11 +10,6 @@ export default function HomeFeed() {
 		queryFn: () => getBooks('자바스크립트', 12),
 		refetchOnWindowFocus: false,
 	});
-
-	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
-		const target = e.target as HTMLImageElement;
-		target.src = errorImg;
-	};
 
 	return (
 		<>
