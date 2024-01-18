@@ -7,9 +7,7 @@ import errorImg from '../../Assets/No-img.svg';
 const BookItem = ({ item, id, search }: ItemProps) => {
 	const navigate = useNavigate();
 	const onMoveBookDetail = () => {
-		navigate(`/search/detail/${item.title}`, {
-			state: { bookData: item },
-		});
+		navigate(`../${search}/${id}`);
 	};
 
 	return (

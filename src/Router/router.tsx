@@ -34,8 +34,8 @@ export default function Router() {
 						element={!user ? <Login /> : <Navigate replace={true} to='/' />}
 					/>
 					<Route path='/search/' element={<Outlet />}>
-						<Route path='detail/:bookDetail' element={<BookDetail />} />
 						<Route path=':searchView' element={<SearchView />} />
+						<Route path=':search/:id' element={<BookDetail />} />
 					</Route>
 					<Route path='/profile'>
 						<Route
