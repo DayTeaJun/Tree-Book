@@ -5,17 +5,28 @@ import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { CommentForm } from '../../Components/Comments/CommentForm';
 import { D } from './bookDetail.style';
+import { BData } from '../../Types/bookData';
+import { useEffect, useState } from 'react';
 
 export default function BookDetail() {
-	const BD: string = useParams().bookDetail || '';
+	const { id, search } = useParams<{ id: string; search: string }>();
+	const [bookItem, setBookItem] = useState<BData>();
+
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['bookDetail', BD],
-		queryFn: () => getBooks(BD),
-		enabled: !!BD,
+		queryKey: ['bookDetail', search],
+		queryFn: () => getBooks(search!),
+		enabled: !!search,
 	});
 
+	useEffect(() => {
+		const bookItem: BData = books.find(
+			(_: BData, index: number) => index === parseInt(id!)
+		);
+		setBookItem(bookItem);
+	}, [books]);
+
 	const onWebsiteView = () => {
-		window.open(books[0].url);
+		window.open(books.url);
 	};
 
 	const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -25,40 +36,40 @@ export default function BookDetail() {
 
 	return (
 		<D.Main>
-			{books && books.length !== 0 ? (
+			{bookItem ? (
 				<>
-					<D.Section key={books[0].isbn}>
+					<D.Section key={bookItem.isbn}>
 						<D.Container>
 							<BookImg
-								src={books[0].thumbnail}
-								alt={`책 ${books[0].title}의 이미지`}
+								src={bookItem.thumbnail}
+								alt={`책 ${bookItem.title}의 이미지`}
 								onError={onErrorImg}
 							/>
 							<D.Alink onClick={onWebsiteView}>다음 검색으로 이동</D.Alink>
 						</D.Container>
 
 						<D.Container>
-							<D.H2>{books[0].title}</D.H2>
+							<D.H2>{bookItem.title}</D.H2>
 							<D.Dl>
 								<D.Dt>작가</D.Dt>
 								<D.Dd>
-									{books[0].author !== undefined || ''
-										? books[0].authors
+									{bookItem.authors !== undefined || ''
+										? bookItem.authors
 										: '미상'}
 								</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>출판사</D.Dt>
 								<D.Dd>
-									{books[0].publisher !== (undefined || '')
-										? books[0].publisher
+									{bookItem.publisher !== (undefined || '')
+										? bookItem.publisher
 										: '미상'}
 								</D.Dd>
 							</D.Dl>
-							{books[0].contents !== (undefined || '') ? (
+							{bookItem.contents !== (undefined || '') ? (
 								<D.Dl>
 									<D.Dt>내용</D.Dt>
-									<D.Dd>{books[0].contents}</D.Dd>
+									<D.Dd>{bookItem.contents}</D.Dd>
 								</D.Dl>
 							) : (
 								<></>
@@ -66,21 +77,21 @@ export default function BookDetail() {
 
 							<D.Dl>
 								<D.Dt>가격</D.Dt>
-								<D.Dd>{books[0].price}원</D.Dd>
+								<D.Dd>{bookItem.price}원</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>ISBN</D.Dt>
-								<D.Dd>{books[0].isbn}</D.Dd>
+								<D.Dd>{bookItem.isbn}</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>출판일</D.Dt>
-								<D.Dd>{books[0].datetime.substr(0, 10)}</D.Dd>
+								<D.Dd>{bookItem.datetime.substr(0, 10)}</D.Dd>
 							</D.Dl>
 						</D.Container>
 					</D.Section>
 				</>
 			) : (
-				<>{books && books.length === 0 && <h2>not found</h2>}</>
+				<>{bookItem && <h2>not found</h2>}</>
 			)}
 
 			{isLoading && <h2>Loading...</h2>}
