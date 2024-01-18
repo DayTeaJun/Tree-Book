@@ -3,6 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { H } from './Header.style';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { useLogout } from '../Hook/FirebaseHook/useLogout';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PortraitIcon from '@mui/icons-material/Portrait';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Header() {
 	const [searchTitle, setSearchTitle] = useState('');
@@ -37,18 +42,31 @@ export default function Header() {
 						spellCheck='false'
 						placeholder='책 이름을 입력해주세요.'
 					/>
+					<H.Button>
+						<SearchIcon />
+					</H.Button>
 				</H.Form>
 				{isAuthReady && !user && (
 					<H.Container>
-						<H.ALink to='/signup'>회원가입</H.ALink>
-						<H.ALink to='/login'>로그인</H.ALink>
+						<H.ALink to='/signup'>
+							회원가입
+							<PortraitIcon />
+						</H.ALink>
+						<H.ALink to='/login'>
+							로그인
+							<LoginIcon />
+						</H.ALink>
 					</H.Container>
 				)}
 				{isAuthReady && user && (
 					<H.Container>
-						<H.ALink to='/profile'>내 프로필</H.ALink>
+						<H.ALink to='/profile'>
+							내 프로필
+							<AccountCircleIcon />
+						</H.ALink>
 						<H.ALink to='/' onClick={logout}>
 							로그아웃
+							<LogoutIcon />
 						</H.ALink>
 					</H.Container>
 				)}

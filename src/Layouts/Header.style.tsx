@@ -18,6 +18,7 @@ const LinkHome = styled(Link)`
 `;
 
 const Container = styled.div`
+	display: flex;
 	position: absolute;
 	border-radius: 5px;
 	background-color: #eee;
@@ -44,7 +45,6 @@ const Form = styled.form`
 	display: flex;
 	justify-content: center;
 	padding: 5px;
-	gap: 10px;
 `;
 
 const Label = styled.label`
@@ -65,18 +65,22 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-	border: 0;
-	border-radius: 5px;
-	background: skyblue;
-	padding: 10px;
-	color: #fff;
+	border: none;
+	background-color: #fff;
 	cursor: pointer;
 `;
 
 const ALink = styled(Link)`
+	display: flex;
+	align-items: center;
+	gap: 5px;
 	font-size: 1em;
 	font-weight: bold;
 	cursor: pointer;
+
+	img {
+		height: 100%;
+	}
 
 	&:nth-child(1) {
 		margin-right: 10px;
