@@ -27,17 +27,19 @@ export default function Header() {
 	return (
 		<>
 			<H.Header>
-				<H.Alink to='/' />
-				<H.Form onSubmit={handleSubmit}>
-					<H.Label htmlFor='searchTtitle'>도서 검색창</H.Label>
-					<H.Input
-						id='searchTtitle'
-						type='text'
-						ref={inputRef}
-						spellCheck='false'
-					/>
-					<H.Button>검색</H.Button>
-				</H.Form>
+				<H.Alink to='/'>Tree Book</H.Alink>
+				<H.Container>
+					<H.Form onSubmit={handleSubmit}>
+						<H.Label htmlFor='searchTtitle'>도서 검색창</H.Label>
+						<H.Input
+							id='searchTtitle'
+							type='text'
+							ref={inputRef}
+							spellCheck='false'
+							placeholder='책 이름을 입력해주세요.'
+						/>
+					</H.Form>
+				</H.Container>
 				{isAuthReady && !user && (
 					<H.Strong>
 						<Link to='/signup'>회원가입</Link> | <Link to='/login'>로그인</Link>

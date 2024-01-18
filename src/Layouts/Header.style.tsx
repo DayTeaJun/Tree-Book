@@ -5,12 +5,27 @@ import { a11y } from '../Styles/Common';
 
 const Header = styled.header`
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding-top: 15px;
+`;
+
+const Alink = styled(Link)`
+	font-size: 35px;
+	font-weight: bold;
+	text-align: center;
+	color: Green;
+	font-family: 'OG_Renaissance_Secret-Rg';
+`;
+
+const Container = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	padding: 5px;
 	gap: 10px;
 `;
+
 const Strong = styled.strong`
 	position: absolute;
 	top: 50%;
@@ -18,16 +33,6 @@ const Strong = styled.strong`
 	transform: translate(0, -50%);
 	font-size: 1.2em;
 	cursor: pointer;
-`;
-
-const Alink = styled(Link)`
-	width: 50px;
-	height: 50px;
-	background: #2e2e2e;
-	color: #fff;
-	font-weight: bold;
-	border-radius: 10px;
-	background: url(${HomeOutline}) no-repeat center;
 `;
 
 const Form = styled.form`
@@ -39,9 +44,10 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-	font-size: 18px;
+	font-size: 16px;
+	text-align: center;
 	margin-right: 10px;
-	padding: 0 5px 0 5px;
+	padding: 5px;
 	border: none;
 	border-bottom: solid 1px black;
 	&:focus {
@@ -58,4 +64,13 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-export const H = { Header, Strong, Alink, Form, Label, Input, Button };
+export const H = {
+	Header,
+	Container,
+	Strong,
+	Alink,
+	Form,
+	Label,
+	Input,
+	Button,
+};
