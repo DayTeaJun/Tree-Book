@@ -8,7 +8,7 @@ const BookItem = ({ item, id, search }: ItemProps) => {
 	const navigate = useNavigate();
 	const isbn = item.isbn;
 	const onMoveBookDetail = () => {
-		navigate(`../${search}/${id}`, { state: { isbn } });
+		navigate(`/search/${search}/${id}`, { state: { isbn } });
 	};
 
 	return (

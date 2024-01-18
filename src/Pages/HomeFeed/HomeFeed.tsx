@@ -4,6 +4,7 @@ import { BData } from '../../Types/bookData';
 import { BookImg } from '../../Components/Books/Books/books.style';
 import errorImg from '../../Assets/No-img.svg';
 import { S } from './homFeed.style';
+import BookItem from '../Search/BookItem';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -23,13 +24,13 @@ export default function HomeFeed() {
 				<>
 					<S.Section>
 						{books.map((item: BData, index: number) => (
-							<S.Container>
-								<BookImg
-									style={{ borderRadius: '5px' }}
-									src={item.thumbnail}
-									alt={`책 ${item.title}의 이미지`}
-									onError={onErrorImg}
-								/>
+							<S.Container key={item.isbn}>
+								<BookItem
+									item={item}
+									id={index}
+									search={'자바스크립트'}
+									key={item.isbn}
+								></BookItem>
 							</S.Container>
 						))}
 					</S.Section>
