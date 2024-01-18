@@ -24,14 +24,12 @@ export default function HomeFeed() {
 				<>
 					<S.Section>
 						{books.map((item: BData, index: number) => (
-							<S.Container key={item.isbn}>
-								<BookItem
-									item={item}
-									id={index}
-									search={'자바스크립트'}
-									key={item.isbn}
-								></BookItem>
-							</S.Container>
+							<BookItem
+								item={item}
+								id={index}
+								search={'자바스크립트'}
+								key={item.isbn}
+							></BookItem>
 						))}
 					</S.Section>
 				</>

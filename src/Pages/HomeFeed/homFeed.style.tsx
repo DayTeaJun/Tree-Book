@@ -5,18 +5,23 @@ const Section = styled.section`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 5px;
+	gap: 20px;
 	flex-wrap: wrap;
 `;
 
 const Container = styled.div`
+	border: 0.5px #eee solid;
 	padding: 10px;
 	width: 150px;
+	background-color: #fff;
 	cursor: pointer;
+	&:hover {
+		transform: scale(1.3);
+		transition: transform 0.5s;
+	}
 `;
 
 const H2 = styled.h2`
-	text-align: center;
 	font-size: 14px;
 	font-weight: bold;
 	margin-top: 5px;
@@ -28,8 +33,23 @@ const H2 = styled.h2`
 	}
 `;
 
+const P = styled.p`
+	font-size: 12px;
+	color: #a1a1a1;
+	margin-top: 5px;
+`;
+
+const Price = styled.p`
+	font-size: 12px;
+	font-weight: bold;
+	margin-top: 5px;
+	text-align: end;
+`;
+
 export const S = {
 	Section,
 	Container,
 	H2,
+	P,
+	Price,
 };

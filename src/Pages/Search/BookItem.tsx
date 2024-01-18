@@ -27,6 +27,10 @@ const BookItem = ({ item, id, search }: ItemProps) => {
 				/>
 			)}
 			<S.H2>{item.title}</S.H2>
+			<S.P>
+				{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
+			</S.P>
+			<S.Price>{item.price.toLocaleString('ko-KR')}원</S.Price>
 		</S.Container>
 	);
 };
