@@ -11,9 +11,10 @@ const Section = styled.section`
 
 const Container = styled.div`
 	border: 0.5px #eee solid;
+	background-color: #fff;
 	padding: 10px;
 	width: 150px;
-	background-color: #fff;
+	border-radius: 5px;
 	cursor: pointer;
 	&:hover {
 		transform: scale(1.3);
