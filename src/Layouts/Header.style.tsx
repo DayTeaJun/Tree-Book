@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import HomeOutline from '../Assets/home-line.svg';
 import { Link } from 'react-router-dom';
 import { a11y } from '../Styles/Common';
 
@@ -19,11 +18,13 @@ const LinkHome = styled(Link)`
 `;
 
 const Container = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding: 5px;
-	gap: 10px;
+	position: absolute;
+	border-radius: 5px;
+	background-color: #eee;
+	padding: 20px;
+	top: 50%;
+	right: 0;
+	transform: translate(0, -50%);
 `;
 
 const Strong = styled.strong`
@@ -39,7 +40,11 @@ const Strong = styled.strong`
 `;
 
 const Form = styled.form`
+	width: 100%;
 	display: flex;
+	justify-content: center;
+	padding: 5px;
+	gap: 10px;
 `;
 
 const Label = styled.label`
@@ -48,6 +53,7 @@ const Label = styled.label`
 
 const Input = styled.input`
 	font-size: 16px;
+	font-weight: bold;
 	text-align: center;
 	margin-right: 10px;
 	padding: 5px;
@@ -68,9 +74,15 @@ const Button = styled.button`
 `;
 
 const ALink = styled(Link)`
-	margin-right: 10px;
-	padding-right: 10px;
-	border-right: 2px #fff solid;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+
+	&:nth-child(1) {
+		margin-right: 10px;
+		padding-right: 10px;
+		border-right: 2px #fff solid;
+	}
 `;
 
 export const H = {
