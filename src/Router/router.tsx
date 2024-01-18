@@ -8,19 +8,19 @@ import {
 import HomeFeed from '../Pages/HomeFeed/HomeFeed';
 import BookDetail from '../Pages/BookDetail/BookDetail';
 import SearchView from '../Pages/Search/SearchView';
-import TopNavbar from '../Layouts/topNavbar';
 import Signup from '../Pages/LoginSignup/Signup';
 import Login from '../Pages/LoginSignup/Login';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
+import Header from '../Layouts/Header';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
 
 	return (
 		<BrowserRouter basename='/'>
-			<TopNavbar />
+			<Header />
 
 			{isAuthReady ? (
 				<Routes>
