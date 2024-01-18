@@ -19,10 +19,12 @@ export default function BookDetail() {
 	});
 
 	useEffect(() => {
-		const bookItem: BData = books.find(
-			(_: BData, index: number) => index === parseInt(id!)
-		);
-		setBookItem(bookItem);
+		if (!isLoading && books) {
+			const bookItem: BData = books.find(
+				(_: BData, index: number) => index === parseInt(id!)
+			);
+			setBookItem(bookItem);
+		}
 	}, [books]);
 
 	return (
