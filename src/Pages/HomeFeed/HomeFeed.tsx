@@ -7,7 +7,7 @@ import { S } from './homFeed.style';
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books'],
-		queryFn: () => getBooks('자바스크립트', 12),
+		queryFn: () => getBooks('리액트', 12),
 		refetchOnWindowFocus: false,
 	});
 
@@ -20,7 +20,7 @@ export default function HomeFeed() {
 							<BookItem
 								item={item}
 								id={index}
-								search={'자바스크립트'}
+								search={'리액트'}
 								key={item.isbn}
 							></BookItem>
 						))}
