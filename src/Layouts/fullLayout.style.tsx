@@ -8,5 +8,5 @@ export const Layout = styled.div`
 `;
 
 export const MediaLayout = styled.div`
-	width: 1080px;
+	width: 1000px;
 `;

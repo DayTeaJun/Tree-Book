@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const Section = styled.section`
-	padding: 20px;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	width: 100%;
+	padding: 20px 0;
 	gap: 20px;
 	flex-wrap: wrap;
 `;

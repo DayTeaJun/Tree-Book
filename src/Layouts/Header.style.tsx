@@ -10,7 +10,7 @@ const Header = styled.header`
 	padding-top: 15px;
 `;
 
-const Alink = styled(Link)`
+const LinkHome = styled(Link)`
 	font-size: 35px;
 	font-weight: bold;
 	text-align: center;
@@ -28,10 +28,13 @@ const Container = styled.div`
 
 const Strong = styled.strong`
 	position: absolute;
+	border-radius: 5px;
+	background-color: #eee;
+	padding: 20px;
 	top: 50%;
 	right: 0;
 	transform: translate(0, -50%);
-	font-size: 1.2em;
+	font-size: 1em;
 	cursor: pointer;
 `;
 
@@ -64,13 +67,20 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
+const ALink = styled(Link)`
+	margin-right: 10px;
+	padding-right: 10px;
+	border-right: 2px #fff solid;
+`;
+
 export const H = {
 	Header,
 	Container,
 	Strong,
-	Alink,
+	LinkHome,
 	Form,
 	Label,
 	Input,
 	Button,
+	ALink,
 };

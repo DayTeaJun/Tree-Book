@@ -27,7 +27,7 @@ export default function Header() {
 	return (
 		<>
 			<H.Header>
-				<H.Alink to='/'>Tree Book</H.Alink>
+				<H.LinkHome to='/'>Tree Book</H.LinkHome>
 				<H.Container>
 					<H.Form onSubmit={handleSubmit}>
 						<H.Label htmlFor='searchTtitle'>도서 검색창</H.Label>
@@ -42,12 +42,13 @@ export default function Header() {
 				</H.Container>
 				{isAuthReady && !user && (
 					<H.Strong>
-						<Link to='/signup'>회원가입</Link> | <Link to='/login'>로그인</Link>
+						<H.ALink to='/signup'>회원가입</H.ALink>
+						<Link to='/login'>로그인</Link>
 					</H.Strong>
 				)}
 				{isAuthReady && user && (
 					<H.Strong>
-						<Link to='/profile'>내 프로필</Link> |{' '}
+						<H.ALink to='/profile'>내 프로필</H.ALink>
 						<a onClick={logout}>로그아웃</a>
 					</H.Strong>
 				)}
