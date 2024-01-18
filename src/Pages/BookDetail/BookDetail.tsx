@@ -98,14 +98,13 @@ export default function BookDetail() {
 							</D.Dl>
 						</D.Container>
 					</D.Section>
+					<CommentForm />
 				</>
 			) : (
 				<>{bookItem && <h2>not found</h2>}</>
 			)}
 
 			{isLoading && <h2>Loading...</h2>}
-
-			<CommentForm />
 		</D.Main>
 	);
 }

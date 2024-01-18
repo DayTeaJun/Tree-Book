@@ -4,9 +4,8 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { CL } from './CommentList.style';
 
-export function CommentList() {
+export function CommentList({ isbn }: { isbn: string }) {
 	const { documents, error } = useCollection('comments');
-	const book: string = useParams().bookDetail || '';
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
 
@@ -15,7 +14,7 @@ export function CommentList() {
 			{documents &&
 				documents.map(
 					(comment) =>
-						comment.book === book && (
+						comment.isbn === isbn && (
 							<CL.Wrapper key={comment.uid}>
 								<CL.ContainerImgBtn>
 									<CL.ContainerImgLink>

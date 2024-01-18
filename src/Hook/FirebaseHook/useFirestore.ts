@@ -71,6 +71,7 @@ export interface FirestoreDocument {
 	email?: string;
 	password?: string;
 	photoURL?: string;
+	isbn?: string;
 }
 
 interface FirestoreHook {

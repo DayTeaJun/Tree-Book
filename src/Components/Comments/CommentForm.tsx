@@ -2,15 +2,17 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { CF } from './CommentForm.style';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
 
 export function CommentForm() {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
-
-	const book: string = useParams().bookDetail || '';
 	const { user } = useAuthContext();
+	const location = useLocation();
+	const book: string = useParams().search || '';
+	const isbn = location.state.isbn;
+
 	const displayName = user?.displayName || '';
 	const id = user?.uid || '';
 	const photoURL = user?.photoURL || '';
@@ -28,6 +30,7 @@ export function CommentForm() {
 				displayName,
 				id,
 				photoURL,
+				isbn,
 			});
 		} else {
 			alert('로그인해주세요');
@@ -58,7 +61,7 @@ export function CommentForm() {
 					<CF.Button type='submit'>등록</CF.Button>
 				</CF.Container>
 			</CF.Form>
-			<CommentList />
+			<CommentList isbn={isbn} />
 		</>
 	);
 }
