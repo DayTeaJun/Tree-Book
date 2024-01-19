@@ -1,5 +1,5 @@
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
-import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -8,15 +8,39 @@ import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { ImgPreview } from '../../Hook/useImgPreview';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	getDocs,
+	query,
+	updateDoc,
+	where,
+} from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
+import useDebounce from '../../Hook/useDebounce';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const navigate = useNavigate();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
-	const { addDocument, response } = useFirestore('user');
+	const [validName, setValidName] = useState(' ');
+	const debounceName = useDebounce<string>(displayName);
+	const userRef = collection(appFirestore, 'user');
+
+	const validCheck = async () => {
+		const Query = query(userRef, where('displayName', '==', displayName));
+		const querySnapshot = await getDocs(Query);
+		if (!(user?.displayName === displayName) && querySnapshot.docs.length > 0) {
+			setValidName('중복된 닉네임입니다.');
+		} else {
+			setValidName('');
+		}
+	};
+
+	useEffect(() => {
+		validCheck();
+	}, [debounceName]);
 
 	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
 		setDisplayName(e.target.value);
@@ -79,6 +103,8 @@ export function ProfileEdit() {
 					value={displayName}
 					onChange={handleName}
 				/>
+				{validName ? <PE.P>{validName}</PE.P> : <PE.P>&nbsp;</PE.P>}
+
 				<PE.ContainerBtn>
 					<PE.Button type='submit'>변경</PE.Button>
 
