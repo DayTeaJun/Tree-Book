@@ -79,7 +79,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				value={email}
 				onChange={handleData}
 			/>
-			<p>{validEmail}</p>
+			{validEmail ? <LS.P>{validEmail}</LS.P> : <LS.P>&nbsp;</LS.P>}
 			<LS.Label htmlFor='myPassword'>Password</LS.Label>
 			<LS.Input
 				type='password'
@@ -97,7 +97,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				value={displayName}
 				onChange={handleData}
 			/>
-			<p>{validName}</p>
+			{validName ? <LS.P>{validName}</LS.P> : <LS.P>&nbsp;</LS.P>}
 		</>
 	);
 }

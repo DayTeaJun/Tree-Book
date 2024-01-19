@@ -48,12 +48,20 @@ const Label = styled.label`
 	display: block;
 	margin: 30px 0;
 `;
+
 const Input = styled.input`
 	display: block;
 	width: 100%;
-	padding: 8px;
+	padding: 8px 0;
 	border: none;
 	border-bottom: 1px solid #ccc;
+	outline: none;
+`;
+
+const P = styled.p`
+	font-size: 0.7em;
+	padding: 8px 0;
+	color: red;
 `;
 
 const Button = styled.button`
@@ -78,5 +86,6 @@ export const LS = {
 	Legend,
 	Label,
 	Input,
+	P,
 	Button,
 };
