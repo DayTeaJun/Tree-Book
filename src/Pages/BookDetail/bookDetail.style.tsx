@@ -48,7 +48,7 @@ const Alink = styled.a`
 	text-align: center;
 	font-size: 13px;
 	cursor: pointer;
-	color: skyblue;
+	color: green;
 `;
 
 export const D = {

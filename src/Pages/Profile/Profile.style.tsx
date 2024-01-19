@@ -23,7 +23,7 @@ const ALink = styled(Link)`
 	padding: 10px 12px;
 	font-size: 1.1em;
 	border-radius: 10px;
-	background-color: skyblue;
+	background-color: green;
 	color: white;
 `;
 

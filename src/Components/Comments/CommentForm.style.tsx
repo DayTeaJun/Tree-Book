@@ -43,7 +43,7 @@ const Button = styled.button`
 	font-weight: bold;
 	border: none;
 	border-radius: 4px;
-	background-color: skyblue;
+	background-color: green;
 	color: white;
 	cursor: pointer;
 `;
