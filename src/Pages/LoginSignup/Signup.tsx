@@ -1,19 +1,36 @@
-import { ChangeEvent, FormEventHandler, useRef, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEventHandler,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { LS } from './LoginSignup.style';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 import persImg from '../../Assets/No-img.svg';
 import { ImgPreview } from '../../Hook/useImgPreview';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { appFirestore } from '../../Firebase/config';
 
 export default function Signup() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayName, setDisplayName] = useState('');
+	const [checkEamil, setCheckEamil] = useState(false);
 	const { error, isPending, signup } = useSignup();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
+	const userRef = collection(appFirestore, 'user');
 
-	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleData = async (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === 'email') {
 			setEmail(e.target.value);
+			const emailQuery = query(userRef, where('email', '==', email));
+			const querySnapshot = await getDocs(emailQuery);
+			if (querySnapshot.docs.length > 0) {
+				setCheckEamil(true);
+			} else {
+				setCheckEamil(false);
+			}
 		} else if (e.target.type === 'password') {
 			setPassword(e.target.value);
 		} else if (e.target.type === 'text') {
@@ -54,7 +71,7 @@ export default function Signup() {
 					value={email}
 					onChange={handleData}
 				/>
-
+				{checkEamil && <p>이메일 중복입니다.</p>}
 				<LS.Label htmlFor='myPassword'>Password</LS.Label>
 				<LS.Input
 					type='password'
