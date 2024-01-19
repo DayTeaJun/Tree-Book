@@ -26,10 +26,9 @@ export default function Signup() {
 		if (imgUrl) {
 			signup({ email, password, displayName, imgUrl });
 		} else {
-			alert('프로필 이미지를 등록해주세요!');
+			signup({ email, password, displayName });
 		}
 	};
-
 	return (
 		<LS.Form onSubmit={handleSubmit}>
 			<fieldset>
