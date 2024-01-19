@@ -103,7 +103,11 @@ export function ProfileEdit() {
 					value={displayName}
 					onChange={handleName}
 				/>
-				{validName ? <PE.P>{validName}</PE.P> : <PE.P>&nbsp;</PE.P>}
+				{validName ? (
+					<PE.PValid>{validName}</PE.PValid>
+				) : (
+					<PE.PValid>&nbsp;</PE.PValid>
+				)}
 
 				<PE.ContainerBtn>
 					<PE.Button type='submit'>변경</PE.Button>

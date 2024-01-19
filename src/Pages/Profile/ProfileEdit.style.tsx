@@ -39,7 +39,6 @@ const Input = styled.input`
 	width: 50%;
 	height: 30px;
 	padding: 5px;
-	margin: 10px 0;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 `;
@@ -83,6 +82,12 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
+const PValid = styled.p`
+	font-size: 0.7em;
+	padding: 8px 0;
+	color: red;
+`;
+
 export const PE = {
 	Main,
 	H1,
@@ -95,4 +100,5 @@ export const PE = {
 	Label,
 	ImgInput,
 	Button,
+	PValid,
 };
