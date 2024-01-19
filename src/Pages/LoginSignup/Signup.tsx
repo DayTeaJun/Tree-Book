@@ -11,32 +11,54 @@ import persImg from '../../Assets/No-img.svg';
 import { ImgPreview } from '../../Hook/useImgPreview';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
+import useDebounce from '../../Hook/useDebounce';
 
 export default function Signup() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayName, setDisplayName] = useState('');
-	const [checkEamil, setCheckEamil] = useState(false);
+	const [validEmail, setValidEmail] = useState(' ');
+	const [validName, setValidName] = useState(' ');
 	const { error, isPending, signup } = useSignup();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const userRef = collection(appFirestore, 'user');
+	const debounceEmail = useDebounce<string>(email);
+	const debounceName = useDebounce<string>(displayName);
 
 	const handleData = async (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.type === 'email') {
 			setEmail(e.target.value);
-			const emailQuery = query(userRef, where('email', '==', email));
-			const querySnapshot = await getDocs(emailQuery);
-			if (querySnapshot.docs.length > 0) {
-				setCheckEamil(true);
-			} else {
-				setCheckEamil(false);
-			}
 		} else if (e.target.type === 'password') {
 			setPassword(e.target.value);
 		} else if (e.target.type === 'text') {
 			setDisplayName(e.target.value);
 		}
 	};
+
+	const emailValid = async () => {
+		const Query = query(userRef, where('email', '==', email));
+		const querySnapshot = await getDocs(Query);
+		if (querySnapshot.docs.length > 0) {
+			setValidEmail('중복된 이메일입니다.');
+		} else {
+			setValidEmail('');
+		}
+	};
+
+	const nameValid = async () => {
+		const Query = query(userRef, where('displayName', '==', displayName));
+		const querySnapshot = await getDocs(Query);
+		if (querySnapshot.docs.length > 0) {
+			setValidName('중복된 닉네임입니다.');
+		} else {
+			setValidName('');
+		}
+	};
+
+	useEffect(() => {
+		emailValid();
+		nameValid();
+	}, [debounceEmail, debounceName]);
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
@@ -46,6 +68,7 @@ export default function Signup() {
 			signup({ email, password, displayName });
 		}
 	};
+
 	return (
 		<LS.Form onSubmit={handleSubmit}>
 			<fieldset>
@@ -71,7 +94,7 @@ export default function Signup() {
 					value={email}
 					onChange={handleData}
 				/>
-				{checkEamil && <p>이메일 중복입니다.</p>}
+				<p>{validEmail}</p>
 				<LS.Label htmlFor='myPassword'>Password</LS.Label>
 				<LS.Input
 					type='password'
@@ -89,7 +112,7 @@ export default function Signup() {
 					value={displayName}
 					onChange={handleData}
 				/>
-
+				<p>{validName}</p>
 				<LS.Button type='submit'>회원가입</LS.Button>
 			</fieldset>
 		</LS.Form>
