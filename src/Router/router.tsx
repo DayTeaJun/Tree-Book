@@ -14,17 +14,15 @@ import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
 import Header from '../Layouts/Header';
+import MainLayout from '../Layouts/MainLayout';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
 
 	return (
 		<BrowserRouter basename='/'>
-			<Header />
-
 			{isAuthReady ? (
 				<Routes>
-					<Route path='/' element={<HomeFeed />} />
 					<Route
 						path='/signup'
 						element={!user ? <Signup /> : <Navigate replace={true} to='/' />}
@@ -33,22 +31,28 @@ export default function Router() {
 						path='/Login'
 						element={!user ? <Login /> : <Navigate replace={true} to='/' />}
 					/>
-					<Route path='/search/' element={<Outlet />}>
-						<Route path=':searchView' element={<SearchView />} />
-						<Route path=':search/:id' element={<BookDetail />} />
-					</Route>
-					<Route path='/profile'>
-						<Route
-							path=''
-							element={user ? <Profile /> : <Navigate replace={true} to='/' />}
-						></Route>
-						<Route path=':userProfile' element={<Profile />}></Route>
-						<Route
-							path='edit'
-							element={
-								user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
-							}
-						></Route>
+					<Route element={<MainLayout />}>
+						<Route path='/' element={<HomeFeed />} />
+
+						<Route path='/search/' element={<Outlet />}>
+							<Route path=':searchView' element={<SearchView />} />
+							<Route path=':search/:id' element={<BookDetail />} />
+						</Route>
+						<Route path='/profile'>
+							<Route
+								path=''
+								element={
+									user ? <Profile /> : <Navigate replace={true} to='/' />
+								}
+							></Route>
+							<Route path=':userProfile' element={<Profile />}></Route>
+							<Route
+								path='edit'
+								element={
+									user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
+								}
+							></Route>
+						</Route>
 					</Route>
 				</Routes>
 			) : (
