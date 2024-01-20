@@ -59,6 +59,7 @@ const Input = styled.input`
 `;
 
 const P = styled.p`
+	height: 30px;
 	font-size: 0.7em;
 	padding: 8px 0;
 	color: red;

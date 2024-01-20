@@ -97,7 +97,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				value={displayName}
 				onChange={handleData}
 			/>
-			{validName ? <LS.P>{validName}</LS.P> : <LS.P>&nbsp;</LS.P>}
+			<LS.P>{validName || '\u00A0'}</LS.P>
 		</>
 	);
 }

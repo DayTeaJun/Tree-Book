@@ -24,7 +24,7 @@ export function ProfileEdit() {
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const navigate = useNavigate();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
-	const [validName, setValidName] = useState(' ');
+	const [validName, setValidName] = useState('');
 	const debounceName = useDebounce<string>(displayName);
 	const userRef = collection(appFirestore, 'user');
 
@@ -103,11 +103,7 @@ export function ProfileEdit() {
 					value={displayName}
 					onChange={handleName}
 				/>
-				{validName ? (
-					<PE.PValid>{validName}</PE.PValid>
-				) : (
-					<PE.PValid>&nbsp;</PE.PValid>
-				)}
+				<PE.PValid>{validName || '\u00A0'}</PE.PValid>
 
 				<PE.ContainerBtn>
 					<PE.Button type='submit'>변경</PE.Button>
