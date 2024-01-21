@@ -5,7 +5,7 @@ import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { CL } from './CommentList.style';
 
 export function CommentList({ isbn }: { isbn: string }) {
-	const { documents, error } = useCollection('comments');
+	const { documents, error, isLoading } = useCollection('comments');
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
 
@@ -56,6 +56,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 							</CL.Wrapper>
 						)
 				)}
+			{isLoading && <p>Loading...</p>}
 		</>
 	);
 }
