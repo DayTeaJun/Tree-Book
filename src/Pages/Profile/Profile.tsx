@@ -50,6 +50,8 @@ export function Profile() {
 					<P.ALink to='./edit'>프로필 수정하기</P.ALink>
 				</>
 			)}
+
+			{isLoading && <p>Loading...</p>}
 		</P.Main>
 	);
 }
