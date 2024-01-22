@@ -13,6 +13,13 @@ const GlobalStyles = createGlobalStyle`
         color: black;
     }
 
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
     a, button, p, h1, h2 {
         font-family: 'SUIT-Regular';
     }

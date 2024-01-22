@@ -11,11 +11,12 @@ const Wrapper = styled.div`
 	padding: 20px;
 `;
 
-const Img = styled.img`
+const ContainerImg = styled.div`
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	border: none;
+	overflow: hidden;
+	flex-shrink: 0;
 `;
 
 const ContainerImgBtn = styled.div`
@@ -76,7 +77,7 @@ const Button = styled.button`
 
 export const CL = {
 	Wrapper,
-	Img,
+	ContainerImg,
 	ContainerImgBtn,
 	ContainerImgLink,
 	ALink,

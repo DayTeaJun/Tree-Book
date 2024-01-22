@@ -18,10 +18,12 @@ export function CommentList({ isbn }: { isbn: string }) {
 							<CL.Wrapper key={comment.uid}>
 								<CL.ContainerImgBtn>
 									<CL.ContainerImgLink>
-										<CL.Img
-											src={comment.photoURL}
-											alt={`${comment.displayName}의 프로필 사진입니다.`}
-										/>
+										<CL.ContainerImg>
+											<img
+												src={comment.photoURL}
+												alt={`${comment.displayName}의 프로필 사진입니다.`}
+											/>
+										</CL.ContainerImg>
 
 										<CL.ContainerNameComment>
 											<CL.ContainerNameDate>
