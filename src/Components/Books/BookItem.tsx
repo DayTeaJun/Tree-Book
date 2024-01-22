@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { B, BookImg } from './bookItem.style';
+import { B, ContainerBookImg } from './bookItem.style';
 import errorImg from '../../Assets/No-img.svg';
 import { ItemProps } from '../../Types/bookData';
 
@@ -13,17 +13,13 @@ const BookItem = ({ item, id, search }: ItemProps) => {
 	return (
 		<B.Container onClick={onMoveBookDetail}>
 			{item.thumbnail ? (
-				<BookImg
-					style={{ borderRadius: '5px' }}
-					src={item.thumbnail}
-					alt={`책 ${item.title}의 이미지`}
-				/>
+				<ContainerBookImg>
+					<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
+				</ContainerBookImg>
 			) : (
-				<BookImg
-					style={{ borderRadius: '5px' }}
-					src={errorImg}
-					alt={`책 ${item.title}의 이미지`}
-				/>
+				<ContainerBookImg>
+					<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
+				</ContainerBookImg>
 			)}
 			<B.H2>{item.title}</B.H2>
 			<B.P>

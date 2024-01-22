@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BookImg = styled.img`
+export const ContainerBookImg = styled.div`
 	width: 128px;
 	text-align: center;
 	border-radius: 10px;

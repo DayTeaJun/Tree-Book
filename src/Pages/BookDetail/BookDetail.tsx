@@ -6,7 +6,7 @@ import { CommentForm } from '../../Components/Comments/CommentForm';
 import { D } from './bookDetail.style';
 import { BData } from '../../Types/bookData';
 import { useEffect, useState } from 'react';
-import { BookImg } from '../../Components/Books/bookItem.style';
+import { ContainerBookImg } from '../../Components/Books/bookItem.style';
 
 export default function BookDetail() {
 	const { id, search } = useParams<{ id: string; search: string }>();
@@ -34,17 +34,16 @@ export default function BookDetail() {
 					<D.Section key={bookItem.isbn}>
 						<D.Container>
 							{bookItem.thumbnail ? (
-								<BookImg
-									style={{ borderRadius: '5px' }}
-									src={bookItem.thumbnail}
-									alt={`책 ${bookItem.title}의 이미지`}
-								/>
+								<ContainerBookImg>
+									<img
+										src={bookItem.thumbnail}
+										alt={`책 ${bookItem.title}의 이미지`}
+									/>
+								</ContainerBookImg>
 							) : (
-								<BookImg
-									style={{ borderRadius: '5px' }}
-									src={errorImg}
-									alt={`책 ${bookItem.title}의 이미지`}
-								/>
+								<ContainerBookImg>
+									<img src={errorImg} alt={`책 ${bookItem.title}의 이미지`} />
+								</ContainerBookImg>
 							)}
 							<D.Alink
 								onClick={() => {
