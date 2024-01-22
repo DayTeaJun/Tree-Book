@@ -1,14 +1,20 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { D } from '../../Pages/BookDetail/bookDetail.style';
-import { ItemProps } from '../../Types/bookData';
+import { BData } from '../../Types/bookData';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useEffect, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 
-const BookLikes = ({ item }: ItemProps) => {
+interface BookLikesProps {
+	item: BData;
+	id?: string;
+	search?: string;
+}
+
+const BookLikes = ({ item, id, search }: BookLikesProps) => {
 	const [like, setLike] = useState<boolean | undefined>(false);
 	const [likesNumber, setLikesNumber] = useState<number>();
 	const { documents, error, isLoading } = useCollection('BooksLikes');
@@ -54,6 +60,8 @@ const BookLikes = ({ item }: ItemProps) => {
 				book,
 				isbn,
 				likeBy,
+				id,
+				search,
 				createdTime,
 			});
 		} else {

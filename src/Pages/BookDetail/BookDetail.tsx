@@ -55,7 +55,7 @@ export default function BookDetail() {
 						<D.Container>
 							<D.ContainerH2Likes>
 								<D.H2>{item.title}</D.H2>
-								<BookLikes item={item} />
+								<BookLikes item={item} id={id} search={search} />
 							</D.ContainerH2Likes>
 							<D.Dl>
 								<D.Dt>작가</D.Dt>
