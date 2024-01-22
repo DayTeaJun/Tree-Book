@@ -39,14 +39,15 @@ const BookLikes = ({ item }: ItemProps) => {
 	}, [documents]);
 
 	const handleLikes = async () => {
-		if (user) {
+		if (user && documents) {
+			const likedUser = documents.find((book) => book.isbn === isbn);
 			const uid = user.uid;
 			const createdTime = timestamp.fromDate(new Date());
 			let likeBy;
 			if (!like) {
-				likeBy = { [uid]: !like };
+				likeBy = { ...likedUser?.likeBy, [uid]: !like };
 			} else {
-				likeBy = { [uid]: !like };
+				likeBy = { ...likedUser?.likeBy, [uid]: !like };
 			}
 			await setDoc(booksRef, {
 				book,
@@ -64,7 +65,7 @@ const BookLikes = ({ item }: ItemProps) => {
 			{item && (
 				<D.Likes onClick={handleLikes}>
 					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-					{/* {likesNumber && <p>{likesNumber}</p>} */}
+					{likesNumber && <p>{likesNumber}</p>}
 				</D.Likes>
 			)}
 		</>
