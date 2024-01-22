@@ -1,4 +1,3 @@
-// Book Data
 export interface BData {
 	authors: string[];
 	contents: string;
@@ -14,7 +13,6 @@ export interface BData {
 	url: string;
 }
 
-// 검색 API
 export interface SerachParams {
 	query: string;
 	size: number;
@@ -23,6 +21,6 @@ export interface SerachParams {
 
 export interface ItemProps {
 	item: BData;
-	search: string;
-	id: number;
+	search?: string;
+	id?: number;
 }

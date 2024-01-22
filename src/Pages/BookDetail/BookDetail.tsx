@@ -6,13 +6,12 @@ import { CommentForm } from '../../Components/Comments/CommentForm';
 import { D } from './bookDetail.style';
 import { BData } from '../../Types/bookData';
 import { useEffect, useState } from 'react';
+import BookLikes from '../../Components/Books/BookLikes';
 import { ContainerBookImg } from '../../Components/Books/bookItem.style';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export default function BookDetail() {
 	const { id, search } = useParams<{ id: string; search: string }>();
-	const [bookItem, setBookItem] = useState<BData>();
+	const [item, setItem] = useState<BData>();
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', search],
@@ -22,34 +21,31 @@ export default function BookDetail() {
 
 	useEffect(() => {
 		if (!isLoading && books) {
-			const bookItem: BData = books.find(
+			const item: BData = books.find(
 				(_: BData, index: number) => index === parseInt(id!)
 			);
-			setBookItem(bookItem);
+			setItem(item);
 		}
 	}, [books]);
 
 	return (
 		<D.Main>
-			{bookItem ? (
+			{item ? (
 				<>
-					<D.Section key={bookItem.isbn}>
+					<D.Section key={item.isbn}>
 						<D.Container>
-							{bookItem.thumbnail ? (
+							{item.thumbnail ? (
 								<ContainerBookImg>
-									<img
-										src={bookItem.thumbnail}
-										alt={`책 ${bookItem.title}의 이미지`}
-									/>
+									<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
 								</ContainerBookImg>
 							) : (
 								<ContainerBookImg>
-									<img src={errorImg} alt={`책 ${bookItem.title}의 이미지`} />
+									<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
 								</ContainerBookImg>
 							)}
 							<D.Alink
 								onClick={() => {
-									window.open(bookItem.url);
+									window.open(item.url);
 								}}
 							>
 								다음 검색으로 이동
@@ -58,31 +54,27 @@ export default function BookDetail() {
 
 						<D.Container>
 							<D.ContainerH2Likes>
-								<D.H2>{bookItem.title}</D.H2>
-								<D.Likes>
-									<FavoriteBorderIcon />
-								</D.Likes>
+								<D.H2>{item.title}</D.H2>
+								<BookLikes item={item} />
 							</D.ContainerH2Likes>
 							<D.Dl>
 								<D.Dt>작가</D.Dt>
 								<D.Dd>
-									{bookItem.authors !== undefined || ''
-										? bookItem.authors
-										: '미상'}
+									{item.authors !== undefined || '' ? item.authors : '미상'}
 								</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>출판사</D.Dt>
 								<D.Dd>
-									{bookItem.publisher !== (undefined || '')
-										? bookItem.publisher
+									{item.publisher !== (undefined || '')
+										? item.publisher
 										: '미상'}
 								</D.Dd>
 							</D.Dl>
-							{bookItem.contents !== (undefined || '') ? (
+							{item.contents !== (undefined || '') ? (
 								<D.Dl>
 									<D.Dt>내용</D.Dt>
-									<D.Dd>{bookItem.contents}</D.Dd>
+									<D.Dd>{item.contents}</D.Dd>
 								</D.Dl>
 							) : (
 								<></>
@@ -90,24 +82,22 @@ export default function BookDetail() {
 
 							<D.Dl>
 								<D.Dt>가격</D.Dt>
-								<D.Dd>{bookItem.price.toLocaleString('ko-KR')}원</D.Dd>
+								<D.Dd>{item.price.toLocaleString('ko-KR')}원</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>ISBN</D.Dt>
-								<D.Dd>{bookItem.isbn}</D.Dd>
+								<D.Dd>{item.isbn}</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>출판일</D.Dt>
-								<D.Dd>
-									{bookItem.datetime.substr(0, 10).replaceAll('-', '. ')}
-								</D.Dd>
+								<D.Dd>{item.datetime.substr(0, 10).replaceAll('-', '. ')}</D.Dd>
 							</D.Dl>
 						</D.Container>
 					</D.Section>
 					<CommentForm />
 				</>
 			) : (
-				<>{bookItem && <h2>not found</h2>}</>
+				<>{item && <h2>not found</h2>}</>
 			)}
 
 			{isLoading && <h2>Loading...</h2>}

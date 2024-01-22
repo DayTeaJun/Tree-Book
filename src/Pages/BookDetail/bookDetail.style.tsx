@@ -18,6 +18,8 @@ const ContainerH2Likes = styled.div`
 `;
 
 const Likes = styled.div`
+	width: 30px;
+	height: 30px;
 	color: red;
 	background-color: #eee;
 	border-radius: 5px;
