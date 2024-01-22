@@ -83,7 +83,7 @@ export default function BookDetail() {
 
 							<D.Dl>
 								<D.Dt>가격</D.Dt>
-								<D.Dd>{bookItem.price}원</D.Dd>
+								<D.Dd>{bookItem.price.toLocaleString('ko-KR')}원</D.Dd>
 							</D.Dl>
 							<D.Dl>
 								<D.Dt>ISBN</D.Dt>
