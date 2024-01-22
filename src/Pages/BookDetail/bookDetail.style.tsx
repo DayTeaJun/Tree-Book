@@ -11,6 +11,20 @@ const Section = styled.section`
 	padding: 20px;
 `;
 
+const ContainerH2Likes = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 20px;
+`;
+
+const Likes = styled.div`
+	color: red;
+	background-color: #eee;
+	border-radius: 5px;
+	padding: 3px;
+	cursor: pointer;
+`;
+
 const H2 = styled.h2`
 	font-weight: bold;
 	font-size: 20px;
@@ -22,6 +36,7 @@ const Container = styled.div`
 	flex-direction: column;
 	gap: 8px;
 `;
+
 const Dl = styled.dl`
 	display: flex;
 	font-weight: 200;
@@ -54,6 +69,8 @@ const Alink = styled.a`
 export const D = {
 	Main,
 	Section,
+	ContainerH2Likes,
+	Likes,
 	H2,
 	Container,
 	Dl,

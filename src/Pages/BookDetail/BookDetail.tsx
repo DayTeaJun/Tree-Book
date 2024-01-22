@@ -7,6 +7,8 @@ import { D } from './bookDetail.style';
 import { BData } from '../../Types/bookData';
 import { useEffect, useState } from 'react';
 import { ContainerBookImg } from '../../Components/Books/bookItem.style';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export default function BookDetail() {
 	const { id, search } = useParams<{ id: string; search: string }>();
@@ -55,7 +57,12 @@ export default function BookDetail() {
 						</D.Container>
 
 						<D.Container>
-							<D.H2>{bookItem.title}</D.H2>
+							<D.ContainerH2Likes>
+								<D.H2>{bookItem.title}</D.H2>
+								<D.Likes>
+									<FavoriteBorderIcon />
+								</D.Likes>
+							</D.ContainerH2Likes>
 							<D.Dl>
 								<D.Dt>작가</D.Dt>
 								<D.Dd>
