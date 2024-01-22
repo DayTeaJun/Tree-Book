@@ -4,6 +4,7 @@ import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import { useEffect } from 'react';
+import UserLiked from './UserLiked';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -35,6 +36,7 @@ export function Profile() {
 								/>
 								<h1>{users.displayName}의 프로필</h1>
 								<h2>{users.email}</h2>
+								<UserLiked uid={users.uid} displayName={users.displayName} />
 							</>
 						)
 				)}
@@ -48,6 +50,7 @@ export function Profile() {
 					<h1>{user.displayName}의 프로필</h1>
 					<h2>{user.email}</h2>
 					<P.ALink to='./edit'>프로필 수정하기</P.ALink>
+					<UserLiked uid={user.uid} displayName={user.displayName} />
 				</>
 			)}
 
