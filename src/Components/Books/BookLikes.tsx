@@ -22,7 +22,8 @@ const BookLikes = ({ item }: ItemProps) => {
 			const likedUser = documents.find((book) => book.isbn === isbn);
 			if (likedUser) {
 				const likedNumber = likedUser?.likeBy
-					? Object.keys(likedUser.likeBy).length
+					? Object.values(likedUser.likeBy).filter((like) => like === true)
+							.length
 					: 0;
 				setLikesNumber(likedNumber);
 				if (user) {
@@ -65,7 +66,7 @@ const BookLikes = ({ item }: ItemProps) => {
 			{item && (
 				<D.Likes onClick={handleLikes}>
 					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-					{likesNumber && <p>{likesNumber}</p>}
+					{likesNumber && <D.P>{likesNumber}</D.P>}
 				</D.Likes>
 			)}
 		</>

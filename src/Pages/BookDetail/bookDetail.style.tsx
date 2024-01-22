@@ -18,13 +18,21 @@ const ContainerH2Likes = styled.div`
 `;
 
 const Likes = styled.div`
-	width: 30px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 	height: 30px;
 	color: red;
 	background-color: #eee;
 	border-radius: 5px;
-	padding: 3px;
+	padding: 3px 5px;
 	cursor: pointer;
+`;
+
+const P = styled.p`
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
 `;
 
 const H2 = styled.h2`
@@ -73,6 +81,7 @@ export const D = {
 	Section,
 	ContainerH2Likes,
 	Likes,
+	P,
 	H2,
 	Container,
 	Dl,
