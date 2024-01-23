@@ -8,7 +8,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 
-interface BookLikesProps {
+export interface BookLikesProps {
 	item: BData;
 	id?: string;
 	search?: string;
@@ -57,8 +57,7 @@ const BookLikes = ({ item, id, search }: BookLikesProps) => {
 				likeBy = { ...likedUser?.likeBy, [uid]: !like };
 			}
 			await setDoc(booksRef, {
-				book,
-				isbn,
+				...item,
 				likeBy,
 				id,
 				search,

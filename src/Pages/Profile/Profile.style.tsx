@@ -13,6 +13,13 @@ const Main = styled.main`
 	gap: 10px;
 `;
 
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+`;
+
 const Img = styled.img`
 	width: 150px;
 	height: 150px;
@@ -27,8 +34,19 @@ const ALink = styled(Link)`
 	color: white;
 `;
 
+const PLiked = styled.p`
+	font-size: 16px;
+`;
+const Strong = styled.strong`
+	color: green;
+	font-weight: bold;
+`;
+
 export const P = {
 	Main,
 	Img,
 	ALink,
+	PLiked,
+	Strong,
+	Container,
 };

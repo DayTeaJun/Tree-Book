@@ -11,6 +11,8 @@ export interface BData {
 	title: string;
 	translators: string[];
 	url: string;
+	id?: number;
+	search?: string;
 }
 
 export interface SerachParams {
