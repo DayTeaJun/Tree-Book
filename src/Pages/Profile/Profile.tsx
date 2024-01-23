@@ -3,7 +3,7 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import UserLiked from './UserLiked';
 
 export function Profile() {
@@ -29,7 +29,7 @@ export function Profile() {
 				documents.map(
 					(users) =>
 						users.uid === location.state.id && (
-							<>
+							<Fragment key={users.uid}>
 								<P.Img
 									src={users.photoURL || persImg}
 									alt={`${users.displayName}의 프로필 사진입니다.`}
@@ -37,12 +37,12 @@ export function Profile() {
 								<h1>{users.displayName}의 프로필</h1>
 								<h2>{users.email}</h2>
 								<UserLiked uid={users.uid} displayName={users.displayName} />
-							</>
+							</Fragment>
 						)
 				)}
 
 			{!anotherUser && user && (
-				<>
+				<Fragment key={user.uid}>
 					<P.Img
 						src={user.photoURL || persImg}
 						alt={`${user.displayName}의 프로필 사진입니다.`}
@@ -51,7 +51,7 @@ export function Profile() {
 					<h2>{user.email}</h2>
 					<P.ALink to='./edit'>프로필 수정하기</P.ALink>
 					<UserLiked uid={user.uid} displayName={user.displayName} />
-				</>
+				</Fragment>
 			)}
 
 			{isLoading && <p>Loading...</p>}
