@@ -40,25 +40,26 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		fetchLikedMeetups();
 	}, [uid]);
 
-	console.log(likedBooks);
 	return (
 		<>
-			<P.PLiked>
-				<P.Strong>{displayName}</P.Strong>
-				님의 좋아요 표시한 책들 목록
-			</P.PLiked>
-			<P.Container>
-				{!isLoading &&
-					likedBooks &&
-					likedBooks.map((item: BData) => (
-						<BookItem
-							item={item}
-							id={item.id}
-							search={item.search}
-							key={item.isbn}
-						></BookItem>
-					))}
-			</P.Container>
+			{!isLoading && likedBooks && (
+				<>
+					<P.PLiked>
+						<P.Strong>{displayName}</P.Strong>
+						님의 좋아요 표시한 책들 목록
+					</P.PLiked>
+					<P.Container>
+						{likedBooks.map((item: BData) => (
+							<BookItem
+								item={item}
+								id={item.id}
+								search={item.search}
+								key={item.isbn}
+							></BookItem>
+						))}
+					</P.Container>
+				</>
+			)}
 		</>
 	);
 };
