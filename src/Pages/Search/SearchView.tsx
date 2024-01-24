@@ -8,21 +8,23 @@ import { Paginaition } from './Pagination';
 import { useEffect, useState } from 'react';
 
 export default function SearchView() {
-	const { searchView } = useParams<string>();
-	const [currentPage, setCurrentPage] = useState(1);
+	const { searchView, page } = useParams<{
+		searchView: string;
+		page: string;
+	}>();
 	const [books, setBooks] = useState([]);
 
 	useEffect(() => {
 		const fetchGetBook = async () => {
 			try {
-				const bookData = await getBooks(searchView || '', 14, currentPage);
+				const bookData = await getBooks(searchView || '', 14, page);
 				setBooks(bookData);
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchGetBook();
-	}, [currentPage]);
+	}, [page]);
 
 	// const { data: books, isLoading } = useQuery({
 	// 	queryKey: ['books', searchView],
@@ -48,7 +50,7 @@ export default function SearchView() {
 				books && books.length === 0 && <h2>not found</h2>
 			)}
 
-			<Paginaition currentPage={currentPage} setCurrentPage={setCurrentPage} />
+			<Paginaition page={page} searchView={searchView} />
 
 			{/* {isLoading && <h2>Loading...</h2>} */}
 		</>

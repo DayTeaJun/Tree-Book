@@ -1,19 +1,28 @@
 import { Box, Pagination } from '@mui/material';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
-	currentPage: number;
-	setCurrentPage: Dispatch<SetStateAction<number>>;
+	page?: string;
+	searchView?: string;
 }
 
-export const Paginaition = ({ currentPage, setCurrentPage }: Props) => {
+export const Paginaition = ({ searchView, page }: Props) => {
+	const navigate = useNavigate();
+	const pageNumber: number = parseInt(page!, 10);
 	const onPageChange = (e: ChangeEvent<unknown>, page: number) => {
-		setCurrentPage(page);
+		navigate(`/search/${searchView}/${page}`);
 	};
 
 	return (
 		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-			<Pagination page={currentPage} onChange={onPageChange} count={10} />
+			<Pagination
+				page={pageNumber}
+				onChange={onPageChange}
+				count={100}
+				showFirstButton
+				showLastButton
+			/>
 		</Box>
 	);
 };

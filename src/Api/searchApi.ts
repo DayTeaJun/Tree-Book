@@ -3,7 +3,7 @@ import { KakaoSearch } from './KakaoApi';
 export const getBooks = async (
 	searchTitle: string,
 	size: number = 14,
-	page: number = 1
+	page: string = '1'
 ) => {
 	try {
 		const params = {
