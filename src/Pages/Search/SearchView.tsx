@@ -24,7 +24,7 @@ export default function SearchView() {
 			}
 		};
 		fetchGetBook();
-	}, [page]);
+	}, [page, searchView]);
 
 	// const { data: books, isLoading } = useQuery({
 	// 	queryKey: ['books', searchView],

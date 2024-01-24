@@ -33,4 +33,5 @@ export interface BookLikesProps {
 	item: BookData;
 	id?: string;
 	search?: string;
+	page?: string;
 }

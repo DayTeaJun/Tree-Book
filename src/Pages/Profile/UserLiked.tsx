@@ -48,6 +48,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 						{likedBooks.map((item: BookData) => (
 							<BookItem
 								item={item}
+								page={item.page}
 								id={item.id}
 								search={item.search}
 								key={item.isbn}

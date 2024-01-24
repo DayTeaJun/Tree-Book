@@ -8,7 +8,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 
-const BookLikes = ({ item, id, search }: BookLikesProps) => {
+const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const [like, setLike] = useState<boolean | undefined>(false);
 	const [likesNumber, setLikesNumber] = useState<number>();
 	const { documents, error, isLoading } = useCollection('BooksLikes');
@@ -54,6 +54,7 @@ const BookLikes = ({ item, id, search }: BookLikesProps) => {
 				likeBy,
 				id,
 				search,
+				page,
 				createdTime,
 			});
 		} else {
