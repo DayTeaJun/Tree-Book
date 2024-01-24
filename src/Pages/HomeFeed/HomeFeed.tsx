@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';
-import { BData } from '../../Types/bookData';
+import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { S } from './homFeed.style';
 
@@ -16,7 +16,7 @@ export default function HomeFeed() {
 			{books && books.length !== 0 ? (
 				<>
 					<S.Section>
-						{books.map((item: BData, index: number) => (
+						{books.map((item: BookData, index: number) => (
 							<BookItem
 								item={item}
 								id={index}

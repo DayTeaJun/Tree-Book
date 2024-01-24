@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { B, ContainerBookImg } from './bookItem.style';
 import errorImg from '../../Assets/No-img.svg';
-import { ItemProps } from '../../Types/bookData';
+import { BookItemProps } from '../../Types/bookType';
 
-const BookItem = ({ item, id, search }: ItemProps) => {
+const BookItem = ({ item, id, search }: BookItemProps) => {
 	const navigate = useNavigate();
 	const isbn = item.isbn;
 	const onMoveBookDetail = () => {

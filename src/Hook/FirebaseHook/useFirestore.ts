@@ -1,26 +1,12 @@
-import {
-	DocumentReference,
-	addDoc,
-	collection,
-	deleteDoc,
-	doc,
-} from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { FirebaseError } from 'firebase/app';
-
-interface StoreState {
-	document: DocumentReference | null;
-	isPending: boolean;
-	error: string | null;
-	success: boolean;
-}
-
-type StoreAction =
-	| { type: 'isPending' }
-	| { type: 'addDoc'; payload: DocumentReference }
-	| { type: 'deleteDoc'; payload: DocumentReference }
-	| { type: 'error'; payload: string };
+import {
+	FirestoreDocument,
+	StoreAction,
+	StoreState,
+} from '../../Types/firestoreType';
 
 const initState: StoreState = {
 	document: null,
@@ -60,21 +46,6 @@ const storeReducer = (state: StoreState, action: StoreAction) => {
 			return state;
 	}
 };
-
-export interface FirestoreDocument {
-	uid?: string;
-	id?: string;
-	book?: string;
-	displayName?: string;
-	comments?: string;
-	createdTime?: string | null;
-	email?: string;
-	password?: string;
-	photoURL?: string;
-	isbn?: string;
-	like?: boolean;
-	likeBy?: object;
-}
 
 interface FirestoreHook {
 	addDocument: (doc: FirestoreDocument) => Promise<void>;

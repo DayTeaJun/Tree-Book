@@ -3,9 +3,8 @@ import { LS } from './LoginSignup.style';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 import persImg from '../../Assets/No-img.svg';
 import { ImgPreview } from '../../Hook/useImgPreview';
-import ValidInput, {
-	InputValueType,
-} from '../../Components/ValidInput/ValidInput';
+import ValidInput from '../../Components/ValidInput/ValidInput';
+import { InputValueType } from '../../Types/userType';
 
 export default function Signup() {
 	const { error, isPending, signup } = useSignup();

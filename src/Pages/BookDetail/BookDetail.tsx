@@ -4,14 +4,14 @@ import { getBooks } from '../../Api/searchApi';
 import errorImg from '../../Assets/No-img.svg';
 import { CommentForm } from '../../Components/Comments/CommentForm';
 import { D } from './bookDetail.style';
-import { BData } from '../../Types/bookData';
+import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
 import BookLikes from '../../Components/Books/BookLikes';
 import { ContainerBookImg } from '../../Components/Books/bookItem.style';
 
 export default function BookDetail() {
 	const { id, search } = useParams<{ id: string; search: string }>();
-	const [item, setItem] = useState<BData>();
+	const [item, setItem] = useState<BookData>();
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', search],
@@ -21,8 +21,8 @@ export default function BookDetail() {
 
 	useEffect(() => {
 		if (!isLoading && books) {
-			const item: BData = books.find(
-				(_: BData, index: number) => index === parseInt(id!)
+			const item: BookData = books.find(
+				(_: BookData, index: number) => index === parseInt(id!)
 			);
 			setItem(item);
 		}

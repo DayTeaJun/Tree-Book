@@ -2,11 +2,11 @@ import errorImg from '../../Assets/No-img.svg';
 import { StyledSlider } from './carousel.style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { BData } from '../../Types/bookData';
+import { BookData } from '../../Types/bookType';
 import { Link } from 'react-router-dom';
 
 type BookProps = {
-	bookData: BData[];
+	bookData: BookData[];
 };
 
 const CarouselSlick = ({ bookData }: BookProps) => {
@@ -48,7 +48,7 @@ const CarouselSlick = ({ bookData }: BookProps) => {
 	return (
 		<>
 			<StyledSlider {...sliderSettings}>
-				{bookData.map((el: BData) => (
+				{bookData.map((el: BookData) => (
 					<Link
 						to={`/search/detail/${el.title}`}
 						state={{ bookData: el }}

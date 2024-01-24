@@ -8,16 +8,10 @@ import {
 } from '../../Firebase/config';
 import { useAuthContext } from './useAuthContext';
 import { AuthContextProps } from '../../Context/AuthContext';
-import { useFirestore } from './useFirestore';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { collection, doc, setDoc } from 'firebase/firestore';
+import { SignupType } from '../../Types/userType';
 
-export interface SignupType {
-	email: string;
-	password: string;
-	displayName: string;
-	imgUrl?: Blob;
-}
 export const useSignup = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);

@@ -1,4 +1,4 @@
-export interface BData {
+export interface BookData {
 	authors: string[];
 	contents: string;
 	datetime: string;
@@ -21,8 +21,8 @@ export interface SerachParams {
 	target: string;
 }
 
-export interface ItemProps {
-	item: BData;
+export interface BookItemProps {
+	item: BookData;
 	search?: string;
 	id?: number;
 }

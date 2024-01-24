@@ -2,11 +2,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { appAuth } from '../../Firebase/config';
 import { useAuthContext } from './useAuthContext';
-
-export interface LoginType {
-	email: string;
-	password: string;
-}
+import { LoginType } from '../../Types/userType';
 
 export const useLogin = () => {
 	const [error, setError] = useState<string | null>(null);

@@ -1,7 +1,7 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { D } from '../../Pages/BookDetail/bookDetail.style';
-import { BData } from '../../Types/bookData';
+import { BookData } from '../../Types/bookType';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useEffect, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
@@ -9,7 +9,7 @@ import { appFirestore, timestamp } from '../../Firebase/config';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 
 export interface BookLikesProps {
-	item: BData;
+	item: BookData;
 	id?: string;
 	search?: string;
 }

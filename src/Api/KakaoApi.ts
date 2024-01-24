@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SerachParams } from '../Types/bookData';
+import { SerachParams } from '../Types/bookType';
 
 const KAKAO_API = process.env.REACT_APP_KAKAO_API;
 

@@ -9,12 +9,7 @@ import { LS } from '../../Pages/LoginSignup/LoginSignup.style';
 import useDebounce from '../../Hook/useDebounce';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
-
-export interface InputValueType {
-	email: string;
-	password: string;
-	displayName: string;
-}
+import { InputValueType } from '../../Types/userType';
 
 interface ValidInputProps {
 	setInputValue: Dispatch<SetStateAction<InputValueType>>;

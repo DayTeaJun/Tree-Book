@@ -7,18 +7,14 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { appFirestore } from '../../Firebase/config';
-import { BData } from '../../Types/bookData';
+import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { P } from './Profile.style';
-
-interface UserLikedProps {
-	uid?: string;
-	displayName?: string | null;
-}
+import { UserLikedProps } from '../../Types/userType';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 	const [isLoading, setIsLoading] = useState(true);
-	const [likedBooks, setLikedBooks] = useState<DocumentData | BData[]>();
+	const [likedBooks, setLikedBooks] = useState<DocumentData | BookData[]>();
 
 	useEffect(() => {
 		const fetchLikedMeetups = async () => {
@@ -49,7 +45,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 						님의 좋아요 표시한 책들 목록
 					</P.PLiked>
 					<P.Container>
-						{likedBooks.map((item: BData) => (
+						{likedBooks.map((item: BookData) => (
 							<BookItem
 								item={item}
 								id={item.id}

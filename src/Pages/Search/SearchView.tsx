@@ -1,6 +1,6 @@
 import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
-import { BData } from '../../Types/bookData';
+import { BookData } from '../../Types/bookType';
 import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
@@ -19,7 +19,7 @@ export default function SearchView() {
 		<>
 			{books && books.length !== 0 ? (
 				<S.Section>
-					{books.map((item: BData, index: number) => (
+					{books.map((item: BookData, index: number) => (
 						<BookItem
 							item={item}
 							id={index}
