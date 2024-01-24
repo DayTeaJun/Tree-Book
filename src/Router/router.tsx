@@ -35,7 +35,7 @@ export default function Router() {
 
 						<Route path='/search/' element={<Outlet />}>
 							<Route path=':searchView/:page' element={<SearchView />} />
-							<Route path=':search/:id' element={<BookDetail />} />
+							<Route path=':search/:page/:id' element={<BookDetail />} />
 						</Route>
 						<Route path='/profile'>
 							<Route

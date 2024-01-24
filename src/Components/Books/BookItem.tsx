@@ -3,11 +3,11 @@ import { B, ContainerBookImg } from './bookItem.style';
 import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
 
-const BookItem = ({ item, id, search }: BookItemProps) => {
+const BookItem = ({ item, id, page, search }: BookItemProps) => {
 	const navigate = useNavigate();
 	const isbn = item.isbn;
 	const onMoveBookDetail = () => {
-		navigate(`/search/${search}/${id}`, { state: { isbn } });
+		navigate(`/search/${search}/${page}/${id}`, { state: { isbn } });
 	};
 
 	return (

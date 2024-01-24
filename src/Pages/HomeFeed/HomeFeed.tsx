@@ -19,6 +19,7 @@ export default function HomeFeed() {
 						{books.map((item: BookData, index: number) => (
 							<BookItem
 								item={item}
+								page={'1'}
 								id={index}
 								search={'리액트'}
 								key={item.isbn}

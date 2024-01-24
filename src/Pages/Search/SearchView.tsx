@@ -40,6 +40,7 @@ export default function SearchView() {
 					{books.map((item: BookData, index: number) => (
 						<BookItem
 							item={item}
+							page={page}
 							id={index}
 							search={searchView || ''}
 							key={item.isbn}

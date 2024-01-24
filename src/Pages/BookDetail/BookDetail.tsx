@@ -10,12 +10,16 @@ import BookLikes from '../../Components/Books/BookLikes';
 import { ContainerBookImg } from '../../Components/Books/bookItem.style';
 
 export default function BookDetail() {
-	const { id, search } = useParams<{ id: string; search: string }>();
+	const { id, search, page } = useParams<{
+		id: string;
+		search: string;
+		page: string;
+	}>();
 	const [item, setItem] = useState<BookData>();
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', search],
-		queryFn: () => getBooks(search!),
+		queryFn: () => getBooks(search!, 14, page),
 		enabled: !!search,
 	});
 

@@ -13,6 +13,7 @@ export interface BookData {
 	url: string;
 	id?: number;
 	search?: string;
+	page?: string;
 }
 
 export interface SerachParams {
@@ -25,6 +26,7 @@ export interface BookItemProps {
 	item: BookData;
 	search?: string;
 	id?: number;
+	page?: string;
 }
 
 export interface BookLikesProps {
