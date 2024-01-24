@@ -5,33 +5,19 @@ import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from './Pagination';
-import { useEffect, useState } from 'react';
 
 export default function SearchView() {
 	const { searchView, page } = useParams<{
 		searchView: string;
 		page: string;
 	}>();
-	const [books, setBooks] = useState([]);
 
-	useEffect(() => {
-		const fetchGetBook = async () => {
-			try {
-				const bookData = await getBooks(searchView || '', 14, page);
-				setBooks(bookData);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		fetchGetBook();
-	}, [page, searchView]);
-
-	// const { data: books, isLoading } = useQuery({
-	// 	queryKey: ['books', searchView],
-	// 	queryFn: () => getBooks(searchView || '', 14, currentPage),
-	// 	enabled: !!searchView,
-	// 	refetchOnWindowFocus: false,
-	// });
+	const { data: books, isLoading } = useQuery({
+		queryKey: ['books', searchView, page],
+		queryFn: () => getBooks(searchView || '', 14, page),
+		enabled: !!searchView,
+		refetchOnWindowFocus: false,
+	});
 
 	return (
 		<>
