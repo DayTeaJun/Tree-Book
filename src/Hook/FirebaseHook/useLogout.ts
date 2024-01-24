@@ -4,24 +4,23 @@ import { appAuth } from '../../Firebase/config';
 import { useAuthContext } from './useAuthContext';
 
 export const useLogout = () => {
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<null | string>(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext();
 
-	const logout = () => {
+	const logout = async () => {
 		setError(null);
 		setIsPending(true);
 
-		signOut(appAuth)
-			.then(() => {
-				dispatch({ type: 'logout' });
-				setError(null);
-				setIsPending(false);
-			})
-			.catch((error) => {
-				setError(error.message);
-				setIsPending(false);
-			});
+		try {
+			await signOut(appAuth);
+			dispatch({ type: 'logout' });
+			setError(null);
+			setIsPending(false);
+		} catch (error) {
+			setError(error as unknown as string);
+			setIsPending(false);
+		}
 	};
 	return { error, isPending, logout };
 };
