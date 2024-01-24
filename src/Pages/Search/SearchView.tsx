@@ -4,6 +4,7 @@ import { BookData } from '../../Types/bookType';
 import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
+import { Paginaition } from './Pagination';
 
 export default function SearchView() {
 	const searchTitle: string = useParams().searchView || '';
@@ -31,6 +32,8 @@ export default function SearchView() {
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
+
+			<Paginaition />
 
 			{isLoading && <h2>Loading...</h2>}
 		</>
