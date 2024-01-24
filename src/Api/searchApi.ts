@@ -16,6 +16,7 @@ export const getBooks = async (
 		const result = await KakaoSearch(params);
 
 		if (result) {
+			console.log(result.data.documents);
 			return result.data.documents;
 		}
 	} catch (error) {

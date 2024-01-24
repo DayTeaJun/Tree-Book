@@ -13,7 +13,6 @@ import Login from '../Pages/LoginSignup/Login';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
-import Header from '../Layouts/Header';
 import MainLayout from '../Layouts/MainLayout';
 
 export default function Router() {

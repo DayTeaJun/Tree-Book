@@ -24,7 +24,7 @@ export default function Header() {
 
 	useEffect(() => {
 		if (searchTitle !== '') {
-			navigate(`/search/${searchTitle}`);
+			navigate(`/search/${searchTitle}/1`);
 			setSearchTitle('');
 		}
 	}, [searchTitle]);

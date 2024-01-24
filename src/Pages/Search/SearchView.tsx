@@ -5,16 +5,31 @@ import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from './Pagination';
+import { useEffect, useState } from 'react';
 
 export default function SearchView() {
-	const searchTitle: string = useParams().searchView || '';
+	const { searchView } = useParams<string>();
+	const [currentPage, setCurrentPage] = useState(1);
+	const [books, setBooks] = useState([]);
 
-	const { data: books, isLoading } = useQuery({
-		queryKey: ['books', searchTitle],
-		queryFn: () => getBooks(searchTitle),
-		enabled: !!searchTitle,
-		refetchOnWindowFocus: false,
-	});
+	useEffect(() => {
+		const fetchGetBook = async () => {
+			try {
+				const bookData = await getBooks(searchView || '', 14, currentPage);
+				setBooks(bookData);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchGetBook();
+	}, [currentPage]);
+
+	// const { data: books, isLoading } = useQuery({
+	// 	queryKey: ['books', searchView],
+	// 	queryFn: () => getBooks(searchView || '', 14, currentPage),
+	// 	enabled: !!searchView,
+	// 	refetchOnWindowFocus: false,
+	// });
 
 	return (
 		<>
@@ -24,7 +39,7 @@ export default function SearchView() {
 						<BookItem
 							item={item}
 							id={index}
-							search={searchTitle || ''}
+							search={searchView || ''}
 							key={item.isbn}
 						></BookItem>
 					))}
@@ -33,9 +48,9 @@ export default function SearchView() {
 				books && books.length === 0 && <h2>not found</h2>
 			)}
 
-			<Paginaition />
+			<Paginaition currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-			{isLoading && <h2>Loading...</h2>}
+			{/* {isLoading && <h2>Loading...</h2>} */}
 		</>
 	);
 }
