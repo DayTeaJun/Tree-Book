@@ -9,4 +9,5 @@ export const Layout = styled.div`
 
 export const MediaLayout = styled.div`
 	width: 1000px;
+	padding: 10px 0;
 `;

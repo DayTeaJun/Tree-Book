@@ -7,7 +7,7 @@ import { S } from './homFeed.style';
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books'],
-		queryFn: () => getBooks('리액트', 12),
+		queryFn: () => getBooks('리액트', 14),
 		refetchOnWindowFocus: false,
 	});
 

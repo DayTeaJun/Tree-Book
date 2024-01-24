@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerBookImg = styled.div`
-	width: 128px;
+	width: 100px;
 	text-align: center;
 	border-radius: 10px;
 `;
@@ -10,7 +10,7 @@ const Container = styled.div`
 	border: 0.5px #eee solid;
 	background-color: #fff;
 	padding: 10px;
-	width: 150px;
+	width: 120px;
 	border-radius: 5px;
 	cursor: pointer;
 	&:hover {
