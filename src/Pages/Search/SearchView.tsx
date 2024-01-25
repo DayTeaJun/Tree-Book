@@ -4,7 +4,7 @@ import { BookData } from '../../Types/bookType';
 import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
-import { Paginaition } from './Pagination';
+import { Paginaition } from '../../Components/Pagination/Pagination';
 
 export default function SearchView() {
 	const { searchView, page } = useParams<{
