@@ -3,62 +3,83 @@ import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { CL } from './CommentList.style';
+import { useEffect, useState } from 'react';
+import { FirestoreDocument } from '../../Types/firestoreType';
+import { Paginaition } from '../Pagination/Pagination';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const { documents, error, isLoading } = useCollection('comments');
+	const [comment, setComment] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
+	const [currentPage, setCurrentPage] = useState(1);
+	const commentsPerPage = 4;
+	const commentLists =
+		documents && documents.filter((comment) => comment.isbn === isbn);
+	const startIndex = (currentPage - 1) * commentsPerPage;
+	const endIndex = startIndex + commentsPerPage;
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
+
+	useEffect(() => {
+		if (commentLists) {
+			const displayedComments = commentLists.slice(startIndex, endIndex);
+			setComment(displayedComments);
+		}
+	}, [documents, currentPage]);
 
 	return (
 		<>
-			{documents &&
-				documents.map(
-					(comment) =>
-						comment.isbn === isbn && (
-							<CL.Wrapper key={comment.uid}>
-								<CL.ContainerImgBtn>
-									<CL.ContainerImgLink>
-										<CL.ContainerImg>
-											<img
-												src={comment.photoURL}
-												alt={`${comment.displayName}의 프로필 사진입니다.`}
-											/>
-										</CL.ContainerImg>
+			{comment &&
+				comment.map((comment) => (
+					<CL.Wrapper key={comment.uid}>
+						<CL.ContainerImgBtn>
+							<CL.ContainerImgLink>
+								<CL.ContainerImg>
+									<img
+										src={comment.photoURL}
+										alt={`${comment.displayName}의 프로필 사진입니다.`}
+									/>
+								</CL.ContainerImg>
 
-										<CL.ContainerNameComment>
-											<CL.ContainerNameDate>
-												{user && user.uid === comment.id ? (
-													<CL.ALink to={`/profile`}>
-														{comment.displayName}
-													</CL.ALink>
-												) : (
-													<CL.ALink
-														to={`/profile/${comment.displayName}`}
-														state={{ id: comment.id }}
-													>
-														{comment.displayName}
-													</CL.ALink>
-												)}
-												<CL.PDate>{comment.createdTime}</CL.PDate>
-											</CL.ContainerNameDate>
-											<CL.PComment>{comment.comments}</CL.PComment>
-										</CL.ContainerNameComment>
-									</CL.ContainerImgLink>
-									{(user && user.uid) !== comment.id ? (
-										<CL.Button type='button'>신고</CL.Button>
-									) : (
-										<CL.Button
-											type='button'
-											onClick={() => deleteDocument(comment.uid!)}
-										>
-											삭제
-										</CL.Button>
-									)}
-								</CL.ContainerImgBtn>
-							</CL.Wrapper>
-						)
-				)}
+								<CL.ContainerNameComment>
+									<CL.ContainerNameDate>
+										{user && user.uid === comment.id ? (
+											<CL.ALink to={`/profile`}>{comment.displayName}</CL.ALink>
+										) : (
+											<CL.ALink
+												to={`/profile/${comment.displayName}`}
+												state={{ id: comment.id }}
+											>
+												{comment.displayName}
+											</CL.ALink>
+										)}
+										<CL.PDate>{comment.createdTime}</CL.PDate>
+									</CL.ContainerNameDate>
+									<CL.PComment>{comment.comments}</CL.PComment>
+								</CL.ContainerNameComment>
+							</CL.ContainerImgLink>
+							{(user && user.uid) !== comment.id ? (
+								<CL.Button type='button'>신고</CL.Button>
+							) : (
+								<CL.Button
+									type='button'
+									onClick={() => deleteDocument(comment.uid!)}
+								>
+									삭제
+								</CL.Button>
+							)}
+						</CL.ContainerImgBtn>
+					</CL.Wrapper>
+				))}
 			{isLoading && <p>Loading...</p>}
+			<Paginaition
+				page={currentPage}
+				handlePageChange={handlePageChange}
+				count={commentLists && Math.ceil(commentLists.length / commentsPerPage)}
+			/>
 		</>
 	);
 }

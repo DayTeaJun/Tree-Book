@@ -1,17 +1,28 @@
 import { Box, Pagination } from '@mui/material';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-	page?: string;
+	page?: string | number;
 	searchView?: string;
+	handlePageChange?: (newPage: number) => void;
+	count?: number | null;
 }
 
-export const Paginaition = ({ searchView, page }: Props) => {
+export const Paginaition = ({
+	searchView,
+	page,
+	handlePageChange,
+	count,
+}: Props) => {
 	const navigate = useNavigate();
-	const pageNumber: number = parseInt(page!, 10);
+	const pageNumber: number = parseInt(page as string, 10);
 	const onPageChange = (e: ChangeEvent<unknown>, page: number) => {
-		navigate(`/search/${searchView}/${page}`);
+		if (searchView) {
+			navigate(`/search/${searchView}/${page}`);
+		} else if (handlePageChange) {
+			handlePageChange(page);
+		}
 	};
 
 	return (
@@ -19,7 +30,7 @@ export const Paginaition = ({ searchView, page }: Props) => {
 			<Pagination
 				page={pageNumber}
 				onChange={onPageChange}
-				count={100}
+				count={count || 100}
 				showFirstButton
 				showLastButton
 			/>
