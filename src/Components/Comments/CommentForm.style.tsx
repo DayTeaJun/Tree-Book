@@ -5,7 +5,8 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 10px;
+	gap: 10px;
 `;
 
 const H2 = styled.h2`
@@ -14,7 +15,6 @@ const H2 = styled.h2`
 `;
 
 const Container = styled.div`
-	margin-top: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;

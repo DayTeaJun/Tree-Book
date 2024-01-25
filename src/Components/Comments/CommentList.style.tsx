@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-	margin-top: 30px;
+const Section = styled.section`
+	width: 100%;
+	height: 472px;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	margin-top: 10px;
+`;
+
+const Wrapper = styled.div`
+	height: 100px;
+	display: flex;
+	flex-direction: column;
 	border-radius: 5px;
 	border: 1px solid #ccc;
 	padding: 20px;
@@ -76,6 +85,7 @@ const Button = styled.button`
 `;
 
 export const CL = {
+	Section,
 	Wrapper,
 	ContainerImg,
 	ContainerImgBtn,

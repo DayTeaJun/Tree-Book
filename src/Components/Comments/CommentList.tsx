@@ -32,54 +32,60 @@ export function CommentList({ isbn }: { isbn: string }) {
 
 	return (
 		<>
-			{comment &&
-				comment.map((comment) => (
-					<CL.Wrapper key={comment.uid}>
-						<CL.ContainerImgBtn>
-							<CL.ContainerImgLink>
-								<CL.ContainerImg>
-									<img
-										src={comment.photoURL}
-										alt={`${comment.displayName}의 프로필 사진입니다.`}
-									/>
-								</CL.ContainerImg>
+			<CL.Section>
+				{comment &&
+					comment.map((comment) => (
+						<CL.Wrapper key={comment.uid}>
+							<CL.ContainerImgBtn>
+								<CL.ContainerImgLink>
+									<CL.ContainerImg>
+										<img
+											src={comment.photoURL}
+											alt={`${comment.displayName}의 프로필 사진입니다.`}
+										/>
+									</CL.ContainerImg>
 
-								<CL.ContainerNameComment>
-									<CL.ContainerNameDate>
-										{user && user.uid === comment.id ? (
-											<CL.ALink to={`/profile`}>{comment.displayName}</CL.ALink>
-										) : (
-											<CL.ALink
-												to={`/profile/${comment.displayName}`}
-												state={{ id: comment.id }}
-											>
-												{comment.displayName}
-											</CL.ALink>
-										)}
-										<CL.PDate>{comment.createdTime}</CL.PDate>
-									</CL.ContainerNameDate>
-									<CL.PComment>{comment.comments}</CL.PComment>
-								</CL.ContainerNameComment>
-							</CL.ContainerImgLink>
-							{(user && user.uid) !== comment.id ? (
-								<CL.Button type='button'>신고</CL.Button>
-							) : (
-								<CL.Button
-									type='button'
-									onClick={() => deleteDocument(comment.uid!)}
-								>
-									삭제
-								</CL.Button>
-							)}
-						</CL.ContainerImgBtn>
-					</CL.Wrapper>
-				))}
-			{isLoading && <p>Loading...</p>}
-			<Paginaition
-				page={currentPage}
-				handlePageChange={handlePageChange}
-				count={commentLists && Math.ceil(commentLists.length / commentsPerPage)}
-			/>
+									<CL.ContainerNameComment>
+										<CL.ContainerNameDate>
+											{user && user.uid === comment.id ? (
+												<CL.ALink to={`/profile`}>
+													{comment.displayName}
+												</CL.ALink>
+											) : (
+												<CL.ALink
+													to={`/profile/${comment.displayName}`}
+													state={{ id: comment.id }}
+												>
+													{comment.displayName}
+												</CL.ALink>
+											)}
+											<CL.PDate>{comment.createdTime}</CL.PDate>
+										</CL.ContainerNameDate>
+										<CL.PComment>{comment.comments}</CL.PComment>
+									</CL.ContainerNameComment>
+								</CL.ContainerImgLink>
+								{(user && user.uid) !== comment.id ? (
+									<CL.Button type='button'>신고</CL.Button>
+								) : (
+									<CL.Button
+										type='button'
+										onClick={() => deleteDocument(comment.uid!)}
+									>
+										삭제
+									</CL.Button>
+								)}
+							</CL.ContainerImgBtn>
+						</CL.Wrapper>
+					))}
+				{isLoading && <p>Loading...</p>}
+				<Paginaition
+					page={currentPage}
+					handlePageChange={handlePageChange}
+					count={
+						commentLists && Math.ceil(commentLists.length / commentsPerPage)
+					}
+				/>
+			</CL.Section>
 		</>
 	);
 }
