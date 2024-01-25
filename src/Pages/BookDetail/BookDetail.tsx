@@ -8,6 +8,7 @@ import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
 import BookLikes from '../../Components/Books/BookLikes';
 import { ContainerBookImg } from '../../Components/Books/bookItem.style';
+import { Loading } from '../../Components/LoadingSpinner/Loading';
 
 export default function BookDetail() {
 	const { id, search, page } = useParams<{
@@ -16,25 +17,31 @@ export default function BookDetail() {
 		page: string;
 	}>();
 	const [item, setItem] = useState<BookData>();
+	const [isLoading, setIsLoading] = useState(true);
 
-	const { data: books, isLoading } = useQuery({
+	const { data: books } = useQuery({
 		queryKey: ['bookDetail', search],
 		queryFn: () => getBooks(search!, 14, page),
 		enabled: !!search,
 	});
 
 	useEffect(() => {
-		if (!isLoading && books) {
+		if (books) {
 			const item: BookData = books.find(
 				(_: BookData, index: number) => index === parseInt(id!)
 			);
 			setItem(item);
+			setIsLoading(false);
 		}
 	}, [books]);
 
+	if (isLoading) {
+		return <Loading BackDrop={true} />;
+	}
+
 	return (
 		<D.Main>
-			{item ? (
+			{item && !isLoading ? (
 				<>
 					<D.Section key={item.isbn}>
 						<D.Container>
@@ -103,8 +110,6 @@ export default function BookDetail() {
 			) : (
 				<>{item && <h2>not found</h2>}</>
 			)}
-
-			{isLoading && <h2>Loading...</h2>}
 		</D.Main>
 	);
 }

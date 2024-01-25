@@ -11,6 +11,7 @@ import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { P } from './Profile.style';
 import { UserLikedProps } from '../../Types/userType';
+import { Loading } from '../../Components/LoadingSpinner/Loading';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -36,9 +37,13 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		fetchLikedMeetups();
 	}, [uid]);
 
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<>
-			{!isLoading && likedBooks && (
+			{likedBooks && (
 				<>
 					<P.PLiked>
 						<P.Strong>{displayName}</P.Strong>

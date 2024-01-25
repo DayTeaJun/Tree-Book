@@ -14,6 +14,7 @@ import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
 import MainLayout from '../Layouts/MainLayout';
+import { Loading } from '../Components/LoadingSpinner/Loading';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
@@ -55,7 +56,7 @@ export default function Router() {
 					</Route>
 				</Routes>
 			) : (
-				'Loading...'
+				<Loading BackDrop={true} />
 			)}
 		</BrowserRouter>
 	);

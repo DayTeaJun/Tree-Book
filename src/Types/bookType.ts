@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface BookData {
 	authors: string[];
 	contents: string;

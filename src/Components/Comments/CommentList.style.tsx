@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Section = styled.section`
 	width: 100%;
-	height: 472px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;

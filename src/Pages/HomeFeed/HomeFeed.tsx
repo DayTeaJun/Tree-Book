@@ -3,6 +3,7 @@ import { getBooks } from '../../Api/searchApi';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { S } from './homFeed.style';
+import { Loading } from '../../Components/LoadingSpinner/Loading';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -10,6 +11,10 @@ export default function HomeFeed() {
 		queryFn: () => getBooks('리액트', 14),
 		refetchOnWindowFocus: false,
 	});
+
+	if (isLoading) {
+		return <Loading BackDrop={true} />;
+	}
 
 	return (
 		<>

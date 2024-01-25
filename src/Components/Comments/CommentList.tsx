@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
@@ -6,10 +5,12 @@ import { CL } from './CommentList.style';
 import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
+import { Loading } from '../LoadingSpinner/Loading';
 
 export function CommentList({ isbn }: { isbn: string }) {
-	const { documents, error, isLoading } = useCollection('comments');
+	const { documents } = useCollection('comments');
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
+	const [isLoading, setLoading] = useState(true);
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
 	const [currentPage, setCurrentPage] = useState(1);
@@ -27,13 +28,18 @@ export function CommentList({ isbn }: { isbn: string }) {
 		if (commentLists) {
 			const displayedComments = commentLists.slice(startIndex, endIndex);
 			setComment(displayedComments);
+			setLoading(false);
 		}
 	}, [documents, currentPage]);
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<>
 			<CL.Section>
-				{comment &&
+				{comment ? (
 					comment.map((comment) => (
 						<CL.Wrapper key={comment.uid}>
 							<CL.ContainerImgBtn>
@@ -76,8 +82,10 @@ export function CommentList({ isbn }: { isbn: string }) {
 								)}
 							</CL.ContainerImgBtn>
 						</CL.Wrapper>
-					))}
-				{isLoading && <p>Loading...</p>}
+					))
+				) : (
+					<Loading />
+				)}
 				<Paginaition
 					page={currentPage}
 					handlePageChange={handlePageChange}

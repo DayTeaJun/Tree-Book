@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from '../../Components/Pagination/Pagination';
+import { Loading } from '../../Components/LoadingSpinner/Loading';
 
 export default function SearchView() {
 	const { searchView, page } = useParams<{
@@ -18,6 +19,10 @@ export default function SearchView() {
 		enabled: !!searchView,
 		refetchOnWindowFocus: false,
 	});
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<>
@@ -38,8 +43,6 @@ export default function SearchView() {
 			)}
 
 			<Paginaition page={page} searchView={searchView} />
-
-			{/* {isLoading && <h2>Loading...</h2>} */}
 		</>
 	);
 }

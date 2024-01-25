@@ -5,6 +5,7 @@ import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import { Fragment, useEffect } from 'react';
 import UserLiked from './UserLiked';
+import { Loading } from '../../Components/LoadingSpinner/Loading';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -20,6 +21,10 @@ export function Profile() {
 			}
 		}
 	}, []);
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<P.Main>
@@ -53,8 +58,6 @@ export function Profile() {
 					<UserLiked uid={user.uid} displayName={user.displayName} />
 				</Fragment>
 			)}
-
-			{isLoading && <p>Loading...</p>}
 		</P.Main>
 	);
 }
