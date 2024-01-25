@@ -39,7 +39,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 	return (
 		<>
 			<CL.Section>
-				{comment ? (
+				{comment &&
 					comment.map((comment) => (
 						<CL.Wrapper key={comment.uid}>
 							<CL.ContainerImgBtn>
@@ -82,17 +82,16 @@ export function CommentList({ isbn }: { isbn: string }) {
 								)}
 							</CL.ContainerImgBtn>
 						</CL.Wrapper>
-					))
-				) : (
-					<Loading />
+					))}
+				{comment.length !== 0 && (
+					<Paginaition
+						page={currentPage}
+						handlePageChange={handlePageChange}
+						count={
+							commentLists && Math.ceil(commentLists.length / commentsPerPage)
+						}
+					/>
 				)}
-				<Paginaition
-					page={currentPage}
-					handlePageChange={handlePageChange}
-					count={
-						commentLists && Math.ceil(commentLists.length / commentsPerPage)
-					}
-				/>
 			</CL.Section>
 		</>
 	);
