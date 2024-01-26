@@ -21,14 +21,18 @@ export const BookBest = () => {
 		const fetchLikedMeetups = async () => {
 			try {
 				const LikesRef = collection(appFirestore, 'BooksLikes');
-				const likedQuery = query(LikesRef, orderBy('likeBy', 'desc'), limit(2));
-
+				const likedQuery = query(LikesRef);
 				const likedQuerySnapshot = await getDocs(likedQuery);
 				const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());
-				console.log(likedQueryData);
+				likedQueryData.sort(
+					(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
+				);
+				const topTwoDocuments = likedQueryData.slice(0, 2);
+
+				console.log(topTwoDocuments);
 
 				setIsLoading(false);
-				setLikedBooks(likedQueryData);
+				setLikedBooks(topTwoDocuments);
 			} catch (error) {
 				console.error(error);
 				setIsLoading(true);
