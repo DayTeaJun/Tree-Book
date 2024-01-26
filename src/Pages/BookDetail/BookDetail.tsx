@@ -17,9 +17,8 @@ export default function BookDetail() {
 		page: string;
 	}>();
 	const [item, setItem] = useState<BookData>();
-	const [isLoading, setIsLoading] = useState(true);
 
-	const { data: books } = useQuery({
+	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', search],
 		queryFn: () => getBooks(search!, 14, page),
 		enabled: !!search,
@@ -31,7 +30,6 @@ export default function BookDetail() {
 				(_: BookData, index: number) => index === parseInt(id!)
 			);
 			setItem(item);
-			setIsLoading(false);
 		}
 	}, [books]);
 
