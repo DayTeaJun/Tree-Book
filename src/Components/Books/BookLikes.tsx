@@ -47,7 +47,8 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 			if (!like) {
 				likeBy = { ...likedUser?.likeBy, [uid]: !like };
 			} else {
-				likeBy = { ...likedUser?.likeBy, [uid]: !like };
+				likeBy = { ...likedUser?.likeBy };
+				delete likeBy[uid];
 			}
 			await setDoc(booksRef, {
 				...item,
