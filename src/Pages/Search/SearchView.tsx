@@ -27,7 +27,7 @@ export default function SearchView() {
 	return (
 		<>
 			{books && books.length !== 0 ? (
-				<S.Section>
+				<S.SectionSearch>
 					{books.map((item: BookData, index: number) => (
 						<BookItem
 							item={item}
@@ -37,7 +37,7 @@ export default function SearchView() {
 							key={item.isbn}
 						></BookItem>
 					))}
-				</S.Section>
+				</S.SectionSearch>
 			) : (
 				books && books.length === 0 && <h2>not found</h2>
 			)}
