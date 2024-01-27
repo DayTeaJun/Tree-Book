@@ -31,6 +31,9 @@ const P = styled.p`
 	font-size: 12px;
 	color: #a1a1a1;
 	margin-top: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 const Price = styled.p`
