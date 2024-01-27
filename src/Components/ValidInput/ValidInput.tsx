@@ -19,6 +19,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayName, setDisplayName] = useState('');
+	const [intro, setIntro] = useState('');
 	const [validEmail, setValidEmail] = useState(' ');
 	const [validName, setValidName] = useState(' ');
 	const userRef = collection(appFirestore, 'user');
@@ -26,15 +27,18 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 	const debounceName = useDebounce<string>(displayName);
 
 	const handleData = async (e: ChangeEvent<HTMLInputElement>) => {
-		if (e.target.type === 'email') {
+		if (e.target.id === 'myEmail') {
 			setEmail(e.target.value);
 			setInputValue((prev) => ({ ...prev, email: e.target.value }));
-		} else if (e.target.type === 'password') {
+		} else if (e.target.id === 'myPassword') {
 			setPassword(e.target.value);
 			setInputValue((prev) => ({ ...prev, password: e.target.value }));
-		} else if (e.target.type === 'text') {
+		} else if (e.target.id === 'myNickName') {
 			setDisplayName(e.target.value);
 			setInputValue((prev) => ({ ...prev, displayName: e.target.value }));
+		} else if (e.target.id === 'intro') {
+			setIntro(e.target.value);
+			setInputValue((prev) => ({ ...prev, intro: e.target.value }));
 		}
 	};
 
@@ -66,7 +70,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 
 	return (
 		<>
-			<LS.Label htmlFor='myEmail'>Email</LS.Label>
+			<LS.Label htmlFor='myEmail'>이메일</LS.Label>
 			<LS.Input
 				type='email'
 				id='myEmail'
@@ -75,7 +79,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				onChange={handleData}
 			/>
 			{validEmail ? <LS.P>{validEmail}</LS.P> : <LS.P>&nbsp;</LS.P>}
-			<LS.Label htmlFor='myPassword'>Password</LS.Label>
+			<LS.Label htmlFor='myPassword'>비밀번호</LS.Label>
 			<LS.Input
 				type='password'
 				id='myPassword'
@@ -84,7 +88,7 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				onChange={handleData}
 			/>
 
-			<LS.Label htmlFor='myNickName'>Nickname</LS.Label>
+			<LS.Label htmlFor='myNickName'>닉네임</LS.Label>
 			<LS.Input
 				type='text'
 				id='myNickName'
@@ -93,6 +97,8 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				onChange={handleData}
 			/>
 			<LS.P>{validName || '\u00A0'}</LS.P>
+			<LS.Label htmlFor='intro'>자기 소개</LS.Label>
+			<LS.Input type='text' id='intro' value={intro} onChange={handleData} />
 		</>
 	);
 }

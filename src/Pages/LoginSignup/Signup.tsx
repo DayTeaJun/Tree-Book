@@ -13,6 +13,7 @@ export default function Signup() {
 		email: '',
 		password: '',
 		displayName: '',
+		intro: '',
 	});
 
 	const handleSubmit: FormEventHandler = (e) => {

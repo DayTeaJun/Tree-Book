@@ -8,6 +8,7 @@ export interface SignupType {
 	password: string;
 	displayName: string;
 	imgUrl?: Blob;
+	intro?: string;
 }
 
 export interface LoginType {
@@ -19,4 +20,5 @@ export interface InputValueType {
 	email: string;
 	password: string;
 	displayName: string;
+	intro: string;
 }

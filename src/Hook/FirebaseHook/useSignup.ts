@@ -21,6 +21,7 @@ export const useSignup = () => {
 		email,
 		password,
 		displayName,
+		intro,
 		imgUrl,
 	}: SignupType) => {
 		try {
@@ -62,6 +63,7 @@ export const useSignup = () => {
 						email,
 						password,
 						displayName,
+						intro,
 						photoURL,
 						uid,
 						createdTime,

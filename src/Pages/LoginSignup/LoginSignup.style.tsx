@@ -46,7 +46,7 @@ const Legend = styled.legend`
 
 const Label = styled.label`
 	display: block;
-	margin: 30px 0;
+	margin: 20px 0;
 `;
 
 const Input = styled.input`
