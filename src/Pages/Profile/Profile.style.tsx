@@ -44,6 +44,7 @@ const ContainerProfile = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	gap: 20px;
 	border-right: solid 1px #eee;
 `;
@@ -72,7 +73,7 @@ const ALink = styled(Link)`
 	color: white;
 `;
 
-const PLiked = styled.p`
+const PP = styled.p`
 	font-size: 16px;
 	text-align: center;
 `;
@@ -92,7 +93,7 @@ export const P = {
 	Section,
 	H1,
 	ALink,
-	PLiked,
+	PP,
 	Strong,
 	ContainerImg,
 	ContainerBook,

@@ -45,10 +45,10 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		<>
 			{!isLoading && likedBooks && (
 				<P.ContainerLiked>
-					<P.PLiked>
+					<P.PP>
 						<P.Strong>{displayName}</P.Strong>
 						님의 좋아요 표시한 책들 목록
-					</P.PLiked>
+					</P.PP>
 					<P.ContainerBook>
 						{likedBooks.map((item: BookData) => (
 							<BookItem

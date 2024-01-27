@@ -33,6 +33,7 @@ export function Profile() {
 										/>
 									</P.ContainerImg>
 									<P.H1>{users.displayName}</P.H1>
+									<P.PP>{users.intro || ''}</P.PP>
 									{userId === user?.displayName && (
 										<P.ALink to='./edit' state={{ intro: users.intro }}>
 											프로필 수정
