@@ -33,6 +33,7 @@ const Form = styled.form`
 	padding-left: 20px;
 	display: flex;
 	flex-direction: column;
+	gap: 10px;
 `;
 
 const Input = styled.input`

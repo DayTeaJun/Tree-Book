@@ -22,6 +22,7 @@ import useDebounce from '../../Hook/useDebounce';
 export function ProfileEdit() {
 	const { user } = useAuthContext();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
+	const [intro, setIntro] = useState('');
 	const navigate = useNavigate();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const [validName, setValidName] = useState('');
@@ -42,8 +43,12 @@ export function ProfileEdit() {
 		validCheck();
 	}, [debounceName]);
 
-	const handleName = (e: ChangeEvent<HTMLInputElement>) => {
-		setDisplayName(e.target.value);
+	const handleEdit = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.id === 'nickNameEdit') {
+			setDisplayName(e.target.value);
+		} else if (e.target.id === 'introEdit') {
+			setIntro(e.target.value);
+		}
 	};
 
 	const handleSubmit: FormEventHandler = async (e) => {
@@ -66,7 +71,7 @@ export function ProfileEdit() {
 					const colRef = collection(appFirestore, 'user');
 
 					const docRef = doc(colRef, user!.uid);
-					await updateDoc(docRef, { displayName: displayName });
+					await updateDoc(docRef, { displayName: displayName, intro: intro });
 				}
 
 				alert('프로필이 변경되었습니다!');
@@ -101,7 +106,15 @@ export function ProfileEdit() {
 					type='text'
 					placeholder='변경할 닉네임을 입력해주세요.'
 					value={displayName}
-					onChange={handleName}
+					onChange={handleEdit}
+				/>
+				<PE.Label htmlFor='introEdit'>자기소개</PE.Label>
+				<PE.Input
+					id='introEdit'
+					type='text'
+					placeholder='자신에 대해서 소개해주세요.'
+					value={intro}
+					onChange={handleEdit}
 				/>
 				<PE.PValid>{validName || '\u00A0'}</PE.PValid>
 
