@@ -20,6 +20,7 @@ export function Profile() {
 	return (
 		<P.Main>
 			{userId &&
+				uid &&
 				documents &&
 				documents.map(
 					(users) =>
