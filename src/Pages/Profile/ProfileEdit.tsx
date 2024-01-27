@@ -2,12 +2,11 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { PE } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { ImgPreview } from '../../Hook/useImgPreview';
-import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import {
 	collection,
 	doc,
@@ -21,8 +20,9 @@ import useDebounce from '../../Hook/useDebounce';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
+	const location = useLocation();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
-	const [intro, setIntro] = useState('');
+	const [userIntro, setUserIntro] = useState(location.state.intro || '');
 	const navigate = useNavigate();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const [validName, setValidName] = useState('');
@@ -47,7 +47,7 @@ export function ProfileEdit() {
 		if (e.target.id === 'nickNameEdit') {
 			setDisplayName(e.target.value);
 		} else if (e.target.id === 'introEdit') {
-			setIntro(e.target.value);
+			setUserIntro(e.target.value);
 		}
 	};
 
@@ -71,11 +71,14 @@ export function ProfileEdit() {
 					const colRef = collection(appFirestore, 'user');
 
 					const docRef = doc(colRef, user!.uid);
-					await updateDoc(docRef, { displayName: displayName, intro: intro });
+					await updateDoc(docRef, {
+						displayName: displayName,
+						intro: userIntro,
+					});
 				}
 
 				alert('프로필이 변경되었습니다!');
-				navigate('../');
+				navigate(-1);
 			}
 		} catch (error) {
 			console.log(error);
@@ -113,7 +116,7 @@ export function ProfileEdit() {
 					id='introEdit'
 					type='text'
 					placeholder='자신에 대해서 소개해주세요.'
-					value={intro}
+					value={userIntro}
 					onChange={handleEdit}
 				/>
 				<PE.PValid>{validName || '\u00A0'}</PE.PValid>

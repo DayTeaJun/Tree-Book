@@ -26,4 +26,5 @@ export interface FirestoreDocument {
 	isbn?: string;
 	like?: boolean;
 	likeBy?: object;
+	intro?: string;
 }

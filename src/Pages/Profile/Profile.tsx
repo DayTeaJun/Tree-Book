@@ -5,7 +5,6 @@ import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import UserLiked from './UserLiked';
 import { Loading } from '../../Components/LoadingSpinner/Loading';
-import { useEffect, useState } from 'react';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -35,7 +34,9 @@ export function Profile() {
 									</P.ContainerImg>
 									<P.H1>{users.displayName}</P.H1>
 									{userId === user?.displayName && (
-										<P.ALink to='./edit'>프로필 수정</P.ALink>
+										<P.ALink to='./edit' state={{ intro: users.intro }}>
+											프로필 수정
+										</P.ALink>
 									)}
 								</P.ContainerProfile>
 								<UserLiked uid={users.uid} displayName={users.displayName} />
