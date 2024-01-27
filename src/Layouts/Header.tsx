@@ -60,7 +60,7 @@ export default function Header() {
 				)}
 				{isAuthReady && user && (
 					<H.Container>
-						<H.ALink to='/profile'>
+						<H.ALink to={`/profile/${user.displayName}`}>
 							내 프로필
 							<AccountCircleIcon />
 						</H.ALink>

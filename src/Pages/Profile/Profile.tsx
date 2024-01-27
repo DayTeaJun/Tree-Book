@@ -3,24 +3,16 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
-import { useEffect } from 'react';
 import UserLiked from './UserLiked';
 import { Loading } from '../../Components/LoadingSpinner/Loading';
+import { useEffect, useState } from 'react';
 
 export function Profile() {
 	const { user } = useAuthContext();
 	const { documents, error, isLoading } = useCollection('user');
-	const anotherUser = useParams().userProfile || '';
-	const navigate = useNavigate();
+	const userId = useParams().userProfile || '';
 	const location = useLocation();
-
-	useEffect(() => {
-		if (user) {
-			if (user.displayName === anotherUser) {
-				navigate('/profile');
-			}
-		}
-	}, []);
+	const uid = location.state ? location.state.id : user?.uid;
 
 	if (isLoading) {
 		return <Loading />;
@@ -28,12 +20,11 @@ export function Profile() {
 
 	return (
 		<P.Main>
-			{anotherUser &&
-				anotherUser !== user?.displayName &&
+			{userId &&
 				documents &&
 				documents.map(
 					(users) =>
-						users.uid === location.state.id && (
+						users.uid === uid && (
 							<P.Section key={users.uid}>
 								<P.ContainerProfile>
 									<P.ContainerImg>
@@ -43,27 +34,14 @@ export function Profile() {
 										/>
 									</P.ContainerImg>
 									<P.H1>{users.displayName}</P.H1>
+									{userId === user?.displayName && (
+										<P.ALink to='./edit'>프로필 수정</P.ALink>
+									)}
 								</P.ContainerProfile>
 								<UserLiked uid={users.uid} displayName={users.displayName} />
 							</P.Section>
 						)
 				)}
-
-			{!anotherUser && user && (
-				<P.Section key={user.uid}>
-					<P.ContainerProfile>
-						<P.ContainerImg>
-							<img
-								src={user.photoURL || persImg}
-								alt={`${user.displayName}의 프로필 사진입니다.`}
-							/>
-						</P.ContainerImg>
-						<P.H1>{user.displayName}</P.H1>
-						<P.ALink to='./edit'>프로필 수정</P.ALink>
-					</P.ContainerProfile>
-					<UserLiked uid={user.uid} displayName={user.displayName} />
-				</P.Section>
-			)}
 		</P.Main>
 	);
 }

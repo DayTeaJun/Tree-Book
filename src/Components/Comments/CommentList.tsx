@@ -53,18 +53,12 @@ export function CommentList({ isbn }: { isbn: string }) {
 
 									<CL.ContainerNameComment>
 										<CL.ContainerNameDate>
-											{user && user.uid === comment.id ? (
-												<CL.ALink to={`/profile`}>
-													{comment.displayName}
-												</CL.ALink>
-											) : (
-												<CL.ALink
-													to={`/profile/${comment.displayName}`}
-													state={{ id: comment.id }}
-												>
-													{comment.displayName}
-												</CL.ALink>
-											)}
+											<CL.ALink
+												to={`/profile/${comment.displayName}`}
+												state={{ id: comment.id }}
+											>
+												{comment.displayName}
+											</CL.ALink>
 											<CL.PDate>{comment.createdTime}</CL.PDate>
 										</CL.ContainerNameDate>
 										<CL.PComment>{comment.comments}</CL.PComment>

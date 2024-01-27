@@ -39,19 +39,13 @@ export default function Router() {
 							<Route path=':search/:page/:id' element={<BookDetail />} />
 						</Route>
 						<Route path='/profile'>
+							<Route path=':userProfile' element={<Profile />} />
 							<Route
-								path=''
-								element={
-									user ? <Profile /> : <Navigate replace={true} to='/' />
-								}
-							></Route>
-							<Route path=':userProfile' element={<Profile />}></Route>
-							<Route
-								path='edit'
+								path=':userProfile/edit'
 								element={
 									user ? <ProfileEdit /> : <Navigate replace={true} to='/' />
 								}
-							></Route>
+							/>
 						</Route>
 					</Route>
 				</Routes>
