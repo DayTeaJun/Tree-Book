@@ -13,11 +13,46 @@ const Main = styled.main`
 	gap: 10px;
 `;
 
-const Container = styled.div`
+const Section = styled.section`
 	width: 100%;
 	display: flex;
+	overflow: hidden;
+	gap: 20px;
+`;
+
+const ContainerBook = styled.div`
+	width: 100%;
+	display: flex;
+	padding: 15px 0;
 	gap: 10px;
-	flex-wrap: wrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	&::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+		border-radius: 6px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: green;
+		border-radius: 6px;
+	}
+`;
+
+const ContainerProfile = styled.div`
+	width: 30%;
+	flex-shrink: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	border-right: solid 1px #eee;
+`;
+
+const ContainerLiked = styled.div`
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 `;
 
 const Img = styled.img`
@@ -36,7 +71,9 @@ const ALink = styled(Link)`
 
 const PLiked = styled.p`
 	font-size: 16px;
+	text-align: center;
 `;
+
 const Strong = styled.strong`
 	color: green;
 	font-weight: bold;
@@ -44,9 +81,12 @@ const Strong = styled.strong`
 
 export const P = {
 	Main,
+	Section,
 	Img,
 	ALink,
 	PLiked,
 	Strong,
-	Container,
+	ContainerBook,
+	ContainerLiked,
+	ContainerProfile,
 };

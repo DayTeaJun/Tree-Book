@@ -43,13 +43,13 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 
 	return (
 		<>
-			{likedBooks && (
-				<>
+			{!isLoading && likedBooks && (
+				<P.ContainerLiked>
 					<P.PLiked>
 						<P.Strong>{displayName}</P.Strong>
 						님의 좋아요 표시한 책들 목록
 					</P.PLiked>
-					<P.Container>
+					<P.ContainerBook>
 						{likedBooks.map((item: BookData) => (
 							<BookItem
 								item={item}
@@ -59,8 +59,8 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 								key={item.isbn}
 							></BookItem>
 						))}
-					</P.Container>
-				</>
+					</P.ContainerBook>
+				</P.ContainerLiked>
 			)}
 		</>
 	);
