@@ -13,10 +13,6 @@ const Container = styled.div`
 	width: 120px;
 	border-radius: 5px;
 	cursor: pointer;
-	&:hover {
-		transform: scale(1.3);
-		transition: transform 0.5s;
-	}
 `;
 
 const H2 = styled.h2`
