@@ -11,6 +11,13 @@ const Section = styled.section`
 	padding: 20px;
 `;
 
+const ContainerImg = styled.div`
+	width: 120px;
+	flex-shrink: 1;
+	text-align: center;
+	border-radius: 10px;
+`;
+
 const ContainerH2Likes = styled.div`
 	display: flex;
 	align-items: center;
@@ -79,6 +86,7 @@ const Alink = styled.a`
 export const D = {
 	Main,
 	Section,
+	ContainerImg,
 	ContainerH2Likes,
 	Likes,
 	P,

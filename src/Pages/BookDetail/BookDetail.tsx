@@ -44,13 +44,13 @@ export default function BookDetail() {
 					<D.Section key={item.isbn}>
 						<D.Container>
 							{item.thumbnail ? (
-								<ContainerBookImg>
+								<D.ContainerImg>
 									<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
-								</ContainerBookImg>
+								</D.ContainerImg>
 							) : (
-								<ContainerBookImg>
+								<D.ContainerImg>
 									<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
-								</ContainerBookImg>
+								</D.ContainerImg>
 							)}
 							<D.Alink
 								onClick={() => {
@@ -69,7 +69,11 @@ export default function BookDetail() {
 							<D.Dl>
 								<D.Dt>작가</D.Dt>
 								<D.Dd>
-									{item.authors !== undefined || '' ? item.authors : '미상'}
+									{item.authors !== undefined || ''
+										? item.authors.length > 1
+											? item.authors.join(' | ')
+											: item.authors
+										: '미상'}
 								</D.Dd>
 							</D.Dl>
 							<D.Dl>
