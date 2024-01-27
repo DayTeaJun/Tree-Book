@@ -44,7 +44,7 @@ const ContainerProfile = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 10px;
+	gap: 20px;
 	border-right: solid 1px #eee;
 `;
 
@@ -55,16 +55,19 @@ const ContainerLiked = styled.div`
 	gap: 10px;
 `;
 
-const Img = styled.img`
-	width: 150px;
-	height: 150px;
+const ContainerImg = styled.div`
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	flex-shrink: 1;
+	overflow: hidden;
 `;
 
 const ALink = styled(Link)`
-	margin-top: 20px;
-	padding: 10px 12px;
-	font-size: 1.1em;
-	border-radius: 10px;
+	padding: 10px 20px;
+	font-size: 1em;
+	font-weight: 700;
+	border-radius: 50px;
 	background-color: green;
 	color: white;
 `;
@@ -72,6 +75,11 @@ const ALink = styled(Link)`
 const PLiked = styled.p`
 	font-size: 16px;
 	text-align: center;
+`;
+
+const H1 = styled.h1`
+	font-size: 16px;
+	font-weight: bold;
 `;
 
 const Strong = styled.strong`
@@ -82,10 +90,11 @@ const Strong = styled.strong`
 export const P = {
 	Main,
 	Section,
-	Img,
+	H1,
 	ALink,
 	PLiked,
 	Strong,
+	ContainerImg,
 	ContainerBook,
 	ContainerLiked,
 	ContainerProfile,
