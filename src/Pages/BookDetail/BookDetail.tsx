@@ -7,7 +7,6 @@ import { D } from './bookDetail.style';
 import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
 import BookLikes from '../../Components/Books/BookLikes';
-import { ContainerBookImg } from '../../Components/Books/bookItem.style';
 import { Loading } from '../../Components/LoadingSpinner/Loading';
 
 export default function BookDetail() {

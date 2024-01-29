@@ -1,11 +1,4 @@
-import {
-	DocumentData,
-	collection,
-	getDocs,
-	limit,
-	orderBy,
-	query,
-} from 'firebase/firestore';
+import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { BookData } from '../../Types/bookType';
 import { appFirestore } from '../../Firebase/config';

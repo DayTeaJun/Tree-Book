@@ -1,5 +1,5 @@
 import { FormEventHandler, useRef, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { H } from './Header.style';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { useLogout } from '../Hook/FirebaseHook/useLogout';

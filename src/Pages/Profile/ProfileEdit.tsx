@@ -2,7 +2,7 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PE } from './ProfileEdit.style';
 import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';

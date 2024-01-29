@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
