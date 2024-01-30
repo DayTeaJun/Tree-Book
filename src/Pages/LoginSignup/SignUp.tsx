@@ -21,6 +21,7 @@ export default function SignUp() {
 		displayName: '',
 		intro: '',
 	});
+	const [isDisabled, setIsDisabled] = useState(true);
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -65,13 +66,17 @@ export default function SignUp() {
 								/>
 							</LS.Container>
 						</Grid>
-						<ValidInput setInputValue={setInputValue} />
+						<ValidInput
+							setInputValue={setInputValue}
+							setIsDisabled={setIsDisabled}
+						/>
 					</Grid>
 					<Button
 						type='submit'
 						fullWidth
 						variant='contained'
 						color='success'
+						disabled={isDisabled}
 						sx={{ mt: 3, mb: 2, fontWeight: 'bold' }}
 					>
 						회원가입

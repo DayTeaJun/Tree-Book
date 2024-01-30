@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import {
 	ChangeEvent,
 	Dispatch,
-	FormEvent,
 	SetStateAction,
 	useEffect,
 	useState,
@@ -12,13 +11,17 @@ import { InputValueType } from '../../Types/userType';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import useDebounce from '../../Hook/useDebounce';
 import { appFirestore } from '../../Firebase/config';
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 interface ValidInputProps {
 	setInputValue: Dispatch<SetStateAction<InputValueType>>;
+	setIsDisabled: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ValidInput({ setInputValue }: ValidInputProps) {
+export default function ValidInput({
+	setInputValue,
+	setIsDisabled,
+}: ValidInputProps) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [displayName, setDisplayName] = useState('');
@@ -28,6 +31,8 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 	const userRef = collection(appFirestore, 'user');
 	const debounceEmail = useDebounce<string>(email);
 	const debounceName = useDebounce<string>(displayName);
+
+	const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 	const handleData = async (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.id === 'email') {
@@ -46,30 +51,57 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 	};
 
 	const validCheck = async (validCheck: string) => {
+		if (validCheck === 'email' && !emailRegex.test(email)) {
+			return setValidEmail('잘못된 이메일 형식입니다.');
+		}
 		const Query = query(
 			userRef,
-			where(`${validCheck}`, '==', validCheck === 'email' ? email : displayName)
+			where(
+				`${validCheck}`,
+				'==',
+				validCheck === 'email' ? debounceEmail : debounceName
+			)
 		);
 		const querySnapshot = await getDocs(Query);
 		if (querySnapshot.docs.length > 0) {
 			if (validCheck === 'email') {
 				setValidEmail('중복된 이메일입니다.');
-			} else {
+			} else if (validCheck === 'displayName') {
 				setValidName('중복된 닉네임입니다.');
 			}
 		} else {
 			if (validCheck === 'email') {
-				setValidEmail('');
-			} else {
-				setValidName('');
+				setValidEmail('사용 가능한 이메일입니다.');
+			} else if (validCheck === 'displayName') {
+				setValidName('사용 가능한 닉네임입니다.');
 			}
 		}
 	};
 
 	useEffect(() => {
-		validCheck('email');
-		validCheck('displayName');
+		if (email.length > 0) {
+			validCheck('email');
+		} else {
+			setValidEmail('');
+		}
+		if (displayName.length > 0) {
+			validCheck('displayName');
+		} else {
+			setValidName('');
+		}
 	}, [debounceEmail, debounceName]);
+
+	useEffect(() => {
+		if (
+			validName === '사용 가능한 닉네임입니다.' &&
+			validEmail === '사용 가능한 이메일입니다.' &&
+			password.length > 5
+		) {
+			setIsDisabled(false);
+		} else {
+			setIsDisabled(true);
+		}
+	}, [validEmail, validName, password]);
 
 	return (
 		<>
