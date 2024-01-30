@@ -77,24 +77,6 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 				<TextField
 					required
 					fullWidth
-					id='email'
-					label='Email Address'
-					name='email'
-					onChange={handleData}
-				/>
-				<Typography
-					component='p'
-					fontSize={'0.7em'}
-					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
-				>
-					{validEmail}
-				</Typography>
-			</Grid>
-
-			<Grid item xs={12} sx={{ mt: 2 }}>
-				<TextField
-					required
-					fullWidth
 					id='nickname'
 					label='Nickname'
 					name='Nickname'
@@ -106,6 +88,24 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
 				>
 					{validName}
+				</Typography>
+			</Grid>
+
+			<Grid item xs={12} sx={{ mt: 2 }}>
+				<TextField
+					required
+					fullWidth
+					id='email'
+					label='Email Address'
+					name='email'
+					onChange={handleData}
+				/>
+				<Typography
+					component='p'
+					fontSize={'0.7em'}
+					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
+				>
+					{validEmail}
 				</Typography>
 			</Grid>
 

@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,7 +10,6 @@ import { ImgPreview } from '../../Hook/useImgPreview';
 import { InputValueType } from '../../Types/userType';
 import { Link } from 'react-router-dom';
 import { LS } from './LoginSignup.style';
-import persImg from '../../Assets/No-img.svg';
 import ValidInput from '../../Components/ValidInput/ValidInput';
 
 export default function SignUp() {
@@ -52,7 +50,10 @@ export default function SignUp() {
 						<Grid item xs={12} sm={5}>
 							<LS.Container>
 								<LS.Img
-									src={(imgUrl && imageSrc) || persImg}
+									src={
+										(imgUrl && imageSrc) ||
+										'https://firebasestorage.googleapis.com/v0/b/treebook-95cdf.appspot.com/o/profile%2FTemporary%20Profile%2Ftem_img.png?alt=media&token=b3a0020f-adc2-4272-aef5-5c2441d3191b'
+									}
 									alt={'프로필 이미지 등록'}
 								/>
 								<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
@@ -70,6 +71,7 @@ export default function SignUp() {
 						type='submit'
 						fullWidth
 						variant='contained'
+						color='success'
 						sx={{ mt: 3, mb: 2, fontWeight: 'bold' }}
 					>
 						회원가입

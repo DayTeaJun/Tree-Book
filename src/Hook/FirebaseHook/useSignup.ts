@@ -56,6 +56,7 @@ export const useSignup = () => {
 						`profile/Temporary Profile/tem_img.png`
 					);
 					photoURL = await getDownloadURL(pathReference);
+					console.log(photoURL);
 				}
 
 				try {
