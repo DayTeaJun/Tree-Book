@@ -3,45 +3,28 @@ import { Link } from 'react-router-dom';
 import { a11y } from '../Styles/Common';
 
 const Header = styled.header`
-	position: relative;
 	display: flex;
-	flex-direction: column;
-	padding-top: 15px;
+	align-items: center;
+	justify-content: space-between;
 `;
 
 const LinkHome = styled(Link)`
+	text-align: center;
 	font-size: 35px;
 	font-weight: bold;
-	text-align: center;
 	color: Green;
 	font-family: 'OG_Renaissance_Secret-Rg';
 `;
 
 const Container = styled.div`
 	display: flex;
-	position: absolute;
+	justify-content: center;
 	border-radius: 5px;
 	background-color: #eee;
 	padding: 20px;
-	top: 50%;
-	right: 0;
-	transform: translate(0, -50%);
-`;
-
-const Strong = styled.strong`
-	position: absolute;
-	border-radius: 5px;
-	background-color: #eee;
-	padding: 20px;
-	top: 50%;
-	right: 0;
-	transform: translate(0, -50%);
-	font-size: 1em;
-	cursor: pointer;
 `;
 
 const Form = styled.form`
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	padding: 5px;
@@ -92,7 +75,6 @@ const ALink = styled(Link)`
 export const H = {
 	Header,
 	Container,
-	Strong,
 	LinkHome,
 	Form,
 	Label,

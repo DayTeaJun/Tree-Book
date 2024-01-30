@@ -78,7 +78,7 @@ export default function SignUp() {
 					</Button>
 					<Grid container justifyContent='flex-end'>
 						<Grid item>
-							<Link to='signup'>{'이메일로 로그인'}</Link>
+							<Link to='/login'>{'이메일로 로그인'}</Link>
 						</Grid>
 					</Grid>
 				</Box>

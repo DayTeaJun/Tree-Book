@@ -72,7 +72,7 @@ export default function SignIn() {
 						로그인
 					</Button>
 					<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-						<Link to='signup'>{'이메일로 회원가입'}</Link>
+						<Link to='/signup'>{'이메일로 회원가입'}</Link>
 					</Box>
 				</Box>
 			</Box>
