@@ -8,13 +8,13 @@ import {
 import HomeFeed from '../Pages/HomeFeed/HomeFeed';
 import BookDetail from '../Pages/BookDetail/BookDetail';
 import SearchView from '../Pages/Search/SearchView';
-import Signup from '../Pages/LoginSignup/Signup';
 import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
 import MainLayout from '../Layouts/MainLayout';
 import { Loading } from '../Components/LoadingSpinner/Loading';
 import SignIn from '../Pages/LoginSignup/SignIn';
+import SignUp from '../Pages/LoginSignup/SignUp';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
@@ -26,7 +26,7 @@ export default function Router() {
 					<Route element={<MainLayout />}>
 						<Route
 							path='/signup'
-							element={!user ? <Signup /> : <Navigate replace={true} to='/' />}
+							element={!user ? <SignUp /> : <Navigate replace={true} to='/' />}
 						/>
 						<Route
 							path='/login'

@@ -10,8 +10,8 @@ const Form = styled.form`
 `;
 
 const Container = styled.div`
-	width: 110px;
-	height: 110px;
+	width: 100px;
+	height: 100px;
 	margin: 0 auto;
 	display: flex;
 	justify-content: center;

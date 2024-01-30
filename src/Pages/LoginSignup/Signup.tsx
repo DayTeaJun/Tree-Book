@@ -1,12 +1,20 @@
-import { FormEventHandler, useState } from 'react';
-import { LS } from './LoginSignup.style';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { FormEvent, useState } from 'react';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
-import persImg from '../../Assets/No-img.svg';
 import { ImgPreview } from '../../Hook/useImgPreview';
-import ValidInput from '../../Components/ValidInput/ValidInput';
 import { InputValueType } from '../../Types/userType';
+import { Link } from 'react-router-dom';
+import { LS } from './LoginSignup.style';
+import persImg from '../../Assets/No-img.svg';
+import ValidInput from '../../Components/ValidInput/ValidInput';
 
-export default function Signup() {
+export default function SignUp() {
 	const { error, isPending, signup } = useSignup();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const [inputValue, setInputValue] = useState<InputValueType>({
@@ -16,7 +24,7 @@ export default function Signup() {
 		intro: '',
 	});
 
-	const handleSubmit: FormEventHandler = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (imgUrl) {
 			signup({ ...inputValue, imgUrl });
@@ -26,25 +34,53 @@ export default function Signup() {
 	};
 
 	return (
-		<LS.Form onSubmit={handleSubmit}>
-			<fieldset>
-				<LS.Legend>회원가입</LS.Legend>
-				<LS.Container>
-					<LS.Img
-						src={(imgUrl && imageSrc) || persImg}
-						alt={'프로필 이미지 등록'}
-					/>
-					<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
-					<LS.ImgInput
-						id='profileImg'
-						type='file'
-						accept='image/*'
-						onChange={(e) => onUpload(e)}
-					/>
-				</LS.Container>
-				<ValidInput setInputValue={setInputValue} />
-				<LS.Button type='submit'>회원가입</LS.Button>
-			</fieldset>
-		</LS.Form>
+		<Container component='main' maxWidth='xs'>
+			<CssBaseline />
+			<Box
+				sx={{
+					marginTop: 8,
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+				}}
+			>
+				<Typography component='h1' variant='h5' fontWeight={'bold'}>
+					회원가입
+				</Typography>
+				<Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
+					<Grid container alignItems={'center'} spacing={2}>
+						<Grid item xs={12} sm={5}>
+							<LS.Container>
+								<LS.Img
+									src={(imgUrl && imageSrc) || persImg}
+									alt={'프로필 이미지 등록'}
+								/>
+								<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
+								<LS.ImgInput
+									id='profileImg'
+									type='file'
+									accept='image/*'
+									onChange={(e) => onUpload(e)}
+								/>
+							</LS.Container>
+						</Grid>
+						<ValidInput setInputValue={setInputValue} />
+					</Grid>
+					<Button
+						type='submit'
+						fullWidth
+						variant='contained'
+						sx={{ mt: 3, mb: 2, fontWeight: 'bold' }}
+					>
+						회원가입
+					</Button>
+					<Grid container justifyContent='flex-end'>
+						<Grid item>
+							<Link to='signup'>{'이메일로 로그인'}</Link>
+						</Grid>
+					</Grid>
+				</Box>
+			</Box>
+		</Container>
 	);
 }

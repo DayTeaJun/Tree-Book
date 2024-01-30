@@ -1,15 +1,18 @@
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 import {
 	ChangeEvent,
 	Dispatch,
+	FormEvent,
 	SetStateAction,
 	useEffect,
 	useState,
 } from 'react';
-import { LS } from '../../Pages/LoginSignup/LoginSignup.style';
-import useDebounce from '../../Hook/useDebounce';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { appFirestore } from '../../Firebase/config';
 import { InputValueType } from '../../Types/userType';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import useDebounce from '../../Hook/useDebounce';
+import { appFirestore } from '../../Firebase/config';
+import { Box, Typography } from '@mui/material';
 
 interface ValidInputProps {
 	setInputValue: Dispatch<SetStateAction<InputValueType>>;
@@ -27,13 +30,13 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 	const debounceName = useDebounce<string>(displayName);
 
 	const handleData = async (e: ChangeEvent<HTMLInputElement>) => {
-		if (e.target.id === 'myEmail') {
+		if (e.target.id === 'email') {
 			setEmail(e.target.value);
 			setInputValue((prev) => ({ ...prev, email: e.target.value }));
-		} else if (e.target.id === 'myPassword') {
+		} else if (e.target.id === 'password') {
 			setPassword(e.target.value);
 			setInputValue((prev) => ({ ...prev, password: e.target.value }));
-		} else if (e.target.id === 'myNickName') {
+		} else if (e.target.id === 'nickname') {
 			setDisplayName(e.target.value);
 			setInputValue((prev) => ({ ...prev, displayName: e.target.value }));
 		} else if (e.target.id === 'intro') {
@@ -70,35 +73,64 @@ export default function ValidInput({ setInputValue }: ValidInputProps) {
 
 	return (
 		<>
-			<LS.Label htmlFor='myEmail'>이메일</LS.Label>
-			<LS.Input
-				type='email'
-				id='myEmail'
-				required
-				value={email}
-				onChange={handleData}
-			/>
-			{validEmail ? <LS.P>{validEmail}</LS.P> : <LS.P>&nbsp;</LS.P>}
-			<LS.Label htmlFor='myPassword'>비밀번호</LS.Label>
-			<LS.Input
-				type='password'
-				id='myPassword'
-				required
-				value={password}
-				onChange={handleData}
-			/>
+			<Grid item xs={12} sm={7}>
+				<TextField
+					required
+					fullWidth
+					id='email'
+					label='Email Address'
+					name='email'
+					onChange={handleData}
+				/>
+				<Typography
+					component='p'
+					fontSize={'0.7em'}
+					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
+				>
+					{validEmail}
+				</Typography>
+			</Grid>
 
-			<LS.Label htmlFor='myNickName'>닉네임</LS.Label>
-			<LS.Input
-				type='text'
-				id='myNickName'
-				required
-				value={displayName}
-				onChange={handleData}
-			/>
-			<LS.P>{validName || '\u00A0'}</LS.P>
-			<LS.Label htmlFor='intro'>자기 소개</LS.Label>
-			<LS.Input type='text' id='intro' value={intro} onChange={handleData} />
+			<Grid item xs={12} sx={{ mt: 2 }}>
+				<TextField
+					required
+					fullWidth
+					id='nickname'
+					label='Nickname'
+					name='Nickname'
+					onChange={handleData}
+				/>
+				<Typography
+					component='p'
+					fontSize={'0.7em'}
+					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
+				>
+					{validName}
+				</Typography>
+			</Grid>
+
+			<Grid item xs={12} sx={{ mb: 3 }}>
+				<TextField
+					required
+					fullWidth
+					name='password'
+					label='Password'
+					type='password'
+					id='password'
+					onChange={handleData}
+				/>
+			</Grid>
+
+			<Grid item xs={12}>
+				<TextField
+					required
+					fullWidth
+					name='intro'
+					label='intro'
+					id='intro'
+					onChange={handleData}
+				/>
+			</Grid>
 		</>
 	);
 }
