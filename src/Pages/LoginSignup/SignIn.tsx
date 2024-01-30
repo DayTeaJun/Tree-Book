@@ -27,7 +27,7 @@ export default function SignIn() {
 	};
 
 	return (
-		<Container component='main' maxWidth='xs'>
+		<Container component='main' maxWidth='xs' sx={{}}>
 			<CssBaseline />
 			<Box
 				sx={{
@@ -43,20 +43,18 @@ export default function SignIn() {
 				<Box component='form' onSubmit={handleSubmit}>
 					<TextField
 						margin='normal'
-						required
 						fullWidth
 						id='email'
-						label='Email Address'
+						label='이메일'
 						name='email'
 						autoFocus
 						onChange={handleData}
 					/>
 					<TextField
 						margin='normal'
-						required
 						fullWidth
 						name='password'
-						label='Password'
+						label='비밀번호'
 						type='password'
 						id='password'
 						onChange={handleData}

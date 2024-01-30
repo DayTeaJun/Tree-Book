@@ -11,6 +11,8 @@ import { InputValueType } from '../../Types/userType';
 import { Link } from 'react-router-dom';
 import { LS } from './LoginSignup.style';
 import ValidInput from '../../Components/ValidInput/ValidInput';
+import temImg from '../../Assets/No-img.svg';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 export default function SignUp() {
 	const { error, isPending, signup } = useSignup();
@@ -48,14 +50,21 @@ export default function SignUp() {
 				</Typography>
 				<Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
 					<Grid container alignItems={'center'} spacing={2}>
-						<Grid item xs={12} sm={5}>
+						<Grid item xs={12}>
 							<LS.Container>
 								<LS.Img
-									src={
-										(imgUrl && imageSrc) ||
-										'https://firebasestorage.googleapis.com/v0/b/treebook-95cdf.appspot.com/o/profile%2FTemporary%20Profile%2Ftem_img.png?alt=media&token=b3a0020f-adc2-4272-aef5-5c2441d3191b'
-									}
+									src={(imgUrl && imageSrc) || temImg}
 									alt={'프로필 이미지 등록'}
+								/>
+								<ImageSearchIcon
+									sx={{
+										position: 'absolute',
+										right: '0',
+										bottom: '0',
+										padding: '0',
+										borderRadius: '50%',
+									}}
+									fontSize='large'
 								/>
 								<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
 								<LS.ImgInput
@@ -77,7 +86,7 @@ export default function SignUp() {
 						variant='contained'
 						color='success'
 						disabled={isDisabled}
-						sx={{ mt: 3, mb: 2, fontWeight: 'bold' }}
+						sx={{ mt: 2, mb: 1, fontWeight: 'bold' }}
 					>
 						회원가입
 					</Button>

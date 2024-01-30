@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 import { a11y } from '../../Styles/Common';
 
-const Form = styled.form`
-	max-width: 360px;
-	margin: 20px auto;
-	padding: 20px;
-	border: solid 1px black;
-	border-radius: 5px;
-`;
-
 const Container = styled.div`
 	width: 100px;
 	height: 100px;
@@ -65,21 +57,7 @@ const P = styled.p`
 	color: red;
 `;
 
-const Button = styled.button`
-	font-size: 1em;
-	margin-top: 40px;
-	float: right;
-	padding: 12px 18px;
-	border-radius: 10px;
-	color: #fff;
-	background-color: green;
-	border: none;
-	font-weight: bold;
-	cursor: pointer;
-`;
-
 export const LS = {
-	Form,
 	Container,
 	Img,
 	ImgInput,
@@ -88,5 +66,4 @@ export const LS = {
 	Label,
 	Input,
 	P,
-	Button,
 };

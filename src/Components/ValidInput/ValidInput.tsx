@@ -105,48 +105,32 @@ export default function ValidInput({
 
 	return (
 		<>
-			<Grid item xs={12} sm={7}>
+			<Grid item xs={12}>
 				<TextField
-					required
-					fullWidth
-					id='nickname'
-					label='Nickname'
-					name='Nickname'
-					onChange={handleData}
-				/>
-				<Typography
-					component='p'
-					fontSize={'0.7em'}
-					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
-				>
-					{validName}
-				</Typography>
-			</Grid>
-
-			<Grid item xs={12} sx={{ mt: 2 }}>
-				<TextField
-					required
 					fullWidth
 					id='email'
-					label='Email Address'
+					label='이메일 주소를 입력해주세요.'
 					name='email'
+					error={
+						validEmail === '잘못된 이메일 형식입니다.' ||
+						validEmail === '중복된 이메일입니다.'
+					}
 					onChange={handleData}
 				/>
 				<Typography
 					component='p'
 					fontSize={'0.7em'}
-					sx={{ mt: 1, color: 'red', minHeight: '2em' }}
+					sx={{ color: 'red', minHeight: '1.5em', mt: 0.5 }}
 				>
 					{validEmail}
 				</Typography>
 			</Grid>
 
-			<Grid item xs={12} sx={{ mb: 3 }}>
+			<Grid item xs={12} sx={{ mb: 2 }}>
 				<TextField
-					required
 					fullWidth
 					name='password'
-					label='Password'
+					label='비밀번호를 설정해주세요.'
 					type='password'
 					id='password'
 					onChange={handleData}
@@ -155,10 +139,27 @@ export default function ValidInput({
 
 			<Grid item xs={12}>
 				<TextField
-					required
+					fullWidth
+					id='nickname'
+					label='사용자 이름을 설정해주세요.'
+					name='Nickname'
+					error={validName === '중복된 닉네임입니다.'}
+					onChange={handleData}
+				/>
+				<Typography
+					component='p'
+					fontSize={'0.7em'}
+					sx={{ color: 'red', minHeight: '1.5em', mt: 0.5 }}
+				>
+					{validName}
+				</Typography>
+			</Grid>
+
+			<Grid item xs={12}>
+				<TextField
 					fullWidth
 					name='intro'
-					label='intro'
+					label='자신에 대해 소개해주세요.'
 					id='intro'
 					onChange={handleData}
 				/>
