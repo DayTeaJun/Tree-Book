@@ -23,15 +23,15 @@ export default function Router() {
 		<BrowserRouter basename='/'>
 			{isAuthReady ? (
 				<Routes>
-					<Route
-						path='/signup'
-						element={!user ? <Signup /> : <Navigate replace={true} to='/' />}
-					/>
-					<Route
-						path='/Login'
-						element={!user ? <Login /> : <Navigate replace={true} to='/' />}
-					/>
 					<Route element={<MainLayout />}>
+						<Route
+							path='/signup'
+							element={!user ? <Signup /> : <Navigate replace={true} to='/' />}
+						/>
+						<Route
+							path='/Login'
+							element={!user ? <Login /> : <Navigate replace={true} to='/' />}
+						/>
 						<Route path='/' element={<HomeFeed />} />
 
 						<Route path='/search/' element={<Outlet />}>
