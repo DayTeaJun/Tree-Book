@@ -59,7 +59,7 @@ export default function SignUp() {
 								<ImageSearchIcon
 									sx={{
 										position: 'absolute',
-										right: '-10%',
+										right: '0',
 										bottom: '0',
 										padding: '5px 2px 5px 5px',
 										borderRadius: '50%',

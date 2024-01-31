@@ -23,7 +23,7 @@ const ImgInput = styled.input`
 	height: 100%;
 	position: absolute;
 	opacity: 0;
-	z-index: 1;
+	z-index: 999;
 	cursor: pointer;
 `;
 

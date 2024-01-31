@@ -108,6 +108,7 @@ export default function ValidInput({
 			<Grid item xs={12}>
 				<TextField
 					fullWidth
+					autoFocus
 					id='email'
 					label='이메일 주소를 입력해주세요.'
 					name='email'
