@@ -11,7 +11,7 @@ import { InputValueType } from '../../Types/userType';
 import { Link } from 'react-router-dom';
 import { LS } from './LoginSignup.style';
 import ValidInput from '../../Components/ValidInput/ValidInput';
-import temImg from '../../Assets/No-img.svg';
+import temImg from '../../Assets/profile-img.png';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 export default function SignUp() {
@@ -59,10 +59,12 @@ export default function SignUp() {
 								<ImageSearchIcon
 									sx={{
 										position: 'absolute',
-										right: '0',
+										right: '-10%',
 										bottom: '0',
-										padding: '0',
+										padding: '5px 2px 5px 5px',
 										borderRadius: '50%',
+										backgroundColor: 'green',
+										color: '#fff',
 									}}
 									fontSize='large'
 								/>

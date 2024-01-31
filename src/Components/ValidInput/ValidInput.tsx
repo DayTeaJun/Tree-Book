@@ -120,7 +120,13 @@ export default function ValidInput({
 				<Typography
 					component='p'
 					fontSize={'0.7em'}
-					sx={{ color: 'red', minHeight: '1.5em', mt: 0.5 }}
+					sx={{
+						color: `${
+							validEmail === '사용 가능한 이메일입니다.' ? 'green' : 'red'
+						}`,
+						minHeight: '1.5em',
+						mt: 0.5,
+					}}
 				>
 					{validEmail}
 				</Typography>
@@ -149,7 +155,13 @@ export default function ValidInput({
 				<Typography
 					component='p'
 					fontSize={'0.7em'}
-					sx={{ color: 'red', minHeight: '1.5em', mt: 0.5 }}
+					sx={{
+						color: `${
+							validName === '사용 가능한 닉네임입니다.' ? 'green' : 'red'
+						}`,
+						minHeight: '1.5em',
+						mt: 0.5,
+					}}
 				>
 					{validName}
 				</Typography>
