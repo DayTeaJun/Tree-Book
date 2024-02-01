@@ -11,7 +11,9 @@ export const a11y = css`
 	position: absolute;
 `;
 
-export const Shimmer = css`
+export const Shimmer = styled.div`
+	width: 50%;
+	height: 100%;
 	background-color: #e0e0e0;
 	box-shadow: 0 0 30px 30px #e0e0e0;
 	animation: loading 2s infinite;

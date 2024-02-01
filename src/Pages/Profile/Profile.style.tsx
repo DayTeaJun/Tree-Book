@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface SkeletonProps {
+	isSkeleton?: boolean;
+}
 
 const Main = styled.main`
 	margin-top: 20px;
@@ -9,7 +13,7 @@ const Main = styled.main`
 	border: 1px solid black;
 	border-radius: 10px;
 	padding: 20px 24px;
-	min-height: 200px;
+	min-height: 330px;
 	gap: 10px;
 `;
 
@@ -39,7 +43,7 @@ const ContainerBook = styled.div`
 `;
 
 const ContainerProfile = styled.div`
-	width: 30%;
+	min-width: 30%;
 	flex-shrink: 1;
 	display: flex;
 	flex-direction: column;
@@ -78,9 +82,15 @@ const PP = styled.p`
 	text-align: center;
 `;
 
-const H1 = styled.h1`
+const H1 = styled.h1<SkeletonProps>`
 	font-size: 16px;
 	font-weight: bold;
+	${({ isSkeleton }) =>
+		isSkeleton &&
+		css`
+			width: 100px;
+			height: 10px;
+		`}
 `;
 
 const Strong = styled.strong`
