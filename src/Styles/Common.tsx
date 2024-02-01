@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const a11y = css`
 	clip: rect(1px, 1px, 1px, 1px);
@@ -9,4 +9,21 @@ export const a11y = css`
 	overflow: hidden;
 	padding: 0;
 	position: absolute;
+`;
+
+export const Shimmer = css`
+	background-color: #e0e0e0;
+	box-shadow: 0 0 30px 30px #e0e0e0;
+	animation: loading 2s infinite;
+	@keyframes loading {
+		0% {
+			transform: translateX(-50%);
+		}
+		50% {
+			transform: translateX(100%);
+		}
+		100% {
+			transform: translate(200%);
+		}
+	}
 `;
