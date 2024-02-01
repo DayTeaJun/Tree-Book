@@ -5,6 +5,7 @@ import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import UserLiked from './UserLiked';
 import { Loading } from '../../Components/LoadingSpinner/Loading';
+import { ProfileSekeleton } from './Profile.skeleton';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -19,9 +20,7 @@ export function Profile() {
 
 	return (
 		<P.Main>
-			{userId &&
-				uid &&
-				documents &&
+			{userId && uid && documents ? (
 				documents.map(
 					(users) =>
 						users.uid === uid && (
@@ -44,7 +43,10 @@ export function Profile() {
 								<UserLiked uid={users.uid} displayName={users.displayName} />
 							</P.Section>
 						)
-				)}
+				)
+			) : (
+				<ProfileSekeleton />
+			)}
 		</P.Main>
 	);
 }
