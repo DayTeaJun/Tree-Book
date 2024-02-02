@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { S } from '../HomeFeed/homFeed.style';
 import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from '../../Components/Pagination/Pagination';
-import { Loading } from '../../Components/LoadingSpinner/Loading';
+import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 
 export default function SearchView() {
 	const { searchView, page } = useParams<{
@@ -20,27 +20,29 @@ export default function SearchView() {
 		refetchOnWindowFocus: false,
 	});
 
-	if (isLoading) {
-		return <Loading />;
-	}
-
 	return (
 		<>
-			{books && books.length !== 0 ? (
-				<S.SectionSearch>
-					{books.map((item: BookData, index: number) => (
-						<BookItem
-							item={item}
-							page={page}
-							id={index}
-							search={searchView || ''}
-							key={item.isbn}
-						></BookItem>
-					))}
-				</S.SectionSearch>
-			) : (
-				books && books.length === 0 && <h2>not found</h2>
-			)}
+			<S.SectionSearch>
+				{isLoading ? (
+					<>
+						{Array.from({ length: 14 }).map((_, index) => (
+							<BookItemSkeleton key={index} />
+						))}
+					</>
+				) : (
+					<>
+						{books.map((item: BookData, index: number) => (
+							<BookItem
+								item={item}
+								page={page}
+								id={index}
+								search={searchView || ''}
+								key={item.isbn}
+							></BookItem>
+						))}
+					</>
+				)}
+			</S.SectionSearch>
 
 			<Paginaition page={page} searchView={searchView} />
 		</>
