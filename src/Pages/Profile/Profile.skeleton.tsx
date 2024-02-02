@@ -39,7 +39,6 @@ export const ProfileSekeleton = () => {
 					<Shimmer />
 				</P.ALink>
 			</P.ContainerProfile>
-			<UserLiked />
 		</P.Section>
 	);
 };

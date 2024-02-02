@@ -11,14 +11,13 @@ import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { P } from './Profile.style';
 import { UserLikedProps } from '../../Types/userType';
-import { Loading } from '../../Components/LoadingSpinner/Loading';
+import { UserLikedSkeleton } from './UserLiked.skeleton';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
-	const [isLoading, setIsLoading] = useState(true);
 	const [likedBooks, setLikedBooks] = useState<DocumentData | BookData[]>();
 
 	useEffect(() => {
-		const fetchLikedMeetups = async () => {
+		const fetchLiked = async () => {
 			try {
 				const LikesRef = collection(appFirestore, 'BooksLikes');
 				const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
@@ -26,24 +25,18 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 				const likedQuerySnapshot = await getDocs(likedQuery);
 				const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());
 
-				setIsLoading(false);
 				setLikedBooks(likedQueryData);
 			} catch (error) {
 				console.error(error);
-				setIsLoading(true);
 			}
 		};
 
-		fetchLikedMeetups();
-	}, [uid]);
-
-	if (isLoading) {
-		return <Loading />;
-	}
+		fetchLiked();
+	}, []);
 
 	return (
 		<>
-			{!isLoading && likedBooks && (
+			{likedBooks ? (
 				<P.ContainerLiked>
 					<P.PP>
 						<P.Strong>{displayName}</P.Strong>
@@ -61,6 +54,8 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 						))}
 					</P.ContainerBook>
 				</P.ContainerLiked>
+			) : (
+				<UserLikedSkeleton />
 			)}
 		</>
 	);

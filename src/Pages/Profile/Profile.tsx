@@ -4,7 +4,6 @@ import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
 import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import UserLiked from './UserLiked';
-import { Loading } from '../../Components/LoadingSpinner/Loading';
 import { ProfileSekeleton } from './Profile.skeleton';
 
 export function Profile() {
@@ -13,14 +12,6 @@ export function Profile() {
 	const userId = useParams().userProfile || '';
 	const location = useLocation();
 	const uid = location.state ? location.state.id : user?.uid;
-
-	if (isLoading) {
-		return (
-			<P.Main>
-				<ProfileSekeleton />
-			</P.Main>
-		);
-	}
 
 	return (
 		<P.Main>
