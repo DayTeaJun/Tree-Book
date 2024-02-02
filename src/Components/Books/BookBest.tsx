@@ -5,9 +5,9 @@ import { appFirestore } from '../../Firebase/config';
 import BookItem from './BookItem';
 import { Box } from '@mui/material';
 import { Loading } from '../LoadingSpinner/Loading';
+import { BookItemSkeleton } from './BookItem.skeleton';
 
 export const BookBest = () => {
-	const [isLoading, setIsLoading] = useState(true);
 	const [likedBooks, setLikedBooks] = useState<DocumentData | BookData[]>();
 
 	useEffect(() => {
@@ -24,11 +24,9 @@ export const BookBest = () => {
 
 				console.log(topTwoDocuments);
 
-				setIsLoading(false);
 				setLikedBooks(topTwoDocuments);
 			} catch (error) {
 				console.error(error);
-				setIsLoading(true);
 			}
 		};
 
@@ -43,7 +41,7 @@ export const BookBest = () => {
 					justifyContent: 'space-between',
 				}}
 			>
-				{likedBooks && (
+				{likedBooks ? (
 					<>
 						{likedBooks.map((item: BookData) => (
 							<BookItem
@@ -55,8 +53,13 @@ export const BookBest = () => {
 							></BookItem>
 						))}
 					</>
+				) : (
+					<>
+						{Array.from({ length: 2 }).map((_, index) => (
+							<BookItemSkeleton key={index} />
+						))}
+					</>
 				)}
-				{isLoading && <Loading />}
 			</Box>
 		</>
 	);

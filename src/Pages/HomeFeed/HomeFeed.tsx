@@ -5,6 +5,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { S } from './homFeed.style';
 import { Loading } from '../../Components/LoadingSpinner/Loading';
 import { BookBest } from '../../Components/Books/BookBest';
+import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 
 export default function HomeFeed() {
 	const { data: books, isLoading } = useQuery({
@@ -13,20 +14,16 @@ export default function HomeFeed() {
 		refetchOnWindowFocus: false,
 	});
 
-	if (isLoading) {
-		return <Loading BackDrop={true} />;
-	}
-
 	return (
 		<>
 			<S.Section>
-				{books && books.length !== 0 ? (
-					<>
-						<S.ContainerBestBook>
-							<S.H2>Best</S.H2>
-							<BookBest />
-						</S.ContainerBestBook>
-						<S.ContainerBook>
+				<S.ContainerBestBook>
+					<S.H2>Best</S.H2>
+					<BookBest />
+				</S.ContainerBestBook>
+				<S.ContainerBook>
+					{books && books.length !== 0 ? (
+						<>
 							{books.map((item: BookData, index: number) => (
 								<BookItem
 									item={item}
@@ -36,11 +33,16 @@ export default function HomeFeed() {
 									key={item.isbn}
 								></BookItem>
 							))}
-						</S.ContainerBook>
-					</>
-				) : (
-					books && books.length === 0 && <h2>not found</h2>
-				)}
+						</>
+					) : (
+						<>
+							{Array.from({ length: 10 }).map((_, index) => (
+								<BookItemSkeleton key={index} />
+							))}
+						</>
+					)}
+				</S.ContainerBook>
+				{books && books.length === 0 && <h2>not found</h2>}
 			</S.Section>
 		</>
 	);

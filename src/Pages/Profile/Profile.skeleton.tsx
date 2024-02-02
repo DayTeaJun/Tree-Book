@@ -13,7 +13,6 @@ export const ProfileSekeleton = () => {
 					style={{
 						width: '200px',
 						height: '16px',
-						display: 'block',
 						overflow: 'hidden',
 					}}
 				>
