@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface SkeletonProps {
 	isSkeleton?: boolean;
@@ -44,6 +44,7 @@ const ContainerBook = styled.div`
 
 const ContainerProfile = styled.div`
 	min-width: 30%;
+	height: 286px;
 	flex-shrink: 1;
 	display: flex;
 	flex-direction: column;
@@ -85,12 +86,6 @@ const PP = styled.p`
 const H1 = styled.h1<SkeletonProps>`
 	font-size: 16px;
 	font-weight: bold;
-	${({ isSkeleton }) =>
-		isSkeleton &&
-		css`
-			width: 100px;
-			height: 10px;
-		`}
 `;
 
 const Strong = styled.strong`

@@ -14,7 +14,7 @@ export function Profile() {
 	const location = useLocation();
 	const uid = location.state ? location.state.id : user?.uid;
 
-	if (!isLoading) {
+	if (isLoading) {
 		return (
 			<P.Main>
 				<ProfileSekeleton />
