@@ -1,5 +1,5 @@
 import { Box, Pagination } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {

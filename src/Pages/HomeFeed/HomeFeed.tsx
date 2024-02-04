@@ -3,7 +3,6 @@ import { getBooks } from '../../Api/searchApi';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { S } from './homFeed.style';
-import { Loading } from '../../Components/LoadingSpinner/Loading';
 import { BookBest } from '../../Components/Books/BookBest';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 

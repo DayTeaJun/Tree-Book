@@ -1,6 +1,5 @@
 import { Shimmer } from '../../Styles/Common';
 import { P } from './Profile.style';
-import UserLiked from './UserLiked';
 
 export const ProfileSekeleton = () => {
 	return (

@@ -4,7 +4,6 @@ import { BookData } from '../../Types/bookType';
 import { appFirestore } from '../../Firebase/config';
 import BookItem from './BookItem';
 import { Box } from '@mui/material';
-import { Loading } from '../LoadingSpinner/Loading';
 import { BookItemSkeleton } from './BookItem.skeleton';
 
 export const BookBest = () => {
