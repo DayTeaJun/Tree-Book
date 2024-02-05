@@ -10,11 +10,10 @@ import { BookData } from '../../Types/bookType';
 import { useQuery } from '@tanstack/react-query';
 
 export function CommentList({ isbn }: { isbn: string }) {
-	const [comment, setComment] = useState([]);
+	const [comment, setComment] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
 	const [currentPage, setCurrentPage] = useState(1);
-	console.log(useCollection('comment'));
 
 	const {
 		data: documents,
@@ -24,7 +23,12 @@ export function CommentList({ isbn }: { isbn: string }) {
 		queryKey: ['documents'],
 		queryFn: () => useCollection('comments'),
 	});
-	console.log(documents);
+
+	const commentsPerPage = 4;
+	const commentLists =
+		documents && documents.result.filter((comment) => comment.isbn === isbn);
+	const startIndex = (currentPage - 1) * commentsPerPage;
+	const endIndex = startIndex + commentsPerPage;
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
@@ -32,11 +36,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 
 	useEffect(() => {
 		if (documents) {
-			const commentsPerPage = 4;
-			const startIndex = (currentPage - 1) * commentsPerPage;
-			const endIndex = startIndex + commentsPerPage;
 			const displayedComments = documents.result.slice(startIndex, endIndex);
-			console.log(displayedComments, '1');
+			setComment(displayedComments);
 		}
 	}, [documents, currentPage]);
 
