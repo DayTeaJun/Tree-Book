@@ -59,16 +59,26 @@ export default function SignIn() {
 						id='password'
 						onChange={handleData}
 					/>
-
+					<Typography
+						component='p'
+						fontSize={'0.7em'}
+						sx={{
+							color: 'red',
+							minHeight: '1.5em',
+						}}
+					>
+						{error && '등록되지 않은 계정입니다.'}
+					</Typography>
 					<Button
 						type='submit'
 						fullWidth
 						variant='contained'
 						color='success'
-						sx={{ mt: 3, mb: 2, fontWeight: 'bold' }}
+						sx={{ mt: 1.5, mb: 2, fontWeight: 'bold' }}
 					>
 						로그인
 					</Button>
+
 					<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 						<Link to='/signup'>{'이메일로 회원가입'}</Link>
 					</Box>
