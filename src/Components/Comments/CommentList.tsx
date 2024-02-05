@@ -6,29 +6,37 @@ import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
 import { Loading } from '../LoadingSpinner/Loading';
+import { BookData } from '../../Types/bookType';
+import { useQuery } from '@tanstack/react-query';
 
 export function CommentList({ isbn }: { isbn: string }) {
-	const { documents } = useCollection('comments');
-	const [comment, setComment] = useState<FirestoreDocument[]>([]);
-	const [isLoading, setLoading] = useState(true);
+	const [comment, setComment] = useState([]);
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
 	const [currentPage, setCurrentPage] = useState(1);
-	const commentsPerPage = 4;
-	const commentLists =
-		documents && documents.filter((comment) => comment.isbn === isbn);
-	const startIndex = (currentPage - 1) * commentsPerPage;
-	const endIndex = startIndex + commentsPerPage;
+	console.log(useCollection('comment'));
+
+	const {
+		data: documents,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['documents'],
+		queryFn: () => useCollection('comments'),
+	});
+	console.log(documents);
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
 	};
 
 	useEffect(() => {
-		if (commentLists) {
-			const displayedComments = commentLists.slice(startIndex, endIndex);
-			setComment(displayedComments);
-			setLoading(false);
+		if (documents) {
+			const commentsPerPage = 4;
+			const startIndex = (currentPage - 1) * commentsPerPage;
+			const endIndex = startIndex + commentsPerPage;
+			const displayedComments = documents.result.slice(startIndex, endIndex);
+			console.log(displayedComments, '1');
 		}
 	}, [documents, currentPage]);
 
