@@ -6,7 +6,7 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useEffect, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
@@ -15,12 +15,12 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const isbn = item.isbn;
 	const booksRef = doc(collection(appFirestore, 'BooksLikes'), isbn);
 	const { user } = useAuthContext();
+	const queryClient = useQueryClient();
 
 	const {
 		data: documents,
 		isLoading,
 		error,
-		refetch,
 	} = useQuery({
 		queryKey: ['BooksLikes'],
 		queryFn: () => getDocuments('BooksLikes'),
@@ -76,7 +76,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const mutaion = useMutation({
 		mutationFn: handleLikes,
 		onSuccess: () => {
-			refetch();
+			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
 		},
 		onError: () => {
 			console.log('Error');
