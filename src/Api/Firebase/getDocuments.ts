@@ -1,5 +1,6 @@
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
+import { FirestoreDocument } from '../../Types/firestoreType';
 
 export const getDocuments = async (transaction: string) => {
 	const documentQuery = query(
@@ -7,8 +8,22 @@ export const getDocuments = async (transaction: string) => {
 		orderBy('createdTime', 'desc')
 	);
 	const documentSnapshot = await getDocs(documentQuery);
-	const result = documentSnapshot.docs.map((doc) => {
-		return doc.data();
+	let result: FirestoreDocument[] = [];
+	documentSnapshot.docs.map((doc) => {
+		const data = doc.data();
+		if (data.createdTime) {
+			const createdTime = data.createdTime.toDate().toLocaleString();
+			result.push({
+				...data,
+				createdTime: createdTime,
+				uid: doc.id,
+			});
+		} else {
+			result.push({
+				...data,
+				uid: doc.id,
+			});
+		}
 	});
 
 	return { result };

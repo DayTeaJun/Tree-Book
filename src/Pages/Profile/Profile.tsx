@@ -2,7 +2,6 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
-import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import UserLiked from './UserLiked';
 import { ProfileSekeleton } from './Profile.skeleton';
 

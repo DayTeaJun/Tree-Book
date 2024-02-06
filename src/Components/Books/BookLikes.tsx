@@ -6,19 +6,28 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useEffect, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
-import { useCollection } from '../../Hook/FirebaseHook/useCollection';
+import { useQuery } from '@tanstack/react-query';
+import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const [like, setLike] = useState<boolean | undefined>(false);
 	const [likesNumber, setLikesNumber] = useState<number>();
-	const { documents, error, isLoading } = useCollection('BooksLikes');
 	const isbn = item.isbn;
 	const booksRef = doc(collection(appFirestore, 'BooksLikes'), isbn);
 	const { user } = useAuthContext();
 
+	const {
+		data: documents,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['BooksLikes'],
+		queryFn: () => getDocuments('BooksLikes'),
+	});
+
 	useEffect(() => {
 		if (documents) {
-			const likedUser = documents.find((book) => book.isbn === isbn);
+			const likedUser = documents.result.find((book) => book.isbn === isbn);
 			if (likedUser) {
 				const likedNumber = likedUser?.likeBy
 					? Object.values(likedUser.likeBy).filter((like) => like === true)
@@ -40,7 +49,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 
 	const handleLikes = async () => {
 		if (user && documents) {
-			const likedUser = documents.find((book) => book.isbn === isbn);
+			const likedUser = documents.result.find((book) => book.isbn === isbn);
 			const uid = user.uid;
 			const createdTime = timestamp.fromDate(new Date());
 			let likeBy;
