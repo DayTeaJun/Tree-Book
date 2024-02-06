@@ -1,17 +1,7 @@
-import {
-	DocumentData,
-	collection,
-	getDocs,
-	orderBy,
-	query,
-	where,
-} from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 
-export const getDocuments = async (
-	transaction: string,
-	uid?: number | string
-) => {
+export const getDocuments = async (transaction: string) => {
 	const documentQuery = query(
 		collection(appFirestore, transaction),
 		orderBy('createdTime', 'desc')

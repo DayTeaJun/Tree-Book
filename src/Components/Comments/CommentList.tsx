@@ -1,4 +1,3 @@
-import { useCollection } from '../../Hook/FirebaseHook/useCollection';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { CL } from './CommentList.style';
@@ -6,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
 import { Loading } from '../LoadingSpinner/Loading';
-import { BookData } from '../../Types/bookType';
 import { useQuery } from '@tanstack/react-query';
+import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
@@ -21,7 +20,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 		error,
 	} = useQuery({
 		queryKey: ['documents'],
-		queryFn: () => useCollection('comments'),
+		queryFn: () => getDocuments('comments'),
 	});
 
 	const commentsPerPage = 4;

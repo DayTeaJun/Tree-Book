@@ -8,14 +8,14 @@ import { ProfileSekeleton } from './Profile.skeleton';
 
 export function Profile() {
 	const { user } = useAuthContext();
-	const { documents, error, isLoading } = useCollection('user');
+	// const { documents, error, isLoading } = useCollection('user');
 	const userId = useParams().userProfile || '';
 	const location = useLocation();
 	const uid = location.state ? location.state.id : user?.uid;
 
 	return (
 		<P.Main>
-			{userId && uid && documents ? (
+			{/* {userId && uid && documents ? (
 				documents.map(
 					(users) =>
 						users.uid === uid && (
@@ -41,7 +41,7 @@ export function Profile() {
 				)
 			) : (
 				<ProfileSekeleton />
-			)}
+			)} */}
 		</P.Main>
 	);
 }
