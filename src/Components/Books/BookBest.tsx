@@ -5,32 +5,30 @@ import { appFirestore } from '../../Firebase/config';
 import BookItem from './BookItem';
 import { Box } from '@mui/material';
 import { BookItemSkeleton } from './BookItem.skeleton';
+import { useQuery } from '@tanstack/react-query';
 
 export const BookBest = () => {
-	const [likedBooks, setLikedBooks] = useState<DocumentData | BookData[]>();
+	const fetchLiked = async () => {
+		const LikesRef = collection(appFirestore, 'BooksLikes');
+		const likedQuery = query(LikesRef);
+		const likedQuerySnapshot = await getDocs(likedQuery);
+		const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());
+		likedQueryData.sort(
+			(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
+		);
+		const result = likedQueryData.slice(0, 2);
 
-	useEffect(() => {
-		const fetchLikedMeetups = async () => {
-			try {
-				const LikesRef = collection(appFirestore, 'BooksLikes');
-				const likedQuery = query(LikesRef);
-				const likedQuerySnapshot = await getDocs(likedQuery);
-				const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());
-				likedQueryData.sort(
-					(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
-				);
-				const topTwoDocuments = likedQueryData.slice(0, 2);
+		return { result };
+	};
 
-				console.log(topTwoDocuments);
-
-				setLikedBooks(topTwoDocuments);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		fetchLikedMeetups();
-	}, []);
+	const {
+		data: likedBooks,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['likedBooks'],
+		queryFn: () => fetchLiked(),
+	});
 
 	return (
 		<>
@@ -42,7 +40,7 @@ export const BookBest = () => {
 			>
 				{likedBooks ? (
 					<>
-						{likedBooks.map((item: BookData) => (
+						{(likedBooks.result as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
 								page={item.page}
