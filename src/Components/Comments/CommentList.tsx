@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
 import { Loading } from '../LoadingSpinner/Loading';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 export function CommentList({ isbn }: { isbn: string }) {
@@ -13,6 +13,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
 	const [currentPage, setCurrentPage] = useState(1);
+	const queryClient = useQueryClient();
 
 	const {
 		data: documents,
@@ -39,6 +40,16 @@ export function CommentList({ isbn }: { isbn: string }) {
 			setComment(displayedComments);
 		}
 	}, [documents, currentPage]);
+
+	const mutaion = useMutation({
+		mutationFn: deleteDocument,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['comments'] });
+		},
+		onError: () => {
+			console.log('Error');
+		},
+	});
 
 	if (isLoading) {
 		return <Loading />;
@@ -77,7 +88,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 								) : (
 									<CL.Button
 										type='button'
-										onClick={() => deleteDocument(comment.uid!)}
+										onClick={() => comment.uid && mutaion.mutate(comment.uid)}
 									>
 										삭제
 									</CL.Button>
