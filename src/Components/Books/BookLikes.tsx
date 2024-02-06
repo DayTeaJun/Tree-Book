@@ -6,7 +6,7 @@ import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useEffect, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
@@ -20,6 +20,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 		data: documents,
 		isLoading,
 		error,
+		refetch,
 	} = useQuery({
 		queryKey: ['BooksLikes'],
 		queryFn: () => getDocuments('BooksLikes'),
@@ -72,10 +73,20 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 		}
 	};
 
+	const mutaion = useMutation({
+		mutationFn: handleLikes,
+		onSuccess: () => {
+			refetch();
+		},
+		onError: () => {
+			console.log('Error');
+		},
+	});
+
 	return (
 		<>
 			{item && (
-				<D.Likes onClick={handleLikes}>
+				<D.Likes onClick={() => mutaion.mutate()}>
 					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
 					{likesNumber && <D.P>{likesNumber}</D.P>}
 				</D.Likes>
