@@ -19,7 +19,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['documents'],
+		queryKey: ['comments'],
 		queryFn: () => getDocuments('comments'),
 	});
 

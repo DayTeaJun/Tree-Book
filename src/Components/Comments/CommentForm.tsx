@@ -4,12 +4,15 @@ import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function CommentForm() {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comments');
 	const { user } = useAuthContext();
 	const location = useLocation();
+	const queryClient = useQueryClient();
+
 	const book: string = useParams().search || '';
 	const isbn = location.state.isbn;
 
@@ -21,10 +24,20 @@ export function CommentForm() {
 		setComments(e.target.value);
 	};
 
+	const mutation = useMutation({
+		mutationFn: addDocument,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['comments'] });
+		},
+		onError: () => {
+			console.log('Error');
+		},
+	});
+
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
 		if (user) {
-			addDocument({
+			mutation.mutate({
 				comments,
 				book,
 				displayName,
