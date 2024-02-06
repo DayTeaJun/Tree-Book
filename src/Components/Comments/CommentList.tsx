@@ -34,8 +34,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 	};
 
 	useEffect(() => {
-		if (documents) {
-			const displayedComments = documents.result.slice(startIndex, endIndex);
+		if (commentLists) {
+			const displayedComments = commentLists.slice(startIndex, endIndex);
 			setComment(displayedComments);
 		}
 	}, [documents, currentPage]);
