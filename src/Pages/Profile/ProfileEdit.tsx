@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import useDebounce from '../../Hook/useDebounce';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
@@ -28,6 +29,7 @@ export function ProfileEdit() {
 	const [validName, setValidName] = useState('');
 	const debounceName = useDebounce<string>(displayName);
 	const userRef = collection(appFirestore, 'user');
+	const queryClient = useQueryClient();
 
 	const validCheck = async () => {
 		const Query = query(userRef, where('displayName', '==', displayName));
@@ -54,38 +56,48 @@ export function ProfileEdit() {
 		}
 	};
 
-	const handleSubmit: FormEventHandler = async (e) => {
-		try {
-			e.preventDefault();
-			if (appAuth.currentUser && user) {
-				if (imgUrl) {
-					const storageRef = ref(storage, `profile/${user.uid}`);
-					const snapshot = await uploadBytes(storageRef, imgUrl);
-					const downUrl = await getDownloadURL(snapshot.ref);
+	const profileEdit = async () => {
+		if (appAuth.currentUser && user) {
+			if (imgUrl) {
+				const storageRef = ref(storage, `profile/${user.uid}`);
+				const snapshot = await uploadBytes(storageRef, imgUrl);
+				const downUrl = await getDownloadURL(snapshot.ref);
 
-					await updateProfile(appAuth.currentUser, {
-						displayName: displayName,
-						photoURL: downUrl || '',
-					});
-				} else {
-					await updateProfile(appAuth.currentUser, {
-						displayName: displayName,
-					});
-					const colRef = collection(appFirestore, 'user');
+				await updateProfile(appAuth.currentUser, {
+					displayName: displayName,
+					photoURL: downUrl || '',
+				});
+			} else {
+				await updateProfile(appAuth.currentUser, {
+					displayName: displayName,
+				});
+				const colRef = collection(appFirestore, 'user');
 
-					const docRef = doc(colRef, user.uid);
-					await updateDoc(docRef, {
-						displayName: displayName,
-						intro: userIntro,
-					});
-				}
-
-				alert('프로필이 변경되었습니다!');
-				navigate(-1);
+				const docRef = doc(colRef, user.uid);
+				await updateDoc(docRef, {
+					displayName: displayName,
+					intro: userIntro,
+				});
 			}
-		} catch (error) {
-			console.log(error);
+
+			alert('프로필이 변경되었습니다!');
+			navigate(-1);
 		}
+	};
+
+	const mutation = useMutation({
+		mutationFn: profileEdit,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['user'] });
+		},
+		onError: () => {
+			console.log('Error');
+		},
+	});
+
+	const handleSubmit: FormEventHandler = (e) => {
+		e.preventDefault();
+		mutation.mutate();
 	};
 
 	return (
