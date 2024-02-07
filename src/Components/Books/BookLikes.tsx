@@ -2,7 +2,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { D } from '../../Pages/BookDetail/bookDetail.style';
 import { BookLikesProps } from '../../Types/bookType';
-import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';

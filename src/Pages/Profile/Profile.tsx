@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
-import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { useAuthContext } from '../../Context/useAuthContext';
 import { P } from './Profile.style';
 import persImg from '../../Assets/No-img.svg';
 import UserLiked from './UserLiked';

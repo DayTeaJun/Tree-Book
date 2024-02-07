@@ -8,7 +8,7 @@ import {
 import HomeFeed from '../Pages/HomeFeed/HomeFeed';
 import BookDetail from '../Pages/BookDetail/BookDetail';
 import SearchView from '../Pages/Search/SearchView';
-import { useAuthContext } from '../Hook/FirebaseHook/useAuthContext';
+import { useAuthContext } from '../Context/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
 import MainLayout from '../Layouts/MainLayout';

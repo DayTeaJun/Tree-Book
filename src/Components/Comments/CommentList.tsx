@@ -1,4 +1,4 @@
-import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { useAuthContext } from '../../Context/useAuthContext';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { CL } from './CommentList.style';
 import { useEffect, useState } from 'react';

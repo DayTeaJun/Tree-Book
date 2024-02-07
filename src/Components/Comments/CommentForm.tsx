@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { CF } from './CommentForm.style';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
-import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { useAuthContext } from '../../Context/useAuthContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

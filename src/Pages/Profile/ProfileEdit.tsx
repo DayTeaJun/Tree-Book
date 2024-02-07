@@ -1,4 +1,4 @@
-import { useAuthContext } from '../../Hook/FirebaseHook/useAuthContext';
+import { useAuthContext } from '../../Context/useAuthContext';
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';

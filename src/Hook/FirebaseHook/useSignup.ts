@@ -6,7 +6,7 @@ import {
 	storage,
 	timestamp,
 } from '../../Firebase/config';
-import { useAuthContext } from './useAuthContext';
+import { useAuthContext } from '../../Context/useAuthContext';
 import { AuthContextProps } from '../../Context/AuthContext';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { collection, doc, setDoc } from 'firebase/firestore';
