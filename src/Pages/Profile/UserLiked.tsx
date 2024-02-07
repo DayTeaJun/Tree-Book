@@ -12,38 +12,41 @@ import BookItem from '../../Components/Books/BookItem';
 import { P } from './Profile.style';
 import { UserLikedProps } from '../../Types/userType';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
+import { useQuery } from '@tanstack/react-query';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
-	const [likedBooks, setLikedBooks] = useState<DocumentData | BookData[]>();
+	const fetchLiked = async () => {
+		const LikesRef = collection(appFirestore, 'BooksLikes');
+		const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
 
-	useEffect(() => {
-		const fetchLiked = async () => {
-			try {
-				const LikesRef = collection(appFirestore, 'BooksLikes');
-				const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
+		const likedQuerySnapshot = await getDocs(likedQuery);
+		const result = likedQuerySnapshot.docs.map((doc) => doc.data());
+		return { result };
+	};
 
-				const likedQuerySnapshot = await getDocs(likedQuery);
-				const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());
+	const {
+		data: likedBooks,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['likedBooks'],
+		queryFn: () => fetchLiked(),
+	});
 
-				setLikedBooks(likedQueryData);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		fetchLiked();
-	}, []);
+	if (isLoading) {
+		<UserLikedSkeleton />;
+	}
 
 	return (
 		<>
-			{likedBooks ? (
+			{likedBooks && (
 				<P.ContainerLiked>
 					<P.PP>
 						<P.Strong>{displayName}</P.Strong>
 						님의 좋아요 표시한 책들 목록
 					</P.PP>
 					<P.ContainerBook>
-						{likedBooks.map((item: BookData) => (
+						{(likedBooks.result as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
 								page={item.page}
@@ -54,8 +57,6 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 						))}
 					</P.ContainerBook>
 				</P.ContainerLiked>
-			) : (
-				<UserLikedSkeleton />
 			)}
 		</>
 	);
