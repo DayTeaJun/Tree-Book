@@ -22,9 +22,15 @@ export function Profile() {
 		queryFn: () => getDocuments('user'),
 	});
 
+	if (isLoading) {
+		<ProfileSekeleton />;
+	}
+
 	return (
 		<P.Main>
-			{userId && uid && documents ? (
+			{userId &&
+				uid &&
+				documents &&
 				documents.result.map(
 					(users) =>
 						users.uid === uid && (
@@ -47,10 +53,7 @@ export function Profile() {
 								<UserLiked uid={users.uid} displayName={users.displayName} />
 							</P.Section>
 						)
-				)
-			) : (
-				<ProfileSekeleton />
-			)}
+				)}
 		</P.Main>
 	);
 }

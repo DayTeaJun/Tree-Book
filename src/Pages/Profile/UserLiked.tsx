@@ -25,11 +25,11 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 	};
 
 	const {
-		data: likedBooks,
+		data: userBooks,
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['likedBooks'],
+		queryKey: ['userBooks'],
 		queryFn: () => fetchLiked(),
 	});
 
@@ -39,14 +39,14 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 
 	return (
 		<>
-			{likedBooks && (
+			{userBooks && (
 				<P.ContainerLiked>
 					<P.PP>
 						<P.Strong>{displayName}</P.Strong>
 						님의 좋아요 표시한 책들 목록
 					</P.PP>
 					<P.ContainerBook>
-						{(likedBooks.result as BookData[]).map((item: BookData) => (
+						{(userBooks.result as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
 								page={item.page}
