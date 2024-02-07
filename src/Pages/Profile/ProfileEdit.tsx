@@ -32,7 +32,10 @@ export function ProfileEdit() {
 	const validCheck = async () => {
 		const Query = query(userRef, where('displayName', '==', displayName));
 		const querySnapshot = await getDocs(Query);
-		if (!(user?.displayName === displayName) && querySnapshot.docs.length > 0) {
+		if (
+			!(user && user.displayName === displayName) &&
+			querySnapshot.docs.length > 0
+		) {
 			setValidName('중복된 닉네임입니다.');
 		} else {
 			setValidName('');
@@ -54,9 +57,9 @@ export function ProfileEdit() {
 	const handleSubmit: FormEventHandler = async (e) => {
 		try {
 			e.preventDefault();
-			if (appAuth.currentUser) {
+			if (appAuth.currentUser && user) {
 				if (imgUrl) {
-					const storageRef = ref(storage, `profile/${user?.uid}`);
+					const storageRef = ref(storage, `profile/${user.uid}`);
 					const snapshot = await uploadBytes(storageRef, imgUrl);
 					const downUrl = await getDownloadURL(snapshot.ref);
 
@@ -70,7 +73,7 @@ export function ProfileEdit() {
 					});
 					const colRef = collection(appFirestore, 'user');
 
-					const docRef = doc(colRef, user!.uid);
+					const docRef = doc(colRef, user.uid);
 					await updateDoc(docRef, {
 						displayName: displayName,
 						intro: userIntro,
@@ -92,7 +95,7 @@ export function ProfileEdit() {
 			<PE.Form onSubmit={handleSubmit}>
 				<PE.ContainerImg>
 					<PE.Img
-						src={(imgUrl && imageSrc) || user?.photoURL || persImg}
+						src={(imgUrl && imageSrc) || (user && user.photoURL) || persImg}
 						alt={'프로필 이미지 사진입니다.'}
 					/>
 					<PE.Label htmlFor='profileImgEdit'>프로필 이미지 수정</PE.Label>

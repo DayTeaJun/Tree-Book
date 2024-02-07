@@ -18,15 +18,15 @@ export default function BookDetail() {
 	const [item, setItem] = useState<BookData>();
 
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['bookDetail', search],
-		queryFn: () => getBooks(search!, 14, page),
+		queryKey: ['bookDetail'],
+		queryFn: () => search && getBooks(search, 14, page),
 		enabled: !!search,
 	});
 
 	useEffect(() => {
 		if (books) {
 			const item: BookData = books.find(
-				(_: BookData, index: number) => index === parseInt(id!)
+				(_: BookData, index: number) => index === (id && parseInt(id))
 			);
 			setItem(item);
 		}

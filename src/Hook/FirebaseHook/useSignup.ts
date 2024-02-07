@@ -39,7 +39,7 @@ export const useSignup = () => {
 				throw new Error('회원가입 실패');
 			}
 
-			if (appAuth.currentUser) {
+			if (appAuth.currentUser && user) {
 				const uid = user.uid;
 				const createdTime = timestamp.fromDate(new Date());
 				const userDocRef = doc(collection(appFirestore, 'user'), uid);
@@ -47,7 +47,7 @@ export const useSignup = () => {
 				let photoURL;
 
 				if (imgUrl) {
-					const storageRef = ref(storage, `profile/${user?.uid}`);
+					const storageRef = ref(storage, `profile/${user.uid}`);
 					const snapshot = await uploadBytes(storageRef, imgUrl);
 					photoURL = await getDownloadURL(snapshot.ref);
 				} else {

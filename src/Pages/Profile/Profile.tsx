@@ -11,7 +11,7 @@ export function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const location = useLocation();
-	const uid = location.state ? location.state.id : user?.uid;
+	const uid = location.state ? location.state.id : user && user.uid;
 
 	const {
 		data: documents,

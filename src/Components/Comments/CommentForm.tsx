@@ -16,9 +16,9 @@ export function CommentForm() {
 	const book: string = useParams().search || '';
 	const isbn = location.state.isbn;
 
-	const displayName = user?.displayName || '';
-	const id = user?.uid || '';
-	const photoURL = user?.photoURL || '';
+	const displayName = (user && user.displayName) || '';
+	const id = (user && user.uid) || '';
+	const photoURL = (user && user.photoURL) || '';
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
