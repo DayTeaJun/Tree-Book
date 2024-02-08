@@ -1,5 +1,4 @@
-import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { collection, getDocs, query } from 'firebase/firestore';
 import { BookData } from '../../Types/bookType';
 import { appFirestore } from '../../Firebase/config';
 import BookItem from './BookItem';
