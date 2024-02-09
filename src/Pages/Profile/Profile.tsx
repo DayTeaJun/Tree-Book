@@ -6,7 +6,6 @@ import UserLiked from './UserLiked';
 import { ProfileSekeleton } from './Profile.skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
-import { useEffect } from 'react';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -18,15 +17,10 @@ export function Profile() {
 		data: documents,
 		isLoading,
 		error,
-		refetch,
 	} = useQuery({
 		queryKey: ['user'],
 		queryFn: () => getDocuments('user'),
 	});
-
-	useEffect(() => {
-		refetch();
-	}, []);
 
 	if (isLoading) {
 		<ProfileSekeleton />;

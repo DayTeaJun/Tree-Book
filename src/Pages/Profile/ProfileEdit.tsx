@@ -87,7 +87,7 @@ export function ProfileEdit() {
 
 	const mutation = useMutation({
 		mutationFn: profileEdit,
-		onSuccess: () => {
+		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ['user'] });
 		},
 		onError: () => {
