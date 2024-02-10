@@ -55,7 +55,7 @@ const ContainerProfile = styled.div`
 `;
 
 const ContainerLiked = styled.div`
-	width: 70%;
+	width: calc(70% - 20px);
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
