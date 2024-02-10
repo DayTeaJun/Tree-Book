@@ -18,7 +18,7 @@ export default function BookDetail() {
 	const [item, setItem] = useState<BookData>();
 
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['bookDetail'],
+		queryKey: ['bookDetail', page, search],
 		queryFn: () => search && getBooks(search, 14, page),
 		enabled: !!search,
 	});
