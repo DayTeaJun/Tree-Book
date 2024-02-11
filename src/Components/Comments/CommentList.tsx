@@ -26,7 +26,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 
 	const commentsPerPage = 4;
 	const commentLists =
-		documents && documents.result.filter((comment) => comment.isbn === isbn);
+		documents && documents.filter((comment) => comment.isbn === isbn);
 	const startIndex = (currentPage - 1) * commentsPerPage;
 	const endIndex = startIndex + commentsPerPage;
 

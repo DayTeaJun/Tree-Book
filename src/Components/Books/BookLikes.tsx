@@ -28,7 +28,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 
 	useEffect(() => {
 		if (documents) {
-			const likedUser = documents.result.find((book) => book.isbn === isbn);
+			const likedUser = documents.find((book) => book.isbn === isbn);
 			if (likedUser) {
 				const likedNumber = likedUser?.likeBy
 					? Object.values(likedUser.likeBy).filter((like) => like === true)
@@ -50,7 +50,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 
 	const handleLikes = async () => {
 		if (user && documents) {
-			const likedUser = documents.result.find((book) => book.isbn === isbn);
+			const likedUser = documents.find((book) => book.isbn === isbn);
 			const uid = user.uid;
 			const createdTime = timestamp.fromDate(new Date());
 			let likeBy;

@@ -26,5 +26,5 @@ export const getDocuments = async (transaction: string) => {
 		}
 	});
 
-	return { result };
+	return result;
 };

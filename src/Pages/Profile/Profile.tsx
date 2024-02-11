@@ -31,7 +31,7 @@ export function Profile() {
 			{userId &&
 				uid &&
 				documents &&
-				documents.result.map(
+				documents.map(
 					(users) =>
 						users.uid === uid && (
 							<P.Section key={users.uid}>
