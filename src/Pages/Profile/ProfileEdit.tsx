@@ -39,6 +39,8 @@ export function ProfileEdit() {
 			querySnapshot.docs.length > 0
 		) {
 			setValidName('중복된 닉네임입니다.');
+		} else if (displayName.length === 0) {
+			setValidName('닉네임을 입력해주세요.');
 		} else {
 			setValidName('');
 		}
@@ -137,7 +139,15 @@ export function ProfileEdit() {
 				<PE.PValid>{validName || '\u00A0'}</PE.PValid>
 
 				<PE.ContainerBtn>
-					<PE.Button type='submit'>변경</PE.Button>
+					<PE.Button
+						type='submit'
+						disabled={validName !== '' ? true : false}
+						style={{
+							backgroundColor: validName !== '' ? '#eee' : 'green',
+						}}
+					>
+						변경
+					</PE.Button>
 
 					<PE.Button type='button' onClick={() => navigate(-1)}>
 						취소
