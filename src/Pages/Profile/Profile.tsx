@@ -38,13 +38,17 @@ export function Profile() {
 								<P.ContainerProfile>
 									<P.ContainerImg>
 										<img
-											src={users.photoURL || persImg}
+											src={
+												(userId === (user && user.displayName)
+													? user && user.photoURL
+													: users.photoURL) || persImg
+											}
 											alt={`${users.displayName}의 프로필 사진입니다.`}
 										/>
 									</P.ContainerImg>
 									<P.H1>{users.displayName}</P.H1>
 									<P.PP>{users.intro || ''}</P.PP>
-									{userId === user?.displayName && (
+									{userId === (user && user.displayName) && (
 										<P.ALink to='./edit' state={{ intro: users.intro }}>
 											프로필 수정
 										</P.ALink>
