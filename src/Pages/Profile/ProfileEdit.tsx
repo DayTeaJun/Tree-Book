@@ -83,7 +83,7 @@ export function ProfileEdit() {
 			}
 
 			alert('프로필이 변경되었습니다!');
-			navigate(-1);
+			navigate(`/profile/${displayName}`);
 		}
 	};
 
