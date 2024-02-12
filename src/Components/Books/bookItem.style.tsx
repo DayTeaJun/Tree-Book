@@ -11,6 +11,7 @@ const Container = styled.div`
 	background-color: #fff;
 	padding: 10px;
 	width: 120px;
+	height: 222px;
 	border-radius: 5px;
 	cursor: pointer;
 `;
