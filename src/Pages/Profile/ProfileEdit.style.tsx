@@ -36,12 +36,17 @@ const Form = styled.form`
 	gap: 10px;
 `;
 
+const Label = styled.label`
+	color: #a1a1a1;
+	font-weight: bold;
+`;
+
 const Input = styled.input`
 	width: 50%;
 	height: 30px;
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	padding: 5px 0;
+	border: none;
+	border-bottom: 1px solid #ccc;
 `;
 
 const ContainerImg = styled.div`
@@ -53,7 +58,8 @@ const ContainerImg = styled.div`
 	position: relative;
 	cursor: pointer;
 `;
-const Label = styled.label`
+
+const ImgLabel = styled.label`
 	${a11y}
 `;
 
@@ -68,6 +74,7 @@ const ImgInput = styled.input`
 
 const ContainerBtn = styled.div`
 	display: flex;
+	padding-top: 20px;
 	gap: 20px;
 `;
 
@@ -100,6 +107,7 @@ export const PE = {
 	ContainerImg,
 	ContainerBtn,
 	Label,
+	ImgLabel,
 	ImgInput,
 	Button,
 	PValid,

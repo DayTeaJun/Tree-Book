@@ -18,6 +18,7 @@ import {
 import { appFirestore } from '../../Firebase/config';
 import useDebounce from '../../Hook/useDebounce';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
@@ -112,7 +113,19 @@ export function ProfileEdit() {
 						src={(imgUrl && imageSrc) || (user && user.photoURL) || persImg}
 						alt={'프로필 이미지 사진입니다.'}
 					/>
-					<PE.Label htmlFor='profileImgEdit'>프로필 이미지 수정</PE.Label>
+					<ImageSearchIcon
+						sx={{
+							position: 'absolute',
+							right: '0',
+							bottom: '0',
+							padding: '5px 2px 5px 5px',
+							borderRadius: '50%',
+							backgroundColor: 'green',
+							color: '#fff',
+						}}
+						fontSize='large'
+					/>
+					<PE.ImgLabel htmlFor='profileImgEdit'>프로필 이미지 수정</PE.ImgLabel>
 					<PE.ImgInput
 						id='profileImgEdit'
 						type='file'
@@ -128,6 +141,7 @@ export function ProfileEdit() {
 					value={displayName}
 					onChange={handleEdit}
 				/>
+				<PE.PValid>{validName || '\u00A0'}</PE.PValid>
 				<PE.Label htmlFor='introEdit'>자기소개</PE.Label>
 				<PE.Input
 					id='introEdit'
@@ -136,7 +150,6 @@ export function ProfileEdit() {
 					value={userIntro}
 					onChange={handleEdit}
 				/>
-				<PE.PValid>{validName || '\u00A0'}</PE.PValid>
 
 				<PE.ContainerBtn>
 					<PE.Button
@@ -146,7 +159,7 @@ export function ProfileEdit() {
 							backgroundColor: validName !== '' ? '#eee' : 'green',
 						}}
 					>
-						변경
+						저장
 					</PE.Button>
 
 					<PE.Button type='button' onClick={() => navigate(-1)}>
