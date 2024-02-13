@@ -8,7 +8,7 @@ import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { useQuery } from '@tanstack/react-query';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
-	const fetchLiked = async () => {
+	const fetchLiked = async (uid?: string) => {
 		const LikesRef = collection(appFirestore, 'BooksLikes');
 		const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
 
@@ -22,8 +22,8 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['userBooks'],
-		queryFn: () => fetchLiked(),
+		queryKey: ['userBooks', uid],
+		queryFn: () => fetchLiked(uid),
 	});
 
 	if (isLoading) {
