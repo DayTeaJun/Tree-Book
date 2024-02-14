@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
@@ -14,7 +14,8 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 
 		const likedQuerySnapshot = await getDocs(likedQuery);
 		const result = likedQuerySnapshot.docs.map((doc) => doc.data());
-		return { result };
+		result.sort((a, b) => b.createdTime.seconds - a.createdTime.seconds);
+		return result;
 	};
 
 	const {
@@ -39,7 +40,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 						님의 좋아요 표시한 책들 목록
 					</P.PP>
 					<P.ContainerBook>
-						{(userBooks.result as BookData[]).map((item: BookData) => (
+						{(userBooks as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
 								page={item.page}
