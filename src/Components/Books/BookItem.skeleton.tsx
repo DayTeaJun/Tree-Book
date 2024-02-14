@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { Shimmer } from '../../Styles/Common';
 import { B, ContainerBookImg } from './bookItem.style';
 
@@ -7,15 +8,36 @@ export const BookItemSkeleton = () => {
 			<ContainerBookImg style={{ height: '145px', overflow: 'hidden' }}>
 				<Shimmer />
 			</ContainerBookImg>
-			<B.H2 style={{ width: '97px', height: '14px', overflow: 'hidden' }}>
+			<Box
+				sx={{
+					width: '97px',
+					height: '14px',
+					overflow: 'hidden',
+					marginTop: '5px',
+				}}
+			>
 				<Shimmer />
-			</B.H2>
-			<B.P style={{ width: '97px', height: '12px', overflow: 'hidden' }}>
+			</Box>
+			<Box
+				sx={{
+					width: '97px',
+					height: '12px',
+					overflow: 'hidden',
+					marginTop: '5px',
+				}}
+			>
 				<Shimmer />
-			</B.P>
-			<B.Price style={{ width: '97px', height: '12px', overflow: 'hidden' }}>
+			</Box>
+			<Box
+				sx={{
+					width: '97px',
+					height: '12px',
+					overflow: 'hidden',
+					marginTop: '5px',
+				}}
+			>
 				<Shimmer />
-			</B.Price>
+			</Box>
 		</B.Container>
 	);
 };
