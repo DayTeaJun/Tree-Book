@@ -27,8 +27,6 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		queryFn: () => fetchLiked(uid),
 	});
 
-	console.log(userBooks);
-
 	if (isLoading) {
 		<UserLikedSkeleton />;
 	}
