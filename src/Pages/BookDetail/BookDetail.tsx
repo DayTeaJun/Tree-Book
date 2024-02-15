@@ -23,7 +23,7 @@ export default function BookDetail() {
 		queryFn: () =>
 			search &&
 			(pathname.indexOf('/like') !== -1
-				? getBooks(search, 14, page, 'isbn')
+				? getBooks(search, 1, page, 'isbn')
 				: getBooks(search, 14, page, 'title')),
 		enabled: !!search,
 	});
