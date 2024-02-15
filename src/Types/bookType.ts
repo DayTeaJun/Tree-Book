@@ -27,6 +27,7 @@ export interface BookItemProps {
 	search?: string;
 	id?: number;
 	page?: string;
+	like?: string;
 }
 
 export interface BookLikesProps {

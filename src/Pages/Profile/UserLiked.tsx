@@ -27,6 +27,8 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		queryFn: () => fetchLiked(uid),
 	});
 
+	console.log(userBooks);
+
 	if (isLoading) {
 		<UserLikedSkeleton />;
 	}
@@ -47,6 +49,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 								id={item.id}
 								search={item.search}
 								key={item.isbn}
+								like={item.isbn}
 							></BookItem>
 						))}
 					</P.ContainerBook>

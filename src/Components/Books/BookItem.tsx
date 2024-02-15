@@ -3,11 +3,17 @@ import { B, ContainerBookImg } from './bookItem.style';
 import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
 
-const BookItem = ({ item, id, page, search }: BookItemProps) => {
+const BookItem = ({ item, id, page, search, like }: BookItemProps) => {
 	const navigate = useNavigate();
 	const isbn = item.isbn;
 	const onMoveBookDetail = () => {
-		navigate(`/search/${search}/${page}/${id}`, { state: { isbn } });
+		if (like) {
+			const likeIsbn =
+				like.split(' ')[0] === '' ? like.split(' ')[1] : like.split(' ')[0];
+			navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
+		} else {
+			navigate(`/search/${search}/${page}/${id}`, { state: { isbn } });
+		}
 	};
 
 	return (

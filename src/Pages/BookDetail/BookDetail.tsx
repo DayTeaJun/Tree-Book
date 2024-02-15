@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import errorImg from '../../Assets/No-img.svg';
 import { CommentForm } from '../../Components/Comments/CommentForm';
@@ -16,10 +16,15 @@ export default function BookDetail() {
 		page: string;
 	}>();
 	const [item, setItem] = useState<BookData>();
+	const { pathname } = useLocation();
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', page, search],
-		queryFn: () => search && getBooks(search, 14, page),
+		queryFn: () =>
+			search &&
+			(pathname.indexOf('/like') !== -1
+				? getBooks(search, 14, page, 'isbn')
+				: getBooks(search, 14, page, 'title')),
 		enabled: !!search,
 	});
 
