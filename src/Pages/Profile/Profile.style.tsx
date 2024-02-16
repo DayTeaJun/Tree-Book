@@ -65,6 +65,7 @@ const ContainerImg = styled.div`
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
+	border: 1px solid #eee;
 	flex-shrink: 1;
 	overflow: hidden;
 `;

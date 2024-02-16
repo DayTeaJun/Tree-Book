@@ -56,6 +56,8 @@ const ContainerImg = styled.div`
 	padding: 0;
 	display: flex;
 	position: relative;
+	border: 1px solid #ccc;
+	border-radius: 50%;
 	cursor: pointer;
 `;
 
