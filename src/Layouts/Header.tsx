@@ -10,7 +10,7 @@ import PortraitIcon from '@mui/icons-material/Portrait';
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function Header() {
-	const [searchTitle, setSearchTitle] = useState('');
+	const [search, setSearch] = useState('');
 	const inputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
 	const { isAuthReady, user } = useAuthContext();
@@ -19,15 +19,15 @@ export default function Header() {
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
 		if (!inputRef.current) return;
-		setSearchTitle(inputRef.current.value);
+		setSearch(inputRef.current.value);
 	};
 
 	useEffect(() => {
-		if (searchTitle !== '') {
-			navigate(`/search/${searchTitle}/1`);
-			setSearchTitle('');
+		if (search !== '') {
+			navigate(`/search/${search}/1`);
+			setSearch('');
 		}
-	}, [searchTitle]);
+	}, [search]);
 
 	return (
 		<>

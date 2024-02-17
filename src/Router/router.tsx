@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import HomeFeed from '../Pages/HomeFeed/HomeFeed';
 import BookDetail from '../Pages/BookDetail/BookDetail';
-import SearchView from '../Pages/Search/SearchView';
 import { useAuthContext } from '../Context/useAuthContext';
 import { Profile } from '../Pages/Profile/Profile';
 import { ProfileEdit } from '../Pages/Profile/ProfileEdit';
@@ -15,6 +14,7 @@ import MainLayout from '../Layouts/MainLayout';
 import { Loading } from '../Components/LoadingSpinner/Loading';
 import SignIn from '../Pages/LoginSignup/SignIn';
 import SignUp from '../Pages/LoginSignup/SignUp';
+import { Search } from '@mui/icons-material';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
@@ -35,7 +35,7 @@ export default function Router() {
 						<Route path='/' element={<HomeFeed />} />
 
 						<Route path='/search/' element={<Outlet />}>
-							<Route path=':searchView/:page' element={<SearchView />} />
+							<Route path=':searchView/:page' element={<Search />} />
 							<Route path=':search/:page/:id' element={<BookDetail />} />
 							<Route path='like/:search/:page/:id' element={<BookDetail />} />
 						</Route>
