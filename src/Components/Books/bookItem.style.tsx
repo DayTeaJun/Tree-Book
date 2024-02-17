@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const ContainerBookImg = styled.div`
 	width: 100px;
+	height: 140px;
 	text-align: center;
 	border-radius: 10px;
 `;
