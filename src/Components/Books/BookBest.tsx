@@ -37,7 +37,7 @@ export const BookBest = () => {
 					justifyContent: 'space-between',
 				}}
 			>
-				{likedBooks ? (
+				{likedBooks && (
 					<>
 						{(likedBooks.result as BookData[]).map((item: BookData) => (
 							<BookItem
@@ -50,7 +50,8 @@ export const BookBest = () => {
 							></BookItem>
 						))}
 					</>
-				) : (
+				)}
+				{isLoading && (
 					<>
 						{Array.from({ length: 2 }).map((_, index) => (
 							<BookItemSkeleton key={index} />
