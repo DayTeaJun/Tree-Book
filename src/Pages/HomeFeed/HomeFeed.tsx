@@ -21,7 +21,7 @@ export default function HomeFeed() {
 					<BookBest />
 				</S.ContainerBestBook>
 				<S.ContainerBook>
-					{books && books.length !== 0 ? (
+					{books && (
 						<>
 							{books.map((item: BookData, index: number) => (
 								<BookItem
@@ -33,7 +33,8 @@ export default function HomeFeed() {
 								></BookItem>
 							))}
 						</>
-					) : (
+					)}
+					{isLoading && (
 						<>
 							{Array.from({ length: 10 }).map((_, index) => (
 								<BookItemSkeleton key={index} />
