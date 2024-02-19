@@ -7,7 +7,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from '../../Components/Pagination/Pagination';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 
-export default function SearchView() {
+export default function Search() {
 	const { searchView, page } = useParams<{
 		searchView: string;
 		page: string;

@@ -14,7 +14,7 @@ import MainLayout from '../Layouts/MainLayout';
 import { Loading } from '../Components/LoadingSpinner/Loading';
 import SignIn from '../Pages/LoginSignup/SignIn';
 import SignUp from '../Pages/LoginSignup/SignUp';
-import { Search } from '@mui/icons-material';
+import Search from '../Pages/Search/Search';
 
 export default function Router() {
 	const { isAuthReady, user } = useAuthContext();
