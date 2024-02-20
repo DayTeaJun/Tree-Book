@@ -23,7 +23,7 @@ export default function HomeFeed() {
 				<S.ContainerBook>
 					{books && (
 						<>
-							{books.map((item: BookData, index: number) => (
+							{books.documents.map((item: BookData, index: number) => (
 								<BookItem
 									item={item}
 									page={'1'}
@@ -42,7 +42,7 @@ export default function HomeFeed() {
 						</>
 					)}
 				</S.ContainerBook>
-				{books && books.length === 0 && <h2>not found</h2>}
+				{books && books.documents.length === 0 && <h2>not found</h2>}
 			</S.Section>
 		</>
 	);

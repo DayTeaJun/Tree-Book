@@ -30,7 +30,7 @@ export default function BookDetail() {
 
 	useEffect(() => {
 		if (books) {
-			const item: BookData = books.find(
+			const item: BookData = books.documents.find(
 				(_: BookData, index: number) => index === (id && parseInt(id))
 			);
 			setItem(item);

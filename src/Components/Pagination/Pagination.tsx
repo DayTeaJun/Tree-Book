@@ -17,6 +17,7 @@ export const Paginaition = ({
 }: Props) => {
 	const navigate = useNavigate();
 	const pageNumber: number = parseInt(page as string, 10);
+	const totalPage = count && Math.ceil(count / 14);
 	const onPageChange = (e: ChangeEvent<unknown>, page: number) => {
 		if (searchView) {
 			navigate(`/search/${searchView}/${page}`);
@@ -30,7 +31,7 @@ export const Paginaition = ({
 			<Pagination
 				page={pageNumber}
 				onChange={onPageChange}
-				count={count || 100}
+				count={totalPage || count || 100}
 				showFirstButton
 				showLastButton
 			/>

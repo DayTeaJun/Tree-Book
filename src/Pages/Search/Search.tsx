@@ -31,7 +31,7 @@ export default function Search() {
 					</>
 				) : (
 					<>
-						{books.map((item: BookData, index: number) => (
+						{books.documents.map((item: BookData, index: number) => (
 							<BookItem
 								item={item}
 								page={page}
@@ -44,7 +44,13 @@ export default function Search() {
 				)}
 			</S.SectionSearch>
 
-			<Paginaition page={page} searchView={searchView} />
+			{!isLoading && (
+				<Paginaition
+					page={page}
+					searchView={searchView}
+					count={books.meta.pageable_count}
+				/>
+			)}
 		</>
 	);
 }
