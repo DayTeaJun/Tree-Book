@@ -45,7 +45,7 @@ export const BookBest = () => {
 								page={item.page}
 								id={item.id}
 								search={item.search}
-								key={item.isbn}
+								key={item.url}
 								like={item.isbn}
 							></BookItem>
 						))}

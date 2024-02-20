@@ -29,7 +29,7 @@ export default function HomeFeed() {
 									page={'1'}
 									id={index}
 									search={'리액트'}
-									key={item.isbn}
+									key={item.url}
 								></BookItem>
 							))}
 						</>
