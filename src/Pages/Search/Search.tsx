@@ -42,17 +42,14 @@ export default function Search() {
 						))}
 					</>
 				)}
-
-				{!isLoading && books.documents.length > 0 ? (
-					<Paginaition
-						page={page}
-						searchView={searchView}
-						totalPage={Math.ceil(books.meta.pageable_count / 14)}
-					/>
-				) : (
-					<p>업서요</p>
-				)}
 			</S.SectionSearch>
+			{!isLoading && books.documents.length > 0 && (
+				<Paginaition
+					page={page}
+					searchView={searchView}
+					totalPage={Math.ceil(books.meta.pageable_count / 14)}
+				/>
+			)}
 		</>
 	);
 }
