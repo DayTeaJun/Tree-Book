@@ -28,7 +28,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 	});
 
 	if (isLoading) {
-		<UserLikedSkeleton />;
+		return <UserLikedSkeleton />;
 	}
 
 	return (

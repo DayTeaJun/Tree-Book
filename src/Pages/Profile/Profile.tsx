@@ -23,7 +23,11 @@ export function Profile() {
 	});
 
 	if (isLoading) {
-		<ProfileSekeleton />;
+		return (
+			<P.Main>
+				<ProfileSekeleton />
+			</P.Main>
+		);
 	}
 
 	return (
