@@ -7,6 +7,6 @@ export const Layout = styled.div`
 `;
 
 export const MediaLayout = styled.div`
-	width: 1000px;
+	width: 1024px;
 	padding: 10px 0;
 `;

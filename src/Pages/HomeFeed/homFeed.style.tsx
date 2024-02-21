@@ -4,6 +4,7 @@ const Section = styled.section`
 	display: flex;
 	width: 100%;
 	padding: 20px 0;
+	gap: 20px;
 `;
 
 const SectionSearch = styled.section`
@@ -11,7 +12,6 @@ const SectionSearch = styled.section`
 	justify-content: center;
 	width: 100%;
 	height: 504px;
-	padding: 20px 0;
 	gap: 20px;
 	flex-wrap: wrap;
 `;
@@ -32,7 +32,6 @@ const H2 = styled.h2`
 const ContainerBestBook = styled.div`
 	display: flex;
 	flex-direction: column;
-	padding: 20px;
 	gap: 20px;
 	width: 30%;
 	height: 100%;
