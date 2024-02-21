@@ -42,6 +42,9 @@ export default function Search() {
 						))}
 					</>
 				)}
+				{!isLoading && books.documents.length === 0 && (
+					<p>검색 결과가 없습니다.</p>
+				)}
 			</S.SectionSearch>
 			{!isLoading && books.documents.length > 0 && (
 				<Paginaition
