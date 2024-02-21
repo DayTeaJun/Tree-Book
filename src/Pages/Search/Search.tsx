@@ -2,7 +2,7 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { useParams } from 'react-router-dom';
-import { S } from '../HomeFeed/homFeed.style';
+import { S } from '../HomeFeed/homeFeed.style';
 import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from '../../Components/Pagination/Pagination';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';

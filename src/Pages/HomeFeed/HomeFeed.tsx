@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
-import { S } from './homFeed.style';
+import { S } from './homeFeed.style';
 import { BookBest } from '../../Components/Books/BookBest';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 
