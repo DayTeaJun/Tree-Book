@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { Shimmer } from '../../Styles/Common';
 import { P } from './Profile.style';
@@ -5,8 +6,8 @@ import { P } from './Profile.style';
 export const UserLikedSkeleton = () => {
 	return (
 		<P.ContainerLiked>
-			<P.PP
-				style={{
+			<Box
+				sx={{
 					width: '400px',
 					height: '16px',
 					overflow: 'hidden',
@@ -14,7 +15,7 @@ export const UserLikedSkeleton = () => {
 				}}
 			>
 				<Shimmer />
-			</P.PP>
+			</Box>
 			<P.ContainerBook
 				style={{ width: '665px', height: '260px', overflow: 'hidden' }}
 			>

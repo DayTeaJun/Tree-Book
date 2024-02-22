@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { Shimmer } from '../../Styles/Common';
 import { P } from './Profile.style';
 
@@ -8,27 +9,26 @@ export const ProfileSekeleton = () => {
 				<P.ContainerImg>
 					<Shimmer />
 				</P.ContainerImg>
-				<P.H1
-					style={{
+				<Box
+					sx={{
 						width: '200px',
 						height: '16px',
 						overflow: 'hidden',
 					}}
 				>
 					<Shimmer />
-				</P.H1>
-				<P.PP
-					style={{
+				</Box>
+				<Box
+					sx={{
 						width: '200px',
 						height: '16px',
 						overflow: 'hidden',
 					}}
 				>
 					<Shimmer />
-				</P.PP>
-				<P.ALink
-					to={'/'}
-					style={{
+				</Box>
+				<Box
+					sx={{
 						width: '200px',
 						height: '36px',
 						overflow: 'hidden',
@@ -36,7 +36,7 @@ export const ProfileSekeleton = () => {
 					}}
 				>
 					<Shimmer />
-				</P.ALink>
+				</Box>
 			</P.ContainerProfile>
 		</P.Section>
 	);
