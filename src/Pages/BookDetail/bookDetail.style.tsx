@@ -8,7 +8,7 @@ const Main = styled.main`
 const Section = styled.section`
 	display: flex;
 	gap: 20px;
-	padding: 20px;
+	padding: 20px 0;
 `;
 
 const ContainerImg = styled.div`

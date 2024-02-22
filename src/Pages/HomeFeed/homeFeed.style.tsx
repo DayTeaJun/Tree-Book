@@ -11,7 +11,7 @@ const SectionSearch = styled.section`
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	height: 504px;
+	min-height: 504px;
 	padding: 20px 0;
 	gap: 20px;
 	flex-wrap: wrap;
