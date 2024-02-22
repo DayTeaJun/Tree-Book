@@ -16,7 +16,7 @@ export const getLikedBooks = async (book?: string) => {
 		likedQueryData.sort(
 			(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
 		);
-		const result = likedQueryData.slice(2, 12);
+		const result = likedQueryData.slice(3, 17);
 		return result;
 	}
 };
