@@ -7,6 +7,21 @@ export const Layout = styled.div`
 `;
 
 export const MediaLayout = styled.div`
-	width: 1024px;
+	width: 100%;
 	padding: 10px 0;
+	@media (min-width: 768px) {
+		width: 750px;
+	}
+
+	@media (min-width: 1023px) {
+		width: 970px;
+	}
+
+	@media (min-width: 1439px) {
+		width: 1024px;
+	}
+
+	@media (min-width: 1920px) {
+		width: 1440px;
+	}
 `;
