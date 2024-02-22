@@ -1,16 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { getBooks } from '../../Api/searchApi';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { S } from './homeFeed.style';
 import { BookBest } from '../../Components/Books/BookBest';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
+import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 
 export default function HomeFeed() {
-	const { data: books, isLoading } = useQuery({
-		queryKey: ['books'],
-		queryFn: () => getBooks('리액트', 10),
-		refetchOnWindowFocus: false,
+	const {
+		data: likedBooks,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['homeFeedLikedBooks'],
+		queryFn: () => getLikedBooks('home'),
 	});
 
 	return (
@@ -21,17 +24,20 @@ export default function HomeFeed() {
 					<BookBest />
 				</S.ContainerBestBook>
 				<S.ContainerBook>
-					{books && (
+					{likedBooks && (
 						<>
-							{books.documents.map((item: BookData, index: number) => (
-								<BookItem
-									item={item}
-									page={'1'}
-									id={index}
-									search={'리액트'}
-									key={item.url}
-								></BookItem>
-							))}
+							{(likedBooks as BookData[]).map(
+								(item: BookData, index: number) => (
+									<BookItem
+										item={item}
+										page={'1'}
+										id={index}
+										search={'리액트'}
+										key={item.url}
+										like={item.isbn}
+									></BookItem>
+								)
+							)}
 						</>
 					)}
 					{isLoading && (
@@ -42,7 +48,7 @@ export default function HomeFeed() {
 						</>
 					)}
 				</S.ContainerBook>
-				{books && books.documents.length === 0 && <h2>not found</h2>}
+				{likedBooks && likedBooks.length === 0 && <h2>not found</h2>}
 			</S.Section>
 		</>
 	);

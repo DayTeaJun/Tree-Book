@@ -1,6 +1,5 @@
 import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
 import { BookData } from '../../Types/bookType';
-import { appFirestore } from '../../Firebase/config';
 import BookItem from './BookItem';
 import { Box } from '@mui/material';
 import { BookItemSkeleton } from './BookItem.skeleton';
@@ -9,26 +8,14 @@ import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { useEffect, useState } from 'react';
 
 export const BookBest = () => {
-	const [books, setBooks] = useState<DocumentData[]>([]);
-
 	const {
 		data: likedBooks,
 		isLoading,
 		error,
 	} = useQuery({
 		queryKey: ['likedBooks'],
-		queryFn: () => getLikedBooks(),
+		queryFn: () => getLikedBooks('best'),
 	});
-
-	useEffect(() => {
-		if (likedBooks) {
-			likedBooks.sort(
-				(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
-			);
-			const result = likedBooks.slice(0, 2);
-			setBooks(result);
-		}
-	}, [likedBooks]);
 
 	return (
 		<>
@@ -38,9 +25,9 @@ export const BookBest = () => {
 					justifyContent: 'space-between',
 				}}
 			>
-				{books.length !== 0 && (
+				{likedBooks && likedBooks.length !== 0 && (
 					<>
-						{(books as BookData[]).map((item: BookData) => (
+						{(likedBooks as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
 								page={item.page}
