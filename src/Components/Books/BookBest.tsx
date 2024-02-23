@@ -1,11 +1,9 @@
-import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
 import { BookData } from '../../Types/bookType';
 import BookItem from './BookItem';
 import { Box } from '@mui/material';
 import { BookItemSkeleton } from './BookItem.skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
-import { useEffect, useState } from 'react';
 
 export const BookBest = () => {
 	const {
@@ -22,7 +20,10 @@ export const BookBest = () => {
 			<Box
 				sx={{
 					display: 'flex',
-					justifyContent: 'space-between',
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: '20px',
+					flexWrap: 'wrap',
 				}}
 			>
 				{likedBooks && likedBooks.length !== 0 && (
