@@ -11,7 +11,6 @@ const Section = styled.section`
 `;
 
 const Wrapper = styled.div`
-	height: 100px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 5px;
@@ -30,6 +29,7 @@ const ContainerImg = styled.div`
 const ContainerImgBtn = styled.div`
 	display: flex;
 	justify-content: space-between;
+	gap: 10px;
 `;
 
 const ContainerImgLink = styled.div`
@@ -51,7 +51,7 @@ const ContainerDateBtn = styled.div`
 const ContainerNameComment = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 10px;
 `;
 
 const ContainerNameDate = styled.div`
@@ -83,6 +83,18 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
+const LikeButton = styled.button`
+	width: 24px;
+	font-weight: 100;
+	background: inherit;
+	border: none;
+	box-shadow: none;
+	border-radius: 0;
+	padding: 0;
+	overflow: visible;
+	cursor: pointer;
+`;
+
 export const CL = {
 	Section,
 	Wrapper,
@@ -96,4 +108,5 @@ export const CL = {
 	PDate,
 	PComment,
 	Button,
+	LikeButton,
 };

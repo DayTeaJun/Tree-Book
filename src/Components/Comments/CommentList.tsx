@@ -7,6 +7,7 @@ import { Paginaition } from '../Pagination/Pagination';
 import { Loading } from '../LoadingSpinner/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
+import { CommentLike } from './CommentLike';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
@@ -81,6 +82,17 @@ export function CommentList({ isbn }: { isbn: string }) {
 											<CL.PDate>{comment.createdTime}</CL.PDate>
 										</CL.ContainerNameDate>
 										<CL.PComment>{comment.comments}</CL.PComment>
+										<CommentLike
+											uid={comment.uid}
+											item={comment}
+											// likeBy={
+											// 	user && user.uid && comment.likeBy
+											// 		? comment.likeBy[user.uid] !== undefined
+											// 			? comment.likeBy[user.uid]
+											// 			: false
+											// 		: false
+											// }
+										/>
 									</CL.ContainerNameComment>
 								</CL.ContainerImgLink>
 								{(user && user.uid) !== comment.id ? (
