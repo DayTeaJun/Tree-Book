@@ -7,6 +7,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
 import { useQueryClient } from '@tanstack/react-query';
+import { Box } from '@mui/material';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
@@ -42,10 +43,15 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	};
 
 	return (
-		<>
-			<CL.LikeButton type='button' onClick={() => handleLike()}>
+		<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+			<CL.LikedButton type='button' onClick={() => handleLike()}>
 				{likeAlready ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
-			</CL.LikeButton>
-		</>
+			</CL.LikedButton>
+			<CL.LikedNumber>
+				{likeBy &&
+					Object.keys(likeBy).length !== 0 &&
+					Object.keys(likeBy).length}
+			</CL.LikedNumber>
+		</Box>
 	);
 };

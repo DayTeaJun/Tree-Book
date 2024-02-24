@@ -83,7 +83,7 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-const LikeButton = styled.button`
+const LikedButton = styled.button`
 	width: 24px;
 	font-weight: 100;
 	background: inherit;
@@ -93,6 +93,12 @@ const LikeButton = styled.button`
 	padding: 0;
 	overflow: visible;
 	cursor: pointer;
+`;
+
+const LikedNumber = styled.p`
+	font-size: 1em;
+	font-weight: bold;
+	color: #111111;
 `;
 
 export const CL = {
@@ -108,5 +114,6 @@ export const CL = {
 	PDate,
 	PComment,
 	Button,
-	LikeButton,
+	LikedButton,
+	LikedNumber,
 };
