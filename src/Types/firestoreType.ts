@@ -1,4 +1,4 @@
-import { DocumentReference } from 'firebase/firestore';
+import { DocumentReference, Timestamp } from 'firebase/firestore';
 
 export interface StoreState {
 	document: DocumentReference | null;
@@ -19,7 +19,7 @@ export interface FirestoreDocument {
 	book?: string;
 	displayName?: string;
 	comments?: string;
-	createdTime?: string | null;
+	createdTime?: Timestamp;
 	email?: string;
 	password?: string;
 	photoURL?: string;

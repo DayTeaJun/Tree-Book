@@ -4,14 +4,15 @@ import { CL } from './CommentList.style';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { collection, doc, setDoc } from 'firebase/firestore';
-import { appFirestore } from '../../Firebase/config';
+import { appFirestore, timestamp } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
 import { useQueryClient } from '@tanstack/react-query';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
 	const { likeBy }: any = item;
-	const lkedUser = likeBy && likeBy.includes(user?.uid);
+	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
+	const [likeAlready, setLikeAlready] = useState(likedUser);
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
 	const queryClient = useQueryClient();
 
@@ -20,10 +21,13 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 			if (item && uid) {
 				let likeBy;
 				const createdTime = item.createdTime;
-				if (!lkedUser) {
-					likeBy = { ...item.likeBy, [user.uid]: !lkedUser };
-				} else if (lkedUser) {
+				if (!likeAlready) {
+					likeBy = { ...item.likeBy, [user.uid]: true };
+					setLikeAlready(true);
+				} else if (likeAlready) {
 					likeBy = { ...item.likeBy };
+					delete likeBy[user.uid];
+					setLikeAlready(false);
 				}
 				await setDoc(commentRef, {
 					...item,
@@ -40,7 +44,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	return (
 		<>
 			<CL.LikeButton type='button' onClick={() => handleLike()}>
-				{lkedUser ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
+				{likeAlready ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
 			</CL.LikeButton>
 		</>
 	);
