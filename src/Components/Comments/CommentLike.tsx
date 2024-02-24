@@ -6,25 +6,23 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
+import { useQueryClient } from '@tanstack/react-query';
 
-export const CommentLike = ({ uid, item, likeBy }: CommentType) => {
+export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
-	const likeComment = likeBy || false;
-	const [like, setLike] = useState(likeComment);
+	const { likeBy }: any = item;
+	const lkedUser = likeBy && likeBy.includes(user?.uid);
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
-
-	useEffect(() => {});
+	const queryClient = useQueryClient();
 
 	const handleLike = async () => {
 		if (user) {
 			if (item && uid) {
 				let likeBy;
 				const createdTime = item.createdTime;
-				if (!like) {
-					setLike(true);
-					likeBy = { ...item.likeBy, [user.uid]: !like };
-				} else if (like) {
-					setLike(false);
+				if (!lkedUser) {
+					likeBy = { ...item.likeBy, [user.uid]: !lkedUser };
+				} else if (lkedUser) {
 					likeBy = { ...item.likeBy };
 				}
 				await setDoc(commentRef, {
@@ -32,6 +30,7 @@ export const CommentLike = ({ uid, item, likeBy }: CommentType) => {
 					likeBy,
 					createdTime,
 				});
+				queryClient.invalidateQueries({ queryKey: ['comments'] });
 			}
 		} else {
 			alert('로그인이 필요합니다!');
@@ -41,7 +40,7 @@ export const CommentLike = ({ uid, item, likeBy }: CommentType) => {
 	return (
 		<>
 			<CL.LikeButton type='button' onClick={() => handleLike()}>
-				{like ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
+				{lkedUser ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
 			</CL.LikeButton>
 		</>
 	);

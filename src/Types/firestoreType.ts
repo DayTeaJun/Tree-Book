@@ -25,6 +25,6 @@ export interface FirestoreDocument {
 	photoURL?: string;
 	isbn?: string;
 	like?: boolean;
-	likeBy?: object;
+	likeBy?: { [key: string]: boolean };
 	intro?: string;
 }

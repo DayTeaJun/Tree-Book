@@ -82,17 +82,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 											<CL.PDate>{comment.createdTime}</CL.PDate>
 										</CL.ContainerNameDate>
 										<CL.PComment>{comment.comments}</CL.PComment>
-										<CommentLike
-											uid={comment.uid}
-											item={comment}
-											// likeBy={
-											// 	user && user.uid && comment.likeBy
-											// 		? comment.likeBy[user.uid] !== undefined
-											// 			? comment.likeBy[user.uid]
-											// 			: false
-											// 		: false
-											// }
-										/>
+										<CommentLike uid={comment.uid} item={comment} />
 									</CL.ContainerNameComment>
 								</CL.ContainerImgLink>
 								{(user && user.uid) !== comment.id ? (
