@@ -1,7 +1,7 @@
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { CL } from './CommentList.style';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
