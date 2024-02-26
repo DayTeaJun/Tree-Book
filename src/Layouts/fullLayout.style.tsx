@@ -17,8 +17,4 @@ export const MediaLayout = styled.div`
 	@media (min-width: 1439px) {
 		width: 1024px;
 	}
-
-	@media (min-width: 1920px) {
-		width: 1440px;
-	}
 `;
