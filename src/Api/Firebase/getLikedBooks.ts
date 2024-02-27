@@ -6,20 +6,15 @@ export const getLikedBooks = async (book?: string) => {
 	const likedQuery = query(LikesRef, limit(17));
 	const likedQuerySnapshot = await getDocs(likedQuery);
 	const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());
-	const likedBooks = likedQueryData.filter(
-		(doc) => Object.keys(doc.likeBy).length > 0
+	likedQueryData.sort(
+		(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
 	);
+	console.log(likedQueryData);
 	if (book === 'best') {
-		likedBooks.sort(
-			(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
-		);
-		const result = likedBooks.slice(0, 2);
+		const result = likedQueryData.slice(0, 2);
 		return result;
 	} else if (book === 'home') {
-		likedBooks.sort(
-			(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
-		);
-		const result = likedBooks.slice(3, 17);
+		const result = likedQueryData.slice(3, 17);
 		return result;
 	}
 };

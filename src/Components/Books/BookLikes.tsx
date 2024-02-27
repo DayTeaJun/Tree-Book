@@ -4,7 +4,14 @@ import { D } from '../../Pages/BookDetail/bookDetail.style';
 import { BookLikesProps } from '../../Types/bookType';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	deleteDoc,
+	deleteField,
+	doc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
@@ -56,18 +63,30 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 			let likeBy;
 			if (!like) {
 				likeBy = { ...likedUser?.likeBy, [uid]: !like };
+				await setDoc(booksRef, {
+					...item,
+					likeBy,
+					id,
+					search,
+					page,
+					createdTime,
+				});
 			} else {
 				likeBy = { ...likedUser?.likeBy };
 				delete likeBy[uid];
+				if (Object.keys(likeBy).length === 0) {
+					await deleteDoc(booksRef);
+				} else {
+					await setDoc(booksRef, {
+						...item,
+						likeBy,
+						id,
+						search,
+						page,
+						createdTime,
+					});
+				}
 			}
-			await setDoc(booksRef, {
-				...item,
-				likeBy,
-				id,
-				search,
-				page,
-				createdTime,
-			});
 		} else {
 			alert('로그인이 필요합니다!');
 		}
