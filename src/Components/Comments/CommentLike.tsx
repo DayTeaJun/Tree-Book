@@ -3,7 +3,13 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { CL } from './CommentList.style';
 import { useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	deleteField,
+	doc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
 import { useQueryClient } from '@tanstack/react-query';
@@ -21,20 +27,29 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 		if (user) {
 			if (item && uid) {
 				let likeBy;
-				const createdTime = item.createdTime;
 				if (!likeAlready) {
 					likeBy = { ...item.likeBy, [user.uid]: true };
 					setLikeAlready(true);
+					await setDoc(commentRef, {
+						...item,
+						likeBy,
+					});
 				} else if (likeAlready) {
 					likeBy = { ...item.likeBy };
 					delete likeBy[user.uid];
+					if (Object.keys(likeBy).length === 0) {
+						await updateDoc(commentRef, {
+							likeBy: deleteField(),
+						});
+					} else {
+						await setDoc(commentRef, {
+							...item,
+							likeBy,
+						});
+					}
 					setLikeAlready(false);
 				}
-				await setDoc(commentRef, {
-					...item,
-					likeBy,
-					createdTime,
-				});
+
 				queryClient.invalidateQueries({ queryKey: ['comments'] });
 			}
 		} else {
