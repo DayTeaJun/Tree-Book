@@ -9,7 +9,6 @@ export const getLikedBooks = async (book?: string) => {
 	likedQueryData.sort(
 		(a, b) => Object.keys(b.likeBy).length - Object.keys(a.likeBy).length
 	);
-	console.log(likedQueryData);
 	if (book === 'best') {
 		const result = likedQueryData.slice(0, 2);
 		return result;

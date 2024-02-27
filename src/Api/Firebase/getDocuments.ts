@@ -1,12 +1,21 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from '../../Types/firestoreType';
 
-export const getDocuments = async (transaction: string) => {
-	const documentQuery = query(
-		collection(appFirestore, transaction),
-		orderBy('createdTime', 'desc')
-	);
+export const getDocuments = async (transaction: string, isbn?: string) => {
+	let documentQuery;
+	if (transaction === 'BooksLikes' && isbn) {
+		documentQuery = query(
+			collection(appFirestore, transaction),
+			where('isbn', '==', isbn)
+		);
+	} else {
+		documentQuery = query(
+			collection(appFirestore, transaction),
+			orderBy('createdTime', 'desc')
+		);
+	}
+
 	const documentSnapshot = await getDocs(documentQuery);
 	let result: FirestoreDocument[] = [];
 	documentSnapshot.docs.map((doc) => {

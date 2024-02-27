@@ -4,24 +4,19 @@ import { D } from '../../Pages/BookDetail/bookDetail.style';
 import { BookLikesProps } from '../../Types/bookType';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
-import {
-	collection,
-	deleteDoc,
-	deleteField,
-	doc,
-	setDoc,
-	updateDoc,
-} from 'firebase/firestore';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
-	const [like, setLike] = useState<boolean | undefined>(false);
-	const [likesNumber, setLikesNumber] = useState<number>();
-	const isbn = item.isbn;
-	const booksRef = doc(collection(appFirestore, 'BooksLikes'), isbn);
 	const { user } = useAuthContext();
+	const isbn = item.isbn;
+	const { likeBy }: any = item;
+	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
+	const [like, setLike] = useState<boolean | undefined>(likedUser);
+	const [number, setNumber] = useState<number | undefined>();
+	const booksRef = doc(collection(appFirestore, 'BooksLikes'), isbn);
 	const queryClient = useQueryClient();
 
 	const {
@@ -29,8 +24,8 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['BooksLikes'],
-		queryFn: () => getDocuments('BooksLikes'),
+		queryKey: ['BooksLikes', isbn],
+		queryFn: () => getDocuments('BooksLikes', isbn),
 	});
 
 	useEffect(() => {
@@ -41,7 +36,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 					? Object.values(likedUser.likeBy).filter((like) => like === true)
 							.length
 					: 0;
-				setLikesNumber(likedNumber);
+				setNumber(likedNumber);
 				if (user) {
 					const isUser =
 						likedUser.likeBy &&
@@ -107,7 +102,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 			{item && (
 				<D.Likes onClick={() => mutaion.mutate()}>
 					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-					{likesNumber && <D.P>{likesNumber}</D.P>}
+					{number && <D.P>{number !== 0 && number}</D.P>}
 				</D.Likes>
 			)}
 		</>
