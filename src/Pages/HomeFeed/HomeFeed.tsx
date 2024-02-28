@@ -42,7 +42,7 @@ export default function HomeFeed() {
 					)}
 					{isLoading && (
 						<>
-							{Array.from({ length: 14 }).map((_, index) => (
+							{Array.from({ length: 10 }).map((_, index) => (
 								<BookItemSkeleton key={index} />
 							))}
 						</>
