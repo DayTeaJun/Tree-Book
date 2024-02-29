@@ -37,7 +37,7 @@ export default function Search() {
 								page={page}
 								id={index}
 								search={searchView || ''}
-								key={item.url}
+								key={index}
 							></BookItem>
 						))}
 					</>
