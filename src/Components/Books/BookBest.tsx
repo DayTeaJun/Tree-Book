@@ -28,13 +28,13 @@ export const BookBest = () => {
 			>
 				{likedBooks && likedBooks.length !== 0 && (
 					<>
-						{(likedBooks as BookData[]).map((item: BookData) => (
+						{(likedBooks as BookData[]).map((item: BookData, index: number) => (
 							<BookItem
 								item={item}
 								page={item.page}
 								id={item.id}
 								search={item.search}
-								key={item.url}
+								key={index}
 								like={item.isbn}
 							></BookItem>
 						))}
