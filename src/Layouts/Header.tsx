@@ -43,7 +43,7 @@ export default function Header() {
 						placeholder='책 이름을 입력해주세요.'
 					/>
 					<H.Button>
-						<SearchIcon />
+						<SearchIcon sx={[{ '&:hover': { color: 'black' } }]} />
 					</H.Button>
 				</H.Form>
 				{isAuthReady && !user && (

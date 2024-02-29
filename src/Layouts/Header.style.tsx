@@ -17,11 +17,13 @@ const LinkHome = styled(Link)`
 `;
 
 const Container = styled.div`
+	height: 64px;
 	display: flex;
 	justify-content: center;
 	border-radius: 5px;
 	background-color: #eee;
 	padding: 20px;
+	overflow: hidden;
 `;
 
 const Form = styled.form`
@@ -41,9 +43,10 @@ const Input = styled.input`
 	margin-right: 10px;
 	padding: 5px;
 	border: none;
-	border-bottom: solid 1px black;
+	border-bottom: solid 1px #d3d3d3;
 	&:focus {
 		outline: none;
+		border-bottom: solid 1px black;
 	}
 `;
 
@@ -51,15 +54,22 @@ const Button = styled.button`
 	border: none;
 	background-color: #fff;
 	cursor: pointer;
+	color: #585858;
 `;
 
 const ALink = styled(Link)`
 	display: flex;
 	align-items: center;
+	color: #585858;
 	gap: 5px;
 	font-size: 1em;
 	font-weight: bold;
+	border-radius: 5px;
 	cursor: pointer;
+
+	&:hover {
+		color: black;
+	}
 
 	img {
 		height: 100%;
