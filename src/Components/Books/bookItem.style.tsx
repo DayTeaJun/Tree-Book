@@ -15,6 +15,13 @@ const Container = styled.div`
 	height: 222px;
 	border-radius: 5px;
 	cursor: pointer;
+
+	&:hover {
+		transform: translateY(-0.5em);
+		transition: transform 0.5s;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+			rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+	}
 `;
 
 const H2 = styled.h2`
