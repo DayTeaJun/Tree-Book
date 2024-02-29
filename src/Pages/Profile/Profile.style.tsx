@@ -75,8 +75,11 @@ const ALink = styled(Link)`
 	font-size: 1em;
 	font-weight: 700;
 	border-radius: 50px;
-	background-color: green;
 	color: white;
+	background-color: #006600;
+	&:hover {
+		background-color: #009b00;
+	}
 `;
 
 const PP = styled.p`

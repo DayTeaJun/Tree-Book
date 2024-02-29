@@ -87,9 +87,12 @@ const Button = styled.button`
 	font-weight: bold;
 	border: none;
 	border-radius: 4px;
-	background-color: green;
 	color: white;
 	cursor: pointer;
+	background-color: #006600;
+	&:hover {
+		background-color: #009b00;
+	}
 `;
 
 const PValid = styled.p`
