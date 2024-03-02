@@ -15,7 +15,7 @@ export function ImgPreview() {
 
 		return new Promise<void>((resolve) => {
 			reader.onload = () => {
-				setImageSrc(reader.result || null); // 파일의 컨텐츠
+				setImageSrc(reader.result || null);
 				resolve();
 			};
 		});
