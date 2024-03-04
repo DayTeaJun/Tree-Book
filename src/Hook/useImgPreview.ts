@@ -3,6 +3,7 @@ import { useState } from 'react';
 export function ImgPreview() {
 	const [imageSrc, setImageSrc]: any = useState(null);
 	const [imgUrl, setImgUrl] = useState(null);
+	const [imgFilter, setImgFilter] = useState(false);
 
 	const onUpload = (e: any) => {
 		const fileRegex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
@@ -22,7 +23,7 @@ export function ImgPreview() {
 					};
 				});
 			} else {
-				alert('이미지 파일만 프로필로 설정할 수 있습니다.');
+				setImgFilter(true);
 				return;
 			}
 		} else {
@@ -30,5 +31,5 @@ export function ImgPreview() {
 		}
 	};
 
-	return { imageSrc, imgUrl, onUpload };
+	return { imageSrc, imgUrl, imgFilter, setImgFilter, onUpload };
 }

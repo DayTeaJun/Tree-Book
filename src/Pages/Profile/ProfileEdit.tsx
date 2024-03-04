@@ -27,7 +27,7 @@ export function ProfileEdit() {
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const [userIntro, setUserIntro] = useState(location.state.intro || '');
 	const navigate = useNavigate();
-	const { imageSrc, imgUrl, onUpload } = ImgPreview();
+	const { imageSrc, imgUrl, imgFilter, setImgFilter, onUpload } = ImgPreview();
 	const [validName, setValidName] = useState('');
 	const debounceName = useDebounce<string>(displayName);
 	const userRef = collection(appFirestore, 'user');
@@ -176,6 +176,13 @@ export function ProfileEdit() {
 						message={'프로필이 변경되었습니다!'}
 						position={'top'}
 						page={['profile', displayName]}
+					/>
+				)}
+				{imgFilter && (
+					<ToastPopup
+						setToast={setImgFilter}
+						message={'이미지 파일만 프로필로 설정할 수 있습니다.'}
+						position={'top'}
 					/>
 				)}
 			</PE.Main>
