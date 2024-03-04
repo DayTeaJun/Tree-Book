@@ -13,10 +13,11 @@ import { LS } from './LoginSignup.style';
 import ValidInput from '../../Components/ValidInput/ValidInput';
 import temImg from '../../Assets/profile-img.png';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import ToastPopup from '../../Components/Toast/Toast';
 
 export default function SignUp() {
 	const { error, isPending, signup } = useSignup();
-	const { imageSrc, imgUrl, onUpload } = ImgPreview();
+	const { imageSrc, imgUrl, imgFilter, setImgFilter, onUpload } = ImgPreview();
 	const [inputValue, setInputValue] = useState<InputValueType>({
 		email: '',
 		password: '',
@@ -36,7 +37,6 @@ export default function SignUp() {
 
 	return (
 		<Container component='main' maxWidth='xs'>
-			<CssBaseline />
 			<Box
 				sx={{
 					marginTop: 8,
@@ -98,6 +98,13 @@ export default function SignUp() {
 						</Grid>
 					</Grid>
 				</Box>
+				{imgFilter && (
+					<ToastPopup
+						setToast={setImgFilter}
+						message={'이미지 파일만 프로필로 설정할 수 있습니다.'}
+						position={'top'}
+					/>
+				)}
 			</Box>
 		</Container>
 	);

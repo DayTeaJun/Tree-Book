@@ -21,7 +21,7 @@ export default function ToastPopup({
 			if (page && page[0] === 'profile') {
 				navigate(`/profile/${page[1]}`);
 			}
-		}, 1500);
+		}, 2000);
 		return () => {
 			clearTimeout(timer);
 		};
