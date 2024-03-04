@@ -19,6 +19,7 @@ import { appFirestore } from '../../Firebase/config';
 import useDebounce from '../../Hook/useDebounce';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import ToastPopup from '../../Components/Toast/Toast';
 
 export function ProfileEdit() {
 	const { user } = useAuthContext();
@@ -31,6 +32,7 @@ export function ProfileEdit() {
 	const debounceName = useDebounce<string>(displayName);
 	const userRef = collection(appFirestore, 'user');
 	const queryClient = useQueryClient();
+	const [toast, setToast] = useState(false);
 
 	const validCheck = async () => {
 		const Query = query(userRef, where('displayName', '==', displayName));
@@ -82,9 +84,7 @@ export function ProfileEdit() {
 					intro: userIntro,
 				});
 			}
-
-			alert('프로필이 변경되었습니다!');
-			navigate(`/profile/${displayName}`);
+			setToast(true);
 		}
 	};
 
@@ -104,69 +104,81 @@ export function ProfileEdit() {
 	};
 
 	return (
-		<PE.Main>
-			<PE.H1>프로필 수정</PE.H1>
-			<PE.P>프로필을 수정 하실 수 있습니다</PE.P>
-			<PE.Form onSubmit={handleSubmit}>
-				<PE.ContainerImg>
-					<PE.Img
-						src={(imgUrl && imageSrc) || (user && user.photoURL) || persImg}
-						alt={'프로필 이미지 사진입니다.'}
+		<>
+			<PE.Main>
+				<PE.H1>프로필 수정</PE.H1>
+				<PE.P>프로필을 수정 하실 수 있습니다</PE.P>
+				<PE.Form onSubmit={handleSubmit}>
+					<PE.ContainerImg>
+						<PE.Img
+							src={(imgUrl && imageSrc) || (user && user.photoURL) || persImg}
+							alt={'프로필 이미지 사진입니다.'}
+						/>
+						<ImageSearchIcon
+							sx={{
+								position: 'absolute',
+								right: '0',
+								bottom: '0',
+								padding: '5px 2px 5px 5px',
+								borderRadius: '50%',
+								backgroundColor: 'green',
+								color: '#fff',
+							}}
+							fontSize='large'
+						/>
+						<PE.ImgLabel htmlFor='profileImgEdit'>
+							프로필 이미지 수정
+						</PE.ImgLabel>
+						<PE.ImgInput
+							id='profileImgEdit'
+							type='file'
+							accept='image/*'
+							onChange={(e) => onUpload(e)}
+						/>
+					</PE.ContainerImg>
+					<PE.Label htmlFor='nickNameEdit'>닉네임</PE.Label>
+					<PE.Input
+						id='nickNameEdit'
+						type='text'
+						placeholder='변경할 닉네임을 입력해주세요.'
+						value={displayName}
+						onChange={handleEdit}
 					/>
-					<ImageSearchIcon
-						sx={{
-							position: 'absolute',
-							right: '0',
-							bottom: '0',
-							padding: '5px 2px 5px 5px',
-							borderRadius: '50%',
-							backgroundColor: 'green',
-							color: '#fff',
-						}}
-						fontSize='large'
+					<PE.PValid>{validName || '\u00A0'}</PE.PValid>
+					<PE.Label htmlFor='introEdit'>자기소개</PE.Label>
+					<PE.Input
+						id='introEdit'
+						type='text'
+						placeholder='자신에 대해서 소개해주세요.'
+						value={userIntro}
+						onChange={handleEdit}
 					/>
-					<PE.ImgLabel htmlFor='profileImgEdit'>프로필 이미지 수정</PE.ImgLabel>
-					<PE.ImgInput
-						id='profileImgEdit'
-						type='file'
-						accept='image/*'
-						onChange={(e) => onUpload(e)}
-					/>
-				</PE.ContainerImg>
-				<PE.Label htmlFor='nickNameEdit'>닉네임</PE.Label>
-				<PE.Input
-					id='nickNameEdit'
-					type='text'
-					placeholder='변경할 닉네임을 입력해주세요.'
-					value={displayName}
-					onChange={handleEdit}
-				/>
-				<PE.PValid>{validName || '\u00A0'}</PE.PValid>
-				<PE.Label htmlFor='introEdit'>자기소개</PE.Label>
-				<PE.Input
-					id='introEdit'
-					type='text'
-					placeholder='자신에 대해서 소개해주세요.'
-					value={userIntro}
-					onChange={handleEdit}
-				/>
 
-				<PE.ContainerBtn>
-					<PE.Button
-						type='submit'
-						disabled={validName !== '' ? true : false}
-						style={{
-							backgroundColor: validName !== '' ? '#eee' : 'green',
-						}}
-					>
-						저장
-					</PE.Button>
+					<PE.ContainerBtn>
+						<PE.Button
+							type='submit'
+							disabled={validName !== '' ? true : false}
+							style={{
+								backgroundColor: validName !== '' ? '#eee' : 'green',
+							}}
+						>
+							저장
+						</PE.Button>
 
-					<PE.Button type='button' onClick={() => navigate(-1)}>
-						취소
-					</PE.Button>
-				</PE.ContainerBtn>
-			</PE.Form>
-		</PE.Main>
+						<PE.Button type='button' onClick={() => navigate(-1)}>
+							취소
+						</PE.Button>
+					</PE.ContainerBtn>
+				</PE.Form>
+				{toast && (
+					<ToastPopup
+						setToast={setToast}
+						message={'프로필이 변경되었습니다!'}
+						position={'top'}
+						page={['profile', displayName]}
+					/>
+				)}
+			</PE.Main>
+		</>
 	);
 }
