@@ -6,6 +6,8 @@ import UserLiked from './UserLiked';
 import { ProfileSekeleton } from './Profile.skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
+import { UserComment } from './UserComment';
+import { Box } from '@mui/material';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -58,7 +60,19 @@ export function Profile() {
 										</P.ALink>
 									)}
 								</P.ContainerProfile>
-								<UserLiked uid={users.uid} displayName={users.displayName} />
+								<Box
+									sx={{
+										display: 'flex',
+										flexDirection: 'column',
+										gap: '20px',
+									}}
+								>
+									<UserLiked uid={users.uid} displayName={users.displayName} />
+									<UserComment
+										uid={users.uid}
+										displayName={users.displayName}
+									/>
+								</Box>
 							</P.Section>
 						)
 				)}

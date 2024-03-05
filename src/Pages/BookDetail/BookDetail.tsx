@@ -111,7 +111,7 @@ export default function BookDetail() {
 							</D.Dl>
 						</D.Container>
 					</D.Section>
-					<CommentForm />
+					<CommentForm item={item} />
 				</>
 			) : (
 				<>{item && <h2>not found</h2>}</>

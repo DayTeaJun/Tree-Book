@@ -6,8 +6,9 @@ import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ToastPopup from '../Toast/Toast';
+import { BookLikesProps } from '../../Types/bookType';
 
-export function CommentForm() {
+export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const [toast, setToast] = useState(false);
 	const { addDocument, response } = useFirestore('comments');
@@ -40,12 +41,12 @@ export function CommentForm() {
 		e.preventDefault();
 		if (user) {
 			mutation.mutate({
+				...item,
 				comments,
 				book,
 				displayName,
 				id,
 				photoURL,
-				isbn,
 			});
 		} else {
 			setToast(true);

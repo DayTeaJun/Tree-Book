@@ -5,7 +5,7 @@ import { P } from './Profile.style';
 export const ProfileSekeleton = () => {
 	return (
 		<P.Section>
-			<P.ContainerProfile style={{ width: '285px', height: '286px' }}>
+			<P.ContainerProfile style={{ width: '285px', minHeight: '286px' }}>
 				<P.ContainerImg>
 					<Shimmer />
 				</P.ContainerImg>

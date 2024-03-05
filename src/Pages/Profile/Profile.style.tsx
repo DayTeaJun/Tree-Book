@@ -44,7 +44,7 @@ const ContainerBook = styled.div`
 
 const ContainerProfile = styled.div`
 	min-width: 30%;
-	height: 286px;
+	min-height: 286px;
 	flex-shrink: 1;
 	display: flex;
 	flex-direction: column;
@@ -55,16 +55,16 @@ const ContainerProfile = styled.div`
 `;
 
 const ContainerLiked = styled.div`
-	width: calc(70% - 20px);
+	width: calc(70% - 160px);
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 `;
 
 const ContainerImg = styled.div`
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	border-radius: 1em;
 	border: 1px solid #eee;
 	flex-shrink: 1;
 	overflow: hidden;
