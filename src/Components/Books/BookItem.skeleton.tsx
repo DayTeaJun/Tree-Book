@@ -28,16 +28,6 @@ export const BookItemSkeleton = () => {
 			>
 				<Shimmer />
 			</Box>
-			<Box
-				sx={{
-					width: '97px',
-					height: '12px',
-					overflow: 'hidden',
-					marginTop: '5px',
-				}}
-			>
-				<Shimmer />
-			</Box>
 		</B.Container>
 	);
 };

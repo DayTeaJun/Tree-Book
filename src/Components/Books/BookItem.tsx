@@ -31,7 +31,6 @@ const BookItem = ({ item, id, page, search, like }: BookItemProps) => {
 			<B.P>
 				{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
 			</B.P>
-			{!like && <B.Price>{item.price.toLocaleString('ko-KR')}원</B.Price>}
 		</B.Container>
 	);
 };
