@@ -5,9 +5,11 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import ToastPopup from '../Toast/Toast';
 
 export function CommentForm() {
 	const [comments, setComments] = useState('');
+	const [toast, setToast] = useState(false);
 	const { addDocument, response } = useFirestore('comments');
 	const { user } = useAuthContext();
 	const location = useLocation();
@@ -46,7 +48,7 @@ export function CommentForm() {
 				isbn,
 			});
 		} else {
-			alert('로그인해주세요');
+			setToast(true);
 		}
 	};
 
@@ -75,6 +77,13 @@ export function CommentForm() {
 				</CF.Container>
 			</CF.Form>
 			<CommentList isbn={isbn} />
+			{toast && (
+				<ToastPopup
+					setToast={setToast}
+					message={'로그인이 필요합니다!'}
+					position={'top'}
+				/>
+			)}
 		</>
 	);
 }
