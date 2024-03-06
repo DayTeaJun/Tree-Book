@@ -21,30 +21,33 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 		<>
 			{comment ? (
 				<Box
+					onClick={onMoveBookDetail}
 					sx={{
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
 						cursor: 'pointer',
 						borderRadius: '1em',
-						width: '100%',
+						width: '80%',
+						height: '80px',
 						padding: '10px',
 						backgroundColor: '#eee',
-						textAlign: 'center',
 						'&:hover': { backgroundColor: '#888888' },
 					}}
 				>
-					<B.H2 style={{ fontSize: '1.2em' }}>{item.title}</B.H2>
+					<B.H2 style={{ fontSize: '1.2em', textDecorationLine: 'none' }}>
+						{item.title}
+					</B.H2>
 					<B.H2
 						style={{
 							display: 'flex',
 							gap: '10px',
-							justifyContent: 'center',
 							alignItems: 'center',
+							textDecorationLine: 'none',
 						}}
 					>
 						{comment}
-						<B.P>{item.datetime.substr(0, 10).replaceAll('-', '. ')}</B.P>
+						<B.P>| {item.datetime.substr(0, 10).replaceAll('-', '. ')}</B.P>
 					</B.H2>
 				</Box>
 			) : (
