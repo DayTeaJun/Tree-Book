@@ -6,6 +6,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { useQuery } from '@tanstack/react-query';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { BookData } from '../../Types/bookType';
+import { Box } from '@mui/material';
 
 export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
@@ -37,7 +38,14 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 					<P.PP>
 						<P.Strong>{displayName}</P.Strong>님의 작성한 코멘트 목록
 					</P.PP>
-					<P.ContainerBook>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							gap: '10px',
+							alignItems: 'center',
+						}}
+					>
 						{(userBooks as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
@@ -46,9 +54,10 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 								search={item.search}
 								key={item.url}
 								like={item.isbn}
+								comment={item.comments}
 							></BookItem>
 						))}
-					</P.ContainerBook>
+					</Box>
 				</P.ContainerLiked>
 			)}
 		</>
