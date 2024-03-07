@@ -62,9 +62,11 @@ export function Profile() {
 								</P.ContainerProfile>
 								<Box
 									sx={{
+										maxWidth: 'calc(70% - 160px)',
 										display: 'flex',
 										flexDirection: 'column',
 										gap: '50px',
+										width: '100%',
 									}}
 								>
 									<UserLiked uid={users.uid} displayName={users.displayName} />

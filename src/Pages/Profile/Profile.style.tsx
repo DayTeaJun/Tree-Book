@@ -74,7 +74,7 @@ const ContainerProfile = styled.div`
 `;
 
 const ContainerLiked = styled.div`
-	width: calc(70% - 160px);
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
@@ -112,6 +112,7 @@ const H1 = styled.h1<SkeletonProps>`
 `;
 
 const H2 = styled.h2`
+	width: 100%;
 	display: flex;
 	align-items: center;
 	color: green;
