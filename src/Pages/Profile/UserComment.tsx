@@ -28,7 +28,7 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 	});
 
 	if (isLoading) {
-		return <UserLikedSkeleton />;
+		return <UserLikedSkeleton comment={uid} />;
 	}
 
 	return (

@@ -39,3 +39,7 @@ export interface BookLikesProps {
 	page?: string;
 	like?: string;
 }
+
+export interface Skeleton {
+	comment?: string;
+}

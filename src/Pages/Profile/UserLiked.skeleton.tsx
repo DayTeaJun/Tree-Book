@@ -2,8 +2,9 @@ import { Box } from '@mui/material';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { Shimmer } from '../../Styles/Common';
 import { P } from './Profile.style';
+import { Skeleton } from '../../Types/bookType';
 
-export const UserLikedSkeleton = () => {
+export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 	return (
 		<P.ContainerLiked>
 			<Box
@@ -16,13 +17,21 @@ export const UserLikedSkeleton = () => {
 			>
 				<Shimmer />
 			</Box>
-			<P.ContainerBook
-				style={{ width: '665px', height: '260px', overflow: 'hidden' }}
-			>
-				{Array.from({ length: 5 }).map((_, index) => (
-					<BookItemSkeleton key={index} />
-				))}
-			</P.ContainerBook>
+			{!comment ? (
+				<P.ContainerBook
+					style={{ width: '665px', height: '260px', overflow: 'hidden' }}
+				>
+					{Array.from({ length: 5 }).map((_, index) => (
+						<BookItemSkeleton key={index} />
+					))}
+				</P.ContainerBook>
+			) : (
+				<P.ContainerComment>
+					{Array.from({ length: 2 }).map((_, index) => (
+						<BookItemSkeleton comment={comment} key={index} />
+					))}
+				</P.ContainerComment>
+			)}
 		</P.ContainerLiked>
 	);
 };
