@@ -27,12 +27,12 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 						flexDirection: 'column',
 						gap: '10px',
 						cursor: 'pointer',
-						borderRadius: '1em',
-						width: '80%',
+						width: '90%',
 						height: '80px',
 						padding: '10px',
+						borderRadius: '5px',
 						backgroundColor: '#eee',
-						'&:hover': { backgroundColor: '#888888' },
+						'&:hover': { backgroundColor: '#e9e9e9' },
 					}}
 				>
 					<B.H2 style={{ fontSize: '1.2em', textDecorationLine: 'none' }}>

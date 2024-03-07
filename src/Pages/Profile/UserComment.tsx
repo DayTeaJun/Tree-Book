@@ -35,17 +35,8 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 		<>
 			{userBooks && (
 				<P.ContainerLiked>
-					<P.PP>
-						<P.Strong>{displayName}</P.Strong>님의 작성한 코멘트 목록
-					</P.PP>
-					<Box
-						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '10px',
-							alignItems: 'center',
-						}}
-					>
+					<P.H2>작성한 코멘트 목록</P.H2>
+					<P.ContainerComment>
 						{(userBooks as BookData[]).map((item: BookData) => (
 							<BookItem
 								item={item}
@@ -57,7 +48,7 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 								comment={item.comments}
 							></BookItem>
 						))}
-					</Box>
+					</P.ContainerComment>
 				</P.ContainerLiked>
 			)}
 		</>

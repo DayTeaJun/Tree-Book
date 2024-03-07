@@ -64,7 +64,7 @@ export function Profile() {
 									sx={{
 										display: 'flex',
 										flexDirection: 'column',
-										gap: '20px',
+										gap: '50px',
 									}}
 								>
 									<UserLiked uid={users.uid} displayName={users.displayName} />

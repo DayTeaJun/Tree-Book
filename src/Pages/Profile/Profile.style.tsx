@@ -10,8 +10,6 @@ const Main = styled.main`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	border: 1px solid black;
-	border-radius: 10px;
 	padding: 20px 24px;
 	min-height: 330px;
 	gap: 10px;
@@ -37,7 +35,28 @@ const ContainerBook = styled.div`
 		border-radius: 6px;
 	}
 	&::-webkit-scrollbar-thumb {
-		background: green;
+		background: #939393;
+		border-radius: 6px;
+	}
+`;
+
+const ContainerComment = styled.div`
+	width: 100%;
+	height: 180px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 15px 0;
+	gap: 10px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+		border-radius: 6px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #939393;
 		border-radius: 6px;
 	}
 `;
@@ -88,8 +107,30 @@ const PP = styled.p`
 `;
 
 const H1 = styled.h1<SkeletonProps>`
-	font-size: 16px;
+	font-size: 1em;
 	font-weight: bold;
+`;
+
+const H2 = styled.h2`
+	display: flex;
+	align-items: center;
+	color: green;
+	font-size: 1.1em;
+	font-weight: 700;
+	&:before {
+		content: '';
+		margin: 0 1em;
+		flex-grow: 1;
+		height: 0.5px;
+		background-color: rgba(0, 0, 0, 0.35);
+	}
+	&:after {
+		content: '';
+		margin: 0 1em;
+		flex-grow: 1;
+		height: 0.5px;
+		background-color: rgba(0, 0, 0, 0.35);
+	}
 `;
 
 const Strong = styled.strong`
@@ -101,11 +142,13 @@ export const P = {
 	Main,
 	Section,
 	H1,
+	H2,
 	ALink,
 	PP,
 	Strong,
 	ContainerImg,
 	ContainerBook,
+	ContainerComment,
 	ContainerLiked,
 	ContainerProfile,
 };

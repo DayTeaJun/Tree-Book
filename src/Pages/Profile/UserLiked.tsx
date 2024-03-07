@@ -35,10 +35,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		<>
 			{userBooks && (
 				<P.ContainerLiked>
-					<P.PP>
-						<P.Strong>{displayName}</P.Strong>
-						님의 좋아요 표시한 책들 목록
-					</P.PP>
+					<P.H2>내가 좋아요한 책들</P.H2>
 					<P.ContainerBook>
 						{(userBooks as BookData[]).map((item: BookData) => (
 							<BookItem
