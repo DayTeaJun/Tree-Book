@@ -37,13 +37,13 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 				<P.ContainerLiked>
 					<P.H2>작성한 코멘트 목록</P.H2>
 					<P.ContainerComment>
-						{(userBooks as BookData[]).map((item: BookData) => (
+						{(userBooks as BookData[]).map((item: BookData, index: number) => (
 							<BookItem
 								item={item}
 								page={item.page}
 								id={item.id}
 								search={item.search}
-								key={item.url}
+								key={index}
 								like={item.isbn}
 								comment={item.comments}
 							></BookItem>

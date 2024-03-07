@@ -45,7 +45,7 @@ export default function BookDetail() {
 		<D.Main>
 			{item && !isLoading ? (
 				<>
-					<D.Section key={item.isbn}>
+					<D.Section key={item.url}>
 						<D.Container>
 							{item.thumbnail ? (
 								<D.ContainerImg>

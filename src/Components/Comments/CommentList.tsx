@@ -61,8 +61,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 		<>
 			<CL.Section>
 				{comment &&
-					comment.map((comment) => (
-						<CL.Wrapper key={comment.uid}>
+					comment.map((comment, index: number) => (
+						<CL.Wrapper key={index}>
 							<CL.ContainerImgBtn>
 								<CL.ContainerImgLink>
 									<CL.ContainerImg>
