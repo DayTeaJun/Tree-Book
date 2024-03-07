@@ -22,12 +22,13 @@ export function CommentList({ isbn }: { isbn: string }) {
 		error,
 	} = useQuery({
 		queryKey: ['comments', isbn],
-		queryFn: () => getComments('comments'),
+		queryFn: () => getComments('comments', isbn),
 	});
 
 	const commentsPerPage = 4;
 	const commentLists =
-		documents && documents.filter((comment) => comment.isbn === isbn);
+		documents &&
+		documents.sort((a, b) => b.createdTime!.seconds - a.createdTime!.seconds);
 	const startIndex = (currentPage - 1) * commentsPerPage;
 	const endIndex = startIndex + commentsPerPage;
 
