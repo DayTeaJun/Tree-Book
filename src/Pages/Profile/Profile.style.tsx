@@ -24,6 +24,7 @@ const Section = styled.section`
 
 const ContainerBook = styled.div`
 	width: 100%;
+	height: 230px;
 	display: flex;
 	padding: 15px 0;
 	gap: 10px;
