@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { P } from './Profile.style';
 import UserLiked from './UserLiked';

@@ -10,7 +10,7 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
-import { appFirestore, timestamp } from '../../Firebase/config';
+import { appFirestore } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
 import { useQueryClient } from '@tanstack/react-query';
 import { Box } from '@mui/material';

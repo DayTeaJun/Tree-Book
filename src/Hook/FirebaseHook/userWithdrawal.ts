@@ -1,4 +1,4 @@
-import { deleteUser, getAuth } from 'firebase/auth';
+import { deleteUser } from 'firebase/auth';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 

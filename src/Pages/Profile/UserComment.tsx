@@ -6,9 +6,8 @@ import BookItem from '../../Components/Books/BookItem';
 import { useQuery } from '@tanstack/react-query';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { BookData } from '../../Types/bookType';
-import { Box } from '@mui/material';
 
-export const UserComment = ({ uid, displayName }: UserLikedProps) => {
+export const UserComment = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
 		const LikesRef = collection(appFirestore, 'comments');
 		const likedQuery = query(LikesRef, where('id', '==', uid));
@@ -26,6 +25,10 @@ export const UserComment = ({ uid, displayName }: UserLikedProps) => {
 		queryKey: ['userComment', uid],
 		queryFn: () => fetchLiked(uid),
 	});
+	console.log(userBooks);
+
+	if (userBooks) {
+	}
 
 	if (isLoading) {
 		return <UserLikedSkeleton comment={uid} />;
