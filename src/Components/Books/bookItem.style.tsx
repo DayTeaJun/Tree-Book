@@ -31,9 +31,6 @@ const H2 = styled.h2`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	&:hover {
-		text-decoration: underline;
-	}
 `;
 
 const P = styled.p`

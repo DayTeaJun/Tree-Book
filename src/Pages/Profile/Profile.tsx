@@ -65,7 +65,7 @@ export function Profile() {
 										maxWidth: 'calc(70% - 160px)',
 										display: 'flex',
 										flexDirection: 'column',
-										gap: '50px',
+										gap: '30px',
 										width: '100%',
 									}}
 								>

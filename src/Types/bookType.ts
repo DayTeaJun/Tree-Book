@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export interface BookData {
 	authors: string[];
 	contents: string;
@@ -15,6 +17,7 @@ export interface BookData {
 	search?: string;
 	page?: string;
 	comments?: string;
+	createdTime?: Timestamp;
 }
 
 export interface SerachParams {

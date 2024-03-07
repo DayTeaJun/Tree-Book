@@ -28,7 +28,7 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 						gap: '10px',
 						cursor: 'pointer',
 						width: '90%',
-						height: '80px',
+						height: '100px',
 						padding: '10px',
 						borderRadius: '5px',
 						backgroundColor: '#eee',
@@ -40,15 +40,12 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 					</B.H2>
 					<B.H2
 						style={{
-							display: 'flex',
-							gap: '10px',
-							alignItems: 'center',
-							textDecorationLine: 'none',
+							fontWeight: '500',
 						}}
 					>
 						{comment}
-						<B.P>| {item.datetime.substr(0, 10).replaceAll('-', '. ')}</B.P>
 					</B.H2>
+					<B.P>{item.createdTime?.toDate().toLocaleString()}</B.P>
 				</Box>
 			) : (
 				<B.Container onClick={onMoveBookDetail}>

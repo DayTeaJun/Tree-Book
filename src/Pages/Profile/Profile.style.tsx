@@ -42,7 +42,7 @@ const ContainerBook = styled.div`
 
 const ContainerComment = styled.div`
 	width: 100%;
-	height: 180px;
+	height: 230px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
