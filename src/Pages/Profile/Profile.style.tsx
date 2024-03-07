@@ -90,14 +90,16 @@ const ContainerImg = styled.div`
 `;
 
 const ALink = styled(Link)`
+	width: 90%;
+	text-align: center;
 	padding: 10px 20px;
 	font-size: 1em;
 	font-weight: 700;
-	border-radius: 50px;
+	border-radius: 10px;
 	color: white;
-	background-color: #006600;
+	background-color: #009b00;
 	&:hover {
-		background-color: #009b00;
+		background-color: #006600;
 	}
 `;
 
@@ -107,7 +109,7 @@ const PP = styled.p`
 `;
 
 const H1 = styled.h1<SkeletonProps>`
-	font-size: 1em;
+	font-size: 1.5em;
 	font-weight: bold;
 `;
 
@@ -139,6 +141,21 @@ const Strong = styled.strong`
 	font-weight: bold;
 `;
 
+const Button = styled.button`
+	width: 90%;
+	padding: 8px 20px;
+	font-size: 1em;
+	font-weight: 700;
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	background-color: #939393;
+	&:hover {
+		color: #c00000;
+	}
+`;
+
 export const P = {
 	Main,
 	Section,
@@ -147,6 +164,7 @@ export const P = {
 	ALink,
 	PP,
 	Strong,
+	Button,
 	ContainerImg,
 	ContainerBook,
 	ContainerComment,

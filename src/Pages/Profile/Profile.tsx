@@ -8,12 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { UserComment } from './UserComment';
 import { Box } from '@mui/material';
+import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 
 export function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const location = useLocation();
 	const uid = location.state ? location.state.id : user && user.uid;
+	const { withDrawal } = useWithdrawal();
 
 	const {
 		data: documents,
@@ -55,9 +57,12 @@ export function Profile() {
 									<P.H1>{users.displayName}</P.H1>
 									<P.PP>{users.intro || ''}</P.PP>
 									{userId === (user && user.displayName) && (
-										<P.ALink to='./edit' state={{ intro: users.intro }}>
-											프로필 수정
-										</P.ALink>
+										<>
+											<P.ALink to='./edit' state={{ intro: users.intro }}>
+												프로필 수정
+											</P.ALink>
+											<P.Button onClick={withDrawal}>회원 탈퇴</P.Button>
+										</>
 									)}
 								</P.ContainerProfile>
 								<Box
