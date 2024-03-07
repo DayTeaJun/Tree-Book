@@ -1,7 +1,6 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { P } from './Profile.style';
-import persImg from '../../Assets/No-img.svg';
 import UserLiked from './UserLiked';
 import { ProfileSekeleton } from './Profile.skeleton';
 import { useQuery } from '@tanstack/react-query';
@@ -13,8 +12,7 @@ import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 export function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
-	const location = useLocation();
-	const uid = location.state ? location.state.id : user && user.uid;
+	const { userProfile } = useParams();
 	const { withDrawal } = useWithdrawal();
 
 	const {
@@ -22,7 +20,7 @@ export function Profile() {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['user'],
+		queryKey: ['user', userProfile],
 		queryFn: () => getDocuments('user'),
 	});
 
@@ -37,19 +35,19 @@ export function Profile() {
 	return (
 		<P.Main>
 			{userId &&
-				uid &&
 				documents &&
 				documents.map(
 					(users) =>
-						users.uid === uid && (
+						userId === users.displayName && (
 							<P.Section key={users.uid}>
 								<P.ContainerProfile>
 									<P.ContainerImg>
 										<img
 											src={
-												(userId === (user && user.displayName)
-													? user && user.photoURL
-													: users.photoURL) || persImg
+												(userId === (user && user.displayName) &&
+													user &&
+													user.photoURL) ||
+												users.photoURL
 											}
 											alt={`${users.displayName}의 프로필 사진입니다.`}
 										/>

@@ -63,6 +63,8 @@ export function ProfileEdit() {
 
 	const profileEdit = async () => {
 		if (appAuth.currentUser && user) {
+			const colRef = collection(appFirestore, 'user');
+			const docRef = doc(colRef, user.uid);
 			if (imgUrl) {
 				const storageRef = ref(storage, `profile/${user.uid}`);
 				const snapshot = await uploadBytes(storageRef, imgUrl);
@@ -72,11 +74,15 @@ export function ProfileEdit() {
 					displayName: displayName,
 					photoURL: downUrl || '',
 				});
+				await updateDoc(docRef, {
+					displayName: displayName,
+					intro: userIntro,
+					photoURL: downUrl || '',
+				});
 			} else {
 				await updateProfile(appAuth.currentUser, {
 					displayName: displayName,
 				});
-				const colRef = collection(appFirestore, 'user');
 
 				const docRef = doc(colRef, user.uid);
 				await updateDoc(docRef, {
