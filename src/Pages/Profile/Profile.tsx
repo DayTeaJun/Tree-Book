@@ -8,12 +8,16 @@ import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { UserComment } from './UserComment';
 import { Box } from '@mui/material';
 import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
+import { useState } from 'react';
+import ToastPopup from '../../Components/Toast/Toast';
 
 export function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();
-	const { withDrawal } = useWithdrawal();
+	const [toast, setToast] = useState(false);
+	const [message, setMessage] = useState('');
+	const { withDrawal } = useWithdrawal({ setToast, setMessage });
 
 	const {
 		data: documents,
@@ -59,7 +63,9 @@ export function Profile() {
 											<P.ALink to='./edit' state={{ intro: users.intro }}>
 												프로필 수정
 											</P.ALink>
-											<P.Button onClick={withDrawal}>회원 탈퇴</P.Button>
+											<P.Button onClick={() => withDrawal()}>
+												회원 탈퇴
+											</P.Button>
 										</>
 									)}
 								</P.ContainerProfile>
@@ -81,6 +87,9 @@ export function Profile() {
 							</P.Section>
 						)
 				)}
+			{toast && (
+				<ToastPopup setToast={setToast} message={message} position={'top'} />
+			)}
 		</P.Main>
 	);
 }
