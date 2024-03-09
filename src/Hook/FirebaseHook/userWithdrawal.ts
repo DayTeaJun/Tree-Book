@@ -1,5 +1,7 @@
 import { deleteUser } from 'firebase/auth';
 import { useAuthContext } from '../../Context/useAuthContext';
+import { collection, deleteDoc, doc } from 'firebase/firestore';
+import { appFirestore } from '../../Firebase/config';
 
 interface ProfileProps {
 	setToast: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +18,9 @@ export const useWithdrawal = ({ setToast, setMessage }: ProfileProps) => {
 				setMessage('로그인 후 회원 탈퇴할 수 있습니다!');
 				return;
 			}
+			const uid = user.uid;
+			const userRef = doc(collection(appFirestore, 'user'), uid);
+			await deleteDoc(userRef);
 			await deleteUser(user);
 			setToast(true);
 			setMessage('정상적으로 계정이 삭제되었습니다!');
