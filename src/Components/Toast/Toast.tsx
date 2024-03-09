@@ -11,15 +11,17 @@ export default function ToastPopup({
 	message: string;
 	setToast: React.Dispatch<React.SetStateAction<boolean>>;
 	position: 'top' | 'bottom';
-	page?: ['profile', string];
+	page?: ['profile', string] | 'home';
 }) {
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setToast(false);
+			setToast(true);
 			if (page && page[0] === 'profile') {
 				navigate(`/profile/${page[1]}`);
+			} else if (page === 'home') {
+				navigate(`/`);
 			}
 		}, 2000);
 		return () => {

@@ -88,7 +88,12 @@ export function Profile() {
 						)
 				)}
 			{toast && (
-				<ToastPopup setToast={setToast} message={message} position={'top'} />
+				<ToastPopup
+					setToast={setToast}
+					message={message}
+					position={'top'}
+					page={'home'}
+				/>
 			)}
 		</P.Main>
 	);
