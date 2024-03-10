@@ -17,7 +17,7 @@ export default function ToastPopup({
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setToast(true);
+			setToast(false);
 			if (page && page[0] === 'profile') {
 				navigate(`/profile/${page[1]}`);
 			} else if (page === 'home') {
