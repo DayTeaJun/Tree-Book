@@ -8,6 +8,8 @@ import { Loading } from '../LoadingSpinner/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CommentLike } from './CommentLike';
 import { getComments } from '../../Api/Firebase/getComments';
+import { Modal } from '../Modal/Modal';
+import { M } from '../Modal/modal.style';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
@@ -15,6 +17,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const { deleteDocument } = useFirestore('comments');
 	const [currentPage, setCurrentPage] = useState(1);
 	const queryClient = useQueryClient();
+	const [isOpenModal, setIsOpenModal] = useState(false);
+	const [commentUid, setCommentUid] = useState('');
 
 	const {
 		data: documents,
@@ -43,7 +47,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 		}
 	}, [documents, currentPage]);
 
-	const mutaion = useMutation({
+	const mutation = useMutation({
 		mutationFn: deleteDocument,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
@@ -52,6 +56,11 @@ export function CommentList({ isbn }: { isbn: string }) {
 			console.log('Error');
 		},
 	});
+
+	const handleDel = (uid: string) => {
+		setIsOpenModal(true);
+		setCommentUid(uid);
+	};
 
 	if (isLoading) {
 		return <Loading />;
@@ -93,7 +102,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 								) : (
 									<CL.Button
 										type='button'
-										onClick={() => comment.uid && mutaion.mutate(comment.uid)}
+										onClick={() => comment.uid && handleDel(comment.uid)}
 									>
 										삭제
 									</CL.Button>
@@ -109,6 +118,15 @@ export function CommentList({ isbn }: { isbn: string }) {
 							commentLists && Math.ceil(commentLists.length / commentsPerPage)
 						}
 					/>
+				)}
+				{isOpenModal && (
+					<Modal
+						setIsOpenModal={setIsOpenModal}
+						isOpen={isOpenModal}
+						mutationFn={() => mutation.mutate(commentUid)}
+					>
+						<M.H2>작성하신 댓글을 삭제하시겠습니까?</M.H2>
+					</Modal>
 				)}
 			</CL.Section>
 		</>

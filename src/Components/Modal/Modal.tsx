@@ -7,7 +7,8 @@ interface ModalType {
 	setIsOpenModal: Dispatch<SetStateAction<boolean>>;
 	isOpen: boolean;
 	children: ReactNode;
-	promise: () => Promise<void>;
+	promise?: () => Promise<void>;
+	mutationFn?: () => void;
 }
 
 export const Modal = ({
@@ -15,11 +16,17 @@ export const Modal = ({
 	isOpen,
 	children,
 	promise,
+	mutationFn,
 }: ModalType) => {
 	const navigate = useNavigate();
 	const handleConfirm = async () => {
-		await promise();
-		navigate('/');
+		if (promise) {
+			await promise();
+			navigate('/');
+		} else if (mutationFn) {
+			mutationFn();
+			setIsOpenModal(false);
+		}
 	};
 
 	return (
