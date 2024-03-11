@@ -15,13 +15,13 @@ export const useWithdrawal = ({ setToast, setMessage }: ProfileProps) => {
 		try {
 			if (!user) {
 				setToast(true);
-				setMessage('로그인 후 회원 탈퇴할 수 있습니다!');
+				setMessage('로그인 후 계정을 삭제할 수 있습니다!');
 				return;
 			}
 			const uid = user.uid;
 			const userRef = doc(collection(appFirestore, 'user'), uid);
-			await deleteDoc(userRef);
 			await deleteUser(user);
+			await deleteDoc(userRef);
 			setToast(true);
 			setMessage('정상적으로 계정이 삭제되었습니다!');
 		} catch (error) {

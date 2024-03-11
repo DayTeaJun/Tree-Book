@@ -14,9 +14,8 @@ const Container = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 20em;
-	height: 10em;
-	background-color: white;
+	padding: 3em 4em;
+	background-color: #fff;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -24,7 +23,40 @@ const Container = styled.div`
 	gap: 1em;
 `;
 
+const H2 = styled.h2`
+	font-size: 1.5em;
+	font-weight: 700;
+	margin-bottom: 0.5em;
+`;
+
+const P = styled.p`
+	font-size: 1em;
+	font-weight: bold;
+	color: #7a7a7a;
+	white-space: pre-line;
+`;
+
+const Button = styled.button`
+	display: flex;
+	align-items: center;
+	background-color: #888888;
+	color: #fff;
+	gap: 1em;
+	font-size: 1.1em;
+	font-weight: bold;
+	border: none;
+	padding: 1em 2em;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #585858;
+	}
+`;
+
 export const M = {
 	BackDrop,
 	Container,
+	H2,
+	P,
+	Button,
 };

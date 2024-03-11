@@ -11,6 +11,7 @@ import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { useState } from 'react';
 import ToastPopup from '../../Components/Toast/Toast';
 import { Modal } from '../../Components/Modal/Modal';
+import { M } from '../../Components/Modal/modal.style';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -73,7 +74,7 @@ export function Profile() {
 												type='button'
 												onClick={() => handleWithDrawal()}
 											>
-												회원 탈퇴
+												계정 삭제
 											</P.Button>
 										</>
 									)}
@@ -105,8 +106,14 @@ export function Profile() {
 				/>
 			)}
 			{isOpenModal && (
-				<Modal setIsOpenModal={setIsOpenModal} isOpen={isOpenModal}>
-					<p>정말로 회원 탈퇴하시겠습니까?</p>
+				<Modal
+					setIsOpenModal={setIsOpenModal}
+					isOpen={isOpenModal}
+					promise={withDrawal}
+				>
+					<M.H2>정말로 계정을 삭제하시겠습니까?</M.H2>
+					<M.P>계정을 삭제하면 복구할 수 없습니다.</M.P>
+					<M.P>(등록한 댓글 및 좋아요 기록은 자동으로 삭제되지 않습니다.)</M.P>
 				</Modal>
 			)}
 		</P.Main>
