@@ -10,6 +10,7 @@ import { Box } from '@mui/material';
 import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { useState } from 'react';
 import ToastPopup from '../../Components/Toast/Toast';
+import { Modal } from '../../Components/Modal/Modal';
 
 export function Profile() {
 	const { user } = useAuthContext();
@@ -18,6 +19,7 @@ export function Profile() {
 	const [toast, setToast] = useState(false);
 	const [message, setMessage] = useState('');
 	const { withDrawal } = useWithdrawal({ setToast, setMessage });
+	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	const {
 		data: documents,
@@ -35,6 +37,10 @@ export function Profile() {
 			</P.Main>
 		);
 	}
+
+	const handleWithDrawal = () => {
+		setIsOpenModal(true);
+	};
 
 	return (
 		<P.Main>
@@ -63,7 +69,10 @@ export function Profile() {
 											<P.ALink to='./edit' state={{ intro: users.intro }}>
 												프로필 수정
 											</P.ALink>
-											<P.Button onClick={() => withDrawal()}>
+											<P.Button
+												type='button'
+												onClick={() => handleWithDrawal()}
+											>
 												회원 탈퇴
 											</P.Button>
 										</>
@@ -94,6 +103,11 @@ export function Profile() {
 					position={'top'}
 					page={'home'}
 				/>
+			)}
+			{isOpenModal && (
+				<Modal setIsOpenModal={setIsOpenModal} isOpen={isOpenModal}>
+					<p>정말로 회원 탈퇴하시겠습니까?</p>
+				</Modal>
 			)}
 		</P.Main>
 	);

@@ -14,9 +14,14 @@ const Container = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 2em;
-	height: 1.5em;
+	width: 20em;
+	height: 10em;
 	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
 `;
 
 export const M = {
