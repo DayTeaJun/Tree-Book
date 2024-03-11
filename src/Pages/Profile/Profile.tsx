@@ -17,9 +17,7 @@ export function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();
-	const [toast, setToast] = useState(false);
-	const [message, setMessage] = useState('');
-	const { withDrawal } = useWithdrawal({ setToast, setMessage });
+	const { withDrawal } = useWithdrawal();
 	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	const {
@@ -97,14 +95,7 @@ export function Profile() {
 							</P.Section>
 						)
 				)}
-			{toast && (
-				<ToastPopup
-					setToast={setToast}
-					message={message}
-					position={'top'}
-					page={'home'}
-				/>
-			)}
+
 			{isOpenModal && (
 				<Modal
 					setIsOpenModal={setIsOpenModal}
