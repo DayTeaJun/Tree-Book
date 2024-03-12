@@ -15,11 +15,10 @@ const Loading = ({ BackDrop }: LoadingType) => {
 		return (
 			<Box
 				sx={{
-					width: '100%',
-					height: '100%',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
+					position: 'absolute',
+					top: '50%',
+					right: '50%',
+					transform: 'translate(-50%,-50%)',
 					zIndex: 9999,
 					padding: '10px',
 				}}
