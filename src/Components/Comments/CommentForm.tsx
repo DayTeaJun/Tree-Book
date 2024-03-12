@@ -11,6 +11,7 @@ import { BookLikesProps } from '../../Types/bookType';
 export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const [toast, setToast] = useState(false);
+	const [message, setMessage] = useState('');
 	const { addDocument, response } = useFirestore('comments');
 	const { user } = useAuthContext();
 	const location = useLocation();
@@ -48,8 +49,11 @@ export function CommentForm({ item }: BookLikesProps) {
 				id,
 				photoURL,
 			});
+			setToast(true);
+			setMessage('댓글이 등록되었습니다.');
 		} else {
 			setToast(true);
+			setMessage('로그인이 필요합니다!');
 		}
 	};
 
@@ -79,11 +83,7 @@ export function CommentForm({ item }: BookLikesProps) {
 			</CF.Form>
 			<CommentList isbn={isbn} />
 			{toast && (
-				<ToastPopup
-					setToast={setToast}
-					message={'로그인이 필요합니다!'}
-					position={'top'}
-				/>
+				<ToastPopup setToast={setToast} message={message} position={'top'} />
 			)}
 		</>
 	);
