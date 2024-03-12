@@ -9,6 +9,7 @@ interface ModalType {
 	children: ReactNode;
 	promise?: () => Promise<void>;
 	mutationFn?: () => void;
+	setToast?: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Modal = ({
@@ -17,15 +18,17 @@ export const Modal = ({
 	children,
 	promise,
 	mutationFn,
+	setToast,
 }: ModalType) => {
 	const navigate = useNavigate();
 	const handleConfirm = async () => {
 		if (promise) {
 			await promise();
 			navigate('/');
-		} else if (mutationFn) {
+		} else if (mutationFn && setToast) {
 			mutationFn();
 			setIsOpenModal(false);
+			setToast(true);
 		}
 	};
 

@@ -20,6 +20,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const queryClient = useQueryClient();
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
+	const [toast, setToast] = useState(false);
 
 	const {
 		data: documents,
@@ -125,11 +126,19 @@ export function CommentList({ isbn }: { isbn: string }) {
 						setIsOpenModal={setIsOpenModal}
 						isOpen={isOpenModal}
 						mutationFn={() => mutation.mutate(commentUid)}
+						setToast={setToast}
 					>
 						<M.H2>작성하신 댓글을 삭제하시겠습니까?</M.H2>
 					</Modal>
 				)}
 			</CL.Section>
+			{toast && (
+				<ToastPopup
+					setToast={setToast}
+					message={'댓글이 삭제되었습니다.'}
+					position={'top'}
+				/>
+			)}
 		</>
 	);
 }
