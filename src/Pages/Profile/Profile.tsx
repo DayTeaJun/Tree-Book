@@ -9,11 +9,10 @@ import { UserComment } from './UserComment';
 import { Box } from '@mui/material';
 import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { useState } from 'react';
-import ToastPopup from '../../Components/Toast/Toast';
 import { Modal } from '../../Components/Modal/Modal';
 import { M } from '../../Components/Modal/modal.style';
 
-export function Profile() {
+export default function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();

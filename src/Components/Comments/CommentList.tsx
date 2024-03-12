@@ -4,7 +4,7 @@ import { CL } from './CommentList.style';
 import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
-import { Loading } from '../LoadingSpinner/Loading';
+import Loading from '../LoadingSpinner/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CommentLike } from './CommentLike';
 import { getComments } from '../../Api/Firebase/getComments';

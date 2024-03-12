@@ -21,7 +21,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import ToastPopup from '../../Components/Toast/Toast';
 
-export function ProfileEdit() {
+export default function ProfileEdit() {
 	const { user } = useAuthContext();
 	const location = useLocation();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');

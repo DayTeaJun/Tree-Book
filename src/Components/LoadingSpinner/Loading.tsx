@@ -4,7 +4,7 @@ interface LoadingType {
 	BackDrop?: boolean;
 }
 
-export const Loading = ({ BackDrop }: LoadingType) => {
+const Loading = ({ BackDrop }: LoadingType) => {
 	if (BackDrop) {
 		return (
 			<Backdrop open={true} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -29,3 +29,5 @@ export const Loading = ({ BackDrop }: LoadingType) => {
 		);
 	}
 };
+
+export default Loading;
