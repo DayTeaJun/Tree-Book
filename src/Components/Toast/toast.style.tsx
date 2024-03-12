@@ -23,7 +23,10 @@ const animateToastTop = keyframes`
 `;
 
 const Container = styled.div<{ position: 'bottom' | 'top' }>`
-	position: fixed;
+	position: absolute;
+	top: 5%;
+	right: 50%;
+	transform: translateX(-50%);
 	z-index: 20;
 	display: flex;
 	height: 3rem;

@@ -22,6 +22,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
 	const [likeAlready, setLikeAlready] = useState(likedUser);
 	const [toast, setToast] = useState(false);
+	const [message, setMessage] = useState('');
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
 	const queryClient = useQueryClient();
 
@@ -36,6 +37,8 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 						...item,
 						likeBy,
 					});
+					setMessage('좋아요가 등록되었습니다.');
+					setToast(true);
 				} else if (likeAlready) {
 					likeBy = { ...item.likeBy };
 					delete likeBy[user.uid];
@@ -49,12 +52,15 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 							likeBy,
 						});
 					}
+					setMessage('좋아요가 취소되었습니다.');
+					setToast(true);
 					setLikeAlready(false);
 				}
 
 				queryClient.invalidateQueries({ queryKey: ['comments'] });
 			}
 		} else {
+			setMessage('로그인이 필요합니다!');
 			setToast(true);
 		}
 	};
@@ -72,11 +78,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 				</CL.LikedNumber>
 			</Box>
 			{toast && (
-				<ToastPopup
-					setToast={setToast}
-					message={'로그인이 필요합니다!'}
-					position={'top'}
-				/>
+				<ToastPopup setToast={setToast} message={message} position={'top'} />
 			)}
 		</>
 	);

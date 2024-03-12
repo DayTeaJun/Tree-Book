@@ -10,6 +10,7 @@ import { CommentLike } from './CommentLike';
 import { getComments } from '../../Api/Firebase/getComments';
 import { Modal } from '../Modal/Modal';
 import { M } from '../Modal/modal.style';
+import ToastPopup from '../Toast/Toast';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);

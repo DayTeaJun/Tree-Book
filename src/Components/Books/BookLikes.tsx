@@ -8,16 +8,21 @@ import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
-import ToastPopup from '../Toast/Toast';
 
-const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
+const BookLikes = ({
+	item,
+	id,
+	search,
+	page,
+	setToast,
+	setMessage,
+}: BookLikesProps) => {
 	const { user } = useAuthContext();
 	const isbn = item.isbn;
 	const { likeBy }: any = item;
 	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
 	const [like, setLike] = useState<boolean | undefined>(likedUser);
 	const [number, setNumber] = useState<number | undefined>();
-	const [toast, setToast] = useState(false);
 	const booksRef = doc(collection(appFirestore, 'BooksLikes'), isbn);
 	const queryClient = useQueryClient();
 
@@ -68,6 +73,10 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 					page,
 					createdTime,
 				});
+				if (setToast && setMessage) {
+					setMessage('좋아요가 등록되었습니다.');
+					setToast(true);
+				}
 			} else {
 				likeBy = { ...likedUser?.likeBy };
 				delete likeBy[uid];
@@ -83,9 +92,16 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 						createdTime,
 					});
 				}
+				if (setToast && setMessage) {
+					setMessage('좋아요가 취소되었습니다.');
+					setToast(true);
+				}
 			}
 		} else {
-			setToast(true);
+			if (setToast && setMessage) {
+				setMessage('로그인이 필요합니다!');
+				setToast(true);
+			}
 		}
 	};
 
@@ -106,13 +122,6 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
 					{number && <D.P>{number !== 0 && number}</D.P>}
 				</D.Likes>
-			)}
-			{toast && (
-				<ToastPopup
-					setToast={setToast}
-					message={'로그인이 필요합니다!'}
-					position={'top'}
-				/>
 			)}
 		</>
 	);
