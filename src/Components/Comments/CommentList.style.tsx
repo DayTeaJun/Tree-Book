@@ -67,11 +67,6 @@ const PDate = styled.p`
 
 const PComment = styled.p`
 	font-size: 1em;
-	overflow: hidden;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	text-align: justify;
 `;
 
 const Button = styled.button`

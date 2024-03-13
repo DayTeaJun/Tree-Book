@@ -21,6 +21,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
 	const [toast, setToast] = useState(false);
+	const [moreTextIndex, setMoreTextIndex] = useState(-1);
 
 	const {
 		data: documents,
@@ -95,7 +96,19 @@ export function CommentList({ isbn }: { isbn: string }) {
 												{comment.createdTime?.toDate().toLocaleString()}
 											</CL.PDate>
 										</CL.ContainerNameDate>
-										<CL.PComment>{comment.comments}</CL.PComment>
+										{moreTextIndex === index
+											? comment.comments
+											: comment.comments?.substring(0, 60)}
+										{'...'}
+										{comment.comments && comment.comments.length > 30 && (
+											<span
+												onClick={() => {
+													setMoreTextIndex(index);
+												}}
+											>
+												더보기
+											</span>
+										)}
 										<CommentLike uid={comment.uid} item={comment} />
 									</CL.ContainerNameComment>
 								</CL.ContainerImgLink>
