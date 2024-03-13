@@ -69,6 +69,12 @@ const PComment = styled.p`
 	font-size: 1em;
 `;
 
+const Span = styled.span`
+	font-size: 0.8em;
+	color: #a1a1a1;
+	cursor: pointer;
+`;
+
 const Button = styled.button`
 	width: 80px;
 	height: 30px;
@@ -113,6 +119,7 @@ export const CL = {
 	ContainerNameDate,
 	PDate,
 	PComment,
+	Span,
 	Button,
 	LikedButton,
 	LikedNumber,

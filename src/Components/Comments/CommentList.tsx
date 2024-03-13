@@ -21,7 +21,9 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
 	const [toast, setToast] = useState(false);
-	const [moreTextIndex, setMoreTextIndex] = useState(-1);
+	const [expandedComment, setExpandedComment] = useState<boolean[]>(
+		new Array(comment.length).fill(false)
+	);
 
 	const {
 		data: documents,
@@ -96,18 +98,21 @@ export function CommentList({ isbn }: { isbn: string }) {
 												{comment.createdTime?.toDate().toLocaleString()}
 											</CL.PDate>
 										</CL.ContainerNameDate>
-										{moreTextIndex === index
+										{expandedComment[index]
 											? comment.comments
-											: comment.comments?.substring(0, 60)}
-										{'...'}
-										{comment.comments && comment.comments.length > 30 && (
-											<span
+											: `${comment.comments?.substring(0, 60)}...`}
+
+										{comment.comments && comment.comments.length > 60 && (
+											<CL.Span
 												onClick={() => {
-													setMoreTextIndex(index);
+													setExpandedComment({
+														...expandedComment,
+														[index]: !expandedComment[index],
+													});
 												}}
 											>
-												더보기
-											</span>
+												{!expandedComment[index] ? '더보기' : '간략히'}
+											</CL.Span>
 										)}
 										<CommentLike uid={comment.uid} item={comment} />
 									</CL.ContainerNameComment>
