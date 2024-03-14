@@ -11,12 +11,13 @@ const Main = styled.main`
 	flex-direction: column;
 	align-items: center;
 	padding: 20px 24px;
-	min-height: 330px;
+	min-height: 450px;
 	gap: 10px;
 `;
 
 const Section = styled.section`
 	width: 100%;
+	height: 100%;
 	display: flex;
 	overflow: hidden;
 	gap: 20px;
@@ -86,6 +87,7 @@ const ContainerImg = styled.div`
 	height: 200px;
 	border-radius: 1em;
 	border: 1px solid #eee;
+	box-sizing: border-box;
 	flex-shrink: 1;
 	overflow: hidden;
 `;

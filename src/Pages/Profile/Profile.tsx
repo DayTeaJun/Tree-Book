@@ -82,10 +82,9 @@ export default function Profile() {
 										display: 'flex',
 										flexDirection: 'column',
 										gap: '30px',
-										width: '100%',
 									}}
 								>
-									<UserLiked uid={users.uid} displayName={users.displayName} />
+									<UserLiked uid={users.uid} />
 									<UserComment
 										uid={users.uid}
 										displayName={users.displayName}

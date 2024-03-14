@@ -6,11 +6,11 @@ import { Skeleton } from '../../Types/bookType';
 
 export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 	return (
-		<P.ContainerLiked>
+		<P.ContainerLiked style={{ overflow: 'hidden' }}>
 			<Box
 				sx={{
-					width: '400px',
-					height: '16px',
+					width: '300px',
+					height: '18px',
 					overflow: 'hidden',
 					margin: '0 auto',
 				}}
@@ -19,9 +19,9 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 			</Box>
 			{!comment ? (
 				<P.ContainerBook
-					style={{ width: '665px', height: '260px', overflow: 'hidden' }}
+					style={{ width: '665px', height: '230px', overflow: 'hidden' }}
 				>
-					{Array.from({ length: 5 }).map((_, index) => (
+					{Array.from({ length: 4 }).map((_, index) => (
 						<BookItemSkeleton key={index} />
 					))}
 				</P.ContainerBook>

@@ -25,6 +25,7 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 					sx={{
 						display: 'flex',
 						flexDirection: 'column',
+						flexShrink: 0,
 						gap: '10px',
 						cursor: 'pointer',
 						width: '90%',

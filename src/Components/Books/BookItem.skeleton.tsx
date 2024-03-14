@@ -7,7 +7,7 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 	return (
 		<>
 			{!comment ? (
-				<B.Container style={{ height: '222px' }}>
+				<B.Container style={{ height: '200px' }}>
 					<ContainerBookImg style={{ height: '145px', overflow: 'hidden' }}>
 						<Shimmer />
 					</ContainerBookImg>
@@ -35,27 +35,14 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 			) : (
 				<Box
 					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						gap: '10px',
 						width: '90%',
-						height: '80px',
-						padding: '10px',
+						height: '95px',
+						overflow: 'hidden',
 						borderRadius: '5px',
+						flexShrink: '0',
 					}}
 				>
-					<Box sx={{ fontSize: '1.2em' }}>
-						<Shimmer />
-					</Box>
-					<Box
-						sx={{
-							display: 'flex',
-							gap: '10px',
-							alignItems: 'center',
-						}}
-					>
-						<Shimmer />
-					</Box>
+					<Shimmer />
 				</Box>
 			)}
 		</>

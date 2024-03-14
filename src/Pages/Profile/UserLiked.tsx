@@ -7,7 +7,7 @@ import { UserLikedProps } from '../../Types/userType';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { useQuery } from '@tanstack/react-query';
 
-const UserLiked = ({ uid, displayName }: UserLikedProps) => {
+const UserLiked = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
 		const LikesRef = collection(appFirestore, 'BooksLikes');
 		const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
