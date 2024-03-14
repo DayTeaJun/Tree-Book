@@ -78,7 +78,7 @@ export default function Profile() {
 								</P.ContainerProfile>
 								<Box
 									sx={{
-										maxWidth: 'calc(70% - 160px)',
+										width: 'calc(70% - 160px)',
 										display: 'flex',
 										flexDirection: 'column',
 										gap: '30px',

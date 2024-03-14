@@ -6,6 +6,7 @@ import { P } from './Profile.style';
 import { UserLikedProps } from '../../Types/userType';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { useQuery } from '@tanstack/react-query';
+import { Box } from '@mui/material';
 
 const UserLiked = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
@@ -37,16 +38,29 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 				<P.ContainerLiked>
 					<P.H2>내가 좋아요한 책들</P.H2>
 					<P.ContainerBook>
-						{(userBooks as BookData[]).map((item: BookData) => (
-							<BookItem
-								item={item}
-								page={item.page}
-								id={item.id}
-								search={item.search}
-								key={item.url}
-								like={item.isbn}
-							></BookItem>
-						))}
+						{userBooks.length !== 0 ? (
+							(userBooks as BookData[]).map((item: BookData) => (
+								<BookItem
+									item={item}
+									page={item.page}
+									id={item.id}
+									search={item.search}
+									key={item.url}
+									like={item.isbn}
+								></BookItem>
+							))
+						) : (
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									justifyContent: 'center',
+									margin: '0 auto',
+								}}
+							>
+								<p>아직 좋아요한 책이 없습니다.</p>
+							</Box>
+						)}
 					</P.ContainerBook>
 				</P.ContainerLiked>
 			)}

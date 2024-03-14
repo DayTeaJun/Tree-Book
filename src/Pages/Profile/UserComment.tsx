@@ -6,6 +6,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { useQuery } from '@tanstack/react-query';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { BookData } from '../../Types/bookType';
+import { Box } from '@mui/material';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
@@ -25,7 +26,6 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 		queryKey: ['userComment', uid],
 		queryFn: () => fetchLiked(uid),
 	});
-	console.log(userBooks);
 
 	if (userBooks) {
 	}
@@ -40,17 +40,31 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 				<P.ContainerLiked>
 					<P.H2>작성한 코멘트 목록</P.H2>
 					<P.ContainerComment>
-						{(userBooks as BookData[]).map((item: BookData, index: number) => (
-							<BookItem
-								item={item}
-								page={item.page}
-								id={item.id}
-								search={item.search}
-								key={index}
-								like={item.isbn}
-								comment={item.comments}
-							></BookItem>
-						))}
+						{userBooks.length !== 0 ? (
+							(userBooks as BookData[]).map((item: BookData, index: number) => (
+								<BookItem
+									item={item}
+									page={item.page}
+									id={item.id}
+									search={item.search}
+									key={index}
+									like={item.isbn}
+									comment={item.comments}
+								></BookItem>
+							))
+						) : (
+							<Box
+								sx={{
+									height: '100%',
+									display: 'flex',
+									flexDirection: 'column',
+									justifyContent: 'center',
+									margin: '0 auto',
+								}}
+							>
+								<p>아직 작성한 코멘트가 없습니다.</p>
+							</Box>
+						)}
 					</P.ContainerComment>
 				</P.ContainerLiked>
 			)}
