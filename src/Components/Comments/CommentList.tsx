@@ -98,11 +98,15 @@ export function CommentList({ isbn }: { isbn: string }) {
 												{comment.createdTime?.toDate().toLocaleString()}
 											</CL.PDate>
 										</CL.ContainerNameDate>
-										{expandedComment[index]
-											? comment.comments
-											: `${comment.comments?.substring(0, 60)}...`}
+										<CL.PComment>
+											{expandedComment[index]
+												? comment.comments
+												: comment.comments && comment.comments.length > 120
+												? `${comment.comments?.substring(0, 120)}...`
+												: comment.comments}
+										</CL.PComment>
 
-										{comment.comments && comment.comments.length > 60 && (
+										{comment.comments && comment.comments.length > 120 && (
 											<CL.Span
 												onClick={() => {
 													setExpandedComment({
