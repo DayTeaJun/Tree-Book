@@ -73,7 +73,8 @@ const BookLikes = ({
 					page,
 					createdTime,
 				});
-				if (setToast && setMessage) {
+				if (setToast && setMessage && number) {
+					setNumber(number + 1);
 					setMessage('좋아요가 등록되었습니다.');
 					setToast(true);
 				}
@@ -92,7 +93,8 @@ const BookLikes = ({
 						createdTime,
 					});
 				}
-				if (setToast && setMessage) {
+				if (setToast && setMessage && number) {
+					setNumber(number - 1);
 					setMessage('좋아요가 취소되었습니다.');
 					setToast(true);
 				}
@@ -120,7 +122,7 @@ const BookLikes = ({
 			{item && (
 				<D.Likes onClick={() => mutaion.mutate()}>
 					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-					{number && <D.P>{number !== 0 && number}</D.P>}
+					{number !== 0 && <D.P>{number}</D.P>}
 				</D.Likes>
 			)}
 		</>
