@@ -28,14 +28,7 @@ export default function HomeFeed() {
 						<>
 							{(likedBooks as BookData[]).map(
 								(item: BookData, index: number) => (
-									<BookItem
-										item={item}
-										page={'1'}
-										id={index}
-										search={'리액트'}
-										key={index}
-										like={item.isbn}
-									></BookItem>
+									<BookItem item={item} key={index} like={item.isbn}></BookItem>
 								)
 							)}
 						</>
