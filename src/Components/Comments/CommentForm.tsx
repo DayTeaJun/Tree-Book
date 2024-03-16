@@ -78,7 +78,16 @@ export function CommentForm({ item }: BookLikesProps) {
 						onChange={handleData}
 					/>
 
-					<CF.Button type='submit'>등록</CF.Button>
+					<CF.Button
+						type='submit'
+						disabled={comments.length > 0 ? false : true}
+						style={{
+							background: comments.length > 0 ? '#00ac00' : '#adadad',
+							cursor: comments.length > 0 ? 'pointer' : 'default',
+						}}
+					>
+						등록
+					</CF.Button>
 				</CF.Container>
 			</CF.Form>
 			<CommentList isbn={isbn} />
