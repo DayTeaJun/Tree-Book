@@ -22,13 +22,16 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
 	const [likeAlready, setLikeAlready] = useState(likedUser);
 	const [toast, setToast] = useState(false);
+	const [number, setNumber] = useState<number | undefined>(
+		Object.keys(likeBy).length
+	);
 	const [message, setMessage] = useState('');
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
 	const queryClient = useQueryClient();
 
 	const handleLike = async () => {
 		if (user) {
-			if (item && uid) {
+			if (item && uid && number) {
 				let likeBy;
 				if (!likeAlready) {
 					likeBy = { ...item.likeBy, [user.uid]: true };
@@ -37,6 +40,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 						...item,
 						likeBy,
 					});
+					setNumber(number + 1);
 					setMessage('좋아요가 등록되었습니다.');
 					setToast(true);
 				} else if (likeAlready) {
@@ -52,6 +56,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 							likeBy,
 						});
 					}
+					setNumber(number - 1);
 					setMessage('좋아요가 취소되었습니다.');
 					setToast(true);
 					setLikeAlready(false);
@@ -71,11 +76,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 				<CL.LikedButton type='button' onClick={() => handleLike()}>
 					{likeAlready ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
 				</CL.LikedButton>
-				<CL.LikedNumber>
-					{likeBy &&
-						Object.keys(likeBy).length !== 0 &&
-						Object.keys(likeBy).length}
-				</CL.LikedNumber>
+				<CL.LikedNumber>{number !== 0 && <D.P>{number}</D.P>}</CL.LikedNumber>
 			</Box>
 			{toast && (
 				<ToastPopup setToast={setToast} message={message} position={'top'} />
