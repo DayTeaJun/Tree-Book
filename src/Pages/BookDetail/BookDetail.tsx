@@ -40,6 +40,8 @@ export default function BookDetail() {
 		}
 	}, [books]);
 
+	console.log(item);
+
 	if (isLoading) {
 		return <Loading BackDrop={true} />;
 	}
@@ -87,7 +89,7 @@ export default function BookDetail() {
 								<D.Dl>
 									<D.Dt>작가</D.Dt>
 									<D.Dd>
-										{item.authors !== undefined || ''
+										{item.authors.length !== 0
 											? item.authors.length > 1
 												? item.authors.join(' | ')
 												: item.authors
