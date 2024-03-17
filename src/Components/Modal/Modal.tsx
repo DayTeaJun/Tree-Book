@@ -1,16 +1,7 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { M } from './modal.style';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-interface ModalType {
-	setIsOpenModal: Dispatch<SetStateAction<boolean>>;
-	isOpen: boolean;
-	children: ReactNode;
-	promise?: () => Promise<void>;
-	mutationFn?: () => void;
-	setToast?: Dispatch<SetStateAction<boolean>>;
-}
+import { ModalType } from '../../Types/componentType';
 
 export const Modal = ({
 	setIsOpenModal,
@@ -33,7 +24,7 @@ export const Modal = ({
 	};
 
 	return (
-		<div style={{ display: isOpen ? 'block' : 'none' }}>
+		<Box sx={{ display: isOpen ? 'block' : 'none' }}>
 			<M.BackDrop onClick={() => setIsOpenModal(false)} />
 			<M.Container>
 				<>{children}</>
@@ -42,6 +33,6 @@ export const Modal = ({
 					<M.Button onClick={() => setIsOpenModal(false)}>취소</M.Button>
 				</Box>
 			</M.Container>
-		</div>
+		</Box>
 	);
 };
