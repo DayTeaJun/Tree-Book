@@ -27,9 +27,6 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 		queryFn: () => fetchLiked(uid),
 	});
 
-	if (userBooks) {
-	}
-
 	if (isLoading) {
 		return <UserLikedSkeleton comment={uid} />;
 	}

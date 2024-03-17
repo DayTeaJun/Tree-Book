@@ -20,18 +20,22 @@ export default function Search() {
 		refetchOnWindowFocus: false,
 	});
 
+	if (isLoading) {
+		return (
+			<S.SectionSearch>
+				{Array.from({ length: 14 }).map((_, index) => (
+					<BookItemSkeleton key={index} />
+				))}
+			</S.SectionSearch>
+		);
+	}
+
 	return (
 		<>
 			<S.SectionSearch>
-				{isLoading ? (
-					<>
-						{Array.from({ length: 14 }).map((_, index) => (
-							<BookItemSkeleton key={index} />
-						))}
-					</>
-				) : (
-					<>
-						{books.documents.map((item: BookData, index: number) => (
+				<>
+					{books &&
+						books.documents.map((item: BookData, index: number) => (
 							<BookItem
 								item={item}
 								page={page}
@@ -40,8 +44,7 @@ export default function Search() {
 								key={index}
 							></BookItem>
 						))}
-					</>
-				)}
+				</>
 				{!isLoading && books.documents.length === 0 && (
 					<p>검색 결과가 없습니다.</p>
 				)}

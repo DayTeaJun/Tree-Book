@@ -17,7 +17,13 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 			>
 				<Shimmer />
 			</Box>
-			{!comment ? (
+			{comment ? (
+				<P.ContainerComment>
+					{Array.from({ length: 2 }).map((_, index) => (
+						<BookItemSkeleton comment={comment} key={index} />
+					))}
+				</P.ContainerComment>
+			) : (
 				<P.ContainerBook
 					style={{ width: '665px', height: '230px', overflow: 'hidden' }}
 				>
@@ -25,12 +31,6 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 						<BookItemSkeleton key={index} />
 					))}
 				</P.ContainerBook>
-			) : (
-				<P.ContainerComment>
-					{Array.from({ length: 2 }).map((_, index) => (
-						<BookItemSkeleton comment={comment} key={index} />
-					))}
-				</P.ContainerComment>
 			)}
 		</P.ContainerLiked>
 	);

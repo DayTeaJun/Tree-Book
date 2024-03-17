@@ -17,55 +17,55 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 		}
 	};
 
-	return (
-		<>
-			{comment ? (
-				<Box
-					onClick={onMoveBookDetail}
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						flexShrink: 0,
-						gap: '10px',
-						cursor: 'pointer',
-						width: '90%',
-						height: '100px',
-						padding: '10px',
-						borderRadius: '5px',
-						backgroundColor: '#eee',
-						'&:hover': { backgroundColor: '#e9e9e9' },
+	if (comment) {
+		return (
+			<Box
+				onClick={onMoveBookDetail}
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					flexShrink: 0,
+					gap: '10px',
+					cursor: 'pointer',
+					width: '90%',
+					height: '100px',
+					padding: '10px',
+					borderRadius: '5px',
+					backgroundColor: '#eee',
+					'&:hover': { backgroundColor: '#e9e9e9' },
+				}}
+			>
+				<B.H2 style={{ fontSize: '1.2em', textDecorationLine: 'none' }}>
+					{item.title}
+				</B.H2>
+				<B.H2
+					style={{
+						fontWeight: '500',
 					}}
 				>
-					<B.H2 style={{ fontSize: '1.2em', textDecorationLine: 'none' }}>
-						{item.title}
-					</B.H2>
-					<B.H2
-						style={{
-							fontWeight: '500',
-						}}
-					>
-						{comment}
-					</B.H2>
-					<B.P>{item.createdTime?.toDate().toLocaleString()}</B.P>
-				</Box>
+					{comment}
+				</B.H2>
+				<B.P>{item.createdTime?.toDate().toLocaleString()}</B.P>
+			</Box>
+		);
+	}
+
+	return (
+		<B.Container onClick={onMoveBookDetail}>
+			{item.thumbnail ? (
+				<ContainerBookImg>
+					<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
+				</ContainerBookImg>
 			) : (
-				<B.Container onClick={onMoveBookDetail}>
-					{item.thumbnail ? (
-						<ContainerBookImg>
-							<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
-						</ContainerBookImg>
-					) : (
-						<ContainerBookImg>
-							<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
-						</ContainerBookImg>
-					)}
-					<B.H2>{item.title}</B.H2>
-					<B.P>
-						{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
-					</B.P>
-				</B.Container>
+				<ContainerBookImg>
+					<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
+				</ContainerBookImg>
 			)}
-		</>
+			<B.H2>{item.title}</B.H2>
+			<B.P>
+				{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
+			</B.P>
+		</B.Container>
 	);
 };
 
