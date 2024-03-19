@@ -1,27 +1,23 @@
-import { PaletteOptions } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
-const Palette = (): PaletteOptions => {
-	return {
+const theme = createTheme({
+	palette: {
 		primary: {
-			main: '#FF6415',
-			dark: '',
+			main: '#009B00',
 		},
 		secondary: {
-			main: '#E3BA8A',
-			dark: '',
+			main: '#EEFD53',
 		},
-		background: {
-			default: '#FFFFFFF',
-			paper: '',
+		success: {
+			main: '#4AD395',
 		},
 		error: {
-			main: '#FF4545',
-			dark: '',
+			main: '#DA1E28',
 		},
-		info: {
-			main: '#1A1A1A',
-			dark: '',
-		},
-	};
-};
-export default Palette;
+	},
+	typography: {
+		fontFamily: ['SUIT-Regular'].join(','),
+	},
+});
+
+export default theme;
