@@ -8,6 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import SearchIcon from '@mui/icons-material/Search';
+import DarkToggle from './DarkToggle';
 
 export default function Header() {
 	const [search, setSearch] = useState('');
@@ -46,6 +47,7 @@ export default function Header() {
 						<SearchIcon sx={[{ '&:hover': { color: 'black' } }]} />
 					</H.Button>
 				</H.Form>
+				<DarkToggle />
 				{isAuthReady && !user && (
 					<H.Container>
 						<H.ALink to='/signup'>
