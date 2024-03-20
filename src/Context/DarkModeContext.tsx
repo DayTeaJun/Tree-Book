@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import {
+	ReactNode,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
 
 const DarkModeContext = createContext({
 	darkMode: false,
@@ -42,3 +48,5 @@ export const DarkModeProvider = ({ children }: Props) => {
 		</DarkModeContext.Provider>
 	);
 };
+
+export const useDarkMode = () => useContext(DarkModeContext);
