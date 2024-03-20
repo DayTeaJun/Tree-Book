@@ -1,8 +1,8 @@
 import { FormEventHandler, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { H } from './Header.style';
-import { useAuthContext } from '../Context/useAuthContext';
-import { useLogout } from '../Hook/FirebaseHook/useLogout';
+import { useAuthContext } from '../../Context/useAuthContext';
+import { useLogout } from '../../Hook/FirebaseHook/useLogout';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

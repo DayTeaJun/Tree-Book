@@ -5,6 +5,7 @@ import { AuthContextProvider } from './Context/AuthContext';
 
 import theme from './themes/palette';
 import { ThemeProvider } from '@mui/material';
+import { DarkModeProvider } from './Context/DarkModeContext';
 
 const queryClient = new QueryClient();
 
@@ -15,9 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
 	<AuthContextProvider>
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider theme={theme}>
-				<App />
-			</ThemeProvider>
+			<DarkModeProvider>
+				<ThemeProvider theme={theme}>
+					<App />
+				</ThemeProvider>
+			</DarkModeProvider>
 		</QueryClientProvider>
 	</AuthContextProvider>
 );

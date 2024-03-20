@@ -13,7 +13,7 @@ const HomeFeed = lazy(() => import('../Pages/HomeFeed/HomeFeed'));
 const BookDetail = lazy(() => import('../Pages/BookDetail/BookDetail'));
 const Profile = lazy(() => import('../Pages/Profile/Profile'));
 const ProfileEdit = lazy(() => import('../Pages/Profile/ProfileEdit'));
-const MainLayout = lazy(() => import('../Layouts/MainLayout'));
+const MainLayout = lazy(() => import('../Layouts/Main/MainLayout'));
 const Loading = lazy(() => import('../Components/LoadingSpinner/Loading'));
 const SignIn = lazy(() => import('../Pages/LoginSignup/SignIn'));
 const SignUp = lazy(() => import('../Pages/LoginSignup/SignUp'));
