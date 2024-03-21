@@ -35,8 +35,7 @@ const Container = styled.div<{ position: 'bottom' | 'top' }>`
 	align-items: center;
 	justify-content: center;
 	border-radius: 1rem;
-	background-color: ${({ theme }) => theme.palette.success.light};
-	opacity: 0.9;
+	background-color: #b1b1b1;
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
 	animation: ${({ position }) =>
 			position === 'top' ? animateToastTop : animateToastBottom}
@@ -44,8 +43,8 @@ const Container = styled.div<{ position: 'bottom' | 'top' }>`
 `;
 
 const P = styled.p`
-	font-size: ${({ theme }) => theme.typography.body1.fontSize};
-	color: ${({ theme }) => theme.palette.common.white};
+	font-size: 1em;
+	color: #fff;
 `;
 
 export const T = {
