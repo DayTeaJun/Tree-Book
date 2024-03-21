@@ -1,25 +1,50 @@
-import { createTheme } from '@mui/material/styles';
+import { PaletteMode } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
-const theme = createTheme({
+const getDesignTokens = (mode: PaletteMode) => ({
 	palette: {
-		primary: {
-			main: '#009B00',
-			dark: '#2b2d31',
-			light: '#f5f6f7',
-		},
-		secondary: {
-			main: '#EEFD53',
-		},
-		success: {
-			main: '#4AD395',
-		},
-		error: {
-			main: '#DA1E28',
-		},
+		mode,
+		...(mode === 'light'
+			? {
+					// palette values for light mode
+					primary: {
+						main: grey[800],
+						light: grey[700],
+						dark: grey[900],
+					},
+					background: {
+						default: '#fff',
+						paper: '#fff9fa',
+						paperFocus: '#fff',
+						nav: grey[100],
+					},
+					text: {
+						primary: '#000',
+						secondary: grey[600],
+					},
+			  }
+			: {
+					// palette values for dark mode
+					primary: {
+						main: grey[700],
+						light: grey[600],
+						dark: grey[800],
+					},
+					background: {
+						default: grey[700],
+						paper: grey[900],
+						paperFocus: grey[800],
+						nav: '#111',
+					},
+					text: {
+						primary: '#fff',
+						secondary: grey[400],
+					},
+			  }),
 	},
 	typography: {
 		fontFamily: ['SUIT-Regular'].join(','),
 	},
 });
 
-export default theme;
+export default getDesignTokens;

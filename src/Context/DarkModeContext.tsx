@@ -1,23 +1,17 @@
-import {
-	ReactNode,
-	createContext,
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import getDesignTokens from '../themes/palette';
 
 const DarkModeContext = createContext({
-	darkMode: false,
+	mode: 'light' || 'dark',
 	toggleDarkMode: () => {},
 });
 
 const updateDarkMode = (darkMode: boolean) => {
 	if (darkMode) {
 		localStorage.theme = 'dark';
-		document.documentElement.classList.add('dark');
 	} else {
 		localStorage.theme = 'light';
-		document.documentElement.classList.remove('dark');
 	}
 };
 
@@ -26,11 +20,13 @@ interface Props {
 }
 
 export const DarkModeProvider = ({ children }: Props) => {
-	const [darkMode, setDarkMode] = useState(false);
+	const [mode, setMode] = useState<'light' | 'dark'>('light');
+
+	const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
 	const toggleDarkMode = () => {
-		updateDarkMode(!darkMode);
-		setDarkMode(!darkMode);
+		updateDarkMode(mode === 'light' ? true : false);
+		setMode(mode === 'light' ? 'dark' : 'light');
 	};
 
 	useEffect(() => {
@@ -38,13 +34,13 @@ export const DarkModeProvider = ({ children }: Props) => {
 			localStorage.theme === 'dark' ||
 			(!('theme' in localStorage) &&
 				window.matchMedia('(prefers-color-scheme: dark)').matches); // 사용자 기종 다크모드 확인
-		setDarkMode(isDark);
+		setMode(isDark ? 'dark' : 'light');
 		updateDarkMode(isDark);
 	}, []);
 
 	return (
-		<DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
-			{children}
+		<DarkModeContext.Provider value={{ mode, toggleDarkMode }}>
+			<ThemeProvider theme={theme}>{children}</ThemeProvider>
 		</DarkModeContext.Provider>
 	);
 };

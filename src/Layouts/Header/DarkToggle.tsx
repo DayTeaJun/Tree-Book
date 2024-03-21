@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -52,13 +51,13 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function DarkToggle() {
-	const { darkMode, toggleDarkMode } = useDarkMode();
+	const { mode, toggleDarkMode } = useDarkMode();
 	return (
 		<FormControlLabel
 			control={
 				<MaterialUISwitch
 					sx={{ m: 1 }}
-					checked={darkMode}
+					checked={mode === 'light' ? false : true}
 					onChange={toggleDarkMode}
 				/>
 			}
