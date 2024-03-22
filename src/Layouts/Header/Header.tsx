@@ -25,6 +25,8 @@ export default function Header() {
 		setSearch(inputRef.current.value);
 	};
 
+	console.log(search);
+
 	useEffect(() => {
 		if (search !== '') {
 			navigate(`/search/${search}/1`);
@@ -83,7 +85,7 @@ export default function Header() {
 								<Input
 									id='searchTtitle'
 									type='text'
-									ref={inputRef}
+									inputRef={inputRef}
 									placeholder='책 이름을 입력해주세요.'
 									inputProps={{
 										style: {
