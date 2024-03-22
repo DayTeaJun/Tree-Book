@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import GlobalStyles from './GlobalStyled';
-import { Layout, MediaLayout } from './Layouts/fullLayout.style';
+import { MediaLayout } from './Layouts/fullLayout.style';
 import Router from './Router/router';
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
 		<>
 			<Box
 				sx={{
+					position: 'relative',
 					width: '100vw',
 					height: '100vh',
 					display: 'flex',
@@ -17,10 +18,8 @@ function App() {
 					color: 'text.primary',
 				}}
 			>
-				<MediaLayout>
-					<GlobalStyles />
-					<Router />
-				</MediaLayout>
+				<GlobalStyles />
+				<Router />
 			</Box>
 		</>
 	);

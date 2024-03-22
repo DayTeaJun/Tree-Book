@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import SearchIcon from '@mui/icons-material/Search';
 import DarkToggle from './DarkToggle';
+import { Box, Grid } from '@mui/material';
 
 export default function Header() {
 	const [search, setSearch] = useState('');
@@ -32,47 +33,71 @@ export default function Header() {
 
 	return (
 		<>
-			<H.Header>
-				<H.LinkHome to='/'>Tree Book</H.LinkHome>
-				<H.Form onSubmit={handleSubmit}>
-					<H.Label htmlFor='searchTtitle'>도서 검색창</H.Label>
-					<H.Input
-						id='searchTtitle'
-						type='text'
-						ref={inputRef}
-						spellCheck='false'
-						placeholder='책 이름을 입력해주세요.'
-					/>
-					<H.Button>
-						<SearchIcon sx={[{ '&:hover': { color: 'black' } }]} />
-					</H.Button>
-				</H.Form>
-				<DarkToggle />
-				{isAuthReady && !user && (
-					<H.Container>
-						<H.ALink to='/signup'>
-							회원가입
-							<PortraitIcon />
-						</H.ALink>
-						<H.ALink to='/login'>
-							로그인
-							<LoginIcon />
-						</H.ALink>
-					</H.Container>
-				)}
-				{isAuthReady && user && (
-					<H.Container>
-						<H.ALink to={`/profile/${user.displayName}`}>
-							내 프로필
-							<AccountCircleIcon />
-						</H.ALink>
-						<H.ALink to='/' onClick={logout}>
-							로그아웃
-							<LogoutIcon />
-						</H.ALink>
-					</H.Container>
-				)}
-			</H.Header>
+			<Box
+				component='header'
+				sx={{
+					position: 'sticky',
+					top: '0',
+					width: '100vw',
+					backgroundColor: 'background.nav',
+				}}
+			>
+				<Grid container>
+					<Grid xs={0} md={3} lg={2} />
+					<Grid xs={12} md={6} lg={8}>
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+							}}
+						>
+							<H.LinkHome to='/'>Tree Book</H.LinkHome>
+							<H.Form onSubmit={handleSubmit}>
+								<H.Label htmlFor='searchTtitle'>도서 검색창</H.Label>
+								<H.Input
+									id='searchTtitle'
+									type='text'
+									ref={inputRef}
+									spellCheck='false'
+									placeholder='책 이름을 입력해주세요.'
+								/>
+								<H.Button>
+									<SearchIcon sx={[{ '&:hover': { color: 'black' } }]} />
+								</H.Button>
+							</H.Form>
+							<DarkToggle />
+							{isAuthReady && !user && (
+								<H.Container>
+									<H.ALink to='/signup'>
+										회원가입
+										<PortraitIcon />
+									</H.ALink>
+									<H.ALink to='/login'>
+										로그인
+										<LoginIcon />
+									</H.ALink>
+								</H.Container>
+							)}
+							{isAuthReady && user && (
+								<H.Container>
+									<H.ALink to={`/profile/${user.displayName}`}>
+										내 프로필
+										<AccountCircleIcon />
+									</H.ALink>
+									<H.ALink to='/' onClick={logout}>
+										로그아웃
+										<LogoutIcon />
+									</H.ALink>
+								</H.Container>
+							)}
+						</Box>
+					</Grid>
+
+					<Grid xs={0} md={3} lg={2} />
+				</Grid>
+			</Box>
 		</>
 	);
 }
