@@ -1,6 +1,5 @@
 import { FormEventHandler, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { H } from './Header.style';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useLogout } from '../../Hook/FirebaseHook/useLogout';
 import LoginIcon from '@mui/icons-material/Login';
@@ -9,7 +8,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import SearchIcon from '@mui/icons-material/Search';
 import DarkToggle from './DarkToggle';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, IconButton, Input, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Label } from '../../Styles/Common';
 
 export default function Header() {
 	const [search, setSearch] = useState('');
@@ -40,6 +41,7 @@ export default function Header() {
 					top: '0',
 					width: '100vw',
 					backgroundColor: 'background.nav',
+					padding: '0.5em',
 				}}
 			>
 				<Grid container>
@@ -53,48 +55,156 @@ export default function Header() {
 								justifyContent: 'space-between',
 							}}
 						>
-							<H.LinkHome to='/'>Tree Book</H.LinkHome>
-							<H.Form onSubmit={handleSubmit}>
-								<H.Label htmlFor='searchTtitle'>도서 검색창</H.Label>
-								<H.Input
+							<Link to='/'>
+								<Typography
+									fontSize='2em'
+									fontWeight='bold'
+									color='green'
+									fontFamily='OG_Renaissance_Secret-Rg'
+								>
+									Tree Book
+								</Typography>
+							</Link>
+							<Box
+								component='form'
+								sx={{
+									display: 'flex',
+									justifyContent: 'center',
+									'&:focus-within': {
+										backgroundColor: 'background.searchFocus',
+									},
+									padding: '0.5em',
+									backgroundColor: 'background.search',
+								}}
+								onSubmit={handleSubmit}
+							>
+								<Label htmlFor='searchTtitle'>도서 검색창</Label>
+
+								<Input
 									id='searchTtitle'
 									type='text'
 									ref={inputRef}
-									spellCheck='false'
 									placeholder='책 이름을 입력해주세요.'
+									inputProps={{
+										style: {
+											textAlign: 'center',
+											color: 'text.primary',
+											fontWeight: 'bold',
+										},
+									}}
 								/>
-								<H.Button>
-									<SearchIcon sx={[{ '&:hover': { color: 'black' } }]} />
-								</H.Button>
-							</H.Form>
-							<DarkToggle />
-							{isAuthReady && !user && (
-								<H.Container>
-									<H.ALink to='/signup'>
-										회원가입
-										<PortraitIcon />
-									</H.ALink>
-									<H.ALink to='/login'>
-										로그인
-										<LoginIcon />
-									</H.ALink>
-								</H.Container>
-							)}
-							{isAuthReady && user && (
-								<H.Container>
-									<H.ALink to={`/profile/${user.displayName}`}>
-										내 프로필
-										<AccountCircleIcon />
-									</H.ALink>
-									<H.ALink to='/' onClick={logout}>
-										로그아웃
-										<LogoutIcon />
-									</H.ALink>
-								</H.Container>
-							)}
+								<IconButton type='submit' aria-label='searchButton'>
+									<SearchIcon />
+								</IconButton>
+							</Box>
+							<Box sx={{ display: 'flex' }}>
+								<DarkToggle />
+								<Box
+									sx={{
+										height: '100%',
+										display: 'flex',
+										justifyContent: 'center',
+										backgroundColor: 'background.nav',
+										gap: '0.5em',
+										padding: '0.5em',
+									}}
+								>
+									{isAuthReady && !user && (
+										<>
+											<Link to='/signup'>
+												<Typography
+													fontSize='1em'
+													fontWeight='bold'
+													color='text.primary'
+													sx={{
+														display: 'flex',
+														alignItems: 'center',
+														gap: '0.2em',
+														padding: '0.5em',
+														borderRadius: '0.2em',
+														transition: '0.4s',
+														'&:hover': {
+															backgroundColor: 'background.searchFocus',
+														},
+													}}
+												>
+													회원가입
+													<PortraitIcon />
+												</Typography>
+											</Link>
+											<Link to='/login'>
+												<Typography
+													fontSize='1em'
+													fontWeight='bold'
+													color='text.primary'
+													sx={{
+														display: 'flex',
+														alignItems: 'center',
+														gap: '0.2em',
+														padding: '0.5em',
+														borderRadius: '0.2em',
+														transition: '0.4s',
+														'&:hover': {
+															backgroundColor: 'background.searchFocus',
+														},
+													}}
+												>
+													로그인
+													<LoginIcon />
+												</Typography>
+											</Link>
+										</>
+									)}
+									{isAuthReady && user && (
+										<>
+											<Link to={`/profile/${user.displayName}`}>
+												<Typography
+													fontSize='1em'
+													fontWeight='bold'
+													color='text.primary'
+													sx={{
+														display: 'flex',
+														alignItems: 'center',
+														gap: '0.2em',
+														padding: '0.5em',
+														borderRadius: '0.2em',
+														transition: '0.4s',
+														'&:hover': {
+															backgroundColor: 'background.searchFocus',
+														},
+													}}
+												>
+													내 프로필
+													<AccountCircleIcon />
+												</Typography>
+											</Link>
+											<Link to='/' onClick={logout}>
+												<Typography
+													fontSize='1em'
+													fontWeight='bold'
+													color='text.primary'
+													sx={{
+														display: 'flex',
+														alignItems: 'center',
+														gap: '0.2em',
+														padding: '0.5em',
+														borderRadius: '0.2em',
+														transition: '0.4s',
+														'&:hover': {
+															backgroundColor: 'background.searchFocus',
+														},
+													}}
+												>
+													로그아웃
+													<LogoutIcon />
+												</Typography>
+											</Link>
+										</>
+									)}
+								</Box>
+							</Box>
 						</Box>
 					</Grid>
-
 					<Grid xs={0} md={3} lg={2} />
 				</Grid>
 			</Box>

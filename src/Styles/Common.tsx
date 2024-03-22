@@ -29,3 +29,7 @@ export const Shimmer = styled.div`
 		}
 	}
 `;
+
+export const Label = styled.label`
+	${a11y}
+`;

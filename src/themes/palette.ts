@@ -14,8 +14,8 @@ const getDesignTokens = (mode: PaletteMode) => ({
 					},
 					background: {
 						default: '#fff',
-						paper: '#fff9fa',
-						paperFocus: '#fff',
+						search: '#fff9fa',
+						searchFocus: '#fff',
 						nav: grey[100],
 					},
 					text: {
@@ -32,8 +32,8 @@ const getDesignTokens = (mode: PaletteMode) => ({
 					},
 					background: {
 						default: grey[700],
-						paper: grey[900],
-						paperFocus: grey[800],
+						search: grey[900],
+						searchFocus: grey[800],
 						nav: '#111',
 					},
 					text: {
