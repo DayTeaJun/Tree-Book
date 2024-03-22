@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import GlobalStyles from './GlobalStyled';
-import { MediaLayout } from './Layouts/fullLayout.style';
 import Router from './Router/router';
 
 function App() {

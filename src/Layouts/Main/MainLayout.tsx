@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
-import { MediaLayout } from '../fullLayout.style';
 import { Grid } from '@mui/material';
 
 export default function MainLayout() {
