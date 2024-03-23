@@ -1,7 +1,4 @@
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormEvent, useState } from 'react';
@@ -9,11 +6,12 @@ import { useSignup } from '../../Hook/FirebaseHook/useSignup';
 import { ImgPreview } from '../../Hook/useImgPreview';
 import { InputValueType } from '../../Types/userType';
 import { Link } from 'react-router-dom';
-import { LS } from './LoginSignup.style';
 import ValidInput from '../../Components/ValidInput/ValidInput';
 import temImg from '../../Assets/profile-img.png';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import ToastPopup from '../../Components/Toast/Toast';
+import { Label } from '../../Styles/Common';
+import { Box, Grid, Input } from '@mui/material';
 
 export default function SignUp() {
 	const { error, isPending, signup } = useSignup();
@@ -51,8 +49,23 @@ export default function SignUp() {
 				<Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
 					<Grid container alignItems={'center'} spacing={2}>
 						<Grid item xs={12}>
-							<LS.Container>
-								<LS.Img
+							<Box
+								sx={{
+									width: '100px',
+									height: '100px',
+									margin: '0 auto',
+									position: 'relative',
+									border: '1px solid #ccc',
+									borderRadius: '50%',
+								}}
+							>
+								<img
+									style={{
+										width: '100%',
+										objectFit: 'cover',
+										flexShrink: 0,
+										borderRadius: '50%',
+									}}
 									src={(imgUrl && imageSrc) || temImg}
 									alt={'프로필 이미지 등록'}
 								/>
@@ -68,14 +81,24 @@ export default function SignUp() {
 									}}
 									fontSize='large'
 								/>
-								<LS.ImgLabel htmlFor='profileImg'>프로필 이미지</LS.ImgLabel>
-								<LS.ImgInput
+								<Label htmlFor='profileImg'>프로필 이미지</Label>
+								<input
+									style={{
+										width: '100%',
+										height: '100%',
+										position: 'absolute',
+										top: '0',
+										left: '0',
+										opacity: 0,
+										zIndex: 999,
+										cursor: 'pointer',
+									}}
 									id='profileImg'
 									type='file'
 									accept='image/*'
 									onChange={(e) => onUpload(e)}
 								/>
-							</LS.Container>
+							</Box>
 						</Grid>
 						<ValidInput
 							setInputValue={setInputValue}
