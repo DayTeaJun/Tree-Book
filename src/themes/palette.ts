@@ -1,5 +1,5 @@
 import { PaletteMode } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { green, grey } from '@mui/material/colors';
 
 const getDesignTokens = (mode: PaletteMode) => ({
 	palette: {
@@ -21,6 +21,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 					text: {
 						primary: '#000',
 						secondary: grey[600],
+						success: green[600],
 					},
 			  }
 			: {
@@ -31,7 +32,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						dark: grey[800],
 					},
 					background: {
-						default: grey[700],
+						default: grey[900],
 						search: grey[900],
 						searchFocus: grey[800],
 						nav: '#111',
@@ -39,6 +40,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 					text: {
 						primary: '#fff',
 						secondary: grey[400],
+						success: '#fff',
 					},
 			  }),
 	},

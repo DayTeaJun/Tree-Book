@@ -12,6 +12,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import useDebounce from '../../Hook/useDebounce';
 import { appFirestore } from '../../Firebase/config';
 import { Typography } from '@mui/material';
+import { text } from 'stream/consumers';
 
 interface ValidInputProps {
 	setInputValue: Dispatch<SetStateAction<InputValueType>>;
@@ -120,10 +121,12 @@ export default function ValidInput({
 				/>
 				<Typography
 					component='p'
-					fontSize={'0.7em'}
+					fontSize={'0.8em'}
 					sx={{
 						color: `${
-							validEmail === '사용 가능한 이메일입니다.' ? 'green' : 'red'
+							validEmail === '사용 가능한 이메일입니다.'
+								? 'text.success'
+								: 'red'
 						}`,
 						minHeight: '1.5em',
 						mt: 0.5,
@@ -155,10 +158,10 @@ export default function ValidInput({
 				/>
 				<Typography
 					component='p'
-					fontSize={'0.7em'}
+					fontSize={'0.8em'}
 					sx={{
 						color: `${
-							validName === '사용 가능한 닉네임입니다.' ? 'green' : 'red'
+							validName === '사용 가능한 닉네임입니다.' ? 'text.success' : 'red'
 						}`,
 						minHeight: '1.5em',
 						mt: 0.5,

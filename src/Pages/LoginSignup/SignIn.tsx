@@ -27,7 +27,7 @@ export default function SignIn() {
 	};
 
 	return (
-		<Container component='main' maxWidth='xs' sx={{}}>
+		<Container component='main' maxWidth='lg'>
 			<CssBaseline />
 			<Box
 				sx={{
@@ -61,13 +61,14 @@ export default function SignIn() {
 					/>
 					<Typography
 						component='p'
-						fontSize={'0.7em'}
+						fontSize={'0.8em'}
 						sx={{
 							color: 'red',
 							minHeight: '1.5em',
 						}}
 					>
-						{error && '등록되지 않은 계정입니다.'}
+						{error &&
+							'이메일 또는 비밀번호가 잘못 입력되었거나, 등록되지 않은 계정입니다.'}
 					</Typography>
 					<Button
 						type='submit'
@@ -80,7 +81,11 @@ export default function SignIn() {
 					</Button>
 
 					<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-						<Link to='/signup'>{'이메일로 회원가입'}</Link>
+						<Link to='/signup'>
+							<Typography fontSize='1em' fontWeight='bold' color='text.primary'>
+								이메일로 회원가입
+							</Typography>
+						</Link>
 					</Box>
 				</Box>
 			</Box>
