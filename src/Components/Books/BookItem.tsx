@@ -29,7 +29,6 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 					width: '90%',
 					height: '100px',
 					padding: '10px',
-					border: '0.5px solid #eee',
 					borderRadius: '5px',
 					backgroundColor: 'background.book',
 				}}
@@ -83,7 +82,6 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 			sx={{
 				width: '120px',
 				height: '210px',
-				border: '0.5px #eee solid',
 				borderRadius: '5px',
 				padding: '10px',
 				backgroundColor: 'background.book',

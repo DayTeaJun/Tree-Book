@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import { Shimmer } from '../../Styles/Common';
-import { B, ContainerBookImg } from './bookItem.style';
 import { Skeleton } from '../../Types/bookType';
 
 export const BookItemSkeleton = ({ comment }: Skeleton) => {
@@ -21,30 +20,45 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 	}
 
 	return (
-		<B.Container style={{ height: '200px' }}>
-			<ContainerBookImg style={{ height: '145px', overflow: 'hidden' }}>
-				<Shimmer />
-			</ContainerBookImg>
+		<Box
+			sx={{
+				width: '120px',
+				height: '210px',
+				borderRadius: '5px',
+				padding: '10px',
+				backgroundColor: 'background.book',
+			}}
+		>
 			<Box
 				sx={{
-					width: '97px',
+					width: '100px',
+					height: '140px',
+					borderRadius: '10px',
+					overflow: 'hidden',
+				}}
+			>
+				<Shimmer />
+			</Box>
+			<Box
+				sx={{
+					width: '100px',
 					height: '14px',
 					overflow: 'hidden',
-					marginTop: '5px',
+					marginTop: '10px',
 				}}
 			>
 				<Shimmer />
 			</Box>
 			<Box
 				sx={{
-					width: '97px',
+					width: '100px',
 					height: '12px',
 					overflow: 'hidden',
-					marginTop: '5px',
+					marginTop: '10px',
 				}}
 			>
 				<Shimmer />
 			</Box>
-		</B.Container>
+		</Box>
 	);
 };
