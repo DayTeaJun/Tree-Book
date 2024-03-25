@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { B, ContainerBookImg } from './bookItem.style';
 import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 	const navigate = useNavigate();
@@ -25,47 +24,121 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 					display: 'flex',
 					flexDirection: 'column',
 					flexShrink: 0,
-					gap: '10px',
+					gap: '5px',
 					cursor: 'pointer',
 					width: '90%',
 					height: '100px',
 					padding: '10px',
+					border: '0.5px solid #eee',
 					borderRadius: '5px',
-					backgroundColor: '#eee',
-					'&:hover': { backgroundColor: '#e9e9e9' },
+					backgroundColor: 'background.book',
 				}}
 			>
-				<B.H2 style={{ fontSize: '1.2em', textDecorationLine: 'none' }}>
+				<Typography
+					component='h2'
+					fontSize={'1.2em'}
+					fontWeight={'bold'}
+					sx={{
+						color: 'text.primary',
+						whiteSpace: 'nowrap',
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+						textDecorationLine: 'none',
+					}}
+				>
 					{item.title}
-				</B.H2>
-				<B.H2
-					style={{
-						fontWeight: '500',
+				</Typography>
+				<Typography
+					component='h2'
+					fontSize={'1em'}
+					fontWeight={'500'}
+					sx={{
+						color: 'text.primary',
+						whiteSpace: 'nowrap',
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+						textDecorationLine: 'none',
 					}}
 				>
 					{comment}
-				</B.H2>
-				<B.P>{item.createdTime?.toDate().toLocaleString()}</B.P>
+				</Typography>
+				<Typography
+					component='p'
+					fontSize={'0.8em'}
+					sx={{
+						color: 'text.secondary',
+						whiteSpace: 'nowrap',
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+					}}
+				>
+					{item.createdTime?.toDate().toLocaleString()}
+				</Typography>
 			</Box>
 		);
 	}
 
 	return (
-		<B.Container onClick={onMoveBookDetail}>
-			{item.thumbnail ? (
-				<ContainerBookImg>
+		<Box
+			sx={{
+				width: '120px',
+				height: '210px',
+				border: '0.5px #eee solid',
+				borderRadius: '5px',
+				padding: '10px',
+				backgroundColor: 'background.book',
+				cursor: 'pointer',
+				'&:hover': {
+					transform: 'translateY(-0.5em)',
+					transition: 'transform 0.5s',
+					boxShadow:
+						'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
+				},
+			}}
+			onClick={onMoveBookDetail}
+		>
+			<Box
+				sx={{
+					width: '100px',
+					height: '140px',
+					textAlign: 'center',
+					borderRadius: '10px',
+				}}
+			>
+				{item.thumbnail ? (
 					<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
-				</ContainerBookImg>
-			) : (
-				<ContainerBookImg>
+				) : (
 					<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
-				</ContainerBookImg>
-			)}
-			<B.H2>{item.title}</B.H2>
-			<B.P>
+				)}
+			</Box>
+
+			<Typography
+				component='h2'
+				fontSize={'0.9em'}
+				fontWeight={'bold'}
+				sx={{
+					color: 'text.primary',
+					marginTop: '5px',
+					whiteSpace: 'nowrap',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+				}}
+			>
+				{item.title}
+			</Typography>
+			<Typography
+				component='p'
+				fontSize={'0.8em'}
+				sx={{
+					color: 'text.secondary',
+					whiteSpace: 'nowrap',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+				}}
+			>
 				{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
-			</B.P>
-		</B.Container>
+			</Typography>
+		</Box>
 	);
 };
 
