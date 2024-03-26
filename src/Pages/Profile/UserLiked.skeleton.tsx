@@ -6,7 +6,14 @@ import { Skeleton } from '../../Types/bookType';
 
 export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 	return (
-		<P.ContainerLiked style={{ overflow: 'hidden' }}>
+		<Box
+			sx={{
+				width: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '10px',
+			}}
+		>
 			<Box
 				sx={{
 					width: '300px',
@@ -18,20 +25,57 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 				<Shimmer />
 			</Box>
 			{comment ? (
-				<P.ContainerComment>
+				<Box
+					sx={{
+						width: '100%',
+						height: '230px',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						padding: '1em 0',
+						gap: '10px',
+						overflowY: 'auto',
+						overflowX: 'hidden',
+						'&::-webkit-scrollbar': {
+							width: '10px',
+							borderRadius: '6px',
+						},
+						'&::-webkit-scrollbar-thumb': {
+							backgroundColor: 'background.hover',
+							borderRadius: '6px',
+						},
+					}}
+				>
 					{Array.from({ length: 2 }).map((_, index) => (
 						<BookItemSkeleton comment={comment} key={index} />
 					))}
-				</P.ContainerComment>
+				</Box>
 			) : (
-				<P.ContainerBook
+				<Box
+					sx={{
+						width: '100%',
+						minHeight: '250px',
+						display: 'flex',
+						padding: '1em 0',
+						gap: '10px',
+						overflowX: 'auto',
+						overflowY: 'hidden',
+						'&::-webkit-scrollbar': {
+							height: '10px',
+							borderRadius: '6px',
+						},
+						'&::-webkit-scrollbar-thumb': {
+							backgroundColor: 'background.hover',
+							borderRadius: '6px',
+						},
+					}}
 					style={{ width: '665px', height: '230px', overflow: 'hidden' }}
 				>
-					{Array.from({ length: 4 }).map((_, index) => (
+					{Array.from({ length: 6 }).map((_, index) => (
 						<BookItemSkeleton key={index} />
 					))}
-				</P.ContainerBook>
+				</Box>
 			)}
-		</P.ContainerLiked>
+		</Box>
 	);
 };
