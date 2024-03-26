@@ -17,7 +17,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						search: '#fff9fa',
 						searchFocus: '#fff',
 						nav: grey[100],
-						book: '#fff',
+						book: '#f3f1f2',
 					},
 					text: {
 						primary: '#000',

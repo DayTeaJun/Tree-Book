@@ -41,7 +41,7 @@ export default function Header() {
 				sx={{
 					position: 'sticky',
 					top: '0',
-					width: '100vw',
+					width: '100%',
 					backgroundColor: 'background.nav',
 					padding: '0.5em',
 				}}
