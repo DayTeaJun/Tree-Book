@@ -6,7 +6,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { useQuery } from '@tanstack/react-query';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { BookData } from '../../Types/bookType';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
@@ -34,9 +34,62 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 	return (
 		<>
 			{userBooks && (
-				<P.ContainerLiked>
-					<P.H2>작성한 코멘트 목록</P.H2>
-					<P.ContainerComment>
+				<Box
+					sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '10px',
+					}}
+				>
+					<Typography
+						component='h3'
+						fontSize='1.1em'
+						fontWeight='bold'
+						color='text.primary'
+						sx={{
+							width: '100%',
+							display: 'flex',
+							alignItems: 'center',
+							'&::before': {
+								content: "''",
+								margin: '0 1em',
+								flexGrow: 1,
+								height: '0.5px',
+								backgroundColor: 'text.primary',
+							},
+							'&::after': {
+								content: "''",
+								margin: '0 1em',
+								flexGrow: 1,
+								height: '0.5px',
+								backgroundColor: 'text.primary',
+							},
+						}}
+					>
+						작성한 코멘트 목록
+					</Typography>
+					<Box
+						sx={{
+							width: '100%',
+							height: '230px',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							padding: '1em 0',
+							gap: '10px',
+							overflowY: 'auto',
+							overflowX: 'hidden',
+							'&::-webkit-scrollbar': {
+								width: '10px',
+								borderRadius: '6px',
+							},
+							'&::-webkit-scrollbar-thumb': {
+								backgroundColor: 'background.hover',
+								borderRadius: '6px',
+							},
+						}}
+					>
 						{userBooks.length !== 0 ? (
 							(userBooks as BookData[]).map((item: BookData, index: number) => (
 								<BookItem
@@ -62,8 +115,8 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 								<p>아직 작성한 코멘트가 없습니다.</p>
 							</Box>
 						)}
-					</P.ContainerComment>
-				</P.ContainerLiked>
+					</Box>
+				</Box>
 			)}
 		</>
 	);
