@@ -332,8 +332,8 @@ export default function ProfileEdit() {
 								cursor: 'pointer',
 								backgroundColor: 'background.book',
 								'&:hover': {
-									backgroundColor:
-										validName !== '' ? 'background.book' : 'background.hover',
+									backgroundColor: 'background.hover',
+									color: 'red',
 								},
 							}}
 							type='button'
