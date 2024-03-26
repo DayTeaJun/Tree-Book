@@ -8,8 +8,6 @@ import { UserComment } from './UserComment';
 import { Box, Typography } from '@mui/material';
 import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { useState } from 'react';
-import { Modal } from '../../Components/Modal/Modal';
-import { M } from '../../Components/Modal/modal.style';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
@@ -46,10 +44,6 @@ export default function Profile() {
 			</Box>
 		);
 	}
-
-	const handleWithDrawal = () => {
-		setIsOpenModal(true);
-	};
 
 	return (
 		<Box
@@ -133,7 +127,6 @@ export default function Profile() {
 														padding: '10px 20px',
 														borderRadius: '10px',
 														backgroundColor: 'background.book',
-														transitionDuration: '0.5s',
 														'&:hover': {
 															backgroundColor: 'background.hover',
 														},
@@ -142,28 +135,6 @@ export default function Profile() {
 													프로필 수정
 												</Typography>
 											</Link>
-											<Box
-												component='button'
-												sx={{
-													width: '90%',
-													padding: '8px 20px',
-													fontSize: '1em',
-													fontWeight: 'bold',
-													borderRadius: '10px',
-													border: 'none',
-													cursor: 'pointer',
-													color: 'text.primary',
-													backgroundColor: 'background.book',
-													transitionDuration: '0.5s',
-													'&:hover': {
-														backgroundColor: 'background.hover',
-													},
-												}}
-												type='button'
-												onClick={() => handleWithDrawal()}
-											>
-												계정 삭제
-											</Box>
 										</>
 									)}
 								</Box>
@@ -184,18 +155,6 @@ export default function Profile() {
 							</Box>
 						)
 				)}
-
-			{isOpenModal && (
-				<Modal
-					setIsOpenModal={setIsOpenModal}
-					isOpen={isOpenModal}
-					promise={withDrawal}
-				>
-					<M.H2>정말로 계정을 삭제하시겠습니까?</M.H2>
-					<M.P>계정을 삭제하면 복구할 수 없습니다.</M.P>
-					<M.P>(등록한 댓글 및 좋아요 기록은 자동으로 삭제되지 않습니다.)</M.P>
-				</Modal>
-			)}
 		</Box>
 	);
 }
