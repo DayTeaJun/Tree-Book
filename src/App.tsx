@@ -8,7 +8,7 @@ function App() {
 			<Box
 				sx={{
 					position: 'relative',
-					height: '100vh',
+					minHeight: '100vh',
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
