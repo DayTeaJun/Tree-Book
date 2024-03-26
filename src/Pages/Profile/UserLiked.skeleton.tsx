@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { Shimmer } from '../../Styles/Common';
-import { P } from './Profile.style';
 import { Skeleton } from '../../Types/bookType';
 
 export const UserLikedSkeleton = ({ comment }: Skeleton) => {

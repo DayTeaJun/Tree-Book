@@ -1,16 +1,42 @@
 import { Box } from '@mui/material';
 import { Shimmer } from '../../Styles/Common';
-import { P } from './Profile.style';
 
 export const ProfileSekeleton = () => {
 	return (
-		<P.Section>
-			<P.ContainerProfile style={{ width: '285px', minHeight: '545px' }}>
-				<P.ContainerImg
-					style={{ border: 'none', width: '200px', height: '200px' }}
+		<Box
+			component='section'
+			sx={{
+				width: '100%',
+				height: '100%',
+				display: 'flex',
+				overflow: 'hidden',
+				gap: '20px',
+			}}
+		>
+			<Box
+				sx={{
+					width: '285px',
+					minHeight: '545px',
+					flexShrink: 1,
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: '20px',
+					borderRight: 'solid 1px #ccc',
+				}}
+			>
+				<Box
+					sx={{
+						border: 'none',
+						width: '200px',
+						height: '200px',
+						flexShrink: 1,
+						overflow: 'hidden',
+					}}
 				>
 					<Shimmer />
-				</P.ContainerImg>
+				</Box>
 				<Box
 					sx={{
 						width: '200px',
@@ -34,7 +60,6 @@ export const ProfileSekeleton = () => {
 						width: '200px',
 						height: '36px',
 						overflow: 'hidden',
-						backgroundColor: '#fff',
 					}}
 				>
 					<Shimmer />
@@ -44,12 +69,11 @@ export const ProfileSekeleton = () => {
 						width: '200px',
 						height: '36px',
 						overflow: 'hidden',
-						backgroundColor: '#fff',
 					}}
 				>
 					<Shimmer />
 				</Box>
-			</P.ContainerProfile>
-		</P.Section>
+			</Box>
+		</Box>
 	);
 };

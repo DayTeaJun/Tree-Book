@@ -1,5 +1,4 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { P } from './Profile.style';
 import { appFirestore } from '../../Firebase/config';
 import { UserLikedProps } from '../../Types/userType';
 import BookItem from '../../Components/Books/BookItem';
