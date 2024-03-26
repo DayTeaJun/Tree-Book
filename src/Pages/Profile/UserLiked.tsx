@@ -2,11 +2,10 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
-import { P } from './Profile.style';
 import { UserLikedProps } from '../../Types/userType';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { useQuery } from '@tanstack/react-query';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const UserLiked = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid?: string) => {
@@ -35,9 +34,60 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 	return (
 		<>
 			{userBooks && (
-				<P.ContainerLiked>
-					<P.H2>내가 좋아요한 책들</P.H2>
-					<P.ContainerBook>
+				<Box
+					sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '10px',
+					}}
+				>
+					<Typography
+						component='h3'
+						fontSize='1.1em'
+						fontWeight='bold'
+						color='text.primary'
+						sx={{
+							width: '100%',
+							display: 'flex',
+							alignItems: 'center',
+							'&::before': {
+								content: "''",
+								margin: '0 1em',
+								flexGrow: 1,
+								height: '0.5px',
+								backgroundColor: 'text.primary',
+							},
+							'&::after': {
+								content: "''",
+								margin: '0 1em',
+								flexGrow: 1,
+								height: '0.5px',
+								backgroundColor: 'text.primary',
+							},
+						}}
+					>
+						내가 좋아요한 책들
+					</Typography>
+					<Box
+						sx={{
+							width: '100%',
+							minHeight: '250px',
+							display: 'flex',
+							padding: '1em 0',
+							gap: '10px',
+							overflowX: 'auto',
+							overflowY: 'hidden',
+							'&::-webkit-scrollbar': {
+								height: '10px',
+								borderRadius: '6px',
+							},
+							'&::-webkit-scrollbar-thumb': {
+								backgroundColor: 'background.hover',
+								borderRadius: '6px',
+							},
+						}}
+					>
 						{userBooks.length !== 0 ? (
 							(userBooks as BookData[]).map((item: BookData) => (
 								<BookItem
@@ -61,8 +111,8 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 								<p>아직 좋아요한 책이 없습니다.</p>
 							</Box>
 						)}
-					</P.ContainerBook>
-				</P.ContainerLiked>
+					</Box>
+				</Box>
 			)}
 		</>
 	);
