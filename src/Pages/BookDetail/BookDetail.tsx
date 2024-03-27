@@ -61,7 +61,7 @@ export default function BookDetail() {
 							>
 								<Box
 									sx={{
-										width: '120px',
+										width: '9em',
 										flexShrink: 1,
 										textAlign: 'center',
 										borderRadius: '10px',
