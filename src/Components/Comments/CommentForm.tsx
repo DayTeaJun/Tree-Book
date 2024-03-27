@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
-import { CF } from './CommentForm.style';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useLocation, useParams } from 'react-router-dom';
