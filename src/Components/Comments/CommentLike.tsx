@@ -1,6 +1,6 @@
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
 import {
 	collection,
@@ -18,12 +18,16 @@ import ToastPopup from '../Toast/Toast';
 export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
 	const { likeBy }: any = item;
-	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
-	const [likeAlready, setLikeAlready] = useState(likedUser);
+	const [likeAlready, setLikeAlready] = useState(false);
 	const [toast, setToast] = useState(false);
 	const [message, setMessage] = useState('');
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
 	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
+		setLikeAlready(likedUser);
+	}, [item]);
 
 	const handleLike = async () => {
 		if (user) {
