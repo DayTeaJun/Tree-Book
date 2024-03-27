@@ -106,8 +106,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 								<Box sx={{ display: 'flex', gap: '20px' }}>
 									<Box
 										sx={{
-											width: '60px',
-											height: '60px',
+											width: '50px',
+											height: '50px',
 											border: '50%',
 											overflow: 'hidden',
 											borderRadius: '50%',
@@ -152,7 +152,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 										</Box>
 										<Typography
 											component='p'
-											fontSize='0.9em'
+											fontSize='1em'
 											color='text.primary'
 										>
 											{expandedComment[index]
@@ -185,9 +185,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 									<Box
 										component='button'
 										sx={{
-											width: '80px',
 											height: '30px',
-											padding: '5px',
+											padding: '0 20px',
 											fontSize: '1em',
 											fontWeight: 'bold',
 											border: 'none',
@@ -207,9 +206,8 @@ export function CommentList({ isbn }: { isbn: string }) {
 									<Box
 										component='button'
 										sx={{
-											width: '70px',
 											height: '30px',
-											padding: '5px',
+											padding: '0 20px',
 											fontSize: '1em',
 											fontWeight: 'bold',
 											border: 'none',
