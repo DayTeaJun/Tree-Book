@@ -1,6 +1,5 @@
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
-import { CL } from './CommentList.style';
 import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
@@ -11,6 +10,8 @@ import { getComments } from '../../Api/Firebase/getComments';
 import { Modal } from '../Modal/Modal';
 import { M } from '../Modal/modal.style';
 import ToastPopup from '../Toast/Toast';
+import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
@@ -73,41 +74,100 @@ export function CommentList({ isbn }: { isbn: string }) {
 
 	return (
 		<>
-			<CL.Section>
+			<Box
+				component='section'
+				sx={{
+					width: '100%',
+					overflow: 'hidden',
+					display: 'felx',
+					flexDirection: 'column',
+					gap: '10px',
+					marginTop: '10px',
+				}}
+			>
 				{comment &&
 					comment.map((comment, index: number) => (
-						<CL.Wrapper key={index}>
-							<CL.ContainerImgBtn>
-								<CL.ContainerImgLink>
-									<CL.ContainerImg>
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								borderRadius: '5px',
+								padding: '20px 0',
+							}}
+							key={index}
+						>
+							<Box
+								sx={{
+									display: 'flex',
+									justifyContent: 'space-between',
+									gap: '10px',
+								}}
+							>
+								<Box sx={{ display: 'flex', gap: '20px' }}>
+									<Box
+										sx={{
+											width: '60px',
+											height: '60px',
+											border: '50%',
+											overflow: 'hidden',
+											borderRadius: '50%',
+											flexShrink: 0,
+										}}
+									>
 										<img
 											src={comment.photoURL}
 											alt={`${comment.displayName}의 프로필 사진입니다.`}
 										/>
-									</CL.ContainerImg>
+									</Box>
 
-									<CL.ContainerNameComment>
-										<CL.ContainerNameDate>
-											<CL.ALink
+									<Box
+										sx={{
+											display: 'flex',
+											flexDirection: 'column',
+											gap: '5px',
+										}}
+									>
+										<Box sx={{ display: 'flex', gap: '20px' }}>
+											<Link
 												to={`/profile/${comment.displayName}`}
 												state={{ id: comment.id }}
 											>
-												{comment.displayName}
-											</CL.ALink>
-											<CL.PDate>
+												<Typography
+													fontSize='1.1em'
+													fontWeight='bold'
+													sx={{ cursor: 'pointer' }}
+													color='text.primary'
+												>
+													{comment.displayName}
+												</Typography>
+											</Link>
+											<Typography
+												component='p'
+												fontSize='1.1em'
+												fontWeight='bold'
+												color='text.secondary'
+											>
 												{comment.createdTime?.toDate().toLocaleString()}
-											</CL.PDate>
-										</CL.ContainerNameDate>
-										<CL.PComment>
+											</Typography>
+										</Box>
+										<Typography
+											component='p'
+											fontSize='0.9em'
+											color='text.primary'
+										>
 											{expandedComment[index]
 												? comment.comments
-												: comment.comments && comment.comments.length > 120
-												? `${comment.comments?.substring(0, 120)}...`
+												: comment.comments && comment.comments.length > 100
+												? `${comment.comments?.substring(0, 100)}...`
 												: comment.comments}
-										</CL.PComment>
+										</Typography>
 
 										{comment.comments && comment.comments.length > 120 && (
-											<CL.Span
+											<Typography
+												component='span'
+												fontSize='0.8em'
+												color='text.secondary'
+												sx={{ cursor: 'pointer' }}
 												onClick={() => {
 													setExpandedComment({
 														...expandedComment,
@@ -116,23 +176,60 @@ export function CommentList({ isbn }: { isbn: string }) {
 												}}
 											>
 												{!expandedComment[index] ? '더보기' : '간략히'}
-											</CL.Span>
+											</Typography>
 										)}
 										<CommentLike uid={comment.uid} item={comment} />
-									</CL.ContainerNameComment>
-								</CL.ContainerImgLink>
+									</Box>
+								</Box>
 								{(user && user.uid) !== comment.id ? (
-									<CL.Button type='button'>신고</CL.Button>
+									<Box
+										component='button'
+										sx={{
+											width: '80px',
+											height: '30px',
+											padding: '5px',
+											fontSize: '1em',
+											fontWeight: 'bold',
+											border: 'none',
+											borderRadius: '5px',
+											backgroundColor: 'background.book',
+											color: 'text.primary',
+											flexShrink: 0,
+											cursor: 'pointer',
+											'&:hover': {
+												backgroundColor: 'background.hover',
+											},
+										}}
+									>
+										신고
+									</Box>
 								) : (
-									<CL.Button
+									<Box
+										component='button'
+										sx={{
+											width: '70px',
+											height: '30px',
+											padding: '5px',
+											fontSize: '1em',
+											fontWeight: 'bold',
+											border: 'none',
+											borderRadius: '5px',
+											backgroundColor: 'background.book',
+											color: 'text.primary',
+											flexShrink: 0,
+											cursor: 'pointer',
+											'&:hover': {
+												backgroundColor: 'background.hover',
+											},
+										}}
 										type='button'
 										onClick={() => comment.uid && handleDel(comment.uid)}
 									>
 										삭제
-									</CL.Button>
+									</Box>
 								)}
-							</CL.ContainerImgBtn>
-						</CL.Wrapper>
+							</Box>
+						</Box>
 					))}
 				{comment.length !== 0 && (
 					<Paginaition
@@ -153,7 +250,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 						<M.H2>작성하신 댓글을 삭제하시겠습니까?</M.H2>
 					</Modal>
 				)}
-			</CL.Section>
+			</Box>
 			{toast && (
 				<ToastPopup
 					setToast={setToast}
