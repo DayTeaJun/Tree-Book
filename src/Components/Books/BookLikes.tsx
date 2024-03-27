@@ -1,6 +1,3 @@
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { D } from '../../Pages/BookDetail/bookDetail.style';
 import { BookLikesProps } from '../../Types/bookType';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
@@ -8,6 +5,9 @@ import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
+import { Box, Typography } from '@mui/material';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 const BookLikes = ({
 	item,
@@ -120,10 +120,27 @@ const BookLikes = ({
 	return (
 		<>
 			{item && (
-				<D.Likes onClick={() => mutaion.mutate()}>
-					{like === false ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-					{number !== 0 && <D.P>{number}</D.P>}
-				</D.Likes>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						gap: '5px',
+						color: 'background.mark',
+						cursor: 'pointer',
+					}}
+					onClick={() => mutaion.mutate()}
+				>
+					{like === false ? (
+						<BookmarkBorderIcon fontSize='large' />
+					) : (
+						<BookmarkIcon fontSize='large' />
+					)}
+					{number !== 0 && (
+						<Typography component='p' fontSize='1em' fontWeight='bold'>
+							{number} 명
+						</Typography>
+					)}
+				</Box>
 			)}
 		</>
 	);

@@ -19,6 +19,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						nav: grey[100],
 						book: '#f3f1f2',
 						hover: '#d6d4d4',
+						mark: '#111',
 					},
 					text: {
 						primary: '#000',
@@ -42,6 +43,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						nav: '#111',
 						book: grey[700],
 						hover: grey[900],
+						mark: '#fff',
 					},
 					text: {
 						primary: '#fff',
