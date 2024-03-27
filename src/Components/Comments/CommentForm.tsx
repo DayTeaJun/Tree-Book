@@ -115,11 +115,13 @@ export function CommentForm({ item }: BookLikesProps) {
 							fontSize: '1em',
 							fontWeight: 'bold',
 							border: 'none',
-							borderRadius: '10px',
 							color: 'text.primary',
-							backgroundColor:
-								comments.length > 0 ? 'background.hover' : 'background.book',
+							backgroundColor: 'background.book',
 							cursor: comments.length > 0 ? 'pointer' : 'default',
+							'&:hover': {
+								backgroundColor:
+									comments.length > 0 ? 'background.hover' : 'background.book',
+							},
 						}}
 						type='submit'
 						disabled={comments.length > 0 ? false : true}
