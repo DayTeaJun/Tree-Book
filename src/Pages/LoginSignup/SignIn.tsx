@@ -28,7 +28,6 @@ export default function SignIn() {
 
 	return (
 		<Container component='main' maxWidth='lg'>
-			<CssBaseline />
 			<Box
 				sx={{
 					marginTop: 8,
