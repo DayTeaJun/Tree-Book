@@ -7,6 +7,8 @@ import { CommentList } from './CommentList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ToastPopup from '../Toast/Toast';
 import { BookLikesProps } from '../../Types/bookType';
+import { Box, InputBase, Typography } from '@mui/material';
+import { Label } from '../../Styles/Common';
 
 export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
@@ -65,11 +67,38 @@ export function CommentForm({ item }: BookLikesProps) {
 
 	return (
 		<>
-			<CF.Form onSubmit={handleSubmit}>
-				<CF.H2>댓글쓰기</CF.H2>
-				<CF.Container>
-					<CF.Label htmlFor='commentInput'>댓글 입력</CF.Label>
-					<CF.Input
+			<Box
+				component='form'
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					width: '100%',
+					gap: '10px',
+				}}
+				onSubmit={handleSubmit}
+			>
+				<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
+					댓글
+				</Typography>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-around',
+						gap: '20px',
+						height: '40px',
+					}}
+				>
+					<Label htmlFor='commentInput'>댓글 입력</Label>
+					<InputBase
+						sx={{
+							flexShrink: 1,
+							width: '100%',
+							height: '100%',
+							padding: '10px',
+							margin: '10px 0',
+							backgroundColor: 'background.search',
+						}}
 						id='commentInput'
 						type='text'
 						placeholder='댓글 내용을 입력해주세요.'
@@ -78,18 +107,28 @@ export function CommentForm({ item }: BookLikesProps) {
 						onChange={handleData}
 					/>
 
-					<CF.Button
-						type='submit'
-						disabled={comments.length > 0 ? false : true}
-						style={{
-							background: comments.length > 0 ? '#00ac00' : '#adadad',
+					<Box
+						component='button'
+						sx={{
+							width: '80px',
+							height: '100%',
+							padding: '5px',
+							fontSize: '1em',
+							fontWeight: 'bold',
+							border: 'none',
+							borderRadius: '10px',
+							color: 'text.primary',
+							backgroundColor:
+								comments.length > 0 ? 'background.hover' : 'background.book',
 							cursor: comments.length > 0 ? 'pointer' : 'default',
 						}}
+						type='submit'
+						disabled={comments.length > 0 ? false : true}
 					>
 						등록
-					</CF.Button>
-				</CF.Container>
-			</CF.Form>
+					</Box>
+				</Box>
+			</Box>
 			<CommentList isbn={isbn} />
 			{toast && (
 				<ToastPopup setToast={setToast} message={message} position={'top'} />
