@@ -1,6 +1,5 @@
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { CL } from './CommentList.style';
 import { useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
 import {
@@ -13,7 +12,7 @@ import {
 import { appFirestore } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
 import { useQueryClient } from '@tanstack/react-query';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ToastPopup from '../Toast/Toast';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
@@ -67,15 +66,34 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 
 	return (
 		<>
-			<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-				<CL.LikedButton type='button' onClick={() => handleLike()}>
-					{likeAlready ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
-				</CL.LikedButton>
-				<CL.LikedNumber>
+			<Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+				<Box
+					component='button'
+					sx={{
+						background: 'inherit',
+						cursor: 'pointer',
+						border: 'none',
+						color: 'background.mark',
+					}}
+					type='button'
+					onClick={() => handleLike()}
+				>
+					{likeAlready ? (
+						<ThumbUpAltIcon fontSize='small' />
+					) : (
+						<ThumbUpOffAltIcon fontSize='small' />
+					)}
+				</Box>
+				<Typography
+					component='p'
+					fontSize='0.8em'
+					fontWeight='bold'
+					color='text.primary'
+				>
 					{likeBy &&
 						Object.keys(likeBy).length !== 0 &&
 						Object.keys(likeBy).length}
-				</CL.LikedNumber>
+				</Typography>
 			</Box>
 			{toast && (
 				<ToastPopup setToast={setToast} message={message} position={'top'} />
