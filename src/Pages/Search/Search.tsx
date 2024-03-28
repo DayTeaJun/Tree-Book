@@ -2,10 +2,10 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { useParams } from 'react-router-dom';
-import { S } from '../HomeFeed/homeFeed.style';
 import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from '../../Components/Pagination/Pagination';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
+import { Box } from '@mui/material';
 
 export default function Search() {
 	const { searchView, page } = useParams<{
@@ -22,33 +22,53 @@ export default function Search() {
 
 	if (isLoading) {
 		return (
-			<S.SectionSearch>
+			<Box
+				component='section'
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					width: '100%',
+					minHeight: '505px',
+					padding: '20px 0',
+					gap: '20px',
+					flexWrap: 'wrap',
+				}}
+			>
 				{Array.from({ length: 14 }).map((_, index) => (
 					<BookItemSkeleton key={index} />
 				))}
-			</S.SectionSearch>
+			</Box>
 		);
 	}
 
 	return (
 		<>
-			<S.SectionSearch>
-				<>
-					{books &&
-						books.documents.map((item: BookData, index: number) => (
-							<BookItem
-								item={item}
-								page={page}
-								id={index}
-								search={searchView || ''}
-								key={index}
-							></BookItem>
-						))}
-				</>
+			<Box
+				component='section'
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					width: '100%',
+					minHeight: '505px',
+					padding: '20px 0',
+					gap: '20px',
+					flexWrap: 'wrap',
+				}}
+			>
+				{books &&
+					books.documents.map((item: BookData, index: number) => (
+						<BookItem
+							item={item}
+							page={page}
+							id={index}
+							search={searchView || ''}
+							key={index}
+						></BookItem>
+					))}
 				{!isLoading && books.documents.length === 0 && (
 					<p>검색 결과가 없습니다.</p>
 				)}
-			</S.SectionSearch>
+			</Box>
 			{!isLoading && books.documents.length > 0 && (
 				<Paginaition
 					page={page}
