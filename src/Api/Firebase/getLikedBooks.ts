@@ -13,7 +13,7 @@ export const getLikedBooks = async (book?: string) => {
 		const result = likedQueryData.slice(0, 2);
 		return result;
 	} else if (book === 'home') {
-		const result = likedQueryData.slice(2, 14);
+		const result = likedQueryData.slice(2, 12);
 		return result;
 	}
 };
