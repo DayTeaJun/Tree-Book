@@ -20,6 +20,8 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						book: '#f3f1f2',
 						hover: '#d6d4d4',
 						mark: '#111',
+						btn: grey[500],
+						btnhover: grey[600],
 					},
 					text: {
 						primary: '#000',
@@ -34,7 +36,6 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						main: grey[700],
 						light: grey[600],
 						dark: grey[800],
-						hover: '#000',
 					},
 					background: {
 						default: grey[800],
@@ -44,6 +45,8 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						book: grey[700],
 						hover: grey[900],
 						mark: '#fff',
+						btn: grey[600],
+						btnhover: grey[700],
 					},
 					text: {
 						primary: '#fff',

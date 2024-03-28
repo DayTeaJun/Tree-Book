@@ -25,14 +25,74 @@ export const Modal = ({
 
 	return (
 		<Box sx={{ display: isOpen ? 'block' : 'none' }}>
-			<M.BackDrop onClick={() => setIsOpenModal(false)} />
-			<M.Container>
+			<Box
+				sx={{
+					position: 'fixed',
+					top: 0,
+					left: 0,
+					width: '100vw',
+					height: '100vh',
+					backgroundColor: 'rgba(0, 0, 0, 0.35)',
+				}}
+				onClick={() => setIsOpenModal(false)}
+			/>
+			<Box
+				sx={{
+					position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%,-50%)',
+					padding: '3em 4em',
+					backgroundColor: 'background.default',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center',
+					gap: '1em',
+				}}
+			>
 				<>{children}</>
 				<Box sx={{ display: 'flex', gap: '3em', marginTop: '1em' }}>
-					<M.Button onClick={() => handleConfirm()}>확인</M.Button>
-					<M.Button onClick={() => setIsOpenModal(false)}>취소</M.Button>
+					<Box
+						component='button'
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							backgroundColor: 'background.btn',
+							color: '#fff',
+							gap: '1em',
+							fontSize: '1.1em',
+							fontWeight: 'bold',
+							border: 'none',
+							padding: '1em 2em',
+							cursor: 'pointer',
+							'&:hover': { backgroundColor: 'background.btnhover' },
+						}}
+						onClick={() => handleConfirm()}
+					>
+						확인
+					</Box>
+					<Box
+						component='button'
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							backgroundColor: 'background.btn',
+							color: '#fff',
+							gap: '1em',
+							fontSize: '1.1em',
+							fontWeight: 'bold',
+							border: 'none',
+							padding: '1em 2em',
+							cursor: 'pointer',
+							'&:hover': { backgroundColor: 'background.btnhover' },
+						}}
+						onClick={() => setIsOpenModal(false)}
+					>
+						취소
+					</Box>
 				</Box>
-			</M.Container>
+			</Box>
 		</Box>
 	);
 };
