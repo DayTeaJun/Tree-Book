@@ -114,6 +114,7 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 					bottom: 0,
 					width: '100%',
 					height: '100%',
+					borderRadius: '5px',
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',

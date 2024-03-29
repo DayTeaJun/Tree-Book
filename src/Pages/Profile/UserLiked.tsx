@@ -72,7 +72,6 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 					<Box
 						sx={{
 							width: '100%',
-							minHeight: '250px',
 							display: 'flex',
 							padding: '1em 0',
 							gap: '10px',
