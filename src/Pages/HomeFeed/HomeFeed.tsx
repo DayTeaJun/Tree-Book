@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
-import { BookBest } from '../../Components/Books/BookBest';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
-import { Box, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
+import Carousel from 'react-material-ui-carousel';
 
 export default function HomeFeed() {
 	const {
@@ -20,7 +20,13 @@ export default function HomeFeed() {
 		<>
 			<Box
 				component='main'
-				sx={{ display: 'flex', width: '100%', padding: '20px 0', gap: '20px' }}
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					width: '100%',
+					padding: '20px 50px',
+					gap: '50px',
+				}}
 			>
 				<Box
 					component='section'
@@ -28,37 +34,139 @@ export default function HomeFeed() {
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '20px',
-						width: '30%',
+						width: '80%',
 						height: '100%',
+						margin: '0 auto',
 					}}
 				>
-					<Typography
-						component='h2'
-						fontSize='2em'
-						fontWeight='bold'
-						fontFamily='OG_Renaissance_Secret-Rg'
+					<Carousel
+						height='300px'
 						sx={{
-							width: '50%',
-							textAlign: 'center',
-							margin: '0 auto',
-							paddingBottom: '15px',
-							borderBottom: 'solid 1px #ccc',
+							width: '100%',
 						}}
 					>
-						Best
-					</Typography>
-					<BookBest />
+						{likedBooks &&
+							(likedBooks as BookData[]).map(
+								(item: BookData, index: number) => (
+									<Paper
+										key={index}
+										sx={{
+											width: '100%',
+											height: '100%',
+											display: 'flex',
+											justifyContent: 'space-between',
+											padding: '30px 70px',
+											gap: '20px',
+											borderBottom: '0.5px solid #ccc',
+											borderRadius: '0',
+											background: 'inherit',
+										}}
+									>
+										<Box
+											sx={{
+												display: 'flex',
+												flexDirection: 'column',
+												justifyContent: 'space-between',
+												width: '70%',
+											}}
+										>
+											<Box
+												sx={{
+													backgroundColor: 'background.book',
+													padding: '2px 8px',
+													borderRadius: '5px',
+													display: 'inline-block',
+													width: 'fit-content',
+													marginBottom: '-30px',
+												}}
+											>
+												<Typography
+													component='p'
+													fontSize='1em'
+													fontWeight='bold'
+													color='text.primary'
+												>
+													Best
+												</Typography>
+											</Box>
+											<Typography
+												component='h3'
+												fontSize='1.5em'
+												fontWeight='bold'
+												sx={{
+													whiteSpace: 'nowrap',
+													overflow: 'hidden',
+													textOverflow: 'ellipsis',
+													textDecoration: 'underline',
+													textDecorationColor: '#ccc',
+													textUnderlinePosition: 'under',
+												}}
+											>
+												{item.title}
+											</Typography>
+											<Typography
+												component='p'
+												fontSize='1.1em'
+												fontWeight='bold'
+												sx={{
+													whiteSpace: 'normal',
+													textOverflow: 'ellipsis',
+													display: '-webkit-box',
+													WebkitLineClamp: 2,
+													WebkitBoxOrient: 'vertical',
+													wordBreak: 'keep-all',
+													overflow: 'hidden',
+												}}
+											>
+												{item.contents.length > 1
+													? `『 ${item.contents} 』`
+													: ''}
+											</Typography>
+											<Typography
+												component='p'
+												fontSize={'1.1em'}
+												fontWeight={'bold'}
+												sx={{
+													color: 'text.secondary',
+												}}
+											>
+												{item.authors.length > 1
+													? item.authors.join(' | ')
+													: item.authors}{' '}
+												| {item.publisher}
+											</Typography>
+										</Box>
+										<Box
+											sx={{
+												width: 'calc(30% - 20px)',
+												marginLeft: 'auto',
+											}}
+										>
+											<img
+												style={{
+													width: '150px',
+													boxShadow: 'rgba(0, 0, 0, 0.5) 4.8px 4.8px 6.4px',
+												}}
+												src={item.thumbnail}
+												alt={`책 ${item.title}의 이미지`}
+											/>
+										</Box>
+									</Paper>
+								)
+							)}
+					</Carousel>
 				</Box>
+
 				<Box
 					component='section'
 					sx={{
 						display: 'flex',
-						width: 'calc(70% + 20px)',
+						width: '100%',
 						height: '100%',
 						gap: '20px',
 						flexWrap: 'wrap',
-						borderLeft: '1px solid #ccc',
-						paddingLeft: '20px',
+						paddingTop: '20px',
+						justifyContent: 'center',
 					}}
 				>
 					{likedBooks && (
