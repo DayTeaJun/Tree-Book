@@ -40,6 +40,8 @@ export default function HomeFeed() {
 					}}
 				>
 					<Carousel
+						animation='slide'
+						duration={600}
 						height='300px'
 						sx={{
 							width: '100%',
