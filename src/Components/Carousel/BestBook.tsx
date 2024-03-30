@@ -3,21 +3,30 @@ import { BookData } from '../../Types/bookType';
 import Carousel from 'react-material-ui-carousel';
 import { useQuery } from '@tanstack/react-query';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
+import { useNavigate } from 'react-router-dom';
 
 const BestBook = () => {
+	const navigate = useNavigate();
+
 	const {
 		data: likedBooks,
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['homeFeedLikedBooks'],
+		queryKey: ['bestBook'],
 		queryFn: () => getLikedBooks('best'),
 	});
+
+	const onMoveBookDetail = (isbn: string) => {
+		const likeIsbn =
+			isbn.split(' ')[0] === '' ? isbn.split(' ')[1] : isbn.split(' ')[0];
+		navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
+	};
 
 	return (
 		<Carousel
 			animation='slide'
-			duration={600}
+			duration={1000}
 			height='300px'
 			sx={{
 				width: '100%',
@@ -34,10 +43,12 @@ const BestBook = () => {
 							justifyContent: 'space-between',
 							padding: '30px 70px',
 							gap: '20px',
-							borderBottom: '0.5px solid #ccc',
+							boxShadow: 'none',
 							borderRadius: '0',
 							background: 'inherit',
+							cursor: 'pointer',
 						}}
+						onClick={() => onMoveBookDetail(item.isbn)}
 					>
 						<Box
 							sx={{
@@ -107,8 +118,9 @@ const BestBook = () => {
 							>
 								{item.authors.length > 1
 									? item.authors.join(' | ')
-									: item.authors}{' '}
-								| {item.publisher}
+									: item.authors}
+								{item.authors.length !== 0 && ' | '}
+								{item.publisher}
 							</Typography>
 						</Box>
 						<Box
