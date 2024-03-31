@@ -130,12 +130,12 @@ const BookLikes = ({
 					}}
 					onClick={() => mutaion.mutate()}
 				>
-					{like === false ? (
+					{!like ? (
 						<BookmarkBorderIcon fontSize='large' />
 					) : (
 						<BookmarkIcon fontSize='large' />
 					)}
-					{number !== 0 && (
+					{number !== 0 && number && (
 						<Typography component='p' fontSize='1em' fontWeight='bold'>
 							{number} 명
 						</Typography>
