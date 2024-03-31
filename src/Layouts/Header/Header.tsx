@@ -44,6 +44,7 @@ export default function Header() {
 					width: '100%',
 					backgroundColor: 'background.nav',
 					padding: '0.5em',
+					zIndex: 999,
 				}}
 			>
 				<Grid container>
