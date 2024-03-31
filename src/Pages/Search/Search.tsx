@@ -15,7 +15,7 @@ export default function Search() {
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['books', searchView, page],
-		queryFn: () => getBooks(searchView || '', 14, page),
+		queryFn: () => getBooks(searchView || '', 16, page),
 		enabled: !!searchView,
 		refetchOnWindowFocus: false,
 	});
@@ -34,7 +34,7 @@ export default function Search() {
 					flexWrap: 'wrap',
 				}}
 			>
-				{Array.from({ length: 14 }).map((_, index) => (
+				{Array.from({ length: 16 }).map((_, index) => (
 					<BookItemSkeleton key={index} />
 				))}
 			</Box>
@@ -49,7 +49,6 @@ export default function Search() {
 					display: 'flex',
 					justifyContent: 'center',
 					width: '100%',
-					minHeight: '505px',
 					padding: '20px 0',
 					gap: '20px',
 					flexWrap: 'wrap',

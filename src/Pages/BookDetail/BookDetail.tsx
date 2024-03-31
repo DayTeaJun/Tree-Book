@@ -27,7 +27,7 @@ export default function BookDetail() {
 			search &&
 			(pathname.indexOf('/like') !== -1
 				? getBooks(search, 1, page, 'isbn')
-				: getBooks(search, 14, page, 'title')),
+				: getBooks(search, 16, page, 'title')),
 		enabled: !!search,
 	});
 
