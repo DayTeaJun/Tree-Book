@@ -73,7 +73,7 @@ const BookLikes = ({
 					page,
 					createdTime,
 				});
-				if (setToast && setMessage && number) {
+				if (setToast && setMessage && number !== undefined) {
 					setNumber(number + 1);
 					setMessage('좋아요가 등록되었습니다.');
 					setToast(true);

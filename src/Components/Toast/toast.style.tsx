@@ -27,7 +27,7 @@ const Container = styled.div<{ position: 'bottom' | 'top' }>`
 	top: 5%;
 	right: 50%;
 	transform: translateX(-50%);
-	z-index: 20;
+	z-index: 1000;
 	display: flex;
 	height: 3rem;
 	width: 25%;
