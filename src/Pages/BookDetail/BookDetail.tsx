@@ -40,8 +40,6 @@ export default function BookDetail() {
 		}
 	}, [books]);
 
-	console.log(item);
-
 	if (isLoading) {
 		return <Loading BackDrop={true} />;
 	}

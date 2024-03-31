@@ -11,7 +11,6 @@ export const getLikedBooks = async (book?: string) => {
 	);
 	if (book === 'best') {
 		const result = likedQueryData.slice(0, 5);
-		console.log(result);
 		return result;
 	} else if (book === 'home') {
 		const result = likedQueryData.slice(5, 12);

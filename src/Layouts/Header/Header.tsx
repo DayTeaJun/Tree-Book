@@ -25,8 +25,6 @@ export default function Header() {
 		setSearch(inputRef.current.value);
 	};
 
-	console.log(search);
-
 	useEffect(() => {
 		if (search !== '') {
 			navigate(`/search/${search}/1`);

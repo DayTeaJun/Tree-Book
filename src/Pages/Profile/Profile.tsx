@@ -6,16 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { UserComment } from './UserComment';
 import { Box, Typography } from '@mui/material';
-import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();
-	const { withDrawal } = useWithdrawal();
-	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	const {
 		data: documents,
