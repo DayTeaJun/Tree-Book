@@ -22,8 +22,8 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 	return (
 		<Box
 			sx={{
-				width: '120px',
-				height: '210px',
+				width: '140px',
+				height: '200px',
 				borderRadius: '5px',
 				padding: '10px',
 				backgroundColor: 'background.book',
@@ -31,30 +31,10 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 		>
 			<Box
 				sx={{
-					width: '100px',
-					height: '140px',
+					width: '100%',
+					height: '100%',
 					borderRadius: '10px',
 					overflow: 'hidden',
-				}}
-			>
-				<Shimmer />
-			</Box>
-			<Box
-				sx={{
-					width: '100px',
-					height: '14px',
-					overflow: 'hidden',
-					marginTop: '10px',
-				}}
-			>
-				<Shimmer />
-			</Box>
-			<Box
-				sx={{
-					width: '100px',
-					height: '12px',
-					overflow: 'hidden',
-					marginTop: '10px',
 				}}
 			>
 				<Shimmer />

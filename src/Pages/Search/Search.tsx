@@ -28,7 +28,6 @@ export default function Search() {
 					display: 'flex',
 					justifyContent: 'center',
 					width: '100%',
-					minHeight: '505px',
 					padding: '20px 0',
 					gap: '20px',
 					flexWrap: 'wrap',
@@ -47,7 +46,6 @@ export default function Search() {
 				component='section'
 				sx={{
 					display: 'flex',
-					justifyContent: 'center',
 					width: '100%',
 					padding: '20px 0',
 					gap: '20px',
