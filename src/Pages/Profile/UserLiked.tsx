@@ -80,6 +80,7 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 							'&::-webkit-scrollbar': {
 								height: '10px',
 								borderRadius: '6px',
+								backgroundColor: 'background.book',
 							},
 							'&::-webkit-scrollbar-thumb': {
 								backgroundColor: 'background.hover',

@@ -82,6 +82,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 							'&::-webkit-scrollbar': {
 								width: '10px',
 								borderRadius: '6px',
+								backgroundColor: 'background.book',
 							},
 							'&::-webkit-scrollbar-thumb': {
 								backgroundColor: 'background.hover',
