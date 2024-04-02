@@ -4,6 +4,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { Box } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
+import { Helmet } from 'react-helmet-async';
 
 export default function HomeFeed() {
 	const {
@@ -17,6 +18,9 @@ export default function HomeFeed() {
 
 	return (
 		<>
+			<Helmet>
+				<title>TreeBook - 책들의 나무</title>
+			</Helmet>
 			<Box
 				component='main'
 				sx={{

@@ -24,6 +24,7 @@ import { Modal } from '../../Components/Modal/Modal';
 import { M } from '../../Components/Modal/modal.style';
 import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { Label } from '../../Styles/Common';
+import { Helmet } from 'react-helmet-async';
 
 export default function ProfileEdit() {
 	const { user } = useAuthContext();
@@ -121,6 +122,9 @@ export default function ProfileEdit() {
 
 	return (
 		<>
+			<Helmet>
+				<title>프로필 수정 - TreeBook</title>
+			</Helmet>
 			<Box
 				component='main'
 				sx={{

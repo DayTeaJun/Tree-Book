@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthContextProvider } from './Context/AuthContext';
 import { DarkModeProvider } from './Context/DarkModeContext';
 import { CssBaseline } from '@mui/material';
+import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,9 @@ root.render(
 		<QueryClientProvider client={queryClient}>
 			<DarkModeProvider>
 				<CssBaseline />
-				<App />
+				<HelmetProvider>
+					<App />
+				</HelmetProvider>
 			</DarkModeProvider>
 		</QueryClientProvider>
 	</AuthContextProvider>

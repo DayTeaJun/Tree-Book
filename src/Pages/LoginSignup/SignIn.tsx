@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEventHandler, useState } from 'react';
 import { useLogin } from '../../Hook/FirebaseHook/useLogin';
+import { Helmet } from 'react-helmet-async';
 
 export default function SignIn() {
 	const [email, setEmail] = useState('');
@@ -28,6 +29,9 @@ export default function SignIn() {
 
 	return (
 		<Container component='main' maxWidth='lg'>
+			<Helmet>
+				<title>로그인 - TreeBook</title>
+			</Helmet>
 			<Box
 				sx={{
 					marginTop: 8,

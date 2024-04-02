@@ -6,6 +6,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { Paginaition } from '../../Components/Pagination/Pagination';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { Box } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 
 export default function Search() {
 	const { searchView, page } = useParams<{
@@ -42,6 +43,9 @@ export default function Search() {
 
 	return (
 		<>
+			<Helmet>
+				<title>"{searchView}" 검색 결과 - TreeBook</title>
+			</Helmet>
 			<Box
 				component='section'
 				sx={{

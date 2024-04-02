@@ -7,6 +7,7 @@ import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { UserComment } from './UserComment';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export default function Profile() {
 	const { user } = useAuthContext();
@@ -42,115 +43,124 @@ export default function Profile() {
 	}
 
 	return (
-		<Box
-			component='main'
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				padding: '20px 24px',
-				marginTop: '20px',
-				minHeight: '450px',
-				gap: '10px',
-			}}
-		>
-			{userId &&
-				documents &&
-				documents.map(
-					(users) =>
-						userId === users.displayName && (
-							<Box
-								component='section'
-								sx={{
-									width: '100%',
-									height: '100%',
-									display: 'flex',
-									overflow: 'hidden',
-									gap: '20px',
-								}}
-								key={users.uid}
-							>
+		<>
+			<Box
+				component='main'
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					padding: '20px 24px',
+					marginTop: '20px',
+					minHeight: '450px',
+					gap: '10px',
+				}}
+			>
+				{userId &&
+					documents &&
+					documents.map(
+						(users) =>
+							userId === users.displayName && (
 								<Box
+									component='section'
 									sx={{
-										minWidth: '30%',
-										minHeight: '286px',
-										flexShrink: 1,
+										width: '100%',
+										height: '100%',
 										display: 'flex',
-										flexDirection: 'column',
-										alignItems: 'center',
-										justifyContent: 'center',
+										overflow: 'hidden',
 										gap: '20px',
-										borderRight: '1px solid #ccc',
 									}}
+									key={users.uid}
 								>
+									<Helmet>
+										<title>{users.displayName}님의 프로필 - TreeBook</title>
+									</Helmet>
 									<Box
 										sx={{
-											width: '200px',
-											height: '200px',
-											borderRadius: '1em',
-											border: 'solid 1px #ccc',
+											minWidth: '30%',
+											minHeight: '286px',
 											flexShrink: 1,
-											overflow: 'hidden',
+											display: 'flex',
+											flexDirection: 'column',
+											alignItems: 'center',
+											justifyContent: 'center',
+											gap: '20px',
+											borderRight: '1px solid #ccc',
 										}}
 									>
-										<img
-											src={
-												(userId === (user && user.displayName) &&
-													user &&
-													user.photoURL) ||
-												users.photoURL
-											}
-											alt={`${users.displayName}의 프로필 사진입니다.`}
+										<Box
+											sx={{
+												width: '200px',
+												height: '200px',
+												borderRadius: '1em',
+												border: 'solid 1px #ccc',
+												flexShrink: 1,
+												overflow: 'hidden',
+											}}
+										>
+											<img
+												src={
+													(userId === (user && user.displayName) &&
+														user &&
+														user.photoURL) ||
+													users.photoURL
+												}
+												alt={`${users.displayName}의 프로필 사진입니다.`}
+											/>
+										</Box>
+										<Typography
+											component='h2'
+											fontSize='1.5em'
+											fontWeight='bold'
+										>
+											{users.displayName}
+										</Typography>
+										<Typography component='p' fontSize='1em' textAlign='center'>
+											{users.intro || ''}
+										</Typography>
+										{userId === (user && user.displayName) && (
+											<>
+												<Link to='./edit' state={{ intro: users.intro }}>
+													<Typography
+														component='p'
+														fontSize='1em'
+														textAlign='center'
+														fontWeight='700'
+														color='text.primary'
+														sx={{
+															width: '100%',
+															padding: '10px 20px',
+															borderRadius: '10px',
+															backgroundColor: 'background.book',
+															'&:hover': {
+																backgroundColor: 'background.hover',
+															},
+														}}
+													>
+														프로필 수정
+													</Typography>
+												</Link>
+											</>
+										)}
+									</Box>
+									<Box
+										sx={{
+											width: 'calc(70% - 160px)',
+											display: 'flex',
+											flexDirection: 'column',
+											gap: '30px',
+										}}
+									>
+										<UserLiked uid={users.uid} />
+										<UserComment
+											uid={users.uid}
+											displayName={users.displayName}
 										/>
 									</Box>
-									<Typography component='h2' fontSize='1.5em' fontWeight='bold'>
-										{users.displayName}
-									</Typography>
-									<Typography component='p' fontSize='1em' textAlign='center'>
-										{users.intro || ''}
-									</Typography>
-									{userId === (user && user.displayName) && (
-										<>
-											<Link to='./edit' state={{ intro: users.intro }}>
-												<Typography
-													component='p'
-													fontSize='1em'
-													textAlign='center'
-													fontWeight='700'
-													color='text.primary'
-													sx={{
-														width: '100%',
-														padding: '10px 20px',
-														borderRadius: '10px',
-														backgroundColor: 'background.book',
-														'&:hover': {
-															backgroundColor: 'background.hover',
-														},
-													}}
-												>
-													프로필 수정
-												</Typography>
-											</Link>
-										</>
-									)}
 								</Box>
-								<Box
-									sx={{
-										width: 'calc(70% - 160px)',
-										display: 'flex',
-										flexDirection: 'column',
-										gap: '30px',
-									}}
-								>
-									<UserLiked uid={users.uid} />
-									<UserComment
-										uid={users.uid}
-										displayName={users.displayName}
-									/>
-								</Box>
-							</Box>
-						)
-				)}
-		</Box>
+							)
+					)}
+			</Box>
+		</>
 	);
 }

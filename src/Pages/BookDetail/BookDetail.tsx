@@ -9,6 +9,7 @@ import BookLikes from '../../Components/Books/BookLikes';
 import Loading from '../../Components/LoadingSpinner/Loading';
 import ToastPopup from '../../Components/Toast/Toast';
 import { Box, Typography } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 
 export default function BookDetail() {
 	const { id, search, page } = useParams<{
@@ -49,6 +50,9 @@ export default function BookDetail() {
 			<Box component='main' sx={{ display: 'flex', flexDirection: 'column' }}>
 				{item && !isLoading ? (
 					<>
+						<Helmet>
+							<title>{item.title} - TreeBook</title>
+						</Helmet>
 						<Box
 							component='section'
 							sx={{ display: 'flex', gap: '20px', padding: '20px 0' }}

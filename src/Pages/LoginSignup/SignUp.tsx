@@ -12,6 +12,7 @@ import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import ToastPopup from '../../Components/Toast/Toast';
 import { Label } from '../../Styles/Common';
 import { Box, Grid, Input } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 
 export default function SignUp() {
 	const { error, isPending, signup } = useSignup();
@@ -35,6 +36,9 @@ export default function SignUp() {
 
 	return (
 		<Container component='main' maxWidth='xs'>
+			<Helmet>
+				<title>회원가입 - TreeBook</title>
+			</Helmet>
 			<Box
 				sx={{
 					marginTop: 8,
