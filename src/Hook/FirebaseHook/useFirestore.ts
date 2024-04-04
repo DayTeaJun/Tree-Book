@@ -1,12 +1,4 @@
-import {
-	DocumentData,
-	DocumentReference,
-	addDoc,
-	collection,
-	deleteDoc,
-	doc,
-	setDoc,
-} from 'firebase/firestore';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { FirebaseError } from 'firebase/app';
@@ -70,10 +62,8 @@ export const useFirestore = (
 	const addDocument = async (docs: FirestoreDocument) => {
 		dispatch({ type: 'isPending' });
 		try {
-			const createdTime = timestamp.fromDate(new Date());
 			const docRef = (await setDoc(doc(colRef, name), {
 				...docs,
-				createdTime,
 			})) as any;
 			dispatch({ type: 'addDoc', payload: docRef });
 		} catch (error) {
