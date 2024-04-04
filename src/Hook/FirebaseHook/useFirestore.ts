@@ -1,4 +1,12 @@
-import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
+import {
+	DocumentData,
+	DocumentReference,
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	setDoc,
+} from 'firebase/firestore';
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { FirebaseError } from 'firebase/app';
@@ -53,14 +61,20 @@ interface FirestoreHook {
 	response: StoreState;
 }
 
-export const useFirestore = (transaction: string): FirestoreHook => {
+export const useFirestore = (
+	transaction: string,
+	name?: string
+): FirestoreHook => {
 	const [response, dispatch] = useReducer(storeReducer, initState);
 	const colRef = collection(appFirestore, transaction);
-	const addDocument = async (doc: FirestoreDocument, id?: string) => {
+	const addDocument = async (docs: FirestoreDocument) => {
 		dispatch({ type: 'isPending' });
 		try {
 			const createdTime = timestamp.fromDate(new Date());
-			const docRef = await addDoc(colRef, { ...doc, createdTime });
+			const docRef = (await setDoc(doc(colRef, name), {
+				...docs,
+				createdTime,
+			})) as any;
 			dispatch({ type: 'addDoc', payload: docRef });
 		} catch (error) {
 			const firebaseError = error as FirebaseError;

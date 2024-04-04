@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Context/useAuthContext';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ToastPopup from '../Toast/Toast';
@@ -13,13 +13,11 @@ export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const [toast, setToast] = useState(false);
 	const [message, setMessage] = useState('');
-	const { addDocument, response } = useFirestore('comments');
+	const { addDocument, response } = useFirestore('BooksLikes', item.isbn);
 	const { user } = useAuthContext();
-	const location = useLocation();
 	const queryClient = useQueryClient();
 
 	const book: string = useParams().search || '';
-	const isbn = location.state.isbn;
 
 	const displayName = (user && user.displayName) || '';
 	const id = (user && user.uid) || '';
@@ -130,7 +128,7 @@ export function CommentForm({ item }: BookLikesProps) {
 					</Box>
 				</Box>
 			</Box>
-			<CommentList isbn={isbn} />
+			<CommentList isbn={item.isbn} />
 			{toast && (
 				<ToastPopup setToast={setToast} message={message} position={'top'} />
 			)}
