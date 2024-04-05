@@ -31,6 +31,8 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 		return <UserLikedSkeleton />;
 	}
 
+	console.log(userBooks);
+
 	return (
 		<>
 			{userBooks && (

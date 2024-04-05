@@ -7,6 +7,7 @@ import { Box, Typography } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
+import { timestamp } from '../../Firebase/config';
 
 const BookLikes = ({
 	item,
@@ -62,10 +63,12 @@ const BookLikes = ({
 			const likedUser = documents.find((book) => book.isbn === isbn);
 			const uid = user.uid;
 			let likeBy;
+			const createdTime = timestamp.fromDate(new Date());
 			if (!like) {
 				likeBy = { ...likedUser?.likeBy, [uid]: !like };
 				addMutation.mutate({
 					...item,
+					createdTime,
 					likeBy,
 					id,
 					search,
@@ -84,6 +87,7 @@ const BookLikes = ({
 				} else {
 					addMutation.mutate({
 						...item,
+						createdTime,
 						likeBy,
 						id,
 						search,
