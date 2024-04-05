@@ -67,11 +67,12 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 							},
 						}}
 					>
-						내가 좋아요한 책들
+						내가 즐겨찾기한 책들
 					</Typography>
 					<Box
 						sx={{
 							width: '100%',
+							minHeight: '228px',
 							display: 'flex',
 							padding: '1em 0',
 							gap: '10px',
@@ -108,7 +109,7 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 									margin: '0 auto',
 								}}
 							>
-								<p>아직 좋아요한 책이 없습니다.</p>
+								<p>아직 즐겨찾기한 책이 없습니다.</p>
 							</Box>
 						)}
 					</Box>

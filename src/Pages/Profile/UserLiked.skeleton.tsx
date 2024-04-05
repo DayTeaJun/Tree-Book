@@ -53,7 +53,7 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 				<Box
 					sx={{
 						width: '100%',
-						minHeight: '250px',
+						minHeight: '228px',
 						display: 'flex',
 						padding: '1em 0',
 						gap: '10px',
@@ -62,15 +62,15 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 						'&::-webkit-scrollbar': {
 							height: '10px',
 							borderRadius: '6px',
+							backgroundColor: 'background.book',
 						},
 						'&::-webkit-scrollbar-thumb': {
 							backgroundColor: 'background.hover',
 							borderRadius: '6px',
 						},
 					}}
-					style={{ width: '665px', height: '230px', overflow: 'hidden' }}
 				>
-					{Array.from({ length: 6 }).map((_, index) => (
+					{Array.from({ length: 5 }).map((_, index) => (
 						<BookItemSkeleton key={index} />
 					))}
 				</Box>

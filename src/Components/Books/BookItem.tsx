@@ -106,63 +106,63 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 				) : (
 					<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
 				)}
-			</Box>
-			<Box
-				sx={{
-					position: 'absolute',
-					left: 0,
-					bottom: 0,
-					width: '100%',
-					height: '100%',
-					borderRadius: '5px',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					justifyContent: 'center',
-					gap: '5px',
-					padding: '15px',
-					opacity: '0',
-					'&:hover': {
-						backgroundColor: 'background.hover',
-						opacity: '0.9',
-					},
-				}}
-			>
-				<Typography
-					component='h2'
-					fontSize={'1em'}
-					fontWeight={'bold'}
+				<Box
 					sx={{
+						position: 'absolute',
+						left: 0,
+						bottom: 0,
 						width: '100%',
-						textAlign: 'center',
-						color: 'text.primary',
-						marginTop: '5px',
-						whiteSpace: 'normal',
-						textOverflow: 'ellipsis',
-						display: '-webkit-box',
-						WebkitLineClamp: 4,
-						WebkitBoxOrient: 'vertical',
-						wordBreak: 'keep-all',
-						overflow: 'hidden',
+						height: '100%',
+						borderRadius: '5px',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
+						gap: '5px',
+						padding: '15px',
+						opacity: '0',
+						'&:hover': {
+							backgroundColor: 'background.hover',
+							opacity: '0.9',
+						},
 					}}
 				>
-					{item.title}
-				</Typography>
-				<Typography
-					component='p'
-					fontSize={'0.9em'}
-					fontWeight={'bold'}
-					sx={{
-						width: '100%',
-						textAlign: 'center',
-						color: 'text.secondary',
-						whiteSpace: 'nowrap',
-						overflow: 'hidden',
-						textOverflow: 'ellipsis',
-					}}
-				>
-					{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
-				</Typography>
+					<Typography
+						component='h2'
+						fontSize={'1em'}
+						fontWeight={'bold'}
+						sx={{
+							width: '100%',
+							textAlign: 'center',
+							color: 'text.primary',
+							marginTop: '5px',
+							whiteSpace: 'normal',
+							textOverflow: 'ellipsis',
+							display: '-webkit-box',
+							WebkitLineClamp: 4,
+							WebkitBoxOrient: 'vertical',
+							wordBreak: 'keep-all',
+							overflow: 'hidden',
+						}}
+					>
+						{item.title}
+					</Typography>
+					<Typography
+						component='p'
+						fontSize={'0.9em'}
+						fontWeight={'bold'}
+						sx={{
+							width: '100%',
+							textAlign: 'center',
+							color: 'text.secondary',
+							whiteSpace: 'nowrap',
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+						}}
+					>
+						{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
+					</Typography>
+				</Box>
 			</Box>
 		</Box>
 	);
