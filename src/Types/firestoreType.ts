@@ -27,4 +27,6 @@ export interface FirestoreDocument {
 	like?: boolean;
 	likeBy?: { [key: string]: boolean };
 	intro?: string;
+	search?: string
+	page?: string
 }

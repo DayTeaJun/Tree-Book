@@ -1,13 +1,12 @@
 import { BookLikesProps } from '../../Types/bookType';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
-import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
-import { appFirestore, timestamp } from '../../Firebase/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { Box, Typography } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 
 const BookLikes = ({
 	item,
@@ -23,8 +22,8 @@ const BookLikes = ({
 	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
 	const [like, setLike] = useState<boolean | undefined>(likedUser);
 	const [number, setNumber] = useState<number | undefined>();
-	const booksRef = doc(collection(appFirestore, 'BooksLikes'), isbn);
 	const queryClient = useQueryClient();
+	const { addDocument, deleteDocument } = useFirestore('BooksLikes', isbn);
 
 	const {
 		data: documents,
@@ -53,6 +52,7 @@ const BookLikes = ({
 				}
 			} else {
 				setLike(false);
+				setNumber(0);
 			}
 		}
 	}, [documents]);
@@ -61,17 +61,15 @@ const BookLikes = ({
 		if (user && documents) {
 			const likedUser = documents.find((book) => book.isbn === isbn);
 			const uid = user.uid;
-			const createdTime = timestamp.fromDate(new Date());
 			let likeBy;
 			if (!like) {
 				likeBy = { ...likedUser?.likeBy, [uid]: !like };
-				await setDoc(booksRef, {
+				addMutation.mutate({
 					...item,
 					likeBy,
 					id,
 					search,
 					page,
-					createdTime,
 				});
 				if (setToast && setMessage && number !== undefined) {
 					setNumber(number + 1);
@@ -82,15 +80,14 @@ const BookLikes = ({
 				likeBy = { ...likedUser?.likeBy };
 				delete likeBy[uid];
 				if (Object.keys(likeBy).length === 0) {
-					await deleteDoc(booksRef);
+					delMutation.mutate(isbn);
 				} else {
-					await setDoc(booksRef, {
+					addMutation.mutate({
 						...item,
 						likeBy,
 						id,
 						search,
 						page,
-						createdTime,
 					});
 				}
 				if (setToast && setMessage && number) {
@@ -107,8 +104,18 @@ const BookLikes = ({
 		}
 	};
 
-	const mutaion = useMutation({
-		mutationFn: handleLikes,
+	const addMutation = useMutation({
+		mutationFn: addDocument,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
+		},
+		onError: () => {
+			console.log('Error');
+		},
+	});
+
+	const delMutation = useMutation({
+		mutationFn: deleteDocument,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
 		},
@@ -128,7 +135,7 @@ const BookLikes = ({
 						color: 'background.mark',
 						cursor: 'pointer',
 					}}
-					onClick={() => mutaion.mutate()}
+					onClick={() => handleLikes()}
 				>
 					{!like ? (
 						<BookmarkBorderIcon fontSize='large' />
