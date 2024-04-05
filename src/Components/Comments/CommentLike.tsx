@@ -2,18 +2,13 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
-import {
-	collection,
-	deleteField,
-	doc,
-	setDoc,
-	updateDoc,
-} from 'firebase/firestore';
+import { collection, deleteField, doc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 import ToastPopup from '../Toast/Toast';
+import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
@@ -21,6 +16,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const [likeAlready, setLikeAlready] = useState(false);
 	const [toast, setToast] = useState(false);
 	const [message, setMessage] = useState('');
+	const { addDocument } = useFirestore('comments', uid);
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
 	const queryClient = useQueryClient();
 
@@ -29,6 +25,16 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 		setLikeAlready(likedUser);
 	}, [item]);
 
+	const mutation = useMutation({
+		mutationFn: addDocument,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['comments'] });
+		},
+		onError: () => {
+			console.log('Error');
+		},
+	});
+
 	const handleLike = async () => {
 		if (user) {
 			if (item && uid) {
@@ -36,10 +42,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 				if (!likeAlready) {
 					likeBy = { ...item.likeBy, [user.uid]: true };
 					setLikeAlready(true);
-					await setDoc(commentRef, {
-						...item,
-						likeBy,
-					});
+					mutation.mutate({ ...item, likeBy });
 					setMessage('좋아요가 등록되었습니다.');
 					setToast(true);
 				} else if (likeAlready) {
@@ -50,10 +53,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 							likeBy: deleteField(),
 						});
 					} else {
-						await setDoc(commentRef, {
-							...item,
-							likeBy,
-						});
+						mutation.mutate({ ...item, likeBy });
 					}
 					setMessage('좋아요가 취소되었습니다.');
 					setToast(true);
