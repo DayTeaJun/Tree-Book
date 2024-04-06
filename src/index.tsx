@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthContextProvider } from './Context/AuthContext';
-import { DarkModeProvider } from './Context/DarkModeContext';
+import { MuiProvider } from './Context/MuiContext';
 import { CssBaseline } from '@mui/material';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -15,12 +15,12 @@ const root = ReactDOM.createRoot(
 root.render(
 	<AuthContextProvider>
 		<QueryClientProvider client={queryClient}>
-			<DarkModeProvider>
+			<MuiProvider>
 				<CssBaseline />
 				<HelmetProvider>
 					<App />
 				</HelmetProvider>
-			</DarkModeProvider>
+			</MuiProvider>
 		</QueryClientProvider>
 	</AuthContextProvider>
 );

@@ -8,15 +8,9 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { timestamp } from '../../Firebase/config';
+import { useSnackbar } from 'notistack';
 
-const BookLikes = ({
-	item,
-	id,
-	search,
-	page,
-	setToast,
-	setMessage,
-}: BookLikesProps) => {
+const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const { user } = useAuthContext();
 	const isbn = item.isbn;
 	const { likeBy }: any = item;
@@ -25,6 +19,7 @@ const BookLikes = ({
 	const [number, setNumber] = useState<number | undefined>();
 	const queryClient = useQueryClient();
 	const { addDocument, deleteDocument } = useFirestore('BooksLikes', isbn);
+	const { enqueueSnackbar } = useSnackbar();
 
 	const {
 		data: documents,
@@ -74,10 +69,9 @@ const BookLikes = ({
 					search,
 					page,
 				});
-				if (setToast && setMessage && number !== undefined) {
+				if (number !== undefined) {
 					setNumber(number + 1);
-					setMessage('좋아요가 등록되었습니다.');
-					setToast(true);
+					enqueueSnackbar('즐겨찾기가 등록되었습니다.');
 				}
 			} else {
 				likeBy = { ...likedUser?.likeBy };
@@ -94,17 +88,13 @@ const BookLikes = ({
 						page,
 					});
 				}
-				if (setToast && setMessage && number) {
+				if (number) {
 					setNumber(number - 1);
-					setMessage('좋아요가 취소되었습니다.');
-					setToast(true);
+					enqueueSnackbar('즐겨찾기가 취소되었습니다.');
 				}
 			}
 		} else {
-			if (setToast && setMessage) {
-				setMessage('로그인이 필요합니다!');
-				setToast(true);
-			}
+			enqueueSnackbar('로그인이 필요합니다!');
 		}
 	};
 
@@ -113,8 +103,9 @@ const BookLikes = ({
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
 		},
-		onError: () => {
-			console.log('Error');
+		onError: (error) => {
+			enqueueSnackbar('즐겨찾기가 오류로 인해 실패하였습니다.');
+			console.log(error);
 		},
 	});
 
@@ -123,8 +114,9 @@ const BookLikes = ({
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
 		},
-		onError: () => {
-			console.log('Error');
+		onError: (error) => {
+			enqueueSnackbar('즐겨찾기 취소가 오류로 인해 실패하였습니다.');
+			console.log(error);
 		},
 	});
 

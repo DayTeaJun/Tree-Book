@@ -1,7 +1,7 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Switch from '@mui/material/Switch';
-import { useDarkMode } from '../../Context/DarkModeContext';
+import { useDarkMode } from '../../Context/MuiContext';
 
 export default function DarkToggle() {
 	const { mode, toggleDarkMode } = useDarkMode();
