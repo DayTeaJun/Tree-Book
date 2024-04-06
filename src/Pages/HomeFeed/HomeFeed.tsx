@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
-import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { Box } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
@@ -14,7 +13,7 @@ export default function HomeFeed() {
 		error,
 	} = useQuery({
 		queryKey: ['homeFeedLikedBooks'],
-		queryFn: () => getBestcomments('comments'),
+		queryFn: () => getBestcomments('BooksLikes'),
 	});
 
 	return (

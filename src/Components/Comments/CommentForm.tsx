@@ -3,11 +3,14 @@ import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../Types/bookType';
 import { Box, InputBase, Typography } from '@mui/material';
 import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
+import { getDocuments } from '../../Api/Firebase/getDocuments';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { appFirestore, timestamp } from '../../Firebase/config';
 
 export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
@@ -24,6 +27,15 @@ export function CommentForm({ item }: BookLikesProps) {
 	const id = (user && user.uid) || '';
 	const photoURL = (user && user.photoURL) || '';
 
+	const {
+		data: documents,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['BooksLikes', isbn],
+		queryFn: () => getDocuments('BooksLikes', isbn),
+	});
+
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
 	};
@@ -39,7 +51,7 @@ export function CommentForm({ item }: BookLikesProps) {
 		},
 	});
 
-	const handleSubmit: FormEventHandler = (e) => {
+	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();
 		if (user) {
 			mutation.mutate({
@@ -50,6 +62,15 @@ export function CommentForm({ item }: BookLikesProps) {
 				id,
 				photoURL,
 			});
+			if (documents) {
+				const commentTotalNumber = documents[0].commentTotalNumber ?? 0;
+
+				await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
+					...documents[0],
+					...item,
+					commentTotalNumber: commentTotalNumber + 1,
+				});
+			}
 			enqueueSnackbar('댓글이 등록되었습니다.');
 		} else {
 			enqueueSnackbar('로그인이 필요합니다!');
