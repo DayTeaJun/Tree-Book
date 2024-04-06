@@ -20,7 +20,7 @@ export default function Profile() {
 		error,
 	} = useQuery({
 		queryKey: ['user', userProfile],
-		queryFn: () => getUser('user', userProfile),
+		queryFn: () => getUser('user', userProfile ?? ''),
 	});
 
 	return (
