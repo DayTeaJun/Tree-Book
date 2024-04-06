@@ -1,9 +1,10 @@
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
 export function ImgPreview() {
 	const [imageSrc, setImageSrc]: any = useState(null);
 	const [imgUrl, setImgUrl] = useState(null);
-	const [imgFilter, setImgFilter] = useState(false);
+	const { enqueueSnackbar } = useSnackbar();
 
 	const onUpload = (e: any) => {
 		const fileRegex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
@@ -23,7 +24,7 @@ export function ImgPreview() {
 					};
 				});
 			} else {
-				setImgFilter(true);
+				enqueueSnackbar('이미지만 등록할 수 있습니다!');
 				return;
 			}
 		} else {
@@ -31,5 +32,5 @@ export function ImgPreview() {
 		}
 	};
 
-	return { imageSrc, imgUrl, imgFilter, setImgFilter, onUpload };
+	return { imageSrc, imgUrl, onUpload };
 }

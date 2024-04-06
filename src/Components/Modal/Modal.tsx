@@ -1,4 +1,3 @@
-import { M } from './modal.style';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ModalType } from '../../Types/componentType';
@@ -9,17 +8,15 @@ export const Modal = ({
 	children,
 	promise,
 	mutationFn,
-	setToast,
 }: ModalType) => {
 	const navigate = useNavigate();
 	const handleConfirm = async () => {
 		if (promise) {
 			await promise();
 			navigate('/');
-		} else if (mutationFn && setToast) {
+		} else if (mutationFn) {
 			mutationFn();
 			setIsOpenModal(false);
-			setToast(true);
 		}
 	};
 

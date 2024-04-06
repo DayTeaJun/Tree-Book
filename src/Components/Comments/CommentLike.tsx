@@ -7,18 +7,17 @@ import { appFirestore } from '../../Firebase/config';
 import { CommentType } from '../../Types/userType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
-import ToastPopup from '../Toast/Toast';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
+import { useSnackbar } from 'notistack';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
 	const { likeBy }: any = item;
 	const [likeAlready, setLikeAlready] = useState(false);
-	const [toast, setToast] = useState(false);
-	const [message, setMessage] = useState('');
 	const { addDocument } = useFirestore('comments', uid);
 	const commentRef = doc(collection(appFirestore, 'comments'), uid);
 	const queryClient = useQueryClient();
+	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
 		const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
@@ -30,8 +29,9 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
 		},
-		onError: () => {
-			console.log('Error');
+		onError: (error) => {
+			enqueueSnackbar('좋아요가 실패하였습니다.');
+			console.log(error);
 		},
 	});
 
@@ -43,8 +43,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					likeBy = { ...item.likeBy, [user.uid]: true };
 					setLikeAlready(true);
 					mutation.mutate({ ...item, likeBy });
-					setMessage('좋아요가 등록되었습니다.');
-					setToast(true);
+					enqueueSnackbar('좋아요가 등록되었습니다.');
 				} else if (likeAlready) {
 					likeBy = { ...item.likeBy };
 					delete likeBy[user.uid];
@@ -55,16 +54,13 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					} else {
 						mutation.mutate({ ...item, likeBy });
 					}
-					setMessage('좋아요가 취소되었습니다.');
-					setToast(true);
-					setLikeAlready(false);
+					enqueueSnackbar('좋아요가 취소되었습니다.');
 				}
 
 				queryClient.invalidateQueries({ queryKey: ['comments'] });
 			}
 		} else {
-			setMessage('로그인이 필요합니다!');
-			setToast(true);
+			enqueueSnackbar('로그인이 필요합니다!');
 		}
 	};
 
@@ -99,9 +95,6 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 						Object.keys(likeBy).length}
 				</Typography>
 			</Box>
-			{toast && (
-				<ToastPopup setToast={setToast} message={message} position={'top'} />
-			)}
 		</>
 	);
 };

@@ -7,7 +7,6 @@ import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
 import BookLikes from '../../Components/Books/BookLikes';
 import Loading from '../../Components/LoadingSpinner/Loading';
-import ToastPopup from '../../Components/Toast/Toast';
 import { Box, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
@@ -19,8 +18,6 @@ export default function BookDetail() {
 	}>();
 	const [item, setItem] = useState<BookData>();
 	const { pathname } = useLocation();
-	const [toast, setToast] = useState(false);
-	const [message, setMessage] = useState('');
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookDetail', page, search],
@@ -108,14 +105,7 @@ export default function BookDetail() {
 									>
 										{item.title}
 									</Typography>
-									<BookLikes
-										item={item}
-										id={id}
-										search={search}
-										page={page}
-										setMessage={setMessage}
-										setToast={setToast}
-									/>
+									<BookLikes item={item} id={id} search={search} page={page} />
 								</Box>
 								<Typography component='dl' sx={{ display: 'flex' }}>
 									<Typography
@@ -245,9 +235,6 @@ export default function BookDetail() {
 					</>
 				) : (
 					<>{item && <h2>not found</h2>}</>
-				)}
-				{toast && (
-					<ToastPopup setToast={setToast} message={message} position={'top'} />
 				)}
 			</Box>
 		</>

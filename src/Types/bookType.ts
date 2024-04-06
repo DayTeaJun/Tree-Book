@@ -42,7 +42,6 @@ export interface BookLikesProps {
 	search?: string;
 	page?: string;
 	like?: string;
-	setToast?: Dispatch<SetStateAction<boolean>>;
 	setMessage?: Dispatch<SetStateAction<string>>;
 }
 

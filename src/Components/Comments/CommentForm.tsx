@@ -4,19 +4,18 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { CommentList } from './CommentList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import ToastPopup from '../Toast/Toast';
 import { BookLikesProps } from '../../Types/bookType';
 import { Box, InputBase, Typography } from '@mui/material';
 import { Label } from '../../Styles/Common';
+import { useSnackbar } from 'notistack';
 
 export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
-	const [toast, setToast] = useState(false);
-	const [message, setMessage] = useState('');
 	const { addDocument, response } = useFirestore('comments');
 	const { user } = useAuthContext();
 	const location = useLocation();
 	const queryClient = useQueryClient();
+	const { enqueueSnackbar } = useSnackbar();
 
 	const book: string = useParams().search || '';
 	const isbn = location.state.isbn;
@@ -34,8 +33,9 @@ export function CommentForm({ item }: BookLikesProps) {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
 		},
-		onError: () => {
-			console.log('Error');
+		onError: (error) => {
+			enqueueSnackbar('댓글 등록에 실패하였습니다.');
+			console.log(error);
 		},
 	});
 
@@ -50,11 +50,9 @@ export function CommentForm({ item }: BookLikesProps) {
 				id,
 				photoURL,
 			});
-			setToast(true);
-			setMessage('댓글이 등록되었습니다.');
+			enqueueSnackbar('댓글이 등록되었습니다.');
 		} else {
-			setToast(true);
-			setMessage('로그인이 필요합니다!');
+			enqueueSnackbar('로그인이 필요합니다!');
 		}
 	};
 
@@ -131,9 +129,6 @@ export function CommentForm({ item }: BookLikesProps) {
 				</Box>
 			</Box>
 			<CommentList isbn={isbn} />
-			{toast && (
-				<ToastPopup setToast={setToast} message={message} position={'top'} />
-			)}
 		</>
 	);
 }

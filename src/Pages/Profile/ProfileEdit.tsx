@@ -18,13 +18,13 @@ import { appFirestore } from '../../Firebase/config';
 import useDebounce from '../../Hook/useDebounce';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
-import ToastPopup from '../../Components/Toast/Toast';
 import { Box, InputBase, Typography } from '@mui/material';
 import { Modal } from '../../Components/Modal/Modal';
 import { M } from '../../Components/Modal/modal.style';
 import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { Label } from '../../Styles/Common';
 import { Helmet } from 'react-helmet-async';
+import { useSnackbar } from 'notistack';
 
 export default function ProfileEdit() {
 	const { user } = useAuthContext();
@@ -32,14 +32,14 @@ export default function ProfileEdit() {
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const [userIntro, setUserIntro] = useState(location.state.intro || '');
 	const navigate = useNavigate();
-	const { imageSrc, imgUrl, imgFilter, setImgFilter, onUpload } = ImgPreview();
+	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const [validName, setValidName] = useState('');
 	const debounceName = useDebounce<string>(displayName);
 	const userRef = collection(appFirestore, 'user');
 	const queryClient = useQueryClient();
-	const [toast, setToast] = useState(false);
 	const { withDrawal } = useWithdrawal();
 	const [isOpenModal, setIsOpenModal] = useState(false);
+	const { enqueueSnackbar } = useSnackbar();
 
 	const validCheck = async () => {
 		const Query = query(userRef, where('displayName', '==', displayName));
@@ -97,14 +97,15 @@ export default function ProfileEdit() {
 					intro: userIntro,
 				});
 			}
-			setToast(true);
+			enqueueSnackbar('프로필이 변경되었습니다.');
 		}
 	};
 
 	const mutation = useMutation({
 		mutationFn: profileEdit,
-		onSettled: () => {
+		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['user'] });
+			navigate(`/profile/${user?.displayName}`);
 		},
 		onError: () => {
 			console.log('Error');
@@ -347,22 +348,6 @@ export default function ProfileEdit() {
 						</Box>
 					</Box>
 				</Box>
-
-				{toast && (
-					<ToastPopup
-						setToast={setToast}
-						message={'프로필이 변경되었습니다!'}
-						position={'top'}
-						page={['profile', displayName]}
-					/>
-				)}
-				{imgFilter && (
-					<ToastPopup
-						setToast={setImgFilter}
-						message={'이미지 파일만 프로필로 설정할 수 있습니다.'}
-						position={'top'}
-					/>
-				)}
 			</Box>
 
 			{isOpenModal && (

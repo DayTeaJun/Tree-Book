@@ -6,5 +6,4 @@ export interface ModalType {
 	children: ReactNode;
 	promise?: () => Promise<void>;
 	mutationFn?: () => void;
-	setToast?: Dispatch<SetStateAction<boolean>>;
 }

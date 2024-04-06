@@ -9,14 +9,13 @@ import { Link } from 'react-router-dom';
 import ValidInput from '../../Components/ValidInput/ValidInput';
 import temImg from '../../Assets/profile-img.png';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
-import ToastPopup from '../../Components/Toast/Toast';
 import { Label } from '../../Styles/Common';
-import { Box, Grid, Input } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
 export default function SignUp() {
 	const { error, isPending, signup } = useSignup();
-	const { imageSrc, imgUrl, imgFilter, setImgFilter, onUpload } = ImgPreview();
+	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const [inputValue, setInputValue] = useState<InputValueType>({
 		email: '',
 		password: '',
@@ -133,13 +132,6 @@ export default function SignUp() {
 						</Grid>
 					</Grid>
 				</Box>
-				{imgFilter && (
-					<ToastPopup
-						setToast={setImgFilter}
-						message={'이미지 파일만 프로필로 설정할 수 있습니다.'}
-						position={'top'}
-					/>
-				)}
 			</Box>
 		</Container>
 	);

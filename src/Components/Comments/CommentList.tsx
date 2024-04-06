@@ -9,9 +9,9 @@ import { CommentLike } from './CommentLike';
 import { getComments } from '../../Api/Firebase/getComments';
 import { Modal } from '../Modal/Modal';
 import { M } from '../Modal/modal.style';
-import ToastPopup from '../Toast/Toast';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
@@ -21,10 +21,10 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const queryClient = useQueryClient();
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
-	const [toast, setToast] = useState(false);
 	const [expandedComment, setExpandedComment] = useState<boolean[]>(
 		new Array(comment.length).fill(false)
 	);
+	const { enqueueSnackbar } = useSnackbar();
 
 	const {
 		data: documents,
@@ -57,9 +57,11 @@ export function CommentList({ isbn }: { isbn: string }) {
 		mutationFn: deleteDocument,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
+			enqueueSnackbar('댓글이 삭제되었습니다.');
 		},
-		onError: () => {
-			console.log('Error');
+		onError: (error) => {
+			console.log(error);
+			enqueueSnackbar('댓글을 삭제하는데 실패하였습니다.');
 		},
 	});
 
@@ -243,19 +245,11 @@ export function CommentList({ isbn }: { isbn: string }) {
 						setIsOpenModal={setIsOpenModal}
 						isOpen={isOpenModal}
 						mutationFn={() => mutation.mutate(commentUid)}
-						setToast={setToast}
 					>
 						<M.H2>작성하신 댓글을 삭제하시겠습니까?</M.H2>
 					</Modal>
 				)}
 			</Box>
-			{toast && (
-				<ToastPopup
-					setToast={setToast}
-					message={'댓글이 삭제되었습니다.'}
-					position={'top'}
-				/>
-			)}
 		</>
 	);
 }
