@@ -6,12 +6,12 @@ import { Paginaition } from '../Pagination/Pagination';
 import Loading from '../LoadingSpinner/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CommentLike } from './CommentLike';
-import { getComments } from '../../Api/Firebase/getComments';
 import { Modal } from '../Modal/Modal';
 import { M } from '../Modal/modal.style';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 export function CommentList({ isbn }: { isbn: string }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
@@ -32,7 +32,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 		error,
 	} = useQuery({
 		queryKey: ['comments', isbn],
-		queryFn: () => getComments('comments', isbn),
+		queryFn: () => getDocuments('comments', isbn),
 	});
 
 	const commentsPerPage = 4;

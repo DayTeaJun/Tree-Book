@@ -4,7 +4,7 @@ import { FirestoreDocument } from '../../Types/firestoreType';
 
 export const getDocuments = async (transaction: string, isbn?: string) => {
 	let documentQuery;
-	if (transaction === 'BooksLikes' && isbn) {
+	if (transaction === ('BooksLikes' || 'comments') && isbn) {
 		documentQuery = query(
 			collection(appFirestore, transaction),
 			where('isbn', '==', isbn)
@@ -20,7 +20,7 @@ export const getDocuments = async (transaction: string, isbn?: string) => {
 	let result: FirestoreDocument[] = [];
 	documentSnapshot.docs.map((doc) => {
 		const data = doc.data();
-		if (data.createdTime) {
+		if (data.createdTime && transaction !== 'comments') {
 			const createdTime = data.createdTime.toDate().toLocaleString();
 			result.push({
 				...data,
