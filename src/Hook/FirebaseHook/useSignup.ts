@@ -11,11 +11,13 @@ import { AuthContextProps } from '../../Context/AuthContext';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { SignupType } from '../../Types/userType';
+import { useSnackbar } from 'notistack';
 
 export const useSignup = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext() as AuthContextProps;
+	const { enqueueSnackbar } = useSnackbar();
 
 	const signup = async ({
 		email,
@@ -36,6 +38,7 @@ export const useSignup = () => {
 
 			const user = userCreadential.user;
 			if (!user) {
+				enqueueSnackbar('회원가입이 실패하였습니다.');
 				throw new Error('회원가입 실패');
 			}
 
@@ -68,16 +71,19 @@ export const useSignup = () => {
 						uid,
 						createdTime,
 					});
+					enqueueSnackbar('회원가입이 성공하였습니다.');
 					await updateProfile(appAuth.currentUser, { displayName, photoURL });
 					dispatch({ type: 'login', payload: user });
 					setError(null);
 					setIsPending(false);
 				} catch (error) {
+					enqueueSnackbar('회원가입이 실패하였습니다.');
 					setError((error as Error).message);
 					setIsPending(false);
 				}
 			}
 		} catch (error) {
+			enqueueSnackbar('회원가입이 실패하였습니다.');
 			setError((error as Error).message);
 			setIsPending(false);
 		}
