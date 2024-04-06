@@ -319,6 +319,7 @@ export default function ProfileEdit() {
 											validName !== '' ? 'background.book' : 'background.hover',
 									},
 								}}
+								type='button'
 								onClick={() => navigate(-1)}
 							>
 								취소
