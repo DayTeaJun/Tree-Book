@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 import { FirestoreDocument } from './firestoreType';
 
 export interface UserLikedProps {
@@ -36,4 +37,14 @@ export interface CommentType {
 	photoURL?: string;
 	uid?: string;
 	likeBy?: { [key: string]: boolean };
+}
+
+export interface UserProfileType {
+	createdTime: Timestamp;
+	displayName: string;
+	email: string;
+	intro: string;
+	password: string;
+	photoURL: string;
+	uid: string;
 }

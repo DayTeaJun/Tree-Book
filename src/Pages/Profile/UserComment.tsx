@@ -8,7 +8,7 @@ import { BookData } from '../../Types/bookType';
 import { Box, Typography } from '@mui/material';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
-	const fetchLiked = async (uid?: string) => {
+	const fetchLiked = async (uid: string) => {
 		const LikesRef = collection(appFirestore, 'comments');
 		const likedQuery = query(LikesRef, where('id', '==', uid));
 
@@ -23,7 +23,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 		error,
 	} = useQuery({
 		queryKey: ['userComment', uid],
-		queryFn: () => fetchLiked(uid),
+		queryFn: () => fetchLiked(uid ?? ''),
 	});
 
 	if (isLoading) {
