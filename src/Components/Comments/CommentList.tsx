@@ -201,6 +201,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 												backgroundColor: 'background.hover',
 											},
 										}}
+										onClick={() => enqueueSnackbar('신고 접수되었습니다!')}
 									>
 										신고
 									</Box>
