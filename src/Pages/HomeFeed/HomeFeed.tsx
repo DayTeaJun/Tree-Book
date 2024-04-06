@@ -5,6 +5,7 @@ import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { Box } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
+import { getBestcomments } from '../../Api/Firebase/getBestComments';
 
 export default function HomeFeed() {
 	const {
@@ -13,7 +14,7 @@ export default function HomeFeed() {
 		error,
 	} = useQuery({
 		queryKey: ['homeFeedLikedBooks'],
-		queryFn: () => getLikedBooks('home'),
+		queryFn: () => getBestcomments('comments'),
 	});
 
 	return (
