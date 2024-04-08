@@ -12,7 +12,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import useDebounce from '../../Hook/useDebounce';
 import { appFirestore } from '../../Firebase/config';
 import { Typography } from '@mui/material';
-import { text } from 'stream/consumers';
 
 interface ValidInputProps {
 	setInputValue: Dispatch<SetStateAction<InputValueType>>;

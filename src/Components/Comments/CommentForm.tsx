@@ -10,7 +10,7 @@ import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { collection, doc, setDoc } from 'firebase/firestore';
-import { appFirestore, timestamp } from '../../Firebase/config';
+import { appFirestore } from '../../Firebase/config';
 
 export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');

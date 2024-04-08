@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from '../../Types/firestoreType';
 
@@ -17,8 +17,6 @@ export const getBestcomments = async (transaction: string) => {
 			uid: doc.id,
 		});
 	});
-
-	console.log(result);
 
 	return result;
 };
