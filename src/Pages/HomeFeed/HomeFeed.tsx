@@ -57,7 +57,7 @@ export default function HomeFeed() {
 						justifyContent: 'center',
 					}}
 				>
-					{likedBooks && (
+					{/* {likedBooks && (
 						<>
 							{(likedBooks as BookData[]).map(
 								(item: BookData, index: number) => (
@@ -65,7 +65,7 @@ export default function HomeFeed() {
 								)
 							)}
 						</>
-					)}
+					)} */}
 				</Box>
 			</Box>
 		</>
