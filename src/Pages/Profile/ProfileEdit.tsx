@@ -97,7 +97,7 @@ export default function ProfileEdit() {
 					intro: userIntro,
 				});
 			}
-			enqueueSnackbar('프로필이 변경되었습니다.');
+			enqueueSnackbar('프로필이 변경되었습니다.', { variant: 'success' });
 		}
 	};
 
@@ -107,8 +107,9 @@ export default function ProfileEdit() {
 			queryClient.invalidateQueries({ queryKey: ['user'] });
 			navigate(`/profile/${user?.displayName}`);
 		},
-		onError: () => {
-			console.log('Error');
+		onError: (error) => {
+			console.log(error);
+			enqueueSnackbar('프로필 변경에 실패하였습니다.', { variant: 'error' });
 		},
 	});
 

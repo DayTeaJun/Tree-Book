@@ -17,11 +17,11 @@ export const useLogout = () => {
 		try {
 			await signOut(appAuth);
 			dispatch({ type: 'logout' });
-			enqueueSnackbar('로그아웃 되었습니다.');
+			enqueueSnackbar('로그아웃 되었습니다.', { variant: 'success' });
 			setError(null);
 			setIsPending(false);
 		} catch (error) {
-			enqueueSnackbar('로그아웃이 실패하였습니다.');
+			enqueueSnackbar('로그아웃이 실패하였습니다.', { variant: 'error' });
 			setError(error as unknown as string);
 			setIsPending(false);
 		}

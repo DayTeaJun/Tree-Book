@@ -24,7 +24,7 @@ export function ImgPreview() {
 					};
 				});
 			} else {
-				enqueueSnackbar('이미지만 등록할 수 있습니다!');
+				enqueueSnackbar('이미지만 등록할 수 있습니다!', { variant: 'error' });
 				return;
 			}
 		} else {

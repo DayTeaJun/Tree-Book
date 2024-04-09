@@ -71,7 +71,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 				});
 				if (number !== undefined) {
 					setNumber(number + 1);
-					enqueueSnackbar('즐겨찾기가 등록되었습니다.');
+					enqueueSnackbar('즐겨찾기가 등록되었습니다.', { variant: 'success' });
 				}
 			} else {
 				likeBy = { ...likedUser?.likeBy };
@@ -90,11 +90,11 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 				}
 				if (number) {
 					setNumber(number - 1);
-					enqueueSnackbar('즐겨찾기가 취소되었습니다.');
+					enqueueSnackbar('즐겨찾기가 취소되었습니다.', { variant: 'success' });
 				}
 			}
 		} else {
-			enqueueSnackbar('로그인이 필요합니다!');
+			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
 		}
 	};
 
@@ -104,7 +104,9 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
 		},
 		onError: (error) => {
-			enqueueSnackbar('즐겨찾기가 오류로 인해 실패하였습니다.');
+			enqueueSnackbar('즐겨찾기가 오류로 인해 실패하였습니다.', {
+				variant: 'error',
+			});
 			console.log(error);
 		},
 	});
@@ -115,7 +117,9 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
 		},
 		onError: (error) => {
-			enqueueSnackbar('즐겨찾기 취소가 오류로 인해 실패하였습니다.');
+			enqueueSnackbar('즐겨찾기 취소가 오류로 인해 실패하였습니다.', {
+				variant: 'error',
+			});
 			console.log(error);
 		},
 	});

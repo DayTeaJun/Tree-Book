@@ -17,9 +17,11 @@ export const useWithdrawal = () => {
 			const userRef = doc(collection(appFirestore, 'user'), uid);
 			await deleteUser(user);
 			await deleteDoc(userRef);
-			enqueueSnackbar('계정이 정상적으로 삭제되었습니다.');
+			enqueueSnackbar('계정이 정상적으로 삭제되었습니다.', {
+				variant: 'success',
+			});
 		} catch (error) {
-			enqueueSnackbar('계정 삭제가 실패하였습니다.');
+			enqueueSnackbar('계정 삭제가 실패하였습니다.', { variant: 'error' });
 			console.log(error);
 		}
 	};

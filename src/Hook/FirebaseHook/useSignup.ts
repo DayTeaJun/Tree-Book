@@ -38,7 +38,7 @@ export const useSignup = () => {
 
 			const user = userCreadential.user;
 			if (!user) {
-				enqueueSnackbar('회원가입이 실패하였습니다.');
+				enqueueSnackbar('회원가입이 실패하였습니다.', { variant: 'error' });
 				throw new Error('회원가입 실패');
 			}
 
@@ -71,19 +71,19 @@ export const useSignup = () => {
 						uid,
 						createdTime,
 					});
-					enqueueSnackbar('회원가입이 성공하였습니다.');
+					enqueueSnackbar('회원가입이 성공하였습니다.', { variant: 'success' });
 					await updateProfile(appAuth.currentUser, { displayName, photoURL });
 					dispatch({ type: 'login', payload: user });
 					setError(null);
 					setIsPending(false);
 				} catch (error) {
-					enqueueSnackbar('회원가입이 실패하였습니다.');
+					enqueueSnackbar('회원가입이 실패하였습니다.', { variant: 'error' });
 					setError((error as Error).message);
 					setIsPending(false);
 				}
 			}
 		} catch (error) {
-			enqueueSnackbar('회원가입이 실패하였습니다.');
+			enqueueSnackbar('회원가입이 실패하였습니다.', { variant: 'error' });
 			setError((error as Error).message);
 			setIsPending(false);
 		}

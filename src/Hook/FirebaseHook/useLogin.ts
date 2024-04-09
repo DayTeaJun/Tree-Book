@@ -23,11 +23,11 @@ export const useLogin = () => {
 
 			const user = userCreadential.user;
 			if (!user) {
-				enqueueSnackbar('로그인이 실패하였습니다');
+				enqueueSnackbar('로그인이 실패하였습니다', { variant: 'error' });
 				throw new Error('로그인 실패');
 			}
 			dispatch({ type: 'login', payload: user });
-			enqueueSnackbar('로그인되었습니다.');
+			enqueueSnackbar('로그인되었습니다.', { variant: 'success' });
 			setError(null);
 			setIsPending(false);
 		} catch (error) {
