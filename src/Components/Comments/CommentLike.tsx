@@ -30,7 +30,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
 		},
 		onError: (error) => {
-			enqueueSnackbar('좋아요가 실패하였습니다.');
+			enqueueSnackbar('좋아요가 실패하였습니다.', { variant: 'error' });
 			console.log(error);
 		},
 	});
@@ -43,7 +43,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					likeBy = { ...item.likeBy, [user.uid]: true };
 					setLikeAlready(true);
 					mutation.mutate({ ...item, likeBy });
-					enqueueSnackbar('좋아요가 등록되었습니다.');
+					enqueueSnackbar('좋아요가 등록되었습니다.', { variant: 'success' });
 				} else if (likeAlready) {
 					likeBy = { ...item.likeBy };
 					delete likeBy[user.uid];
@@ -54,13 +54,13 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					} else {
 						mutation.mutate({ ...item, likeBy });
 					}
-					enqueueSnackbar('좋아요가 취소되었습니다.');
+					enqueueSnackbar('좋아요가 취소되었습니다.', { variant: 'success' });
 				}
 
 				queryClient.invalidateQueries({ queryKey: ['comments'] });
 			}
 		} else {
-			enqueueSnackbar('로그인이 필요합니다!');
+			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
 		}
 	};
 

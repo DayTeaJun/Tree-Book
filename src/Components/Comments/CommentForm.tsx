@@ -46,7 +46,7 @@ export function CommentForm({ item }: BookLikesProps) {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
 		},
 		onError: (error) => {
-			enqueueSnackbar('댓글 등록에 실패하였습니다.');
+			enqueueSnackbar('댓글 등록에 실패하였습니다.', { variant: 'error' });
 			console.log(error);
 		},
 	});
@@ -71,9 +71,9 @@ export function CommentForm({ item }: BookLikesProps) {
 					commentTotalNumber: commentTotalNumber + 1,
 				});
 			}
-			enqueueSnackbar('댓글이 등록되었습니다.');
+			enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 		} else {
-			enqueueSnackbar('로그인이 필요합니다!');
+			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
 		}
 	};
 

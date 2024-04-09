@@ -57,11 +57,13 @@ export function CommentList({ isbn }: { isbn: string }) {
 		mutationFn: deleteDocument,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
-			enqueueSnackbar('댓글이 삭제되었습니다.');
+			enqueueSnackbar('댓글이 삭제되었습니다.', { variant: 'success' });
 		},
 		onError: (error) => {
 			console.log(error);
-			enqueueSnackbar('댓글을 삭제하는데 실패하였습니다.');
+			enqueueSnackbar('댓글을 삭제하는데 실패하였습니다.', {
+				variant: 'error',
+			});
 		},
 	});
 

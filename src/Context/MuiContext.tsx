@@ -46,6 +46,10 @@ export const MuiProvider = ({ children }: Props) => {
 				<SnackbarProvider
 					anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
 					autoHideDuration={3000}
+					style={{
+						background: theme.palette.background.paper,
+						color: '#fff',
+					}}
 					action={(snackbarKey) => (
 						<SnackbarCloseButton snackbarKey={snackbarKey} />
 					)}
@@ -62,7 +66,7 @@ const SnackbarCloseButton = ({ snackbarKey }: { snackbarKey: SnackbarKey }) => {
 
 	return (
 		<IconButton size='small' onClick={() => closeSnackbar(snackbarKey)}>
-			<CloseIcon />
+			<CloseIcon sx={{ color: '#fff' }} />
 		</IconButton>
 	);
 };

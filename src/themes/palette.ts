@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material';
+import { PaletteMode, Paper } from '@mui/material';
 import { green, grey } from '@mui/material/colors';
 
 const getDesignTokens = (mode: PaletteMode) => ({
@@ -22,6 +22,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						mark: '#111',
 						btn: grey[500],
 						btnhover: grey[600],
+						paper: grey[800],
 					},
 					text: {
 						primary: '#000',
@@ -47,6 +48,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
 						mark: '#fff',
 						btn: grey[600],
 						btnhover: grey[700],
+						paper: grey[900],
 					},
 					text: {
 						primary: '#fff',
