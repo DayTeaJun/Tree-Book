@@ -43,7 +43,7 @@ export const PopularSection = () => {
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
 				{likedBooks &&
 					(likedBooks as BookData[]).map((item: BookData, index: number) => (
-						<Paper
+						<Box
 							key={index}
 							sx={{
 								padding: '5px',
@@ -54,11 +54,11 @@ export const PopularSection = () => {
 								color: 'text.primary',
 								fontWeight: 'bold',
 							}}
-							onClick={onMoveBookDetail(item.isbn)}
+							onClick={() => onMoveBookDetail(item.isbn)}
 						>
 							<Typography>{item.title}</Typography>
 							<Typography>{index + 1} 위</Typography>
-						</Paper>
+						</Box>
 					))}
 			</Box>
 		</Box>
