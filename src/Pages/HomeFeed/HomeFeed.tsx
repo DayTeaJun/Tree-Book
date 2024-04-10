@@ -1,21 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { BookData } from '../../Types/bookType';
-import BookItem from '../../Components/Books/BookItem';
 import { Box } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
-import { getBestcomments } from '../../Api/Firebase/getBestComments';
+import { PopularSection } from './PopularSection';
 
 export default function HomeFeed() {
-	const {
-		data: likedBooks,
-		isLoading,
-		error,
-	} = useQuery({
-		queryKey: ['homeFeedLikedBooks'],
-		queryFn: () => getBestcomments('BooksLikes'),
-	});
-
 	return (
 		<>
 			<Helmet>
@@ -57,15 +45,17 @@ export default function HomeFeed() {
 						justifyContent: 'center',
 					}}
 				>
-					{/* {likedBooks && (
-						<>
-							{(likedBooks as BookData[]).map(
-								(item: BookData, index: number) => (
-									<BookItem item={item} key={index} like={item.isbn}></BookItem>
-								)
-							)}
-						</>
-					)} */}
+					<Box
+						component='section'
+						sx={{
+							display: 'flex',
+							width: '100%',
+							gap: '20px',
+							justifyContent: 'space-around',
+						}}
+					>
+						<PopularSection />
+					</Box>
 				</Box>
 			</Box>
 		</>
