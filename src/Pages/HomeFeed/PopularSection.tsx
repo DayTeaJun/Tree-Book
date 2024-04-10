@@ -1,9 +1,12 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { getBestcomments } from '../../Api/Firebase/getBestComments';
 import { BookData } from '../../Types/bookType';
+import { useNavigate } from 'react-router-dom';
 
 export const PopularSection = () => {
+	const navigate = useNavigate();
+
 	const {
 		data: likedBooks,
 		isLoading,
@@ -13,7 +16,11 @@ export const PopularSection = () => {
 		queryFn: () => getBestcomments('BooksLikes'),
 	});
 
-	console.log(likedBooks);
+	const onMoveBookDetail = (isbn: string) => {
+		const likeIsbn =
+			isbn.split(' ')[0] === '' ? isbn.split(' ')[1] : isbn.split(' ')[0];
+		navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
+	};
 
 	return (
 		<Box
@@ -35,9 +42,8 @@ export const PopularSection = () => {
 			</Typography>
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
 				{likedBooks &&
-					(likedBooks as BookData[]).map((item, index: number) => (
-						<Box
-							component='a'
+					(likedBooks as BookData[]).map((item: BookData, index: number) => (
+						<Paper
 							key={index}
 							sx={{
 								padding: '5px',
@@ -48,10 +54,11 @@ export const PopularSection = () => {
 								color: 'text.primary',
 								fontWeight: 'bold',
 							}}
+							onClick={onMoveBookDetail(item.isbn)}
 						>
 							<Typography>{item.title}</Typography>
 							<Typography>{index + 1} 위</Typography>
-						</Box>
+						</Paper>
 					))}
 			</Box>
 		</Box>
