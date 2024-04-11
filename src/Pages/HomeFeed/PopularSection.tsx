@@ -4,7 +4,11 @@ import { getBestcomments } from '../../Api/Firebase/getBestComments';
 import { BookData } from '../../Types/bookType';
 import { useNavigate } from 'react-router-dom';
 
-export const PopularSection = () => {
+interface PopularSectionProps {
+	props: 'commentTotalNumber' | 'views';
+}
+
+export const PopularSection = ({ props }: PopularSectionProps) => {
 	const navigate = useNavigate();
 
 	const {
@@ -12,8 +16,8 @@ export const PopularSection = () => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['homeFeedLikedBooks'],
-		queryFn: () => getBestcomments('BooksLikes'),
+		queryKey: ['homeFeedLikedBooks', props],
+		queryFn: () => getBestcomments('BooksLikes', props),
 	});
 
 	const onMoveBookDetail = (isbn: string) => {
@@ -47,7 +51,7 @@ export const PopularSection = () => {
 					color: 'red',
 				}}
 			>
-				실시간 핫 코멘트
+				{`실시간 핫 ${props === 'views' ? '조회수' : '코멘트'}`}
 			</Typography>
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
 				{likedBooks &&

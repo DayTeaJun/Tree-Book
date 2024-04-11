@@ -54,8 +54,8 @@ export default function HomeFeed() {
 							justifyContent: 'space-around',
 						}}
 					>
-						<PopularSection />
-						<PopularSection />
+						<PopularSection props='commentTotalNumber' />
+						<PopularSection props='views' />
 					</Box>
 				</Box>
 			</Box>
