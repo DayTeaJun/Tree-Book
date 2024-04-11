@@ -55,6 +55,7 @@ export default function HomeFeed() {
 						}}
 					>
 						<PopularSection />
+						<PopularSection />
 					</Box>
 				</Box>
 			</Box>

@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { getBestcomments } from '../../Api/Firebase/getBestComments';
 import { BookData } from '../../Types/bookType';
@@ -30,6 +30,9 @@ export const PopularSection = () => {
 				flexDirection: 'column',
 				width: '50%',
 				height: '100%',
+				border: '1px solid #ccc',
+				padding: '10px',
+				borderRadius: '10px',
 			}}
 		>
 			<Typography
@@ -49,15 +52,21 @@ export const PopularSection = () => {
 								padding: '5px',
 								display: 'flex',
 								justifyContent: 'space-between',
-								border: '1px solid #ccc',
 								cursor: 'pointer',
 								color: 'text.primary',
 								fontWeight: 'bold',
 							}}
 							onClick={() => onMoveBookDetail(item.isbn)}
 						>
-							<Typography>{item.title}</Typography>
-							<Typography>{index + 1} 위</Typography>
+							<Box sx={{ display: 'flex', gap: '10px' }}>
+								<Typography fontWeight='bold' sx={{ color: 'red' }}>
+									{index + 1}위
+								</Typography>
+								<Typography>{item.title}</Typography>
+							</Box>
+							<Typography sx={{ color: 'red' }}>
+								[{item.commentTotalNumber}]
+							</Typography>
 						</Box>
 					))}
 			</Box>
