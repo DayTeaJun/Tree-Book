@@ -27,6 +27,7 @@ export default function BookDetail() {
 				? getBooks(search, 1, page, 'isbn')
 				: getBooks(search, 16, page, 'title')),
 		enabled: !!search,
+		refetchOnWindowFocus: false,
 	});
 
 	useEffect(() => {

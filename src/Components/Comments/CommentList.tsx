@@ -33,6 +33,7 @@ export function CommentList({ isbn }: { isbn: string }) {
 	} = useQuery({
 		queryKey: ['comments', isbn],
 		queryFn: () => getDocuments('comments', isbn),
+		refetchOnWindowFocus: false,
 	});
 
 	const commentsPerPage = 4;
