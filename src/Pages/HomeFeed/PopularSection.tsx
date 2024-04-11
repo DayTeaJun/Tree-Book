@@ -39,7 +39,13 @@ export const PopularSection = () => {
 				component='h2'
 				fontWeight='bold'
 				fontSize='1.2em'
-				sx={{ textAlign: 'center', marginBottom: '10px' }}
+				sx={{
+					textAlign: 'center',
+					marginBottom: '10px',
+					borderBottom: '1px solid #ccc',
+					padding: '5px',
+					color: 'red',
+				}}
 			>
 				실시간 핫 코멘트
 			</Typography>
