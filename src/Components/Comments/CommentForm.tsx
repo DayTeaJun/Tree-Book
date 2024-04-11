@@ -19,6 +19,7 @@ export function CommentForm({ item }: BookLikesProps) {
 	const location = useLocation();
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
+	const [views, setViews] = useState(0);
 
 	const book: string = useParams().search || '';
 	const isbn = location.state.isbn;
@@ -63,13 +64,6 @@ export function CommentForm({ item }: BookLikesProps) {
 				photoURL,
 			});
 			if (documents) {
-				const commentTotalNumber = documents[0].commentTotalNumber ?? 0;
-
-				await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
-					...documents[0],
-					...item,
-					commentTotalNumber: commentTotalNumber + 1,
-				});
 			}
 			enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 		} else {
@@ -77,9 +71,24 @@ export function CommentForm({ item }: BookLikesProps) {
 		}
 	};
 
+	const handleTotalComments = async () => {
+		if (documents) {
+			const commentTotalNumber = documents[0].commentTotalNumber ?? 0;
+			const views = documents[0].views ?? 0;
+
+			await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
+				...documents[0],
+				...item,
+				commentTotalNumber: commentTotalNumber + 1,
+				views: views + 1,
+			});
+		}
+	};
+
 	useEffect(() => {
 		if (response.success) {
 			setComments('');
+			handleTotalComments();
 		}
 	}, [response.success]);
 

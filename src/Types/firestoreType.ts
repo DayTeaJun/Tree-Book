@@ -30,4 +30,5 @@ export interface FirestoreDocument {
 	search?: string;
 	page?: string;
 	commentTotalNumber?: number;
+	views?: number;
 }
