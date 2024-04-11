@@ -94,8 +94,11 @@ export function CommentForm({ item }: BookLikesProps) {
 		if (response.success) {
 			setComments('');
 		}
+	}, [response.success]);
+
+	useEffect(() => {
 		handleTotalComments();
-	}, [response.success, documents]);
+	}, []);
 
 	return (
 		<>
