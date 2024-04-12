@@ -96,7 +96,12 @@ export default function BookDetail() {
 								sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
 							>
 								<Box
-									sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}
+									sx={{
+										display: 'flex',
+										justifyContent: 'space-between',
+										alignItems: 'center',
+										gap: '20px',
+									}}
 								>
 									<Typography
 										component='h2'

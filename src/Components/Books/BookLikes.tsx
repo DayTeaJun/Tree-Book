@@ -9,6 +9,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { timestamp } from '../../Firebase/config';
 import { useSnackbar } from 'notistack';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const { user } = useAuthContext();
@@ -126,27 +127,41 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 
 	return (
 		<>
-			{item && (
+			{documents && (
 				<Box
 					sx={{
 						display: 'flex',
-						alignItems: 'center',
-						gap: '5px',
+						gap: '20px',
 						color: 'background.mark',
 						cursor: 'pointer',
 					}}
 					onClick={() => handleLikes()}
 				>
-					{!like ? (
-						<BookmarkBorderIcon fontSize='large' />
-					) : (
-						<BookmarkIcon fontSize='large' />
-					)}
-					{number !== 0 && number && (
-						<Typography component='p' fontSize='1em' fontWeight='bold'>
-							{number} 명
-						</Typography>
-					)}
+					<Box sx={{ display: 'flex', alignItems: 'center' }}>
+						{!like ? (
+							<BookmarkBorderIcon fontSize='large' />
+						) : (
+							<BookmarkIcon fontSize='large' />
+						)}
+						{number !== 0 && number && (
+							<Typography component='p' fontSize='1em' fontWeight='bold'>
+								{number} 명
+							</Typography>
+						)}
+					</Box>
+					<Typography
+						component='p'
+						fontSize='1em'
+						fontWeight='bold'
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							gap: '5px',
+						}}
+					>
+						<VisibilityIcon />
+						{documents && documents.length > 0 ? documents[0].views : null}
+					</Typography>
 				</Box>
 			)}
 		</>
