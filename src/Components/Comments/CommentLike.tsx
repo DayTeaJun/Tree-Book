@@ -27,7 +27,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const mutation = useMutation({
 		mutationFn: addDocument,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['comments'] });
+			queryClient.invalidateQueries({ queryKey: ['comment'] });
 		},
 		onError: (error) => {
 			enqueueSnackbar('좋아요가 실패하였습니다.', { variant: 'error' });
@@ -57,7 +57,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					enqueueSnackbar('좋아요가 취소되었습니다.', { variant: 'success' });
 				}
 
-				queryClient.invalidateQueries({ queryKey: ['comments'] });
+				queryClient.invalidateQueries({ queryKey: ['comment'] });
 			}
 		} else {
 			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
