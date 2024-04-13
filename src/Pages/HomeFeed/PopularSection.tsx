@@ -75,7 +75,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 								<Typography>{item.title}</Typography>
 							</Box>
 							<Typography sx={{ color: 'red' }}>
-								[{item.commentTotalNumber}]
+								[{item.commentTotalNumber ? item.commentTotalNumber : 0}]
 							</Typography>
 						</Box>
 					))}

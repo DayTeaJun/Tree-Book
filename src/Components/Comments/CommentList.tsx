@@ -12,8 +12,16 @@ import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { appFirestore } from '../../Firebase/config';
 
-export function CommentList({ isbn }: { isbn: string }) {
+export function CommentList({
+	isbn,
+	documents,
+}: {
+	isbn: string;
+	documents?: FirestoreDocument[];
+}) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comments');
@@ -27,19 +35,18 @@ export function CommentList({ isbn }: { isbn: string }) {
 	const { enqueueSnackbar } = useSnackbar();
 
 	const {
-		data: documents,
+		data: comments,
 		isLoading,
 		error,
 	} = useQuery({
 		queryKey: ['comments', isbn],
-		queryFn: () => getDocuments('comments', isbn),
-		refetchOnWindowFocus: false,
+		queryFn: () => getDocuments('comment', isbn),
 	});
 
 	const commentsPerPage = 4;
 	const commentLists =
-		documents &&
-		documents.sort((a, b) => b.createdTime!.seconds - a.createdTime!.seconds);
+		comments &&
+		comments.sort((a, b) => b.createdTime!.seconds - a.createdTime!.seconds);
 	const startIndex = (currentPage - 1) * commentsPerPage;
 	const endIndex = startIndex + commentsPerPage;
 
@@ -52,10 +59,23 @@ export function CommentList({ isbn }: { isbn: string }) {
 			const displayedComments = commentLists.slice(startIndex, endIndex);
 			setComment(displayedComments);
 		}
-	}, [documents, currentPage]);
+	}, [comments, currentPage]);
+
+	const deleteComment = async (uid: string) => {
+		if (documents) {
+			const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
+
+			await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
+				...documents[0],
+				commentTotalNumber:
+					commentTotalNumber <= 0 ? 0 : commentTotalNumber - 1,
+			});
+			deleteDocument(uid);
+		}
+	};
 
 	const mutation = useMutation({
-		mutationFn: deleteDocument,
+		mutationFn: deleteComment,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comments'] });
 			enqueueSnackbar('댓글이 삭제되었습니다.', { variant: 'success' });

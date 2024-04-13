@@ -166,7 +166,7 @@ export function CommentForm({ item }: BookLikesProps) {
 					</Box>
 				</Box>
 			</Box>
-			<CommentList isbn={isbn} />
+			<CommentList isbn={isbn} documents={documents} />
 		</>
 	);
 }
