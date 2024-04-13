@@ -19,7 +19,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const [like, setLike] = useState<boolean | undefined>(likedUser);
 	const [number, setNumber] = useState<number | undefined>();
 	const queryClient = useQueryClient();
-	const { addDocument, deleteDocument } = useFirestore('BooksLikes', isbn);
+	const { addDocument, deleteDocument } = useFirestore('LikedBook', isbn);
 	const { enqueueSnackbar } = useSnackbar();
 
 	const {
@@ -27,8 +27,8 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['BooksLikes', isbn],
-		queryFn: () => getDocuments('BooksLikes', isbn),
+		queryKey: ['LikedBook', isbn],
+		queryFn: () => getDocuments('LikedBook', isbn),
 	});
 
 	useEffect(() => {
@@ -102,7 +102,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const addMutation = useMutation({
 		mutationFn: addDocument,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
+			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 		},
 		onError: (error) => {
 			enqueueSnackbar('즐겨찾기가 오류로 인해 실패하였습니다.', {
@@ -115,7 +115,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const delMutation = useMutation({
 		mutationFn: deleteDocument,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['BooksLikes'] });
+			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 		},
 		onError: (error) => {
 			enqueueSnackbar('즐겨찾기 취소가 오류로 인해 실패하였습니다.', {

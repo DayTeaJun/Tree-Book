@@ -14,8 +14,8 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
 	const { likeBy }: any = item;
 	const [likeAlready, setLikeAlready] = useState(false);
-	const { addDocument } = useFirestore('comments', uid);
-	const commentRef = doc(collection(appFirestore, 'comments'), uid);
+	const { addDocument } = useFirestore('comment', uid);
+	const commentRef = doc(collection(appFirestore, 'comment'), uid);
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
 

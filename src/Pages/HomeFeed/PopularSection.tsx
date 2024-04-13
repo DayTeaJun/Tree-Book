@@ -17,7 +17,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 		error,
 	} = useQuery({
 		queryKey: ['homeFeedLikedBooks', props],
-		queryFn: () => getBestcomments('BooksLikes', props),
+		queryFn: () => getBestcomments('LikedBook', props),
 	});
 
 	const onMoveBookDetail = (isbn: string) => {

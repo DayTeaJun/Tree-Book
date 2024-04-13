@@ -2,7 +2,7 @@ import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 
 export const getLikedBooks = async (book?: string) => {
-	const LikesRef = collection(appFirestore, 'BooksLikes');
+	const LikesRef = collection(appFirestore, 'LikedBook');
 	const likedQuery = query(LikesRef, orderBy('createdTime', 'desc'), limit(12));
 	const likedQuerySnapshot = await getDocs(likedQuery);
 	const likedQueryData = likedQuerySnapshot.docs.map((doc) => doc.data());

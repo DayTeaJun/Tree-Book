@@ -14,7 +14,7 @@ import { appFirestore } from '../../Firebase/config';
 
 export function CommentForm({ item }: BookLikesProps) {
 	const [comments, setComments] = useState('');
-	const { addDocument, response } = useFirestore('comments');
+	const { addDocument, response } = useFirestore('comment');
 	const { user } = useAuthContext();
 	const location = useLocation();
 	const queryClient = useQueryClient();
@@ -32,8 +32,8 @@ export function CommentForm({ item }: BookLikesProps) {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['BooksLikes', isbn],
-		queryFn: () => getDocuments('BooksLikes', isbn),
+		queryKey: ['LikedBook', isbn],
+		queryFn: () => getDocuments('LikedBook', isbn),
 		refetchOnWindowFocus: false,
 	});
 
@@ -44,7 +44,7 @@ export function CommentForm({ item }: BookLikesProps) {
 	const mutation = useMutation({
 		mutationFn: addDocument,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['comments'] });
+			queryClient.invalidateQueries({ queryKey: ['comment'] });
 		},
 		onError: (error) => {
 			enqueueSnackbar('댓글 등록에 실패하였습니다.', { variant: 'error' });
@@ -66,7 +66,7 @@ export function CommentForm({ item }: BookLikesProps) {
 			if (documents) {
 				const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
 
-				await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
+				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 					...documents[0],
 					...item,
 					commentTotalNumber: commentTotalNumber + 1,
@@ -82,7 +82,7 @@ export function CommentForm({ item }: BookLikesProps) {
 		if (documents) {
 			const views = documents[0]?.views ?? 0;
 
-			await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
+			await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 				...documents[0],
 				...item,
 				views: views + 1,

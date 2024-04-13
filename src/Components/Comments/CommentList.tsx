@@ -39,7 +39,7 @@ export function CommentList({
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['comments', isbn],
+		queryKey: ['comment', isbn],
 		queryFn: () => getDocuments('comment', isbn),
 	});
 
@@ -65,7 +65,7 @@ export function CommentList({
 		if (documents) {
 			const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
 
-			await setDoc(doc(collection(appFirestore, 'BooksLikes'), isbn), {
+			await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 				...documents[0],
 				commentTotalNumber:
 					commentTotalNumber <= 0 ? 0 : commentTotalNumber - 1,
