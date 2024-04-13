@@ -78,27 +78,11 @@ export function CommentForm({ item }: BookLikesProps) {
 		}
 	};
 
-	const handleTotalComments = async () => {
-		if (documents) {
-			const views = documents[0]?.views ?? 0;
-
-			await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
-				...documents[0],
-				...item,
-				views: views + 1,
-			});
-		}
-	};
-
 	useEffect(() => {
 		if (response.success) {
 			setComments('');
 		}
 	}, [response.success]);
-
-	useEffect(() => {
-		handleTotalComments();
-	}, []);
 
 	return (
 		<>

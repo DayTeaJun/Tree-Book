@@ -1,5 +1,6 @@
 import { Timestamp } from 'firebase/firestore';
 import { Dispatch, SetStateAction } from 'react';
+import { FirestoreDocument } from './firestoreType';
 
 export interface BookData {
 	authors: string[];
@@ -44,6 +45,7 @@ export interface BookLikesProps {
 	page?: string;
 	like?: string;
 	setMessage?: Dispatch<SetStateAction<string>>;
+	likedBook?: FirestoreDocument[];
 }
 
 export interface Skeleton {

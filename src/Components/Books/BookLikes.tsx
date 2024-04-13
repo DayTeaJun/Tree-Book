@@ -2,7 +2,6 @@ import { BookLikesProps } from '../../Types/bookType';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { Box, Typography } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -11,7 +10,7 @@ import { timestamp } from '../../Firebase/config';
 import { useSnackbar } from 'notistack';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
+const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const { user } = useAuthContext();
 	const isbn = item.isbn;
 	const { likeBy }: any = item;
@@ -22,18 +21,9 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 	const { addDocument, deleteDocument } = useFirestore('LikedBook', isbn);
 	const { enqueueSnackbar } = useSnackbar();
 
-	const {
-		data: documents,
-		isLoading,
-		error,
-	} = useQuery({
-		queryKey: ['LikedBook', isbn],
-		queryFn: () => getDocuments('LikedBook', isbn),
-	});
-
 	useEffect(() => {
-		if (documents) {
-			const likedUser = documents.find((book) => book.isbn === isbn);
+		if (likedBook) {
+			const likedUser = likedBook.find((book) => book.isbn === isbn);
 			if (likedUser) {
 				const likedNumber = likedUser?.likeBy
 					? Object.values(likedUser.likeBy).filter((like) => like === true)
@@ -52,11 +42,11 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 				setNumber(0);
 			}
 		}
-	}, [documents]);
+	}, [likedBook]);
 
 	const handleLikes = async () => {
-		if (user && documents) {
-			const likedUser = documents.find((book) => book.isbn === isbn);
+		if (user && likedBook) {
+			const likedUser = likedBook.find((book) => book.isbn === isbn);
 			const uid = user.uid;
 			let likeBy;
 			const createdTime = timestamp.fromDate(new Date());
@@ -64,6 +54,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 				likeBy = { ...likedUser?.likeBy, [uid]: !like };
 				addMutation.mutate({
 					...item,
+					...likedBook[0],
 					createdTime,
 					likeBy,
 					id,
@@ -77,18 +68,15 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 			} else {
 				likeBy = { ...likedUser?.likeBy };
 				delete likeBy[uid];
-				if (Object.keys(likeBy).length === 0) {
-					delMutation.mutate(isbn);
-				} else {
-					addMutation.mutate({
-						...item,
-						createdTime,
-						likeBy,
-						id,
-						search,
-						page,
-					});
-				}
+				addMutation.mutate({
+					...item,
+					...likedBook[0],
+					createdTime,
+					likeBy,
+					id,
+					search,
+					page,
+				});
 				if (number) {
 					setNumber(number - 1);
 					enqueueSnackbar('즐겨찾기가 취소되었습니다.', { variant: 'success' });
@@ -112,22 +100,9 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 		},
 	});
 
-	const delMutation = useMutation({
-		mutationFn: deleteDocument,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
-		},
-		onError: (error) => {
-			enqueueSnackbar('즐겨찾기 취소가 오류로 인해 실패하였습니다.', {
-				variant: 'error',
-			});
-			console.log(error);
-		},
-	});
-
 	return (
 		<>
-			{documents && (
+			{likedBook && (
 				<Box
 					sx={{
 						display: 'flex',
@@ -160,7 +135,7 @@ const BookLikes = ({ item, id, search, page }: BookLikesProps) => {
 						}}
 					>
 						<VisibilityIcon />
-						{documents && documents.length > 0 ? documents[0].views : null}
+						{likedBook && likedBook.length > 0 ? likedBook[0].views : null}
 					</Typography>
 				</Box>
 			)}
