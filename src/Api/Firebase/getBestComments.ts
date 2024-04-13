@@ -5,7 +5,7 @@ import { FirestoreDocument } from '../../Types/firestoreType';
 export const getBestcomments = async (transaction: string, props: string) => {
 	const documentQuery = query(
 		collection(appFirestore, transaction),
-		orderBy(props, 'asc'),
+		orderBy(props, 'desc'),
 		limit(5)
 	);
 

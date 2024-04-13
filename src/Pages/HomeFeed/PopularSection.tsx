@@ -20,6 +20,8 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 		queryFn: () => getBestcomments('LikedBook', props),
 	});
 
+	console.log(likedBooks);
+
 	const onMoveBookDetail = (isbn: string) => {
 		const likeIsbn =
 			isbn.split(' ')[0] === '' ? isbn.split(' ')[1] : isbn.split(' ')[0];
