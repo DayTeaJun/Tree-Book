@@ -74,7 +74,7 @@ export default function Search() {
 				<Paginaition
 					page={page}
 					searchView={searchView}
-					totalPage={Math.ceil(books.meta.pageable_count / 14)}
+					totalPage={Math.ceil(books.meta.pageable_count / 16)}
 				/>
 			)}
 		</>
