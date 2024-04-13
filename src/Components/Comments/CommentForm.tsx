@@ -92,10 +92,9 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 			>
 				<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
 					댓글{' '}
-					{likedBook &&
-						likedBook[0].commentTotalNumber !== undefined &&
-						likedBook[0].commentTotalNumber !== 0 &&
-						`${likedBook[0].commentTotalNumber}개`}
+					{likedBook && likedBook[0]?.commentTotalNumber
+						? `${likedBook[0]?.commentTotalNumber}개`
+						: null}
 				</Typography>
 				<Box
 					sx={{
