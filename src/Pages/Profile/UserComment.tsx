@@ -9,7 +9,7 @@ import { Box, Typography } from '@mui/material';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid: string) => {
-		const LikesRef = collection(appFirestore, 'comments');
+		const LikesRef = collection(appFirestore, 'comment');
 		const likedQuery = query(LikesRef, where('id', '==', uid));
 
 		const likedQuerySnapshot = await getDocs(likedQuery);
