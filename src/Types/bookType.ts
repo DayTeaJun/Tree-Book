@@ -36,6 +36,7 @@ export interface BookItemProps {
 	page?: string;
 	like?: string;
 	comment?: string;
+	publisher?: string;
 }
 
 export interface BookLikesProps {

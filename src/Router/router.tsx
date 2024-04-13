@@ -46,6 +46,10 @@ export default function Router() {
 								<Route path=':searchView/:page' element={<Search />} />
 								<Route path=':search/:page/:id' element={<BookDetail />} />
 								<Route path='like/:search/:page/:id' element={<BookDetail />} />
+								<Route
+									path='publisher/:search/:page/:id'
+									element={<BookDetail />}
+								/>
 							</Route>
 							<Route path='/profile'>
 								<Route path=':userProfile' element={<Profile />} />

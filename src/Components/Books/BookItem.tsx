@@ -3,7 +3,15 @@ import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
 import { Box, Typography } from '@mui/material';
 
-const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
+const BookItem = ({
+	item,
+	id,
+	page,
+	search,
+	like,
+	comment,
+	publisher,
+}: BookItemProps) => {
 	const navigate = useNavigate();
 	const isbn = item.isbn;
 	const onMoveBookDetail = () => {
@@ -11,6 +19,8 @@ const BookItem = ({ item, id, page, search, like, comment }: BookItemProps) => {
 			const likeIsbn =
 				like.split(' ')[0] === '' ? like.split(' ')[1] : like.split(' ')[0];
 			navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
+		} else if (publisher) {
+			navigate(`/search/publisher/${publisher}/1/${id}`, { state: { isbn } });
 		} else {
 			navigate(`/search/${search}/${page}/${id}`, { state: { isbn } });
 		}

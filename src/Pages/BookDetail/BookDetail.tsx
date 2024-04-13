@@ -18,15 +18,19 @@ export default function BookDetail() {
 	const { pathname } = useLocation();
 
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['bookDetail', page, search],
+		queryKey: ['bookDetail', page, search, id],
 		queryFn: () =>
 			search &&
 			(pathname.indexOf('/like') !== -1
 				? getBooks(search, 1, page, 'isbn')
+				: pathname.indexOf('/publisher') !== -1
+				? getBooks(search, 5, page, 'publisher')
 				: getBooks(search, 16, page, 'title')),
 		enabled: !!search,
 		refetchOnWindowFocus: false,
 	});
+
+	console.log(books);
 
 	useEffect(() => {
 		if (books) {
