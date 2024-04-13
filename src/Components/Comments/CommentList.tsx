@@ -78,6 +78,7 @@ export function CommentList({
 		mutationFn: deleteComment,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comment'] });
+			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 			enqueueSnackbar('댓글이 삭제되었습니다.', { variant: 'success' });
 		},
 		onError: (error) => {

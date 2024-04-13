@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
-import { CommentForm } from '../../Components/Comments/CommentForm';
 import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
 import Loading from '../../Components/LoadingSpinner/Loading';
@@ -51,7 +50,6 @@ export default function BookDetail() {
 							<title>{item.title} - TreeBook</title>
 						</Helmet>
 						<BookViews item={item} />
-						<CommentForm item={item} />
 					</>
 				) : (
 					<>{item && <h2>not found</h2>}</>

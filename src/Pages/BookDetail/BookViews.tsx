@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { BookDetailItem } from './BookDetailItem';
+import { CommentForm } from '../../Components/Comments/CommentForm';
 
 export const BookViews = ({ item }: { item: BookData }) => {
 	const queryClient = useQueryClient();
@@ -37,5 +38,10 @@ export const BookViews = ({ item }: { item: BookData }) => {
 		handleView();
 	}, []);
 
-	return <BookDetailItem item={item} likedBook={documents && documents} />;
+	return (
+		<>
+			<BookDetailItem item={item} likedBook={documents && documents} />
+			<CommentForm item={item} likedBook={documents && documents} />
+		</>
+	);
 };

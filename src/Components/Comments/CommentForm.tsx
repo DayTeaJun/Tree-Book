@@ -8,11 +8,10 @@ import { BookLikesProps } from '../../Types/bookType';
 import { Box, InputBase, Typography } from '@mui/material';
 import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
-import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 
-export function CommentForm({ item }: BookLikesProps) {
+export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comment');
 	const { user } = useAuthContext();
@@ -26,16 +25,6 @@ export function CommentForm({ item }: BookLikesProps) {
 	const displayName = (user && user.displayName) || '';
 	const id = (user && user.uid) || '';
 	const photoURL = (user && user.photoURL) || '';
-
-	const {
-		data: documents,
-		isLoading,
-		error,
-	} = useQuery({
-		queryKey: ['LikedBook', isbn],
-		queryFn: () => getDocuments('LikedBook', isbn),
-		refetchOnWindowFocus: false,
-	});
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -63,20 +52,25 @@ export function CommentForm({ item }: BookLikesProps) {
 				id,
 				photoURL,
 			});
-			if (documents) {
-				const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
+			if (likedBook) {
+				const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
 
 				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
-					...documents[0],
+					...likedBook[0],
 					...item,
 					commentTotalNumber: commentTotalNumber + 1,
 				});
+				queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 			}
 			enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 		} else {
 			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
 		}
 	};
+
+	if (likedBook) {
+		console.log(likedBook[0]);
+	}
 
 	useEffect(() => {
 		if (response.success) {
@@ -97,7 +91,11 @@ export function CommentForm({ item }: BookLikesProps) {
 				onSubmit={handleSubmit}
 			>
 				<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
-					댓글
+					댓글{' '}
+					{likedBook &&
+						likedBook[0].commentTotalNumber !== undefined &&
+						likedBook[0].commentTotalNumber !== 0 &&
+						`${likedBook[0].commentTotalNumber}개`}
 				</Typography>
 				<Box
 					sx={{
@@ -150,7 +148,7 @@ export function CommentForm({ item }: BookLikesProps) {
 					</Box>
 				</Box>
 			</Box>
-			<CommentList isbn={isbn} documents={documents} />
+			<CommentList isbn={isbn} documents={likedBook} />
 		</>
 	);
 }
