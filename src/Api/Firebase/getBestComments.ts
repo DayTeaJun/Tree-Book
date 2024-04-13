@@ -1,11 +1,12 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { FirestoreDocument } from '../../Types/firestoreType';
 
 export const getBestcomments = async (transaction: string, props: string) => {
 	const documentQuery = query(
 		collection(appFirestore, transaction),
-		orderBy(props, 'asc')
+		orderBy(props, 'asc'),
+		limit(5)
 	);
 
 	const documentSnapshot = await getDocs(documentQuery);

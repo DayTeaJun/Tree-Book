@@ -48,7 +48,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 					marginBottom: '10px',
 					borderBottom: '1px solid #ccc',
 					padding: '5px',
-					color: 'red',
+					color: 'text.primary',
 				}}
 			>
 				{`실시간 핫 ${props === 'views' ? '조회수' : '코멘트'}`}
@@ -68,13 +68,29 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 							}}
 							onClick={() => onMoveBookDetail(item.isbn)}
 						>
-							<Box sx={{ display: 'flex', gap: '10px' }}>
-								<Typography fontWeight='bold' sx={{ color: 'red' }}>
+							<Box sx={{ display: 'flex', gap: '10px', width: '90%' }}>
+								<Typography
+									fontWeight='bold'
+									sx={{ color: 'red', flexShrink: 0 }}
+								>
 									{index + 1}위
 								</Typography>
-								<Typography>{item.title}</Typography>
+								<Typography
+									sx={{
+										overflow: 'hidden',
+										textOverflow: 'ellipsis',
+										whiteSpace: 'nowrap',
+										'&:hover': {
+											textDecoration: 'underline',
+											textDecorationColor: '#ccc',
+											textUnderlinePosition: 'under',
+										},
+									}}
+								>
+									{item.title}
+								</Typography>
 							</Box>
-							<Typography sx={{ color: 'red' }}>
+							<Typography sx={{ color: 'red', flexShrink: 0 }}>
 								[{item.commentTotalNumber ? item.commentTotalNumber : 0}]
 							</Typography>
 						</Box>

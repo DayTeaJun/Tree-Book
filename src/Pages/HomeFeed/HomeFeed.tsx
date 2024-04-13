@@ -16,7 +16,7 @@ export default function HomeFeed() {
 					flexDirection: 'column',
 					width: '100%',
 					padding: '20px 0',
-					gap: '50px',
+					gap: '20px',
 				}}
 			>
 				<Box
