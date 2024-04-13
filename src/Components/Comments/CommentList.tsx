@@ -24,7 +24,7 @@ export function CommentList({
 }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
-	const { deleteDocument } = useFirestore('comments');
+	const { deleteDocument } = useFirestore('comment');
 	const [currentPage, setCurrentPage] = useState(1);
 	const queryClient = useQueryClient();
 	const [isOpenModal, setIsOpenModal] = useState(false);
@@ -77,7 +77,7 @@ export function CommentList({
 	const mutation = useMutation({
 		mutationFn: deleteComment,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['comments'] });
+			queryClient.invalidateQueries({ queryKey: ['comment'] });
 			enqueueSnackbar('댓글이 삭제되었습니다.', { variant: 'success' });
 		},
 		onError: (error) => {
