@@ -108,7 +108,7 @@ export function CommentList({
 					display: 'felx',
 					flexDirection: 'column',
 					gap: '10px',
-					marginTop: '10px',
+					padding: '10px 0',
 				}}
 			>
 				{comment &&
@@ -260,7 +260,7 @@ export function CommentList({
 							</Box>
 						</Box>
 					))}
-				{comment.length !== 0 && (
+				{comments && comments.length > 4 && (
 					<Paginaition
 						page={currentPage}
 						handlePageChange={handlePageChange}
