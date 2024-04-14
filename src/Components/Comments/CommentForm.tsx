@@ -68,10 +68,6 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 		}
 	};
 
-	if (likedBook) {
-		console.log(likedBook[0]);
-	}
-
 	useEffect(() => {
 		if (response.success) {
 			setComments('');

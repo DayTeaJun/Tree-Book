@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { BookData, BookItemProps } from '../../Types/bookType';
+import { BookData } from '../../Types/bookType';
 import errorImg from '../../Assets/No-img.svg';
 import BookLikes from '../../Components/Books/BookLikes';
 import { useParams } from 'react-router-dom';

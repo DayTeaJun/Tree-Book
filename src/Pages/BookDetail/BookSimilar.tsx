@@ -12,9 +12,6 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 		queryFn: () => publisher && getBooks(publisher, 5, '1', 'publisher'),
 	});
 
-	console.log(books);
-	console.log('1');
-
 	return (
 		<>
 			<Typography component='h2' fontSize='1.2em'>

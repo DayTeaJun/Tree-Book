@@ -30,8 +30,6 @@ export default function BookDetail() {
 		refetchOnWindowFocus: false,
 	});
 
-	console.log(books);
-
 	useEffect(() => {
 		if (books) {
 			const item: BookData = books.documents.find(
