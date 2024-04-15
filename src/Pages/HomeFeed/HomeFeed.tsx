@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
 import { PopularSection } from './PopularSection';
+import { Footer } from '../../Layouts/Footer/Footer';
 
 export default function HomeFeed() {
 	return (

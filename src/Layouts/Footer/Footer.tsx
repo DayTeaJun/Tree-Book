@@ -8,7 +8,6 @@ export const Footer = () => {
 			sx={{
 				width: '100%',
 				bottom: '0',
-				backgroundColor: 'background.book',
 			}}
 		>
 			<Box
@@ -22,7 +21,9 @@ export const Footer = () => {
 					component='a'
 					fontWeight='bold'
 					color='text.primary'
-					sx={{ cursor: 'pointer' }}
+					sx={{
+						cursor: 'pointer',
+					}}
 					onClick={() => {
 						window.open('https://github.com/DayTeaJun');
 					}}
