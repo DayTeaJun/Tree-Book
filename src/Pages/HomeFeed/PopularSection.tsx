@@ -106,6 +106,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 								>
 									<Typography
 										fontSize='1.1em'
+										fontWeight={'bold'}
 										sx={{
 											width: '200px',
 											overflow: 'hidden',
