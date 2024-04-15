@@ -31,6 +31,7 @@ const BestBook = () => {
 			height='300px'
 			sx={{
 				width: '100%',
+				margin: '0 auto',
 			}}
 		>
 			{likedBooks &&
@@ -41,9 +42,7 @@ const BestBook = () => {
 							width: '100%',
 							height: '100%',
 							display: 'flex',
-							justifyContent: 'space-between',
 							padding: '30px 70px',
-							gap: '20px',
 							boxShadow: 'none',
 							borderRadius: '0',
 							background: 'inherit',
@@ -126,7 +125,6 @@ const BestBook = () => {
 						</Box>
 						<Box
 							sx={{
-								width: 'calc(30% - 20px)',
 								marginLeft: 'auto',
 							}}
 						>
