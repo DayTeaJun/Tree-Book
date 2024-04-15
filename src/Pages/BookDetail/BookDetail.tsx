@@ -3,7 +3,6 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getBooks } from '../../Api/searchApi';
 import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
-import Loading from '../../Components/LoadingSpinner/Loading';
 import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { BookViews } from './BookViews';
@@ -38,10 +37,6 @@ export default function BookDetail() {
 			setItem(item);
 		}
 	}, [books]);
-
-	if (isLoading) {
-		return <Loading BackDrop={true} />;
-	}
 
 	return (
 		<>
