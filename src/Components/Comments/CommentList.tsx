@@ -70,7 +70,7 @@ export function CommentList({
 				commentTotalNumber:
 					commentTotalNumber <= 0 ? 0 : commentTotalNumber - 1,
 			});
-			deleteDocument(uid);
+			await deleteDocument(uid);
 		}
 	};
 
