@@ -6,7 +6,7 @@ export const getBestcomments = async (transaction: string, props: string) => {
 	const documentQuery = query(
 		collection(appFirestore, transaction),
 		orderBy(props, 'desc'),
-		limit(5)
+		limit(9)
 	);
 
 	const documentSnapshot = await getDocs(documentQuery);

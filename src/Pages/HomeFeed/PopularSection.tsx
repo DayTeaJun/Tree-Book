@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getBestcomments } from '../../Api/Firebase/getBestComments';
 import { BookData } from '../../Types/bookType';
 import { useNavigate } from 'react-router-dom';
+import errorImg from '../../Assets/No-img.svg';
 
 interface PopularSectionProps {
 	props: 'commentTotalNumber' | 'views';
@@ -27,75 +28,130 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 	};
 
 	return (
-		<Box
-			component='section'
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				width: '50%',
-				minHeight: '280px',
-				border: '1px solid #ccc',
-				padding: '10px',
-				borderRadius: '10px',
-			}}
-		>
+		<>
 			<Typography
 				component='h2'
 				fontWeight='bold'
-				fontSize='1.2em'
+				fontSize='1.5em'
 				sx={{
-					textAlign: 'center',
-					marginBottom: '10px',
-					borderBottom: '1px solid #ccc',
-					padding: '5px',
 					color: 'text.primary',
 				}}
 			>
-				{`실시간 핫 ${props === 'views' ? '조회수' : '코멘트'}`}
+				{`실시간 핫한 ${props === 'views' ? '조회수' : '코멘트'}`}
 			</Typography>
-			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+			<Box
+				component='ul'
+				sx={{
+					display: 'flex',
+					flexFlow: 'column wrap',
+					width: '100%',
+					height: '400px',
+				}}
+			>
 				{likedBooks &&
 					(likedBooks as BookData[]).map((item: BookData, index: number) => (
 						<Box
+							component='li'
 							key={index}
 							sx={{
-								padding: '5px',
+								width: 'calc((100% - 20px) / 3)',
+								height: '120px',
 								display: 'flex',
-								justifyContent: 'space-between',
-								cursor: 'pointer',
 								color: 'text.primary',
 								fontWeight: 'bold',
+								paddingRight: '20px',
+								marginBottom: '10px',
 							}}
-							onClick={() => onMoveBookDetail(item.isbn)}
 						>
-							<Box sx={{ display: 'flex', gap: '10px', width: '90%' }}>
+							<Box
+								sx={{
+									width: '100%',
+									height: '100%',
+									display: 'flex',
+									alignItems: 'center',
+									gap: '20px',
+								}}
+							>
 								<Typography
 									fontWeight='bold'
-									sx={{ color: 'red', flexShrink: 0 }}
+									fontSize='1.1em'
+									sx={{ flexShrink: 0 }}
 								>
-									{index + 1}위
+									{index + 1}
 								</Typography>
-								<Typography
+								<Box
 									sx={{
+										width: '80px',
+										borderRadius: '5px',
+										cursor: 'pointer',
 										overflow: 'hidden',
-										textOverflow: 'ellipsis',
-										whiteSpace: 'nowrap',
-										'&:hover': {
-											textDecoration: 'underline',
-											textDecorationColor: '#ccc',
-											textUnderlinePosition: 'under',
-										},
+										flexShrink: 0,
+									}}
+									onClick={() => onMoveBookDetail(item.isbn)}
+								>
+									{item.thumbnail ? (
+										<img
+											src={item.thumbnail}
+											alt={`책 ${item.title}의 이미지`}
+										/>
+									) : (
+										<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
+									)}
+								</Box>
+								<Box
+									sx={{
+										display: 'flex',
+										flexDirection: 'column',
 									}}
 								>
-									{item.title}
+									<Typography
+										fontSize='1.1em'
+										sx={{
+											width: '200px',
+											overflow: 'hidden',
+											textOverflow: 'ellipsis',
+											cursor: 'pointer',
+											whiteSpace: 'nowrap',
+											'&:hover': {
+												textDecoration: 'underline',
+												textDecorationColor: '#ccc',
+												textUnderlinePosition: 'under',
+											},
+										}}
+										onClick={() => onMoveBookDetail(item.isbn)}
+									>
+										{item.title}
+									</Typography>
+									<Typography
+										component='p'
+										fontSize={'0.9em'}
+										fontWeight={'bold'}
+										sx={{
+											color: 'text.secondary',
+											whiteSpace: 'nowrap',
+											overflow: 'hidden',
+											textOverflow: 'ellipsis',
+										}}
+									>
+										{item.authors.length > 1
+											? item.authors.join(' | ')
+											: item.authors}
+									</Typography>
+								</Box>
+								<Typography
+									fontSize={'0.9em'}
+									sx={{
+										flexShrink: 0,
+										color: 'text.secondary',
+										marginLeft: 'auto',
+									}}
+								>
+									[{item.commentTotalNumber ? item.commentTotalNumber : 0}]
 								</Typography>
 							</Box>
-							<Typography sx={{ color: 'red', flexShrink: 0 }}>
-								[{item.commentTotalNumber ? item.commentTotalNumber : 0}]
-							</Typography>
 						</Box>
 					))}
 			</Box>
-		</Box>
+		</>
 	);
 };

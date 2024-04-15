@@ -25,7 +25,7 @@ export default function HomeFeed() {
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '20px',
-						width: '80%',
+						width: '100%',
 						height: '100%',
 						margin: '0 auto',
 					}}
@@ -42,21 +42,10 @@ export default function HomeFeed() {
 						gap: '20px',
 						flexWrap: 'wrap',
 						paddingTop: '20px',
-						justifyContent: 'center',
 					}}
 				>
-					<Box
-						component='section'
-						sx={{
-							display: 'flex',
-							width: '100%',
-							gap: '20px',
-							justifyContent: 'space-around',
-						}}
-					>
-						<PopularSection props='commentTotalNumber' />
-						<PopularSection props='views' />
-					</Box>
+					<PopularSection props='commentTotalNumber' />
+					{/* <PopularSection props='views' /> */}
 				</Box>
 			</Box>
 		</>
