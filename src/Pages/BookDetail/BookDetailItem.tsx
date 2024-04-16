@@ -24,10 +24,10 @@ export const BookDetailItem = ({
 			sx={{ display: 'flex', gap: '20px', padding: '20px 0' }}
 			key={item.url}
 		>
-			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 				<Box
 					sx={{
-						width: '9em',
+						width: '150px',
 						flexShrink: 1,
 						textAlign: 'center',
 						borderRadius: '10px',
@@ -40,7 +40,7 @@ export const BookDetailItem = ({
 					)}
 				</Box>
 
-				<Typography
+				{/* <Typography
 					component='a'
 					textAlign='center'
 					fontSize='0.8em'
@@ -52,7 +52,15 @@ export const BookDetailItem = ({
 					}}
 				>
 					다음 검색으로 이동
-				</Typography>
+				</Typography> */}
+
+				<BookLikes
+					item={item}
+					id={id}
+					search={search}
+					page={page}
+					likedBook={likedBook}
+				/>
 			</Box>
 
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -72,13 +80,6 @@ export const BookDetailItem = ({
 					>
 						{item.title}
 					</Typography>
-					<BookLikes
-						item={item}
-						id={id}
-						search={search}
-						page={page}
-						likedBook={likedBook}
-					/>
 				</Box>
 				<Typography component='dl' sx={{ display: 'flex' }}>
 					<Typography

@@ -8,7 +8,8 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { timestamp } from '../../Firebase/config';
 import { useSnackbar } from 'notistack';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const { user } = useAuthContext();
@@ -18,7 +19,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const [like, setLike] = useState<boolean | undefined>(likedUser);
 	const [number, setNumber] = useState<number | undefined>();
 	const queryClient = useQueryClient();
-	const { addDocument, deleteDocument } = useFirestore('LikedBook', isbn);
+	const { addDocument } = useFirestore('LikedBook', isbn);
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
@@ -105,38 +106,30 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 			{likedBook && (
 				<Box
 					sx={{
+						width: '80%',
+						height: '40px',
+						margin: '0 auto',
 						display: 'flex',
-						gap: '20px',
 						color: 'background.mark',
 						cursor: 'pointer',
+						border: '1.5px solid',
+						borderRadius: '5px',
+						borderColor: 'background.mark',
+						alignItems: 'center',
+						justifyContent: 'center',
 					}}
 					onClick={() => handleLikes()}
 				>
-					<Box sx={{ display: 'flex', alignItems: 'center' }}>
-						{!like ? (
-							<BookmarkBorderIcon fontSize='large' />
-						) : (
-							<BookmarkIcon fontSize='large' />
-						)}
-						{number !== 0 && number && (
-							<Typography component='p' fontSize='1em' fontWeight='bold'>
-								{number} 명
-							</Typography>
-						)}
-					</Box>
-					<Typography
-						component='p'
-						fontSize='1em'
-						fontWeight='bold'
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							gap: '5px',
-						}}
-					>
-						<VisibilityIcon />
-						{likedBook && likedBook.length > 0 ? likedBook[0].views : null}
-					</Typography>
+					{!like ? (
+						<FavoriteBorderIcon fontSize='small' />
+					) : (
+						<FavoriteIcon fontSize='small' />
+					)}
+					{number !== 0 && number && (
+						<Typography component='p' fontSize='1em' fontWeight='bold'>
+							{number}
+						</Typography>
+					)}
 				</Box>
 			)}
 		</>
