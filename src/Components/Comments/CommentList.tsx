@@ -108,7 +108,8 @@ export function CommentList({
 					display: 'felx',
 					flexDirection: 'column',
 					gap: '10px',
-					padding: '10px 0',
+					padding: '20px 0',
+					borderBottom: '1px solid #ccc',
 				}}
 			>
 				{comment &&
@@ -268,6 +269,27 @@ export function CommentList({
 							commentLists && Math.ceil(commentLists.length / commentsPerPage)
 						}
 					/>
+				)}
+				{!isLoading && comments?.length === 0 && (
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							padding: '50px 0',
+						}}
+					>
+						<Typography
+							component='p'
+							fontSize='1.2em'
+							fontWeight='bold'
+							sx={{
+								color: 'text.secondary',
+							}}
+						>
+							아직 등록된 댓글이 없습니다! 첫번째 댓글을 남겨주세요!
+						</Typography>
+					</Box>
 				)}
 				{isOpenModal && (
 					<Modal
