@@ -9,12 +9,25 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 
 	const { data: books, isLoading } = useQuery({
 		queryKey: ['bookSimilar'],
-		queryFn: () => publisher && getBooks(publisher, 5, '1', 'publisher'),
+		queryFn: () => publisher && getBooks(publisher, 10, '1', 'publisher'),
 	});
 
 	return (
-		<>
-			<Typography component='h2' fontSize='1.2em'>
+		<Box
+			sx={{
+				borderBottom: '1px solid',
+				borderColor: 'background.mark',
+				padding: '20px 0',
+			}}
+		>
+			<Typography
+				component='h2'
+				fontSize='1.2em'
+				sx={{
+					borderBottom: '1px solid',
+					padding: '20px 0 10px 0',
+				}}
+			>
 				같은 출판사의 최신 책
 			</Typography>
 			<Box
@@ -22,10 +35,11 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 				sx={{
 					display: 'flex',
 					width: '100%',
-					padding: '20px 0',
-					gap: '20px',
+					padding: '30px 0',
+					gap: '100px',
 					flexWrap: 'wrap',
 					marginBottom: '20px',
+					justifyContent: 'center',
 				}}
 			>
 				{books &&
@@ -40,6 +54,6 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 						></BookItem>
 					))}
 			</Box>
-		</>
+		</Box>
 	);
 };

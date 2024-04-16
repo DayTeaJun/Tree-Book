@@ -23,7 +23,7 @@ export default function BookDetail() {
 			(pathname.indexOf('/like') !== -1
 				? getBooks(search, 1, page, 'isbn')
 				: pathname.indexOf('/publisher') !== -1
-				? getBooks(search, 5, page, 'publisher')
+				? getBooks(search, 10, page, 'publisher')
 				: getBooks(search, 16, page, 'title')),
 		enabled: !!search,
 		refetchOnWindowFocus: false,

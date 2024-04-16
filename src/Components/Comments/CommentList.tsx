@@ -109,7 +109,6 @@ export function CommentList({
 					flexDirection: 'column',
 					gap: '10px',
 					padding: '20px 0',
-					borderBottom: '1px solid #ccc',
 				}}
 			>
 				{comment &&
