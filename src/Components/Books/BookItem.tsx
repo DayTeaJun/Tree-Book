@@ -90,6 +90,7 @@ const BookItem = ({
 	return (
 		<Box
 			sx={{
+				width: '140px',
 				position: 'relative',
 				borderRadius: '5px',
 				padding: '10px',

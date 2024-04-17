@@ -86,12 +86,7 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 				}}
 				onSubmit={handleSubmit}
 			>
-				<Typography
-					component='h2'
-					fontSize='1.2em'
-					fontWeight='bold'
-					sx={{ borderBottom: '1px solid', paddingBottom: '20px' }}
-				>
+				<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
 					댓글{' '}
 					{likedBook && likedBook[0]?.commentTotalNumber
 						? `${likedBook[0]?.commentTotalNumber}개`

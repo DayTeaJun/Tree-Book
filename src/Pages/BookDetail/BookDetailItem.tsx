@@ -19,180 +19,180 @@ export const BookDetailItem = ({
 	}>();
 
 	return (
-		<Box
-			component='section'
-			sx={{ display: 'flex', gap: '20px', padding: '20px 0' }}
-			key={item.url}
-		>
-			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-				<Box
-					sx={{
-						width: '150px',
-						flexShrink: 1,
-						textAlign: 'center',
-						borderRadius: '10px',
-						cursor: 'pointer',
-						boxShadow: 'rgba(0, 0, 0, 0.5) 4.8px 4.8px 6.4px',
-					}}
-					onClick={() => {
-						window.open(item.url);
-					}}
-				>
-					{item.thumbnail ? (
-						<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
-					) : (
-						<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
-					)}
-				</Box>
-
-				<BookLikes
-					item={item}
-					id={id}
-					search={search}
-					page={page}
-					likedBook={likedBook}
-				/>
-			</Box>
-
-			<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-				<Box
-					sx={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						gap: '20px',
-					}}
-				>
-					<Typography
-						component='h2'
-						fontWeight='bold'
-						fontSize='1.3em'
-						sx={{ marginBottom: '5px' }}
-					>
-						{item.title}
-					</Typography>
-				</Box>
-				<Typography component='dl' sx={{ display: 'flex' }}>
-					<Typography
-						component='dt'
-						fontWeight='bold'
+		<>
+			<Box
+				component='section'
+				sx={{ display: 'flex', gap: '20px', padding: '20px 0' }}
+				key={item.url}
+			>
+				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+					<Box
 						sx={{
-							flexShrink: 0,
-							width: '80px',
-							marginRight: '10px',
-							borderRight: 'solid 2px #ccc',
+							width: '150px',
+							flexShrink: 1,
+							textAlign: 'center',
+							borderRadius: '10px',
+							cursor: 'pointer',
+							boxShadow: 'rgba(0, 0, 0, 0.5) 4.8px 4.8px 6.4px',
+						}}
+						onClick={() => {
+							window.open(item.url);
 						}}
 					>
-						작가
-					</Typography>
-					<Typography component='dd'>
-						{item.authors.length !== 0
-							? item.authors.length > 1
-								? item.authors.join(' | ')
-								: item.authors
-							: '미상'}
-					</Typography>
-				</Typography>
-				<Typography component='dl' sx={{ display: 'flex' }}>
-					<Typography
-						component='dt'
-						fontWeight='bold'
+						{item.thumbnail ? (
+							<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
+						) : (
+							<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
+						)}
+					</Box>
+
+					<BookLikes
+						item={item}
+						id={id}
+						search={search}
+						page={page}
+						likedBook={likedBook}
+					/>
+				</Box>
+
+				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+					<Box
 						sx={{
-							flexShrink: 0,
-							width: '80px',
-							marginRight: '10px',
-							borderRight: 'solid 2px #ccc',
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+							gap: '20px',
 						}}
 					>
-						출판사
-					</Typography>
-					<Typography component='dd'>
-						{item.publisher !== (undefined || '') ? item.publisher : '미상'}
-					</Typography>
-				</Typography>
-				{item.contents !== (undefined || '') ? (
+						<Typography
+							component='h2'
+							fontWeight='bold'
+							fontSize='1.5em'
+							sx={{ marginBottom: '5px' }}
+						>
+							{item.title}
+						</Typography>
+					</Box>
 					<Typography component='dl' sx={{ display: 'flex' }}>
 						<Typography
 							component='dt'
-							fontWeight='bold'
 							sx={{
 								flexShrink: 0,
 								width: '80px',
-								marginRight: '10px',
-								borderRight: 'solid 2px #ccc',
+								color: 'text.secondary',
 							}}
 						>
-							내용
+							작가
 						</Typography>
+						<Typography component='dd'>
+							{item.authors.length !== 0
+								? item.authors.length > 1
+									? item.authors.join(' | ')
+									: item.authors
+								: '미상'}
+						</Typography>
+					</Typography>
+					<Typography component='dl' sx={{ display: 'flex' }}>
 						<Typography
-							component='dd'
+							component='dt'
 							sx={{
-								overflow: 'hidden',
-								whiteSpace: 'normal',
-								textOverflow: 'ellipsis',
-								display: '-webkit-box',
-								WebkitLineClamp: 3,
-								WebkitBoxOrient: 'vertical',
-								wordBreak: 'keep-all',
+								flexShrink: 0,
+								width: '80px',
+								color: 'text.secondary',
 							}}
 						>
-							{item.contents}
+							출판사
+						</Typography>
+						<Typography component='dd'>
+							{item.publisher !== (undefined || '') ? item.publisher : '미상'}
 						</Typography>
 					</Typography>
-				) : (
-					<></>
-				)}
 
-				<Typography component='dl' sx={{ display: 'flex' }}>
-					<Typography
-						component='dt'
-						fontWeight='bold'
-						sx={{
-							flexShrink: 0,
-							width: '80px',
-							marginRight: '10px',
-							borderRight: 'solid 2px #ccc',
-						}}
-					>
-						가격
+					<Typography component='dl' sx={{ display: 'flex' }}>
+						<Typography
+							component='dt'
+							sx={{
+								flexShrink: 0,
+								width: '80px',
+								color: 'text.secondary',
+							}}
+						>
+							판매가
+						</Typography>
+						<Typography component='dd'>
+							{item.price.toLocaleString('ko-KR')}원
+						</Typography>
 					</Typography>
-					<Typography component='dd'>
-						{item.price.toLocaleString('ko-KR')}원
+					<Typography component='dl' sx={{ display: 'flex' }}>
+						<Typography
+							component='dt'
+							sx={{
+								flexShrink: 0,
+								width: '80px',
+								color: 'text.secondary',
+							}}
+						>
+							ISBN
+						</Typography>
+						<Typography component='dd'>{item.isbn}</Typography>
 					</Typography>
-				</Typography>
-				<Typography component='dl' sx={{ display: 'flex' }}>
-					<Typography
-						component='dt'
-						fontWeight='bold'
-						sx={{
-							flexShrink: 0,
-							width: '80px',
-							marginRight: '10px',
-							borderRight: 'solid 2px #ccc',
-						}}
-					>
-						ISBN
+					<Typography component='dl' sx={{ display: 'flex' }}>
+						<Typography
+							component='dt'
+							sx={{
+								flexShrink: 0,
+								width: '80px',
+								color: 'text.secondary',
+							}}
+						>
+							출판일
+						</Typography>
+						<Typography component='dd'>
+							{item.datetime.substr(0, 10).replaceAll('-', '. ')}
+						</Typography>
 					</Typography>
-					<Typography component='dd'>{item.isbn}</Typography>
-				</Typography>
-				<Typography component='dl' sx={{ display: 'flex' }}>
-					<Typography
-						component='dt'
-						fontWeight='bold'
-						sx={{
-							flexShrink: 0,
-							width: '80px',
-							marginRight: '10px',
-							borderRight: 'solid 2px #ccc',
-						}}
-					>
-						출판일
-					</Typography>
-					<Typography component='dd'>
-						{item.datetime.substr(0, 10).replaceAll('-', '. ')}
-					</Typography>
-				</Typography>
+				</Box>
 			</Box>
-		</Box>
+			{item.contents !== (undefined || '') ? (
+				<Typography
+					component='dl'
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						margin: '20px 0',
+						gap: '10px',
+					}}
+				>
+					<Typography
+						component='dt'
+						fontWeight='bold'
+						fontSize='1.2em'
+						sx={{
+							borderBottom: '1px solid',
+							paddingBottom: '10px',
+							color: 'text.secondary',
+						}}
+					>
+						책소개
+					</Typography>
+					<Typography
+						component='dd'
+						sx={{
+							overflow: 'hidden',
+							whiteSpace: 'normal',
+							textOverflow: 'ellipsis',
+							display: '-webkit-box',
+							WebkitLineClamp: 3,
+							WebkitBoxOrient: 'vertical',
+							wordBreak: 'keep-all',
+						}}
+					>
+						{item.contents}
+					</Typography>
+				</Typography>
+			) : (
+				<></>
+			)}
+		</>
 	);
 };

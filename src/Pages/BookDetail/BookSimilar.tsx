@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { BookData } from '../../Types/bookType';
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';
@@ -13,19 +13,15 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 	});
 
 	return (
-		<Box
-			sx={{
-				borderBottom: '1px solid',
-				borderColor: 'background.mark',
-				padding: '20px 0',
-			}}
-		>
+		<>
 			<Typography
 				component='h2'
+				fontWeight='bold'
 				fontSize='1.2em'
 				sx={{
 					borderBottom: '1px solid',
-					padding: '20px 0 10px 0',
+					paddingBottom: '10px',
+					color: 'text.secondary',
 				}}
 			>
 				같은 출판사의 최신 책
@@ -33,13 +29,12 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 			<Box
 				component='section'
 				sx={{
-					display: 'flex',
+					display: 'grid',
+					gap: 2,
+					gridTemplateColumns: 'repeat(5, 1fr)',
 					width: '100%',
 					padding: '30px 0',
-					gap: '100px',
-					flexWrap: 'wrap',
 					marginBottom: '20px',
-					justifyContent: 'center',
 				}}
 			>
 				{books &&
@@ -54,6 +49,6 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 						></BookItem>
 					))}
 			</Box>
-		</Box>
+		</>
 	);
 };
