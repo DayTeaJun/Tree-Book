@@ -31,6 +31,11 @@ export const BookDetailItem = ({
 						flexShrink: 1,
 						textAlign: 'center',
 						borderRadius: '10px',
+						cursor: 'pointer',
+						boxShadow: 'rgba(0, 0, 0, 0.5) 4.8px 4.8px 6.4px',
+					}}
+					onClick={() => {
+						window.open(item.url);
 					}}
 				>
 					{item.thumbnail ? (
@@ -39,20 +44,6 @@ export const BookDetailItem = ({
 						<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
 					)}
 				</Box>
-
-				{/* <Typography
-					component='a'
-					textAlign='center'
-					fontSize='0.8em'
-					fontWeight='bold'
-					color='text.primary'
-					sx={{ cursor: 'pointer' }}
-					onClick={() => {
-						window.open(item.url);
-					}}
-				>
-					다음 검색으로 이동
-				</Typography> */}
 
 				<BookLikes
 					item={item}
