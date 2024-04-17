@@ -8,7 +8,7 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 	const publisher = item.publisher;
 
 	const { data: books, isLoading } = useQuery({
-		queryKey: ['bookSimilar'],
+		queryKey: ['bookSimilar', publisher],
 		queryFn: () => publisher && getBooks(publisher, 10, '1', 'publisher'),
 	});
 
