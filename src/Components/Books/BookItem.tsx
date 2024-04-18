@@ -36,11 +36,11 @@ const BookItem = ({
 					flexShrink: 0,
 					gap: '5px',
 					cursor: 'pointer',
-					width: '90%',
+					width: '95%',
 					height: '100px',
 					padding: '10px',
 					borderRadius: '5px',
-					backgroundColor: 'background.book',
+					backgroundColor: 'background.hover',
 				}}
 			>
 				<Typography
@@ -94,7 +94,7 @@ const BookItem = ({
 				position: 'relative',
 				borderRadius: '5px',
 				padding: '10px',
-				backgroundColor: 'background.book',
+				backgroundColor: 'background.hover',
 				cursor: 'pointer',
 				'&:hover': {
 					transform: 'translateY(-0.5em)',

@@ -132,8 +132,6 @@ export default function ProfileEdit() {
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					borderLeft: '1px solid #ccc',
-					borderRight: '1px solid #ccc',
 					marginTop: '20px',
 					padding: '20px 24px',
 					gap: '15px',
@@ -149,7 +147,8 @@ export default function ProfileEdit() {
 					component='form'
 					sx={{
 						width: '100%',
-						borderLeft: '1px solid #ccc',
+						borderLeft: '1px solid',
+						borderColor: 'text.primary',
 						paddingLeft: '20px',
 						display: 'flex',
 						flexDirection: 'column',
@@ -164,7 +163,6 @@ export default function ProfileEdit() {
 							marginBottom: '10px',
 							display: 'flex',
 							position: 'relative',
-							border: '1px solid #ccc',
 							borderRadius: '50%',
 							cursor: 'pointer',
 						}}
@@ -221,7 +219,9 @@ export default function ProfileEdit() {
 							height: '30px',
 							padding: '5px 0',
 							border: 'none',
-							borderBottom: '1px solid #ccc',
+							borderBottom: '1px solid',
+							borderColor: 'text.primary',
+
 							backgroundColor: 'inherit',
 						}}
 						id='nickNameEdit'
@@ -252,7 +252,8 @@ export default function ProfileEdit() {
 							height: '30px',
 							padding: '5px 0',
 							border: 'none',
-							borderBottom: '1px solid #ccc',
+							borderBottom: '1px solid',
+							borderColor: 'text.primary',
 							backgroundColor: 'inherit',
 						}}
 						id='introEdit'

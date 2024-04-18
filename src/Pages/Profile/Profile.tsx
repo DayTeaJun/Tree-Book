@@ -36,7 +36,6 @@ export default function Profile() {
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
-					padding: '20px 24px',
 					marginTop: '20px',
 					minHeight: '450px',
 					gap: '10px',
@@ -54,7 +53,7 @@ export default function Profile() {
 				>
 					<Box
 						sx={{
-							minWidth: '30%',
+							minWidth: '20%',
 							minHeight: '286px',
 							flexShrink: 1,
 							display: 'flex',
@@ -62,15 +61,15 @@ export default function Profile() {
 							alignItems: 'center',
 							justifyContent: 'center',
 							gap: '20px',
-							borderRight: '1px solid #ccc',
+							backgroundColor: 'background.content',
+							borderRadius: '10px',
 						}}
 					>
 						<Box
 							sx={{
 								width: '200px',
 								height: '200px',
-								borderRadius: '1em',
-								border: 'solid 1px #ccc',
+								borderRadius: '50%',
 								flexShrink: 1,
 								overflow: 'hidden',
 							}}
@@ -118,7 +117,8 @@ export default function Profile() {
 							</Box>
 						) : (
 							<Typography component='p' fontSize='1em' textAlign='center'>
-								{(userDocument && userDocument?.intro) || ''}
+								{(userDocument && userDocument?.intro) ||
+									'한줄 자기소개를 작성해보세요.'}
 							</Typography>
 						)}
 						{isLoading ? (
@@ -146,10 +146,7 @@ export default function Profile() {
 												width: '100%',
 												padding: '10px 20px',
 												borderRadius: '10px',
-												backgroundColor: 'background.book',
-												'&:hover': {
-													backgroundColor: 'background.hover',
-												},
+												backgroundColor: 'background.hover',
 											}}
 										>
 											프로필 수정
@@ -161,7 +158,7 @@ export default function Profile() {
 					</Box>
 					<Box
 						sx={{
-							width: 'calc(70% - 160px)',
+							width: 'calc(80% - 160px)',
 							minHeight: '570px',
 							display: 'flex',
 							flexDirection: 'column',
@@ -170,9 +167,12 @@ export default function Profile() {
 					>
 						{userDocument && (
 							<>
-								<UserLiked uid={userDocument && userDocument.uid} />
+								<UserLiked
+									uid={userDocument.uid}
+									displayName={userDocument.displayName}
+								/>
 								<UserComment
-									uid={userDocument && userDocument.uid}
+									uid={userDocument.uid}
 									displayName={userDocument && userDocument.displayName}
 								/>
 							</>

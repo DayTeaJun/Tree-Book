@@ -7,7 +7,7 @@ import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 
-const UserLiked = ({ uid }: UserLikedProps) => {
+const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 	const fetchLiked = async (uid: string) => {
 		const LikesRef = collection(appFirestore, 'LikedBook');
 		const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
@@ -40,6 +40,9 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
+						backgroundColor: 'background.content',
+						borderRadius: '10px',
+						padding: '10px',
 					}}
 				>
 					<Typography
@@ -51,37 +54,23 @@ const UserLiked = ({ uid }: UserLikedProps) => {
 							width: '100%',
 							display: 'flex',
 							alignItems: 'center',
-							'&::before': {
-								content: "''",
-								margin: '0 1em',
-								flexGrow: 1,
-								height: '0.5px',
-								backgroundColor: 'text.primary',
-							},
-							'&::after': {
-								content: "''",
-								margin: '0 1em',
-								flexGrow: 1,
-								height: '0.5px',
-								backgroundColor: 'text.primary',
-							},
+							justifyContent: 'center',
 						}}
 					>
-						내가 즐겨찾기한 책들
+						{`${displayName}님의 즐겨찾기한 책들`}
 					</Typography>
 					<Box
 						sx={{
 							width: '100%',
-							minHeight: '228px',
 							display: 'flex',
-							padding: '1em 0',
 							gap: '10px',
 							overflowX: 'auto',
 							overflowY: 'hidden',
+							padding: '10px 0',
+
 							'&::-webkit-scrollbar': {
 								height: '10px',
 								borderRadius: '6px',
-								backgroundColor: 'background.book',
 							},
 							'&::-webkit-scrollbar-thumb': {
 								backgroundColor: 'background.hover',

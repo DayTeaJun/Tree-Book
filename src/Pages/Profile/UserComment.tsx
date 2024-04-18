@@ -39,6 +39,9 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
+						backgroundColor: 'background.content',
+						borderRadius: '10px',
+						padding: '10px',
 					}}
 				>
 					<Typography
@@ -50,20 +53,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 							width: '100%',
 							display: 'flex',
 							alignItems: 'center',
-							'&::before': {
-								content: "''",
-								margin: '0 1em',
-								flexGrow: 1,
-								height: '0.5px',
-								backgroundColor: 'text.primary',
-							},
-							'&::after': {
-								content: "''",
-								margin: '0 1em',
-								flexGrow: 1,
-								height: '0.5px',
-								backgroundColor: 'text.primary',
-							},
+							justifyContent: 'center',
 						}}
 					>
 						작성한 코멘트 목록
@@ -71,18 +61,17 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 					<Box
 						sx={{
 							width: '100%',
-							height: '230px',
+							height: '220px',
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'center',
-							padding: '1em 0',
 							gap: '10px',
 							overflowY: 'auto',
 							overflowX: 'hidden',
+
 							'&::-webkit-scrollbar': {
 								width: '10px',
 								borderRadius: '6px',
-								backgroundColor: 'background.book',
 							},
 							'&::-webkit-scrollbar-thumb': {
 								backgroundColor: 'background.hover',
