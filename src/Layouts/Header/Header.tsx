@@ -40,9 +40,9 @@ export default function Header() {
 					position: 'sticky',
 					top: '0',
 					width: '100%',
-					backgroundColor: 'background.nav',
 					padding: '0.5em',
 					zIndex: 999,
+					backgroundColor: 'background.default',
 				}}
 			>
 				<Grid container>
@@ -75,7 +75,6 @@ export default function Header() {
 										backgroundColor: 'background.searchFocus',
 									},
 									padding: '0.5em',
-									backgroundColor: 'background.search',
 								}}
 								onSubmit={handleSubmit}
 							>
@@ -105,7 +104,6 @@ export default function Header() {
 										height: '100%',
 										display: 'flex',
 										justifyContent: 'center',
-										backgroundColor: 'background.nav',
 										gap: '0.5em',
 										padding: '0.5em',
 									}}
@@ -122,10 +120,10 @@ export default function Header() {
 														alignItems: 'center',
 														gap: '0.2em',
 														padding: '0.5em',
-														borderRadius: '0.2em',
+														borderRadius: '10px',
 														transition: '0.4s',
 														'&:hover': {
-															backgroundColor: 'background.searchFocus',
+															color: 'text.hover',
 														},
 													}}
 												>
@@ -142,11 +140,11 @@ export default function Header() {
 														display: 'flex',
 														alignItems: 'center',
 														gap: '0.2em',
-														padding: '0.5em',
+														padding: '10px',
 														borderRadius: '0.2em',
 														transition: '0.4s',
 														'&:hover': {
-															backgroundColor: 'background.searchFocus',
+															color: 'text.hover',
 														},
 													}}
 												>
@@ -168,10 +166,10 @@ export default function Header() {
 														alignItems: 'center',
 														gap: '0.2em',
 														padding: '0.5em',
-														borderRadius: '0.2em',
+														borderRadius: '10px',
 														transition: '0.4s',
 														'&:hover': {
-															backgroundColor: 'background.searchFocus',
+															color: 'text.hover',
 														},
 													}}
 												>
@@ -188,11 +186,11 @@ export default function Header() {
 														display: 'flex',
 														alignItems: 'center',
 														gap: '0.2em',
-														padding: '0.5em',
+														padding: '10px',
 														borderRadius: '0.2em',
 														transition: '0.4s',
 														'&:hover': {
-															backgroundColor: 'background.searchFocus',
+															color: 'text.hover',
 														},
 													}}
 												>
