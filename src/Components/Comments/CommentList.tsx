@@ -234,27 +234,49 @@ export function CommentList({
 										신고
 									</Box>
 								) : (
-									<Box
-										component='button'
-										sx={{
-											height: '30px',
-											padding: '0 20px',
-											fontSize: '1em',
-											fontWeight: 'bold',
-											border: 'none',
-											borderRadius: '5px',
-											backgroundColor: 'background.book',
-											color: 'text.primary',
-											flexShrink: 0,
-											cursor: 'pointer',
-											'&:hover': {
-												backgroundColor: 'background.hover',
-											},
-										}}
-										type='button'
-										onClick={() => comment.uid && handleDel(comment.uid)}
-									>
-										삭제
+									<Box sx={{ display: 'flex', gap: '10px' }}>
+										<Box
+											component='button'
+											sx={{
+												width: '75px',
+												height: '30px',
+												padding: '0 20px',
+												fontSize: '1em',
+												fontWeight: 'bold',
+												border: 'none',
+												borderRadius: '5px',
+												backgroundColor: 'background.book',
+												color: 'text.primary',
+												cursor: 'pointer',
+												'&:hover': {
+													backgroundColor: 'background.hover',
+												},
+											}}
+											type='button'
+										>
+											수정
+										</Box>
+										<Box
+											component='button'
+											sx={{
+												width: '75px',
+												height: '30px',
+												fontSize: '1em',
+												fontWeight: 'bold',
+												border: 'none',
+												borderRadius: '5px',
+												backgroundColor: 'background.book',
+												color: 'text.primary',
+												cursor: 'pointer',
+												'&:hover': {
+													backgroundColor: 'background.hover',
+												},
+											}}
+											type='button'
+											onClick={() => comment.uid && handleDel(comment.uid)}
+										>
+											삭제
+										</Box>
 									</Box>
 								)}
 							</Box>
