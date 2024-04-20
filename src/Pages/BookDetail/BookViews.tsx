@@ -41,8 +41,8 @@ export const BookViews = ({ item }: { item: BookData }) => {
 
 	return (
 		<>
-			<BookDetailItem item={item} likedBook={documents && documents} />
-			<CommentForm item={item} likedBook={documents && documents} />
+			{documents && <BookDetailItem item={item} likedBook={documents} />}
+			{documents && <CommentForm item={item} likedBook={documents} />}
 			<BookSimilar item={item} />
 		</>
 	);
