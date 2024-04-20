@@ -18,9 +18,11 @@ import { appFirestore } from '../../Firebase/config';
 export function CommentList({
 	isbn,
 	documents,
+	comments,
 }: {
 	isbn: string;
 	documents?: FirestoreDocument[];
+	comments?: FirestoreDocument[];
 }) {
 	const [comment, setComment] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
@@ -33,15 +35,6 @@ export function CommentList({
 		new Array(comment.length).fill(false)
 	);
 	const { enqueueSnackbar } = useSnackbar();
-
-	const {
-		data: comments,
-		isLoading,
-		error,
-	} = useQuery({
-		queryKey: ['comment', isbn],
-		queryFn: () => getDocuments('comment', isbn),
-	});
 
 	const commentsPerPage = 4;
 	const commentLists =
@@ -93,10 +86,6 @@ export function CommentList({
 		setIsOpenModal(true);
 		setCommentUid(uid);
 	};
-
-	if (isLoading) {
-		return <Loading />;
-	}
 
 	return (
 		<>
@@ -291,7 +280,7 @@ export function CommentList({
 						}
 					/>
 				)}
-				{!isLoading && comments?.length === 0 && (
+				{comments?.length === 0 && (
 					<Box
 						sx={{
 							display: 'flex',

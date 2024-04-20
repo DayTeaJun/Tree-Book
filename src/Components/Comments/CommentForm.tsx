@@ -11,6 +11,7 @@ import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
+import Loading from '../LoadingSpinner/Loading';
 
 export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const [comments, setComments] = useState('');
@@ -162,7 +163,11 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 					</Box>
 				</Box>
 			</Box>
-			<CommentList isbn={isbn} documents={likedBook} />
+			{!isLoading ? (
+				<CommentList isbn={isbn} documents={likedBook} comments={comment} />
+			) : (
+				<Loading />
+			)}
 		</>
 	);
 }
