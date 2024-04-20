@@ -10,6 +10,7 @@ import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
+import { getDocuments } from '../../Api/Firebase/getDocuments';
 
 export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const [comments, setComments] = useState('');
@@ -18,13 +19,22 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const location = useLocation();
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
-
 	const book: string = useParams().search || '';
 	const isbn = location.state.isbn;
-
 	const displayName = (user && user.displayName) || '';
 	const id = (user && user.uid) || '';
 	const photoURL = (user && user.photoURL) || '';
+
+	const {
+		data: comment,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['comment', isbn],
+		queryFn: () => getDocuments('comment', isbn),
+	});
+
+	console.log(comment);
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -43,6 +53,15 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 
 	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();
+		if (
+			comment?.findIndex((item) => item.displayName === user?.displayName) !==
+			-1
+		) {
+			enqueueSnackbar('댓글 등록은 한번만 등록할 수 있습니다!', {
+				variant: 'error',
+			});
+			return 0;
+		}
 		if (user) {
 			mutation.mutate({
 				...item,
