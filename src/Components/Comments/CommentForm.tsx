@@ -107,7 +107,7 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 				onSubmit={handleSubmit}
 			>
 				<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
-					댓글{' '}
+					리뷰{' '}
 					{likedBook && likedBook[0]?.commentTotalNumber
 						? `${likedBook[0]?.commentTotalNumber}개`
 						: null}
@@ -121,7 +121,7 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 						height: '40px',
 					}}
 				>
-					<Label htmlFor='commentInput'>댓글 입력</Label>
+					<Label htmlFor='commentInput'>리뷰 입력</Label>
 					<InputBase
 						sx={{
 							flexShrink: 1,
@@ -133,7 +133,7 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 						}}
 						id='commentInput'
 						type='text'
-						placeholder='댓글 내용을 입력해주세요.'
+						placeholder='리뷰를 입력해주세요. (한번만 등록 가능합니다.)'
 						name='content'
 						value={comments}
 						onChange={handleData}

@@ -3,15 +3,13 @@ import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
-import Loading from '../LoadingSpinner/Loading';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CommentLike } from './CommentLike';
 import { Modal } from '../Modal/Modal';
 import { M } from '../Modal/modal.style';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 
