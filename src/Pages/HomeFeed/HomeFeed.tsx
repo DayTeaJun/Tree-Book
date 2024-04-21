@@ -46,7 +46,7 @@ export default function HomeFeed() {
 					}}
 				>
 					<PopularSection props='commentTotalNumber' />
-					{/* <PopularSection props='views' /> */}
+					<PopularSection props='views' />
 				</Box>
 			</Box>
 		</>
