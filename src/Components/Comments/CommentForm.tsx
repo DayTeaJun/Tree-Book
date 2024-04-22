@@ -1,8 +1,7 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Context/useAuthContext';
-import { useLocation, useParams } from 'react-router-dom';
-import { CommentList } from './CommentList';
+import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../Types/bookType';
 import { Box, InputBase, Typography } from '@mui/material';
@@ -10,30 +9,18 @@ import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
-import { getDocuments } from '../../Api/Firebase/getDocuments';
-import Loading from '../LoadingSpinner/Loading';
 
 export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comment');
 	const { user } = useAuthContext();
-	const location = useLocation();
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
 	const book: string = useParams().search || '';
-	const isbn = location.state.isbn;
 	const displayName = (user && user.displayName) || '';
 	const id = (user && user.uid) || '';
 	const photoURL = (user && user.photoURL) || '';
-
-	const {
-		data: commentData,
-		isLoading,
-		error,
-	} = useQuery({
-		queryKey: ['comment', isbn],
-		queryFn: () => getDocuments('comment', isbn),
-	});
+	const isbn = item.isbn;
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -52,16 +39,7 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 
 	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();
-		if (
-			commentData?.findIndex(
-				(item) => item.displayName === user?.displayName
-			) !== -1
-		) {
-			enqueueSnackbar('댓글 등록은 한번만 등록할 수 있습니다!', {
-				variant: 'error',
-			});
-			return 0;
-		}
+
 		if (user) {
 			mutation.mutate({
 				...item,
@@ -162,11 +140,6 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 					</Box>
 				</Box>
 			</Box>
-			{!isLoading ? (
-				<CommentList isbn={isbn} documents={likedBook} comments={commentData} />
-			) : (
-				<Loading />
-			)}
 		</>
 	);
 }
