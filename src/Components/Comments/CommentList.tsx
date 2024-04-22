@@ -22,7 +22,7 @@ export function CommentList({
 	documents?: FirestoreDocument[];
 	comments?: FirestoreDocument[];
 }) {
-	const [comment, setComment] = useState<FirestoreDocument[]>([]);
+	const [commentData, setCommentData] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const { deleteDocument } = useFirestore('comment');
 	const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +30,7 @@ export function CommentList({
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
 	const [expandedComment, setExpandedComment] = useState<boolean[]>(
-		new Array(comment.length).fill(false)
+		new Array(commentData.length).fill(false)
 	);
 	const { enqueueSnackbar } = useSnackbar();
 
@@ -48,7 +48,7 @@ export function CommentList({
 	useEffect(() => {
 		if (commentLists) {
 			const displayedComments = commentLists.slice(startIndex, endIndex);
-			setComment(displayedComments);
+			setCommentData(displayedComments);
 		}
 	}, [comments, currentPage]);
 
@@ -98,8 +98,8 @@ export function CommentList({
 					padding: '20px 0',
 				}}
 			>
-				{comment &&
-					comment.map((comment, index: number) => (
+				{commentData &&
+					commentData.map((commentData, index: number) => (
 						<Box
 							sx={{
 								display: 'flex',
@@ -128,8 +128,8 @@ export function CommentList({
 										}}
 									>
 										<img
-											src={comment.photoURL}
-											alt={`${comment.displayName}의 프로필 사진입니다.`}
+											src={commentData.photoURL}
+											alt={`${commentData.displayName}의 프로필 사진입니다.`}
 										/>
 									</Box>
 
@@ -142,8 +142,8 @@ export function CommentList({
 									>
 										<Box sx={{ display: 'flex', gap: '20px' }}>
 											<Link
-												to={`/profile/${comment.displayName}`}
-												state={{ id: comment.id }}
+												to={`/profile/${commentData.displayName}`}
+												state={{ id: commentData.id }}
 											>
 												<Typography
 													fontSize='1.1em'
@@ -151,7 +151,7 @@ export function CommentList({
 													sx={{ cursor: 'pointer' }}
 													color='text.primary'
 												>
-													{comment.displayName}
+													{commentData.displayName}
 												</Typography>
 											</Link>
 											<Typography
@@ -160,7 +160,7 @@ export function CommentList({
 												fontWeight='bold'
 												color='text.secondary'
 											>
-												{comment.createdTime?.toDate().toLocaleString()}
+												{commentData.createdTime?.toDate().toLocaleString()}
 											</Typography>
 										</Box>
 										<Typography
@@ -169,32 +169,34 @@ export function CommentList({
 											color='text.primary'
 										>
 											{expandedComment[index]
-												? comment.comments
-												: comment.comments && comment.comments.length > 100
-												? `${comment.comments?.substring(0, 100)}...`
-												: comment.comments}
+												? commentData.comments
+												: commentData.comments &&
+												  commentData.comments.length > 100
+												? `${commentData.comments?.substring(0, 100)}...`
+												: commentData.comments}
 										</Typography>
 
-										{comment.comments && comment.comments.length > 120 && (
-											<Typography
-												component='span'
-												fontSize='0.8em'
-												color='text.secondary'
-												sx={{ cursor: 'pointer' }}
-												onClick={() => {
-													setExpandedComment({
-														...expandedComment,
-														[index]: !expandedComment[index],
-													});
-												}}
-											>
-												{!expandedComment[index] ? '더보기' : '간략히'}
-											</Typography>
-										)}
-										<CommentLike uid={comment.uid} item={comment} />
+										{commentData.comments &&
+											commentData.comments.length > 120 && (
+												<Typography
+													component='span'
+													fontSize='0.8em'
+													color='text.secondary'
+													sx={{ cursor: 'pointer' }}
+													onClick={() => {
+														setExpandedComment({
+															...expandedComment,
+															[index]: !expandedComment[index],
+														});
+													}}
+												>
+													{!expandedComment[index] ? '더보기' : '간략히'}
+												</Typography>
+											)}
+										<CommentLike uid={commentData.uid} item={commentData} />
 									</Box>
 								</Box>
-								{(user && user.uid) !== comment.id ? (
+								{(user && user.uid) !== commentData.id ? (
 									<Box
 										component='button'
 										sx={{
@@ -260,7 +262,9 @@ export function CommentList({
 												},
 											}}
 											type='button'
-											onClick={() => comment.uid && handleDel(comment.uid)}
+											onClick={() =>
+												commentData.uid && handleDel(commentData.uid)
+											}
 										>
 											삭제
 										</Box>

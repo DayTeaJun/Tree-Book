@@ -27,15 +27,13 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const photoURL = (user && user.photoURL) || '';
 
 	const {
-		data: comment,
+		data: commentData,
 		isLoading,
 		error,
 	} = useQuery({
 		queryKey: ['comment', isbn],
 		queryFn: () => getDocuments('comment', isbn),
 	});
-
-	console.log(comment);
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		setComments(e.target.value);
@@ -55,8 +53,9 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();
 		if (
-			comment?.findIndex((item) => item.displayName === user?.displayName) !==
-			-1
+			commentData?.findIndex(
+				(item) => item.displayName === user?.displayName
+			) !== -1
 		) {
 			enqueueSnackbar('댓글 등록은 한번만 등록할 수 있습니다!', {
 				variant: 'error',
@@ -164,7 +163,7 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 				</Box>
 			</Box>
 			{!isLoading ? (
-				<CommentList isbn={isbn} documents={likedBook} comments={comment} />
+				<CommentList isbn={isbn} documents={likedBook} comments={commentData} />
 			) : (
 				<Loading />
 			)}
