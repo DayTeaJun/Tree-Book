@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
@@ -18,12 +18,14 @@ export const CommentItem = ({
 	user,
 	documents,
 	isbn,
+	setIsCommentEdit,
 }: {
 	index: number;
 	commentData: FirestoreDocument;
 	user: User | null;
 	documents: FirestoreDocument[];
 	isbn: string;
+	setIsCommentEdit?: Dispatch<SetStateAction<boolean>>;
 }) => {
 	const [expandedComment, setExpandedComment] = useState<boolean[]>(
 		new Array((commentData as FirestoreDocument[]).length).fill(false)
@@ -188,27 +190,30 @@ export const CommentItem = ({
 						</Box>
 					) : (
 						<Box sx={{ display: 'flex', gap: '10px' }}>
-							<Box
-								component='button'
-								sx={{
-									width: '75px',
-									height: '30px',
-									padding: '0 20px',
-									fontSize: '1em',
-									fontWeight: 'bold',
-									border: 'none',
-									borderRadius: '5px',
-									backgroundColor: 'background.book',
-									color: 'text.primary',
-									cursor: 'pointer',
-									'&:hover': {
-										backgroundColor: 'background.hover',
-									},
-								}}
-								type='button'
-							>
-								수정
-							</Box>
+							{setIsCommentEdit && (
+								<Box
+									component='button'
+									sx={{
+										width: '75px',
+										height: '30px',
+										padding: '0 20px',
+										fontSize: '1em',
+										fontWeight: 'bold',
+										border: 'none',
+										borderRadius: '5px',
+										backgroundColor: 'background.book',
+										color: 'text.primary',
+										cursor: 'pointer',
+										'&:hover': {
+											backgroundColor: 'background.hover',
+										},
+									}}
+									type='button'
+									onClick={() => setIsCommentEdit(true)}
+								>
+									수정
+								</Box>
+							)}
 							<Box
 								component='button'
 								sx={{

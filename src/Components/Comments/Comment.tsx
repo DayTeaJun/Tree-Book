@@ -8,6 +8,7 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 import { FirestoreDocument } from '../../Types/firestoreType';
+import { useState } from 'react';
 
 export const Comment = ({
 	item,
@@ -18,6 +19,7 @@ export const Comment = ({
 }) => {
 	const isbn = item.isbn;
 	const { user } = useAuthContext();
+	const [isCommentEdit, setIsCommentEdit] = useState(false);
 
 	const {
 		data: commentData,
@@ -60,6 +62,7 @@ export const Comment = ({
 										user={user}
 										isbn={isbn}
 										documents={likedBook as FirestoreDocument[]}
+										setIsCommentEdit={setIsCommentEdit}
 									/>
 								</Box>
 							)
