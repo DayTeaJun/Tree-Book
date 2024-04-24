@@ -96,7 +96,7 @@ export function CommentForm({
 			setComments(preComment.comments);
 		}
 	}, []);
-
+	if (likedBook) console.log(likedBook[0]?.commentTotalNumber);
 	return (
 		<>
 			<Box
@@ -111,10 +111,7 @@ export function CommentForm({
 			>
 				{!preComment && (
 					<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
-						리뷰{' '}
-						{likedBook && likedBook[0]?.commentTotalNumber
-							? `${likedBook[0]?.commentTotalNumber}개`
-							: null}
+						리뷰 등록
 					</Typography>
 				)}
 				<Box
