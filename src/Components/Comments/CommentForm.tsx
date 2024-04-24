@@ -2,15 +2,20 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../Types/bookType';
 import { Box, InputBase, Typography } from '@mui/material';
 import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 
-export function CommentForm({ item, likedBook }: BookLikesProps) {
+export function CommentForm({
+	item,
+	likedBook,
+	preComment,
+	setIsCommentEdit,
+}: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comment');
 	const { user } = useAuthContext();
@@ -41,25 +46,40 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 		e.preventDefault();
 
 		if (user) {
-			mutation.mutate({
-				...item,
-				comments,
-				book,
-				displayName,
-				id,
-				photoURL,
-			});
-			if (likedBook) {
-				const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
-
-				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
-					...likedBook[0],
-					...item,
-					commentTotalNumber: commentTotalNumber + 1,
+			if (preComment && setIsCommentEdit) {
+				const commentRef = doc(
+					appFirestore,
+					'comment',
+					preComment.uid as string
+				);
+				await updateDoc(commentRef, {
+					comments: comments,
 				});
-				queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+				queryClient.invalidateQueries({ queryKey: ['comment'] });
+				setIsCommentEdit(false);
+
+				enqueueSnackbar('댓글이 수정되었습니다.', { variant: 'success' });
+			} else {
+				mutation.mutate({
+					...item,
+					comments,
+					book,
+					displayName,
+					id,
+					photoURL,
+				});
+				if (likedBook) {
+					const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
+
+					await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+						...likedBook[0],
+						...item,
+						commentTotalNumber: commentTotalNumber + 1,
+					});
+					queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+				}
+				enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 			}
-			enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 		} else {
 			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
 		}
@@ -70,6 +90,12 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 			setComments('');
 		}
 	}, [response.success]);
+
+	useEffect(() => {
+		if (preComment?.comments) {
+			setComments(preComment.comments);
+		}
+	}, []);
 
 	return (
 		<>
@@ -83,12 +109,14 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 				}}
 				onSubmit={handleSubmit}
 			>
-				<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
-					리뷰{' '}
-					{likedBook && likedBook[0]?.commentTotalNumber
-						? `${likedBook[0]?.commentTotalNumber}개`
-						: null}
-				</Typography>
+				{!preComment && (
+					<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
+						리뷰{' '}
+						{likedBook && likedBook[0]?.commentTotalNumber
+							? `${likedBook[0]?.commentTotalNumber}개`
+							: null}
+					</Typography>
+				)}
 				<Box
 					sx={{
 						display: 'flex',
@@ -138,6 +166,29 @@ export function CommentForm({ item, likedBook }: BookLikesProps) {
 					>
 						등록
 					</Box>
+					{preComment && setIsCommentEdit && (
+						<Box
+							component='button'
+							sx={{
+								width: '80px',
+								height: '100%',
+								padding: '5px',
+								fontSize: '1em',
+								fontWeight: 'bold',
+								border: 'none',
+								color: 'text.primary',
+								backgroundColor: 'background.book',
+								cursor: 'pointer',
+								'&:hover': {
+									backgroundColor: 'background.hover',
+								},
+							}}
+							type='button'
+							onClick={() => setIsCommentEdit(false)}
+						>
+							취소
+						</Box>
+					)}
 				</Box>
 			</Box>
 		</>

@@ -47,6 +47,8 @@ export interface BookLikesProps {
 	like?: string;
 	setMessage?: Dispatch<SetStateAction<string>>;
 	likedBook?: FirestoreDocument[];
+	preComment?: FirestoreDocument;
+	setIsCommentEdit?: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface Skeleton {

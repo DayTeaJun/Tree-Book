@@ -36,35 +36,50 @@ export const Comment = ({
 				(item) => item.displayName === user?.displayName
 			) !== -1 ? (
 				<>
-					<Typography
-						fontSize='1.2em'
-						fontWeight='bold'
-						sx={{ paddingBottom: '10px' }}
-					>
-						내가 작성한 리뷰
-					</Typography>
 					{commentData?.map(
 						(commentData) =>
 							commentData.displayName === user?.displayName && (
-								<Box
-									sx={{
-										display: 'flex',
-										flexDirection: 'column',
-										borderColor: 'background.content',
-										borderTop: 'solid 1px',
-										borderBottom: 'solid 1px',
-										padding: '10px',
-									}}
-								>
-									<CommentItem
-										index={0}
-										commentData={commentData as FirestoreDocument}
-										user={user}
-										isbn={isbn}
-										documents={likedBook as FirestoreDocument[]}
-										setIsCommentEdit={setIsCommentEdit}
-									/>
-								</Box>
+								<>
+									{!isCommentEdit ? (
+										<>
+											<Typography
+												fontSize='1.2em'
+												fontWeight='bold'
+												sx={{ paddingBottom: '10px' }}
+											>
+												내가 작성한 리뷰
+											</Typography>
+											<Box
+												sx={{
+													display: 'flex',
+													flexDirection: 'column',
+													borderColor: 'background.content',
+													border: 'solid 1px',
+													boxSizing: 'border-box',
+													padding: '10px',
+												}}
+											>
+												<CommentItem
+													index={0}
+													commentData={commentData as FirestoreDocument}
+													user={user}
+													isbn={isbn}
+													documents={likedBook as FirestoreDocument[]}
+													setIsCommentEdit={setIsCommentEdit}
+												/>
+											</Box>
+										</>
+									) : (
+										commentData && (
+											<CommentForm
+												item={item}
+												likedBook={likedBook}
+												preComment={commentData as FirestoreDocument}
+												setIsCommentEdit={setIsCommentEdit}
+											/>
+										)
+									)}
+								</>
 							)
 					)}
 				</>
@@ -83,6 +98,17 @@ export const Comment = ({
 						padding: '20px 0',
 					}}
 				>
+					<Typography
+						component='h2'
+						fontSize='1.2em'
+						fontWeight='bold'
+						sx={{ paddingBottom: '10px' }}
+					>
+						리뷰{' '}
+						{likedBook && likedBook[0]?.commentTotalNumber
+							? `${likedBook[0]?.commentTotalNumber}개`
+							: null}
+					</Typography>
 					<CommentList
 						isbn={isbn}
 						documents={likedBook}

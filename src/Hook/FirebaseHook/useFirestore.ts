@@ -1,4 +1,11 @@
-import { addDoc, collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../../Firebase/config';
 import { FirebaseError } from 'firebase/app';
@@ -73,6 +80,7 @@ export const useFirestore = (
 					...docs,
 					createdTime,
 				});
+				await updateDoc(docRef, { uid: docRef.id });
 			}
 
 			dispatch({ type: 'addDoc', payload: docRef });
