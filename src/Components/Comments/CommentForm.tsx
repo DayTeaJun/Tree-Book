@@ -4,7 +4,7 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../Types/bookType';
-import { Box, InputBase, Typography } from '@mui/material';
+import { Box, InputBase, TextField, Typography } from '@mui/material';
 import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
@@ -117,75 +117,79 @@ export function CommentForm({
 				<Box
 					sx={{
 						display: 'flex',
-						alignItems: 'center',
+						flexDirection: 'column',
 						justifyContent: 'space-around',
 						gap: '20px',
-						height: '40px',
 					}}
 				>
 					<Label htmlFor='commentInput'>리뷰 입력</Label>
-					<InputBase
+					<TextField
+						multiline
+						rows={3}
+						variant='outlined'
 						sx={{
 							flexShrink: 1,
 							width: '100%',
-							height: '100%',
-							padding: '10px',
-							margin: '10px 0',
-							backgroundColor: 'background.search',
 						}}
 						id='commentInput'
-						type='text'
 						placeholder='리뷰를 입력해주세요. (한번만 등록 가능합니다.)'
 						name='content'
 						value={comments}
 						onChange={handleData}
 					/>
-
 					<Box
-						component='button'
 						sx={{
-							width: '80px',
-							height: '100%',
-							padding: '5px',
-							fontSize: '1em',
-							fontWeight: 'bold',
-							border: 'none',
-							color: 'text.primary',
-							backgroundColor: 'background.book',
-							cursor: comments.length > 0 ? 'pointer' : 'default',
-							'&:hover': {
-								backgroundColor:
-									comments.length > 0 ? 'background.hover' : 'background.book',
-							},
+							display: 'flex',
+							gap: '20px',
+							marginLeft: 'auto',
 						}}
-						type='submit'
-						disabled={comments.length > 0 ? false : true}
 					>
-						등록
-					</Box>
-					{preComment && setIsCommentEdit && (
+						{preComment && setIsCommentEdit && (
+							<Box
+								component='button'
+								sx={{
+									padding: '10px 15px',
+									fontSize: '1em',
+									fontWeight: 'bold',
+									border: 'none',
+									color: 'text.primary',
+									backgroundColor: 'background.book',
+									cursor: 'pointer',
+									borderRadius: '5px',
+									'&:hover': {
+										backgroundColor: 'background.hover',
+									},
+								}}
+								type='button'
+								onClick={() => setIsCommentEdit(false)}
+							>
+								취소
+							</Box>
+						)}
 						<Box
 							component='button'
 							sx={{
-								width: '80px',
-								height: '100%',
-								padding: '5px',
+								padding: '10px 15px',
 								fontSize: '1em',
 								fontWeight: 'bold',
 								border: 'none',
 								color: 'text.primary',
 								backgroundColor: 'background.book',
-								cursor: 'pointer',
+								cursor: comments.length > 0 ? 'pointer' : 'default',
+								borderRadius: '5px',
 								'&:hover': {
-									backgroundColor: 'background.hover',
+									backgroundColor:
+										comments.length > 0
+											? 'background.hover'
+											: 'background.book',
 								},
 							}}
-							type='button'
-							onClick={() => setIsCommentEdit(false)}
+							type='submit'
+							disabled={comments.length > 0 ? false : true}
 						>
-							취소
+							{preComment ? '수정완료' : '리뷰 남기기'}
 						</Box>
-					)}
+					</Box>
 				</Box>
 			</Box>
 		</>
