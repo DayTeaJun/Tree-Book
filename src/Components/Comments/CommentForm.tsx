@@ -119,7 +119,7 @@ export function CommentForm({
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'space-around',
-						gap: '20px',
+						gap: '10px',
 					}}
 				>
 					<Label htmlFor='commentInput'>리뷰 입력</Label>
@@ -135,16 +135,46 @@ export function CommentForm({
 						placeholder='리뷰를 입력해주세요. (한번만 등록 가능합니다.)'
 						name='content'
 						value={comments}
+						inputProps={{ maxLength: 300 }}
 						onChange={handleData}
 					/>
 					<Box
 						sx={{
 							display: 'flex',
-							gap: '20px',
-							marginLeft: 'auto',
+							justifyContent: 'space-between',
 						}}
 					>
-						{preComment && setIsCommentEdit && (
+						<Typography component='p'>
+							{comments.replace(/<br\s*V?>/gm, '\n').length} / 300
+						</Typography>
+						<Box
+							sx={{
+								display: 'flex',
+								gap: '20px',
+							}}
+						>
+							{preComment && setIsCommentEdit && (
+								<Box
+									component='button'
+									sx={{
+										padding: '10px 15px',
+										fontSize: '1em',
+										fontWeight: 'bold',
+										border: 'none',
+										color: 'text.primary',
+										backgroundColor: 'background.book',
+										cursor: 'pointer',
+										borderRadius: '5px',
+										'&:hover': {
+											backgroundColor: 'background.hover',
+										},
+									}}
+									type='button'
+									onClick={() => setIsCommentEdit(false)}
+								>
+									취소
+								</Box>
+							)}
 							<Box
 								component='button'
 								sx={{
@@ -154,40 +184,20 @@ export function CommentForm({
 									border: 'none',
 									color: 'text.primary',
 									backgroundColor: 'background.book',
-									cursor: 'pointer',
+									cursor: comments.length > 0 ? 'pointer' : 'default',
 									borderRadius: '5px',
 									'&:hover': {
-										backgroundColor: 'background.hover',
+										backgroundColor:
+											comments.length > 0
+												? 'background.hover'
+												: 'background.book',
 									},
 								}}
-								type='button'
-								onClick={() => setIsCommentEdit(false)}
+								type='submit'
+								disabled={comments.length > 0 ? false : true}
 							>
-								취소
+								{preComment ? '수정완료' : '리뷰 남기기'}
 							</Box>
-						)}
-						<Box
-							component='button'
-							sx={{
-								padding: '10px 15px',
-								fontSize: '1em',
-								fontWeight: 'bold',
-								border: 'none',
-								color: 'text.primary',
-								backgroundColor: 'background.book',
-								cursor: comments.length > 0 ? 'pointer' : 'default',
-								borderRadius: '5px',
-								'&:hover': {
-									backgroundColor:
-										comments.length > 0
-											? 'background.hover'
-											: 'background.book',
-								},
-							}}
-							type='submit'
-							disabled={comments.length > 0 ? false : true}
-						>
-							{preComment ? '수정완료' : '리뷰 남기기'}
 						</Box>
 					</Box>
 				</Box>

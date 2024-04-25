@@ -54,7 +54,8 @@ export const Comment = ({
 													display: 'flex',
 													flexDirection: 'column',
 													borderColor: 'background.content',
-													border: 'solid 1px',
+													borderTop: 'solid 1px',
+													borderBottom: 'solid 1px',
 													boxSizing: 'border-box',
 													padding: '10px',
 												}}
