@@ -11,6 +11,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { M } from '../Modal/modal.style';
 import { Modal } from '../Modal/Modal';
+import { CommentItemType } from '../../Types/componentType';
 
 export const CommentItem = ({
 	index,
@@ -19,14 +20,7 @@ export const CommentItem = ({
 	documents,
 	isbn,
 	setIsCommentEdit,
-}: {
-	index: number;
-	commentData: FirestoreDocument;
-	user: User | null;
-	documents: FirestoreDocument[];
-	isbn: string;
-	setIsCommentEdit?: Dispatch<SetStateAction<boolean>>;
-}) => {
+}: CommentItemType) => {
 	const [expandedComment, setExpandedComment] = useState<boolean[]>(
 		new Array((commentData as FirestoreDocument[]).length).fill(false)
 	);

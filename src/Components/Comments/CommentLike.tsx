@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { collection, deleteField, doc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
-import { CommentType } from '../../Types/userType';
+import { CommentType } from '../../Types/componentType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';

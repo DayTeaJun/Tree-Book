@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { CommentForm } from './CommentForm';
-import { BookData, BookLikesProps } from '../../Types/bookType';
+import { BookData } from '../../Types/bookType';
 import Loading from '../LoadingSpinner/Loading';
 import { CommentList } from './CommentList';
 import { useAuthContext } from '../../Context/useAuthContext';
