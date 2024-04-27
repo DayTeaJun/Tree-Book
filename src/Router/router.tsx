@@ -8,6 +8,7 @@ import {
 
 import { Suspense, lazy } from 'react';
 import { useAuthContext } from '../Context/useAuthContext';
+import { NotFound } from '../Pages/NotFound/NotFound';
 
 const HomeFeed = lazy(() => import('../Pages/HomeFeed/HomeFeed'));
 const BookDetail = lazy(() => import('../Pages/BookDetail/BookDetail'));
@@ -61,6 +62,7 @@ export default function Router() {
 								/>
 							</Route>
 						</Route>
+						<Route path='*' element={<NotFound />}></Route>
 					</Routes>
 				) : (
 					<Loading BackDrop={true} />
