@@ -69,7 +69,6 @@ export const CommentItem = ({
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					borderRadius: '5px',
 					padding: '20px 0',
 					background: 'background.default',
 				}}

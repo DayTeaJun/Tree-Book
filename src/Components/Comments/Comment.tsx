@@ -40,15 +40,15 @@ export const Comment = ({
 						(commentData) =>
 							commentData.displayName === user?.displayName && (
 								<>
+									<Typography
+										fontSize='1.2em'
+										fontWeight='bold'
+										sx={{ paddingBottom: '10px' }}
+									>
+										{!isCommentEdit ? '내가 작성한 리뷰' : '리뷰 수정'}
+									</Typography>
 									{!isCommentEdit ? (
 										<>
-											<Typography
-												fontSize='1.2em'
-												fontWeight='bold'
-												sx={{ paddingBottom: '10px' }}
-											>
-												내가 작성한 리뷰
-											</Typography>
 											<Box
 												sx={{
 													display: 'flex',
