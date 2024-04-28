@@ -11,6 +11,7 @@ import { appFirestore } from '../../Firebase/config';
 import { M } from '../Modal/modal.style';
 import { Modal } from '../Modal/Modal';
 import { CommentItemType } from '../../Types/componentType';
+import { elapsedTime } from '../../Utills/date';
 
 export const CommentItem = ({
 	index,
@@ -61,6 +62,8 @@ export const CommentItem = ({
 		setIsOpenModal(true);
 		setCommentUid(uid);
 	};
+
+	console.log(commentData.createdTime);
 
 	return (
 		<>
@@ -123,7 +126,8 @@ export const CommentItem = ({
 									fontWeight='bold'
 									color='text.secondary'
 								>
-									{commentData.createdTime?.toDate().toLocaleString()}
+									{commentData.createdTime &&
+										elapsedTime(commentData.createdTime)}
 								</Typography>
 								<Typography
 									component='p'
