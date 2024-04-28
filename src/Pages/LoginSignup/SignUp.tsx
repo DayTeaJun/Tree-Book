@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { FormEvent, useState } from 'react';
 import { useSignup } from '../../Hook/FirebaseHook/useSignup';
-import { ImgPreview } from '../../Utils/useImgPreview';
+import { ImgPreview } from '../../Hook/useImgPreview';
 import { InputValueType } from '../../Types/userType';
 import { Link } from 'react-router-dom';
 import ValidInput from '../../Components/ValidInput/ValidInput';

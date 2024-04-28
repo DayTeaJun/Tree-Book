@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
@@ -11,7 +11,7 @@ import { appFirestore } from '../../Firebase/config';
 import { M } from '../Modal/modal.style';
 import { Modal } from '../Modal/Modal';
 import { CommentItemType } from '../../Types/componentType';
-import { elapsedTime } from '../../Utills/date';
+import { elapsedTime } from '../../Utils/date';
 
 export const CommentItem = ({
 	index,

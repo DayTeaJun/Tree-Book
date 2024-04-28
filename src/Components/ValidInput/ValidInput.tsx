@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { InputValueType } from '../../Types/userType';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import useDebounce from '../../Utils/useDebounce';
+import useDebounce from '../../Hook/useDebounce';
 import { appFirestore } from '../../Firebase/config';
 import { Typography } from '@mui/material';
 
