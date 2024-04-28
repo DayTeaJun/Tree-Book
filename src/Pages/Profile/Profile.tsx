@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Context/useAuthContext';
 import UserLiked from './UserLiked';
 import { useQuery } from '@tanstack/react-query';
@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { getUser } from '../../Api/Firebase/getUser';
 import { Shimmer } from '../../Styles/Common';
+import { enqueueSnackbar } from 'notistack';
 
 export default function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();
+	const navigate = useNavigate();
 
 	const {
 		data: userDocument,
@@ -22,6 +24,11 @@ export default function Profile() {
 		queryKey: ['user', userProfile],
 		queryFn: () => getUser('user', userProfile ?? ''),
 	});
+
+	if (!isLoading && userDocument == undefined) {
+		enqueueSnackbar('존재하지 않는 프로필입니다!', { variant: 'error' });
+		navigate('/');
+	}
 
 	return (
 		<>
