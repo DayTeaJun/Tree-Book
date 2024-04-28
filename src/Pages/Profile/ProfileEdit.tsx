@@ -5,7 +5,7 @@ import { updateProfile } from 'firebase/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import persImg from '../../Assets/No-img.svg';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { ImgPreview } from '../../Hook/useImgPreview';
+import { ImgPreview } from '../../Utils/useImgPreview';
 import {
 	collection,
 	doc,
@@ -15,7 +15,7 @@ import {
 	where,
 } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
-import useDebounce from '../../Hook/useDebounce';
+import useDebounce from '../../Utils/useDebounce';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import { Box, InputBase, Typography } from '@mui/material';
