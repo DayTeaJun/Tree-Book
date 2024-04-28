@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { BookViews } from './BookViews';
+import Loading from '../../Components/LoadingSpinner/Loading';
 
 export default function BookDetail() {
 	const { id, search, page } = useParams<{
@@ -37,6 +38,10 @@ export default function BookDetail() {
 			setItem(item);
 		}
 	}, [books]);
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<>

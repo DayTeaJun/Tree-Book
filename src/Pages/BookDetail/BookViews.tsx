@@ -41,9 +41,13 @@ export const BookViews = ({ item }: { item: BookData }) => {
 
 	return (
 		<>
-			{documents && <BookDetailItem item={item} likedBook={documents} />}
-			{documents && <Comment item={item} likedBook={documents} />}
-			<BookSimilar item={item} />
+			{documents && (
+				<>
+					<BookDetailItem item={item} likedBook={documents} />
+					<Comment item={item} likedBook={documents} />
+					<BookSimilar item={item} />
+				</>
+			)}
 		</>
 	);
 };

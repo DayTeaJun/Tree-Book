@@ -20,7 +20,6 @@ const Loading = ({ BackDrop }: LoadingType) => {
 					right: '50%',
 					transform: 'translate(-50%,-50%)',
 					zIndex: 9999,
-					padding: '10px',
 				}}
 			>
 				<CircularProgress color='success' />
