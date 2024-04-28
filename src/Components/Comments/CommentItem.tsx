@@ -1,10 +1,9 @@
 import { Box, Typography } from '@mui/material';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
 import { FirestoreDocument } from '../../Types/firestoreType';
-import { User } from 'firebase/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { collection, doc, setDoc } from 'firebase/firestore';
@@ -72,7 +71,6 @@ export const CommentItem = ({
 					padding: '20px 0',
 					background: 'background.default',
 				}}
-				key={index}
 			>
 				<Box
 					sx={{

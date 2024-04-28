@@ -8,7 +8,7 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 import { FirestoreDocument } from '../../Types/firestoreType';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 export const Comment = ({
 	item,
@@ -37,9 +37,9 @@ export const Comment = ({
 			) !== -1 ? (
 				<>
 					{commentData?.map(
-						(commentData) =>
+						(commentData, index) =>
 							commentData.displayName === user?.displayName && (
-								<>
+								<Fragment key={index}>
 									<Typography
 										fontSize='1.2em'
 										fontWeight='bold'
@@ -59,6 +59,7 @@ export const Comment = ({
 													boxSizing: 'border-box',
 													padding: '10px',
 												}}
+												key={index}
 											>
 												<CommentItem
 													index={0}
@@ -80,7 +81,7 @@ export const Comment = ({
 											/>
 										)
 									)}
-								</>
+								</Fragment>
 							)
 					)}
 				</>

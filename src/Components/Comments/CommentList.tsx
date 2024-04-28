@@ -1,5 +1,5 @@
 import { useAuthContext } from '../../Context/useAuthContext';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Paginaition } from '../Pagination/Pagination';
 import { Box, Typography } from '@mui/material';
@@ -43,13 +43,15 @@ export function CommentList({
 					(commentData, index: number) =>
 						commentData.displayName !== user?.displayName &&
 						documents && (
-							<CommentItem
-								index={index}
-								commentData={commentData}
-								user={user}
-								isbn={isbn}
-								documents={documents}
-							/>
+							<Fragment key={index}>
+								<CommentItem
+									index={index}
+									commentData={commentData}
+									user={user}
+									isbn={isbn}
+									documents={documents}
+								/>
+							</Fragment>
 						)
 				)}
 			{comments && comments.length > 4 && (
