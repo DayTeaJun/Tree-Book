@@ -54,6 +54,7 @@ export function CommentForm({
 				);
 				await updateDoc(commentRef, {
 					comments: comments,
+					fixedComment: true,
 				});
 				queryClient.invalidateQueries({ queryKey: ['comment'] });
 				setIsCommentEdit(false);

@@ -125,6 +125,14 @@ export const CommentItem = ({
 								>
 									{commentData.createdTime?.toDate().toLocaleString()}
 								</Typography>
+								<Typography
+									component='p'
+									fontSize='1.1em'
+									fontWeight='bold'
+									color='text.secondary'
+								>
+									{commentData.fixedComment ? '(수정됨)' : null}
+								</Typography>
 							</Box>
 							<Typography component='p' fontSize='1em' color='text.primary'>
 								{expandedComment[index]
