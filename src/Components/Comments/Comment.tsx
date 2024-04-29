@@ -107,9 +107,14 @@ export const Comment = ({
 						sx={{ paddingBottom: '10px' }}
 					>
 						리뷰{' '}
-						{likedBook && likedBook[0]?.commentTotalNumber
-							? `${likedBook[0]?.commentTotalNumber}개`
-							: null}
+						{likedBook &&
+						likedBook[0]?.commentTotalNumber !== 0 &&
+						commentData?.findIndex(
+							(item) => item.displayName === user?.displayName
+						) !== -1
+							? likedBook[0]?.commentTotalNumber &&
+							  `${likedBook[0]?.commentTotalNumber - 1}개`
+							: `${likedBook[0]?.commentTotalNumber}개`}
 					</Typography>
 					<CommentList
 						isbn={isbn}
