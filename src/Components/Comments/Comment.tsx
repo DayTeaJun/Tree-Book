@@ -30,7 +30,6 @@ export const Comment = ({
 		queryFn: () => getDocuments('comment', isbn),
 	});
 
-	console.log(likedBook[0]?.commentTotalNumber);
 	return (
 		<>
 			{commentData?.findIndex(
@@ -108,14 +107,9 @@ export const Comment = ({
 						sx={{ paddingBottom: '10px' }}
 					>
 						리뷰{' '}
-						{likedBook &&
-						commentData?.findIndex(
-							(item) => item.displayName === user?.displayName
-						) !== -1
-							? likedBook[0]?.commentTotalNumber &&
-							  `${likedBook[0]?.commentTotalNumber - 1}개`
-							: likedBook[0]?.commentTotalNumber &&
-							  `${likedBook[0]?.commentTotalNumber}개`}
+						{likedBook && likedBook[0]?.commentTotalNumber
+							? `${likedBook[0]?.commentTotalNumber}개`
+							: null}
 					</Typography>
 					<CommentList
 						isbn={isbn}
