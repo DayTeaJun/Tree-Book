@@ -167,6 +167,18 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 								flexDirection: 'column',
 								gap: '10px',
 								borderRadius: '10px',
+								overflowX: 'auto',
+								overflowY: 'hidden',
+								paddingBottom: '1em',
+
+								'&::-webkit-scrollbar': {
+									height: '10px',
+									borderRadius: '6px',
+								},
+								'&::-webkit-scrollbar-thumb': {
+									backgroundColor: 'background.hover',
+									borderRadius: '6px',
+								},
 							}}
 						>
 							<Typography
