@@ -78,7 +78,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 									<Typography
 										fontWeight='bold'
 										fontSize='1.1em'
-										sx={{ flexShrink: 0 }}
+										sx={{ width: '5%', flexShrink: 0 }}
 									>
 										{index + 1}
 									</Typography>
@@ -103,6 +103,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 									</Box>
 									<Box
 										sx={{
+											width: 'calc(90% - 140px)',
 											display: 'flex',
 											flexDirection: 'column',
 										}}
@@ -111,7 +112,6 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 											fontSize='1.1em'
 											fontWeight={'bold'}
 											sx={{
-												width: '200px',
 												overflow: 'hidden',
 												textOverflow: 'ellipsis',
 												cursor: 'pointer',
@@ -145,6 +145,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 									<Typography
 										fontSize={'0.9em'}
 										sx={{
+											width: '5%',
 											flexShrink: 0,
 											color: 'text.secondary',
 											marginLeft: 'auto',
