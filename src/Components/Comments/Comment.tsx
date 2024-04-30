@@ -53,11 +53,9 @@ export const Comment = ({
 												sx={{
 													display: 'flex',
 													flexDirection: 'column',
-													borderColor: 'background.content',
-													borderTop: 'solid 1px',
-													borderBottom: 'solid 1px',
-													boxSizing: 'border-box',
 													padding: '10px',
+													borderRadius: '10px',
+													border: '1px solid',
 												}}
 												key={index}
 											>
@@ -104,13 +102,19 @@ export const Comment = ({
 						component='h2'
 						fontSize='1.2em'
 						fontWeight='bold'
-						sx={{ paddingBottom: '10px' }}
+						sx={{
+							paddingBottom: '10px',
+							width: '100%',
+							borderColor: 'background.content',
+							borderBottom: '1px solid',
+						}}
 					>
 						리뷰{' '}
 						{likedBook && likedBook[0]?.commentTotalNumber
 							? `${likedBook[0]?.commentTotalNumber}개`
 							: null}
 					</Typography>
+
 					<CommentList
 						isbn={isbn}
 						documents={likedBook}
