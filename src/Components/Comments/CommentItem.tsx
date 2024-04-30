@@ -63,8 +63,6 @@ export const CommentItem = ({
 		setCommentUid(uid);
 	};
 
-	console.log(commentData.createdTime);
-
 	return (
 		<>
 			<Box

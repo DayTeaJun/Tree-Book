@@ -9,32 +9,47 @@ export function CommentList({
 	isbn,
 	documents,
 	comments,
+	sorted,
 }: {
 	isbn: string;
 	documents?: FirestoreDocument[];
 	comments?: FirestoreDocument[];
+	sorted: string;
 }) {
 	const [commentData, setCommentData] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const [currentPage, setCurrentPage] = useState(1);
-
 	const commentsPerPage = 4;
-	const commentLists =
-		comments &&
-		comments.sort((a, b) => b.createdTime!.seconds - a.createdTime!.seconds);
-	const startIndex = (currentPage - 1) * commentsPerPage;
-	const endIndex = startIndex + commentsPerPage;
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
 	};
 
 	useEffect(() => {
-		if (commentLists) {
-			const displayedComments = commentLists.slice(startIndex, endIndex);
+		let commentLists;
+		const startIndex = (currentPage - 1) * commentsPerPage;
+		const endIndex = startIndex + commentsPerPage;
+		if (sorted === 'latest') {
+			commentLists =
+				comments &&
+				comments.sort(
+					(a, b) => b.createdTime!.seconds - a.createdTime!.seconds
+				);
+			const displayedComments = commentLists!.slice(startIndex, endIndex);
 			setCommentData(displayedComments);
+		} else if (sorted === 'popular') {
+			commentLists =
+				comments &&
+				comments.sort(
+					(a, b) =>
+						Object.keys(b.likeBy as object).length -
+						Object.keys(a.likeBy as object).length
+				);
+			const displayedComments = commentLists!.slice(startIndex, endIndex);
+			setCommentData(displayedComments);
+			console.log('dk');
 		}
-	}, [comments, currentPage]);
+	}, [comments, currentPage, sorted]);
 
 	return (
 		<>
@@ -58,9 +73,7 @@ export function CommentList({
 				<Paginaition
 					page={currentPage}
 					handlePageChange={handlePageChange}
-					count={
-						commentLists && Math.ceil(commentLists.length / commentsPerPage)
-					}
+					count={comments && Math.ceil(comments.length / commentsPerPage)}
 				/>
 			)}
 			{comments?.length === 0 && (

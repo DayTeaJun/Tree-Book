@@ -9,6 +9,7 @@ import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Fragment, useState } from 'react';
+import { DropdownMenu } from '../Dropdown/DropdownMenu';
 
 export const Comment = ({
 	item,
@@ -20,6 +21,8 @@ export const Comment = ({
 	const isbn = item.isbn;
 	const { user } = useAuthContext();
 	const [isCommentEdit, setIsCommentEdit] = useState(false);
+	const [isDropdown, setIsDropdown] = useState(false);
+	const [sorted, setSorted] = useState<string>('latest');
 
 	const {
 		data: commentData,
@@ -98,27 +101,32 @@ export const Comment = ({
 						padding: '20px 0',
 					}}
 				>
-					<Typography
-						component='h2'
-						fontSize='1.2em'
-						fontWeight='bold'
+					<Box
 						sx={{
-							paddingBottom: '10px',
-							width: '100%',
 							borderColor: 'background.content',
 							borderBottom: '1px solid',
+							display: 'flex',
+							paddingBottom: '10px',
+							gap: '10px',
 						}}
 					>
-						리뷰{' '}
-						{likedBook && likedBook[0]?.commentTotalNumber
-							? `${likedBook[0]?.commentTotalNumber}개`
-							: null}
-					</Typography>
-
+						<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
+							리뷰{' '}
+							{likedBook && likedBook[0]?.commentTotalNumber
+								? `${likedBook[0]?.commentTotalNumber}개`
+								: null}
+						</Typography>
+						<DropdownMenu
+							isDropdown={isDropdown}
+							setIsDropdown={setIsDropdown}
+							setSorted={setSorted}
+						/>
+					</Box>
 					<CommentList
 						isbn={isbn}
 						documents={likedBook}
 						comments={commentData}
+						sorted={sorted}
 					/>
 				</Box>
 			) : (

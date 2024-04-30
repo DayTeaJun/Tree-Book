@@ -97,7 +97,6 @@ export function CommentForm({
 			setComments(preComment.comments);
 		}
 	}, []);
-	if (likedBook) console.log(likedBook[0]?.commentTotalNumber);
 	return (
 		<>
 			<Box
