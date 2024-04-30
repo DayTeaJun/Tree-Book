@@ -29,25 +29,22 @@ export function CommentList({
 		let commentLists;
 		const startIndex = (currentPage - 1) * commentsPerPage;
 		const endIndex = startIndex + commentsPerPage;
-		if (sorted === 'latest') {
-			commentLists =
-				comments &&
-				comments.sort(
+		if (comments)
+			if (sorted === 'latest') {
+				commentLists = comments.sort(
 					(a, b) => b.createdTime!.seconds - a.createdTime!.seconds
 				);
-			const displayedComments = commentLists!.slice(startIndex, endIndex);
+			} else if (sorted === 'popular') {
+				commentLists = comments.sort((a, b) => {
+					const likeByA = a.likeBy ? Object.keys(a.likeBy).length : 0;
+					const likeByB = b.likeBy ? Object.keys(b.likeBy).length : 0;
+					return likeByB - likeByA;
+				});
+			}
+		const displayedComments =
+			commentLists && commentLists.slice(startIndex, endIndex);
+		if (displayedComments) {
 			setCommentData(displayedComments);
-		} else if (sorted === 'popular') {
-			commentLists =
-				comments &&
-				comments.sort(
-					(a, b) =>
-						Object.keys(b.likeBy as object).length -
-						Object.keys(a.likeBy as object).length
-				);
-			const displayedComments = commentLists!.slice(startIndex, endIndex);
-			setCommentData(displayedComments);
-			console.log('dk');
 		}
 	}, [comments, currentPage, sorted]);
 
