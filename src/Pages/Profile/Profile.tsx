@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import { getUser } from '../../Api/Firebase/getUser';
 import { Shimmer } from '../../Styles/Common';
 import { enqueueSnackbar } from 'notistack';
+import { UserLikedSkeleton } from './UserLiked.skeleton';
 
 export default function Profile() {
 	const { user } = useAuthContext();
@@ -172,7 +173,7 @@ export default function Profile() {
 							gap: '30px',
 						}}
 					>
-						{userDocument && (
+						{!isLoading && userDocument ? (
 							<>
 								<UserLiked
 									uid={userDocument.uid}
@@ -182,6 +183,11 @@ export default function Profile() {
 									uid={userDocument.uid}
 									displayName={userDocument && userDocument.displayName}
 								/>
+							</>
+						) : (
+							<>
+								<UserLikedSkeleton />
+								<UserLikedSkeleton comment={'comment'} />;
 							</>
 						)}
 					</Box>

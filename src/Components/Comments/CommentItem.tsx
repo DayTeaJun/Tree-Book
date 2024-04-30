@@ -6,7 +6,13 @@ import { useSnackbar } from 'notistack';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	deleteField,
+	doc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { M } from '../Modal/modal.style';
 import { Modal } from '../Modal/Modal';
@@ -34,11 +40,16 @@ export const CommentItem = ({
 		if (documents) {
 			const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
 
-			await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
-				...documents[0],
-				commentTotalNumber:
-					commentTotalNumber <= 0 ? 0 : commentTotalNumber - 1,
-			});
+			if (commentTotalNumber <= 1) {
+				await updateDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+					commentTotalNumber: deleteField(),
+				});
+			} else {
+				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+					...documents[0],
+					commentTotalNumber: commentTotalNumber - 1,
+				});
+			}
 			await deleteDocument(uid);
 		}
 	};

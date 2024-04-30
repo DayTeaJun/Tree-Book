@@ -175,20 +175,7 @@ export const BookDetailItem = ({
 					>
 						책소개
 					</Typography>
-					<Typography
-						component='dd'
-						sx={{
-							overflow: 'hidden',
-							whiteSpace: 'normal',
-							textOverflow: 'ellipsis',
-							display: '-webkit-box',
-							WebkitLineClamp: 3,
-							WebkitBoxOrient: 'vertical',
-							wordBreak: 'keep-all',
-						}}
-					>
-						{item.contents}
-					</Typography>
+					<Typography component='dd'>{item.contents}...</Typography>
 				</Typography>
 			) : (
 				<></>
