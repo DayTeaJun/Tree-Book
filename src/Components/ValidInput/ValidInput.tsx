@@ -1,22 +1,11 @@
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import {
-	ChangeEvent,
-	Dispatch,
-	SetStateAction,
-	useEffect,
-	useState,
-} from 'react';
-import { InputValueType } from '../../Types/userType';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import useDebounce from '../../Hook/useDebounce';
 import { appFirestore } from '../../Firebase/config';
 import { Typography } from '@mui/material';
-
-interface ValidInputProps {
-	setInputValue: Dispatch<SetStateAction<InputValueType>>;
-	setIsDisabled: Dispatch<SetStateAction<boolean>>;
-}
+import { ValidInputProps } from '../../Types/componentType';
 
 export default function ValidInput({
 	setInputValue,

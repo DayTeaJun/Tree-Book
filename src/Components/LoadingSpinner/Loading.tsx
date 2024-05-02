@@ -1,8 +1,5 @@
 import { Backdrop, Box, CircularProgress } from '@mui/material';
-
-interface LoadingType {
-	BackDrop?: boolean;
-}
+import { LoadingType } from '../../Types/componentType';
 
 const Loading = ({ BackDrop }: LoadingType) => {
 	if (BackDrop) {

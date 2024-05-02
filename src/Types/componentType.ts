@@ -1,7 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { BookData } from './bookType';
 import { FirestoreDocument } from './firestoreType';
 import { User } from 'firebase/auth';
+import { InputValueType } from './userType';
 
 export interface ModalType {
 	setIsOpenModal: Dispatch<SetStateAction<boolean>>;
@@ -9,6 +9,23 @@ export interface ModalType {
 	children: ReactNode;
 	promise?: () => Promise<void>;
 	mutationFn?: () => void;
+}
+
+export interface ValidInputProps {
+	setInputValue: Dispatch<SetStateAction<InputValueType>>;
+	setIsDisabled: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface PaginaitionType {
+	page?: string | number;
+	searchView?: string;
+	handlePageChange?: (newPage: number) => void;
+	totalPage?: number;
+	count?: number | null;
+}
+
+export interface LoadingType {
+	BackDrop?: boolean;
 }
 
 export interface CommentItemType {
