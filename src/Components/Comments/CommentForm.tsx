@@ -9,6 +9,7 @@ import { Label } from '../../Styles/Common';
 import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
+import { Raiting } from '../Rating/Rating';
 
 export function CommentForm({
 	item,
@@ -21,6 +22,7 @@ export function CommentForm({
 	const { user } = useAuthContext();
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
+	const [ratingValue, setRatingValue] = useState<null | number>(null);
 	const book: string = useParams().search || '';
 	const displayName = (user && user.displayName) || '';
 	const id = (user && user.uid) || '';
@@ -119,11 +121,11 @@ export function CommentForm({
 					sx={{
 						display: 'flex',
 						flexDirection: 'column',
-						justifyContent: 'space-around',
 						gap: '10px',
 					}}
 				>
 					<Label htmlFor='commentInput'>리뷰 입력</Label>
+					<Raiting ratingValue={ratingValue} setRatingValue={setRatingValue} />
 					<TextField
 						multiline
 						rows={3}
