@@ -18,6 +18,8 @@ import { M } from '../Modal/modal.style';
 import { Modal } from '../Modal/Modal';
 import { CommentItemType } from '../../Types/componentType';
 import { elapsedTime } from '../../Utils/date';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 export const CommentItem = ({
 	index,
@@ -147,6 +149,21 @@ export const CommentItem = ({
 									{commentData.fixedComment ? '(수정됨)' : null}
 								</Typography>
 							</Box>
+							{commentData.rating && (
+								<Box sx={{ display: 'flex' }}>
+									{Array.from({ length: commentData.rating as number }).map(
+										(_, index) => (
+											<StarIcon key={index} fontSize='small' />
+										)
+									)}
+									{Array.from({
+										length: (5 - (commentData.rating ?? 0)) as number,
+									}).map((_, index) => (
+										<StarOutlineIcon key={index} fontSize='small' />
+									))}
+								</Box>
+							)}
+
 							<Typography component='p' fontSize='1em' color='text.primary'>
 								{expandedComment[index]
 									? commentData.comments

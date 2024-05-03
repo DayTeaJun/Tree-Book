@@ -100,6 +100,9 @@ export function CommentForm({
 	useEffect(() => {
 		if (preComment?.comments) {
 			setComments(preComment.comments);
+			if (preComment?.rating) {
+				setRatingValue(preComment.rating);
+			}
 		}
 	}, []);
 
