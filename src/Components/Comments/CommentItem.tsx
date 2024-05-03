@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
@@ -89,11 +89,10 @@ export const CommentItem = ({
 				<Box
 					sx={{
 						display: 'flex',
-						justifyContent: 'space-between',
 						gap: '10px',
 					}}
 				>
-					<Box sx={{ display: 'flex', gap: '20px' }}>
+					<Box sx={{ display: 'flex', gap: '20px', width: '100%' }}>
 						<Box
 							sx={{
 								width: '50px',
@@ -115,79 +114,112 @@ export const CommentItem = ({
 								display: 'flex',
 								flexDirection: 'column',
 								gap: '5px',
+								width: '100%',
 							}}
 						>
-							<Box sx={{ display: 'flex', gap: '20px' }}>
-								<Link
-									to={`/profile/${commentData.displayName}`}
-									state={{ id: commentData.id }}
-								>
-									<Typography
-										fontSize='1.1em'
-										fontWeight='bold'
-										sx={{ cursor: 'pointer' }}
-										color='text.primary'
-									>
-										{commentData.displayName}
-									</Typography>
-								</Link>
+							<Link
+								to={`/profile/${commentData.displayName}`}
+								state={{ id: commentData.id }}
+							>
 								<Typography
-									component='p'
 									fontSize='1.1em'
 									fontWeight='bold'
-									color='text.secondary'
-								>
-									{commentData.createdTime &&
-										elapsedTime(commentData.createdTime)}
-								</Typography>
-								<Typography
-									component='p'
-									fontSize='1.1em'
-									fontWeight='bold'
-									color='text.secondary'
-								>
-									{commentData.fixedComment ? '(수정됨)' : null}
-								</Typography>
-							</Box>
-							{commentData.rating && (
-								<Box sx={{ display: 'flex' }}>
-									{Array.from({ length: commentData.rating as number }).map(
-										(_, index) => (
-											<StarIcon key={index} fontSize='small' />
-										)
-									)}
-									{Array.from({
-										length: (5 - (commentData.rating ?? 0)) as number,
-									}).map((_, index) => (
-										<StarOutlineIcon key={index} fontSize='small' />
-									))}
-								</Box>
-							)}
-
-							<Typography component='p' fontSize='1em' color='text.primary'>
-								{expandedComment[index]
-									? commentData.comments
-									: commentData.comments && commentData.comments.length > 100
-									? `${commentData.comments?.substring(0, 100)}...`
-									: commentData.comments}
-							</Typography>
-
-							{commentData.comments && commentData.comments.length > 120 && (
-								<Typography
-									component='span'
-									fontSize='0.8em'
-									color='text.secondary'
 									sx={{ cursor: 'pointer' }}
-									onClick={() => {
-										setExpandedComment({
-											...expandedComment,
-											[index]: !expandedComment[index],
-										});
+									color='text.primary'
+								>
+									{commentData.displayName}
+								</Typography>
+							</Link>
+							<Box
+								sx={{
+									display: 'flex',
+									justifyContent: 'space-between',
+									alignItems: 'center',
+								}}
+							>
+								<Box
+									sx={{
+										display: 'flex',
+										gap: '5px',
 									}}
 								>
-									{!expandedComment[index] ? '더보기' : '간략히'}
+									<Typography
+										component='p'
+										fontSize='0.8em'
+										fontWeight='bold'
+										color='text.secondary'
+									>
+										{commentData.createdTime &&
+											elapsedTime(commentData.createdTime)}
+									</Typography>
+									<Typography
+										component='p'
+										fontSize='0.8em'
+										fontWeight='bold'
+										color='text.secondary'
+									>
+										{commentData.fixedComment ? '(수정됨)' : null}
+									</Typography>
+								</Box>
+
+								{commentData.rating && (
+									<Box sx={{ display: 'flex' }}>
+										{Array.from({ length: commentData.rating as number }).map(
+											(_, index) => (
+												<StarIcon key={index} fontSize='small' />
+											)
+										)}
+										{Array.from({
+											length: (5 - (commentData.rating ?? 0)) as number,
+										}).map((_, index) => (
+											<StarOutlineIcon key={index} fontSize='small' />
+										))}
+									</Box>
+								)}
+							</Box>
+							<Divider
+								sx={{
+									width: '100%',
+									margin: '5px 0',
+								}}
+							/>
+
+							<Box>
+								<Typography component='p' fontSize='1em' color='text.primary'>
+									{expandedComment[index]
+										? commentData.comments
+										: commentData.comments && commentData.comments.length > 100
+										? `${commentData.comments?.substring(0, 100)}...`
+										: commentData.comments}
 								</Typography>
-							)}
+
+								{commentData.comments && commentData.comments.length > 120 && (
+									<Typography
+										width='100%'
+										component='span'
+										fontSize='0.8em'
+										color='text.secondary'
+										sx={{
+											cursor: 'pointer',
+										}}
+										onClick={() => {
+											setExpandedComment({
+												...expandedComment,
+												[index]: !expandedComment[index],
+											});
+										}}
+									>
+										{!expandedComment[index] ? '더보기' : '간략히'}
+									</Typography>
+								)}
+							</Box>
+							<Divider
+								sx={{
+									width: '100%',
+									margin: '5px 0',
+								}}
+							/>
+
 							<CommentLike uid={commentData.uid} item={commentData} />
 						</Box>
 					</Box>
