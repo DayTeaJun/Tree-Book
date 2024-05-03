@@ -10,6 +10,7 @@ import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { Raiting } from '../Rating/Rating';
+import { FirestoreDocument } from '../../Types/firestoreType';
 
 export function CommentForm({
 	item,
@@ -49,8 +50,8 @@ export function CommentForm({
 
 		if (user) {
 			const rating = ratingValue ?? 0;
-			const ratingBy = { ...item.ratingBy, [user.uid]: ratingValue ?? 0 };
-			if (preComment && setIsCommentEdit) {
+			if (preComment && setIsCommentEdit && likedBook) {
+				const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
 				const commentRef = doc(
 					appFirestore,
 					'comment',
@@ -61,9 +62,12 @@ export function CommentForm({
 					rating: rating,
 					fixedComment: true,
 				});
-				await updateDoc(doc(appFirestore, 'LikedBook', isbn as string), {
-					ratingBy: ratingBy,
+				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+					...likedBook[0],
+					...item,
+					ratingBy,
 				});
+				queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 				queryClient.invalidateQueries({ queryKey: ['comment'] });
 				setIsCommentEdit(false);
 
@@ -80,11 +84,11 @@ export function CommentForm({
 				});
 				if (likedBook) {
 					const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
-
+					const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
 					await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 						...likedBook[0],
 						...item,
-						ratingBy: ratingBy,
+						ratingBy,
 						commentTotalNumber: commentTotalNumber + 1,
 					});
 					queryClient.invalidateQueries({ queryKey: ['LikedBook'] });

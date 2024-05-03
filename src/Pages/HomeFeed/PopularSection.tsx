@@ -31,6 +31,18 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 		navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
 	};
 
+	function sumRatings(ratingBy: { [key: string]: number }) {
+		let sum = 0;
+		let avg = 0;
+		for (const userId in ratingBy) {
+			if (ratingBy.hasOwnProperty(userId)) {
+				sum += ratingBy[userId];
+				avg = sum / Object.keys(ratingBy).length;
+			}
+		}
+		return Math.floor(avg);
+	}
+
 	return (
 		<>
 			<Typography
@@ -128,19 +140,22 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 										>
 											{item.title}
 										</Typography>
-										{item.rating && (
-											<Box sx={{ display: 'flex' }}>
-												{Array.from({
-													length: item.rating as number,
-												}).map((_, index) => (
-													<StarIcon key={index} fontSize='small' />
-												))}
-												{Array.from({
-													length: (5 - (item.rating ?? 0)) as number,
-												}).map((_, index) => (
-													<StarOutlineIcon key={index} fontSize='small' />
-												))}
-											</Box>
+										{item.ratingBy && (
+											<>
+												<Box sx={{ display: 'flex' }}>
+													{Array.from({
+														length: sumRatings(item.ratingBy) as number,
+													}).map((_, index) => (
+														<StarIcon key={index} fontSize='small' />
+													))}
+													{Array.from({
+														length: (5 -
+															(sumRatings(item.ratingBy) ?? 0)) as number,
+													}).map((_, index) => (
+														<StarOutlineIcon key={index} fontSize='small' />
+													))}
+												</Box>
+											</>
 										)}
 										<Typography
 											component='p'

@@ -39,17 +39,24 @@ export const CommentItem = ({
 	const [commentUid, setCommentUid] = useState('');
 
 	const deleteComment = async (uid: string) => {
-		if (documents) {
+		if (documents && user) {
 			const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
+			const ratingBy = { ...documents[0].ratingBy };
+			delete ratingBy[user.uid];
 
 			if (commentTotalNumber <= 1) {
 				await updateDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 					commentTotalNumber: deleteField(),
 				});
+				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+					...documents[0],
+					ratingBy,
+				});
 			} else {
 				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 					...documents[0],
 					commentTotalNumber: commentTotalNumber - 1,
+					ratingBy,
 				});
 			}
 			await deleteDocument(uid);
@@ -162,7 +169,7 @@ export const CommentItem = ({
 									</Typography>
 								</Box>
 
-								{commentData.rating && (
+								{(commentData.rating && commentData.rating === 0) || (
 									<Box sx={{ display: 'flex' }}>
 										{Array.from({ length: commentData.rating as number }).map(
 											(_, index) => (

@@ -22,7 +22,7 @@ export interface BookData {
 	createdTime?: Timestamp;
 	commentTotalNumber: number;
 	rating?: number;
-	ratingBy?: { [key: string]: boolean };
+	ratingBy?: { [key: string]: number };
 }
 
 export interface SerachParams {

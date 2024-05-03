@@ -33,4 +33,5 @@ export interface FirestoreDocument {
 	views?: number;
 	fixedComment?: boolean;
 	rating?: number;
+	ratingBy?: { [key: string]: number };
 }
