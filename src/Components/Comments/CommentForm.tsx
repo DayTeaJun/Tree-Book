@@ -22,7 +22,7 @@ export function CommentForm({
 	const { user } = useAuthContext();
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
-	const [ratingValue, setRatingValue] = useState<null | number>(null);
+	const [ratingValue, setRatingValue] = useState<number | null>(0);
 	const book: string = useParams().search || '';
 	const displayName = (user && user.displayName) || '';
 	const id = (user && user.uid) || '';
@@ -48,6 +48,7 @@ export function CommentForm({
 		e.preventDefault();
 
 		if (user) {
+			const rating = ratingValue ?? 0;
 			if (preComment && setIsCommentEdit) {
 				const commentRef = doc(
 					appFirestore,
@@ -56,6 +57,7 @@ export function CommentForm({
 				);
 				await updateDoc(commentRef, {
 					comments: comments,
+					rating: rating,
 					fixedComment: true,
 				});
 				queryClient.invalidateQueries({ queryKey: ['comment'] });
@@ -70,6 +72,7 @@ export function CommentForm({
 					displayName,
 					id,
 					photoURL,
+					rating,
 				});
 				if (likedBook) {
 					const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;

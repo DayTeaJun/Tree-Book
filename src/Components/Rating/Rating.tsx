@@ -27,7 +27,7 @@ export const Raiting = ({
 				size='large'
 				name='book-rating'
 				value={ratingValue}
-				onChange={(event, newValue) => {
+				onChange={(event, newValue = 0) => {
 					setRatingValue(newValue);
 				}}
 			/>
