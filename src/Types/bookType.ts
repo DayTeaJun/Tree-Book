@@ -21,6 +21,8 @@ export interface BookData {
 	comments?: string;
 	createdTime?: Timestamp;
 	commentTotalNumber: number;
+	rating?: number;
+	ratingBy?: { [key: string]: boolean };
 }
 
 export interface SerachParams {

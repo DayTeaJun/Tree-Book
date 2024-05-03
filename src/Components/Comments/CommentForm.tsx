@@ -49,6 +49,7 @@ export function CommentForm({
 
 		if (user) {
 			const rating = ratingValue ?? 0;
+			const ratingBy = { ...item.ratingBy, [user.uid]: ratingValue ?? 0 };
 			if (preComment && setIsCommentEdit) {
 				const commentRef = doc(
 					appFirestore,
@@ -59,6 +60,9 @@ export function CommentForm({
 					comments: comments,
 					rating: rating,
 					fixedComment: true,
+				});
+				await updateDoc(doc(appFirestore, 'LikedBook', isbn as string), {
+					ratingBy: ratingBy,
 				});
 				queryClient.invalidateQueries({ queryKey: ['comment'] });
 				setIsCommentEdit(false);
@@ -80,6 +84,7 @@ export function CommentForm({
 					await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
 						...likedBook[0],
 						...item,
+						ratingBy: ratingBy,
 						commentTotalNumber: commentTotalNumber + 1,
 					});
 					queryClient.invalidateQueries({ queryKey: ['LikedBook'] });

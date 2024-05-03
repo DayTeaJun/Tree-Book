@@ -5,6 +5,8 @@ import { BookData } from '../../Types/bookType';
 import { useNavigate } from 'react-router-dom';
 import errorImg from '../../Assets/No-img.svg';
 import BookItem from '../../Components/Books/BookItem';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 interface PopularSectionProps {
 	props: 'commentTotalNumber' | 'views';
@@ -126,6 +128,20 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 										>
 											{item.title}
 										</Typography>
+										{item.rating && (
+											<Box sx={{ display: 'flex' }}>
+												{Array.from({
+													length: item.rating as number,
+												}).map((_, index) => (
+													<StarIcon key={index} fontSize='small' />
+												))}
+												{Array.from({
+													length: (5 - (item.rating ?? 0)) as number,
+												}).map((_, index) => (
+													<StarOutlineIcon key={index} fontSize='small' />
+												))}
+											</Box>
+										)}
 										<Typography
 											component='p'
 											fontSize={'0.9em'}
