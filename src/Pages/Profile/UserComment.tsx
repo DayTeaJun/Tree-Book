@@ -5,7 +5,7 @@ import BookItem from '../../Components/Books/BookItem';
 import { useQuery } from '@tanstack/react-query';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { BookData } from '../../Types/bookType';
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
 	const fetchLiked = async (uid: string) => {
@@ -30,13 +30,14 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 		<>
 			{userBooks && (
 				<Box
+					component='section'
 					sx={{
 						width: '100%',
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
 						backgroundColor: 'background.content',
-						borderRadius: '10px',
+						borderRadius: '5px',
 						padding: '10px',
 					}}
 				>
@@ -57,7 +58,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 					<Box
 						sx={{
 							width: '100%',
-							height: '220px',
+							height: '290px',
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'center',

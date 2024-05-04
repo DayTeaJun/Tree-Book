@@ -31,13 +31,14 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 		<>
 			{userBooks && (
 				<Box
+					component='section'
 					sx={{
 						width: '100%',
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
 						backgroundColor: 'background.content',
-						borderRadius: '10px',
+						borderRadius: '5px',
 						padding: '10px',
 					}}
 				>

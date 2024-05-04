@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 
 const BookItem = ({
 	item,
@@ -37,10 +37,14 @@ const BookItem = ({
 					gap: '5px',
 					cursor: 'pointer',
 					width: '95%',
-					height: '100px',
 					padding: '10px',
 					borderRadius: '5px',
-					backgroundColor: 'background.hover',
+					borderColor: 'text.primary',
+					border: '1px solid',
+					transition: '0.5s',
+					'&:hover': {
+						backgroundColor: 'background.hover',
+					},
 				}}
 			>
 				<Typography
@@ -57,6 +61,13 @@ const BookItem = ({
 				>
 					{item.title}
 				</Typography>
+				<Divider
+					sx={{
+						width: '100%',
+						margin: '5px 0',
+					}}
+				/>
+
 				<Typography
 					component='h2'
 					fontSize={'1em'}
@@ -71,6 +82,13 @@ const BookItem = ({
 				>
 					{comment}
 				</Typography>
+				<Divider
+					sx={{
+						width: '100%',
+						margin: '5px 0',
+					}}
+				/>
+
 				<Typography
 					component='p'
 					fontSize={'0.8em'}

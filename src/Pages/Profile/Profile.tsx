@@ -10,6 +10,7 @@ import { getUser } from '../../Api/Firebase/getUser';
 import { Shimmer } from '../../Styles/Common';
 import { enqueueSnackbar } from 'notistack';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function Profile() {
 	const { user } = useAuthContext();
@@ -38,160 +39,156 @@ export default function Profile() {
 					{`${userDocument && userDocument.displayName}님의 프로필 - TreeBook`}
 				</title>
 			</Helmet>
+
 			<Box
 				component='main'
 				sx={{
+					width: '100%',
+					height: '100%',
 					display: 'flex',
 					flexDirection: 'column',
-					alignItems: 'center',
-					marginTop: '20px',
-					minHeight: '450px',
+					overflow: 'hidden',
 					gap: '10px',
+					border: '2px solid',
+					borderColor: 'background.content',
+					borderRadius: '15px',
 				}}
 			>
 				<Box
-					component='section'
 					sx={{
 						width: '100%',
-						height: '100%',
+						minHeight: '255px',
+						padding: '10px',
 						display: 'flex',
-						overflow: 'hidden',
-						gap: '20px',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						gap: '5px',
+						backgroundColor: 'background.content',
+						borderRadius: '5px',
+						position: 'relative',
 					}}
 				>
 					<Box
 						sx={{
-							minWidth: '20%',
-							minHeight: '286px',
+							width: '120px',
+							height: '120px',
+							borderRadius: '50%',
 							flexShrink: 1,
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							justifyContent: 'center',
-							gap: '20px',
-							backgroundColor: 'background.content',
-							borderRadius: '10px',
+							overflow: 'hidden',
 						}}
 					>
-						<Box
-							sx={{
-								width: '200px',
-								height: '200px',
-								borderRadius: '50%',
-								flexShrink: 1,
-								overflow: 'hidden',
-							}}
-						>
-							{isLoading ? (
-								<Shimmer />
-							) : (
-								userDocument && (
-									<img
-										src={
-											(userId === (user && user.displayName) &&
-												user &&
-												user.photoURL) ||
-											userDocument.photoURL
-										}
-										alt={`${userDocument.displayName}의 프로필 사진입니다.`}
-									/>
-								)
-							)}
-						</Box>
 						{isLoading ? (
-							<Box
-								sx={{
-									width: '200px',
-									height: '16px',
-									overflow: 'hidden',
-								}}
-							>
-								<Shimmer />
-							</Box>
+							<Shimmer />
 						) : (
-							<Typography component='h2' fontSize='1.5em' fontWeight='bold'>
-								{userDocument && userDocument?.displayName}
-							</Typography>
-						)}
-						{isLoading ? (
-							<Box
-								sx={{
-									width: '200px',
-									height: '36px',
-									overflow: 'hidden',
-								}}
-							>
-								<Shimmer />
-							</Box>
-						) : (
-							<Typography component='p' fontSize='1em' textAlign='center'>
-								{(userDocument && userDocument?.intro) ||
-									'한줄 자기소개를 작성해보세요.'}
-							</Typography>
-						)}
-						{isLoading ? (
-							<Box
-								sx={{
-									width: '200px',
-									height: '36px',
-									overflow: 'hidden',
-								}}
-							>
-								<Shimmer />
-							</Box>
-						) : (
-							userDocument &&
-							userId === (user && user.displayName) && (
-								<>
-									<Link to='./edit' state={{ intro: userDocument.intro }}>
-										<Typography
-											component='p'
-											fontSize='1em'
-											textAlign='center'
-											fontWeight='700'
-											color='text.primary'
-											sx={{
-												width: '100%',
-												padding: '10px 20px',
-												borderRadius: '10px',
-												backgroundColor: 'background.hover',
-											}}
-										>
-											프로필 수정
-										</Typography>
-									</Link>
-								</>
+							userDocument && (
+								<img
+									src={
+										(userId === (user && user.displayName) &&
+											user &&
+											user.photoURL) ||
+										userDocument.photoURL
+									}
+									alt={`${userDocument.displayName}의 프로필 사진입니다.`}
+								/>
 							)
 						)}
 					</Box>
-					<Box
-						sx={{
-							width: 'calc(80% - 160px)',
-							minHeight: '570px',
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '30px',
-						}}
-					>
-						{!isLoading && userDocument ? (
+					{isLoading ? (
+						<Box
+							sx={{
+								width: '200px',
+								height: '16px',
+								overflow: 'hidden',
+							}}
+						>
+							<Shimmer />
+						</Box>
+					) : (
+						<Typography component='h2' fontSize='1.3em' fontWeight='bold'>
+							{userDocument && userDocument?.displayName}
+						</Typography>
+					)}
+					{isLoading ? (
+						<Box
+							sx={{
+								width: '200px',
+								height: '36px',
+								overflow: 'hidden',
+							}}
+						>
+							<Shimmer />
+						</Box>
+					) : (
+						<Typography component='p' fontSize='1em' color='text.secondary'>
+							{userDocument && userDocument.email}
+						</Typography>
+					)}
+					{isLoading ? (
+						<Box
+							sx={{
+								width: '200px',
+								height: '36px',
+								overflow: 'hidden',
+							}}
+						>
+							<Shimmer />
+						</Box>
+					) : (
+						<Typography component='p' fontSize='1em' color='text.secondary'>
+							{(userDocument && userDocument?.intro) ||
+								'한줄 자기소개를 작성해보세요.'}
+						</Typography>
+					)}
+
+					{isLoading ? (
+						<Box
+							sx={{
+								width: '200px',
+								height: '36px',
+								overflow: 'hidden',
+							}}
+						>
+							<Shimmer />
+						</Box>
+					) : (
+						userDocument &&
+						userId === (user && user.displayName) && (
 							<>
-								<UserLiked
-									uid={userDocument.uid}
-									displayName={userDocument.displayName}
-								/>
-								<UserComment
-									uid={userDocument.uid}
-									displayName={userDocument && userDocument.displayName}
-								/>
+								<Link to='./edit' state={{ intro: userDocument.intro }}>
+									<Box
+										sx={{
+											position: 'absolute',
+											top: '10px',
+											right: '10px',
+											color: 'text.primary',
+										}}
+									>
+										<SettingsIcon fontSize='large' />
+									</Box>
+								</Link>
 							</>
-						) : (
-							<>
-								<UserLikedSkeleton />
-								<UserLikedSkeleton comment={'comment'} />;
-							</>
-						)}
-					</Box>
+						)
+					)}
 				</Box>
+
+				{!isLoading && userDocument ? (
+					<>
+						<UserLiked
+							uid={userDocument.uid}
+							displayName={userDocument.displayName}
+						/>
+						<UserComment
+							uid={userDocument.uid}
+							displayName={userDocument && userDocument.displayName}
+						/>
+					</>
+				) : (
+					<>
+						<UserLikedSkeleton />
+						<UserLikedSkeleton comment={'comment'} />;
+					</>
+				)}
 			</Box>
 		</>
 	);
