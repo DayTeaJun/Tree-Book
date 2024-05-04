@@ -33,6 +33,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 					component='section'
 					sx={{
 						width: '100%',
+						minHeight: '346px',
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
@@ -98,7 +99,9 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 									margin: '0 auto',
 								}}
 							>
-								<p>아직 작성한 코멘트가 없습니다.</p>
+								<Typography component='p'>
+									아직 작성한 코멘트가 없습니다.
+								</Typography>
 							</Box>
 						)}
 					</Box>

@@ -58,6 +58,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 					</Typography>
 					<Box
 						sx={{
+							minHeight: '216px',
 							width: '100%',
 							display: 'flex',
 							gap: '10px',
@@ -92,10 +93,13 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 									display: 'flex',
 									flexDirection: 'column',
 									justifyContent: 'center',
+									alignItems: 'center',
 									margin: '0 auto',
 								}}
 							>
-								<p>아직 즐겨찾기한 책이 없습니다.</p>
+								<Typography component='p'>
+									아직 즐겨찾기한 책이 없습니다.
+								</Typography>
 							</Box>
 						)}
 					</Box>

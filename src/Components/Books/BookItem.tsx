@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
 import { Box, Divider, Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 const BookItem = ({
 	item,
@@ -47,20 +49,41 @@ const BookItem = ({
 					},
 				}}
 			>
-				<Typography
-					component='h2'
-					fontSize={'1.2em'}
-					fontWeight={'bold'}
+				<Box
 					sx={{
-						color: 'text.primary',
-						whiteSpace: 'nowrap',
-						overflow: 'hidden',
-						textOverflow: 'ellipsis',
-						textDecorationLine: 'none',
+						display: 'flex',
+						alignItems: 'center',
+						gap: '20px',
 					}}
 				>
-					{item.title}
-				</Typography>
+					<Typography
+						component='h2'
+						fontSize={'1.2em'}
+						fontWeight={'bold'}
+						sx={{
+							color: 'text.primary',
+							whiteSpace: 'nowrap',
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+							textDecorationLine: 'none',
+						}}
+					>
+						{item.title}
+					</Typography>
+					{(item.rating && item.rating === 0) || (
+						<Box sx={{ display: 'flex' }}>
+							{Array.from({ length: item.rating as number }).map((_, index) => (
+								<StarIcon key={index} fontSize='small' />
+							))}
+							{Array.from({
+								length: (5 - (item.rating ?? 0)) as number,
+							}).map((_, index) => (
+								<StarOutlineIcon key={index} fontSize='small' />
+							))}
+						</Box>
+					)}
+				</Box>
+
 				<Divider
 					sx={{
 						width: '100%',
