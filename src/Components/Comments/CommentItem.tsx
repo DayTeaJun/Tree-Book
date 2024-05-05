@@ -59,6 +59,7 @@ export const CommentItem = ({
 					ratingBy,
 				});
 			}
+
 			await deleteDocument(uid);
 		}
 	};

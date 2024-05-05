@@ -33,4 +33,5 @@ export interface UserProfileType {
 	password: string;
 	photoURL: string;
 	uid: string;
+	ratingBook?: any;
 }

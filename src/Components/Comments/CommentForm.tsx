@@ -2,7 +2,7 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useParams } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../Types/bookType';
 import { Box, TextField, Typography } from '@mui/material';
 import { Label } from '../../Styles/Common';
@@ -11,6 +11,7 @@ import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { Raiting } from '../Rating/Rating';
 import { FirestoreDocument } from '../../Types/firestoreType';
+import { getUser } from '../../Api/Firebase/getUser';
 
 export function CommentForm({
 	item,
@@ -45,10 +46,19 @@ export function CommentForm({
 		},
 	});
 
+	const {
+		data: userData,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['user', isbn],
+		queryFn: () => user && getUser('user', user?.displayName as string),
+	});
+
 	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();
 
-		if (user) {
+		if (user && userData) {
 			const rating = ratingValue ?? 0;
 			if (preComment && setIsCommentEdit && likedBook) {
 				const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
@@ -66,6 +76,24 @@ export function CommentForm({
 					...likedBook[0],
 					...item,
 					ratingBy,
+				});
+				const ratingNumber = likedBook[0].ratingBy
+					? likedBook[0].ratingBy[user.uid]
+					: 0;
+				const ratingNumberTotal = userData.ratingBook
+					? userData.ratingBook[rating]
+					: 0;
+				const ratingUserTotal = userData.ratingBook
+					? userData.ratingBook[ratingNumber]
+					: 0;
+				const ratingBook = {
+					...userData?.ratingBook,
+					[rating]: (ratingNumberTotal ?? 0) + 1,
+					[ratingNumber]: (ratingUserTotal ?? 0) - 1,
+				};
+				await setDoc(doc(collection(appFirestore, 'user'), user.uid), {
+					...userData,
+					ratingBook,
 				});
 				queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 				queryClient.invalidateQueries({ queryKey: ['comment'] });
@@ -90,6 +118,17 @@ export function CommentForm({
 						...item,
 						ratingBy,
 						commentTotalNumber: commentTotalNumber + 1,
+					});
+					const ratingTotalNumber = userData.ratingBook
+						? userData.ratingBook[rating]
+						: 0;
+					const ratingBook = {
+						...userData?.ratingBook,
+						[rating]: ratingTotalNumber + 1,
+					};
+					await setDoc(doc(collection(appFirestore, 'user'), user.uid), {
+						...userData,
+						ratingBook,
 					});
 					queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
 				}
