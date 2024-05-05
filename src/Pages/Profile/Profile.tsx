@@ -55,122 +55,140 @@ export default function Profile() {
 					borderRadius: '15px',
 				}}
 			>
-				<Box
-					sx={{
-						width: '100%',
-						minHeight: '255px',
-						padding: '10px',
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
-						backgroundColor: 'background.content',
-						gap: '5px',
-						borderRadius: '5px',
-						position: 'relative',
-						borderColor: 'background.content',
-					}}
-				>
+				<Box sx={{ width: '100%', display: 'flex', gap: '10px' }}>
 					<Box
 						sx={{
-							width: '120px',
-							height: '120px',
-							borderRadius: '50%',
-							flexShrink: 1,
-							overflow: 'hidden',
+							width: '30%',
+							minHeight: '255px',
+							padding: '10px',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							justifyContent: 'center',
+							backgroundColor: 'background.content',
+							gap: '5px',
+							borderRadius: '5px',
+							position: 'relative',
+							borderColor: 'background.content',
 						}}
 					>
+						<Box
+							sx={{
+								width: '120px',
+								height: '120px',
+								borderRadius: '50%',
+								flexShrink: 1,
+								overflow: 'hidden',
+							}}
+						>
+							{isLoading ? (
+								<Shimmer />
+							) : (
+								userDocument && (
+									<img
+										src={
+											(userId === (user && user.displayName) &&
+												user &&
+												user.photoURL) ||
+											userDocument.photoURL
+										}
+										alt={`${userDocument.displayName}의 프로필 사진입니다.`}
+									/>
+								)
+							)}
+						</Box>
 						{isLoading ? (
-							<Shimmer />
+							<Box
+								sx={{
+									width: '200px',
+									height: '16px',
+									overflow: 'hidden',
+								}}
+							>
+								<Shimmer />
+							</Box>
 						) : (
-							userDocument && (
-								<img
-									src={
-										(userId === (user && user.displayName) &&
-											user &&
-											user.photoURL) ||
-										userDocument.photoURL
-									}
-									alt={`${userDocument.displayName}의 프로필 사진입니다.`}
-								/>
+							<Typography component='h2' fontSize='1.3em' fontWeight='bold'>
+								{userDocument && userDocument?.displayName}
+							</Typography>
+						)}
+						{isLoading ? (
+							<Box
+								sx={{
+									width: '200px',
+									height: '36px',
+									overflow: 'hidden',
+								}}
+							>
+								<Shimmer />
+							</Box>
+						) : (
+							<Typography component='p' fontSize='1em' color='text.secondary'>
+								{userDocument && userDocument.email}
+							</Typography>
+						)}
+						{isLoading ? (
+							<Box
+								sx={{
+									width: '200px',
+									height: '36px',
+									overflow: 'hidden',
+								}}
+							>
+								<Shimmer />
+							</Box>
+						) : (
+							<Typography component='p' fontSize='1em' color='text.secondary'>
+								{(userDocument && userDocument?.intro) ||
+									'한줄 자기소개를 작성해보세요.'}
+							</Typography>
+						)}
+
+						{isLoading ? (
+							<Box
+								sx={{
+									width: '200px',
+									height: '36px',
+									overflow: 'hidden',
+								}}
+							>
+								<Shimmer />
+							</Box>
+						) : (
+							userDocument &&
+							userId === (user && user.displayName) && (
+								<>
+									<Link to='./edit' state={{ intro: userDocument.intro }}>
+										<Box
+											sx={{
+												position: 'absolute',
+												top: '10px',
+												right: '10px',
+												color: 'text.primary',
+											}}
+										>
+											<SettingsIcon fontSize='large' />
+										</Box>
+									</Link>
+								</>
 							)
 						)}
 					</Box>
-					{isLoading ? (
+					{!isLoading && userDocument ? (
 						<Box
 							sx={{
-								width: '200px',
-								height: '16px',
-								overflow: 'hidden',
+								width: '50%',
+								height: '200px',
+								display: 'flex',
+								flexDirection: 'column',
+								margin: '0 auto',
+								padding: '20px',
 							}}
 						>
-							<Shimmer />
+							<Chart />
 						</Box>
 					) : (
-						<Typography component='h2' fontSize='1.3em' fontWeight='bold'>
-							{userDocument && userDocument?.displayName}
-						</Typography>
-					)}
-					{isLoading ? (
-						<Box
-							sx={{
-								width: '200px',
-								height: '36px',
-								overflow: 'hidden',
-							}}
-						>
-							<Shimmer />
-						</Box>
-					) : (
-						<Typography component='p' fontSize='1em' color='text.secondary'>
-							{userDocument && userDocument.email}
-						</Typography>
-					)}
-					{isLoading ? (
-						<Box
-							sx={{
-								width: '200px',
-								height: '36px',
-								overflow: 'hidden',
-							}}
-						>
-							<Shimmer />
-						</Box>
-					) : (
-						<Typography component='p' fontSize='1em' color='text.secondary'>
-							{(userDocument && userDocument?.intro) ||
-								'한줄 자기소개를 작성해보세요.'}
-						</Typography>
-					)}
-
-					{isLoading ? (
-						<Box
-							sx={{
-								width: '200px',
-								height: '36px',
-								overflow: 'hidden',
-							}}
-						>
-							<Shimmer />
-						</Box>
-					) : (
-						userDocument &&
-						userId === (user && user.displayName) && (
-							<>
-								<Link to='./edit' state={{ intro: userDocument.intro }}>
-									<Box
-										sx={{
-											position: 'absolute',
-											top: '10px',
-											right: '10px',
-											color: 'text.primary',
-										}}
-									>
-										<SettingsIcon fontSize='large' />
-									</Box>
-								</Link>
-							</>
-						)
+						<></>
 					)}
 				</Box>
 
@@ -190,39 +208,6 @@ export default function Profile() {
 						<UserLikedSkeleton />
 						<UserLikedSkeleton comment={'comment'} />;
 					</>
-				)}
-
-				{!isLoading && userDocument ? (
-					<Box
-						sx={{
-							width: '50%',
-							height: '220px',
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							justifyContent: 'center',
-							margin: '10px auto',
-							padding: '10px',
-						}}
-					>
-						<Typography
-							component='p'
-							fontSize='1.1em'
-							fontWeight='bold'
-							color='text.primary'
-							sx={{
-								width: '100%',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-						>
-							{`별점분포`}
-						</Typography>
-						<Chart />
-					</Box>
-				) : (
-					<></>
 				)}
 			</Box>
 		</>
