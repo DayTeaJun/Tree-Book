@@ -11,6 +11,7 @@ import { Shimmer } from '../../Styles/Common';
 import { enqueueSnackbar } from 'notistack';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Chart } from '../../Components/Rating/Chart';
 
 export default function Profile() {
 	const { user } = useAuthContext();
@@ -61,12 +62,13 @@ export default function Profile() {
 						padding: '10px',
 						display: 'flex',
 						flexDirection: 'column',
-						justifyContent: 'center',
 						alignItems: 'center',
-						gap: '5px',
+						justifyContent: 'center',
 						backgroundColor: 'background.content',
+						gap: '5px',
 						borderRadius: '5px',
 						position: 'relative',
+						borderColor: 'background.content',
 					}}
 				>
 					<Box
@@ -188,6 +190,39 @@ export default function Profile() {
 						<UserLikedSkeleton />
 						<UserLikedSkeleton comment={'comment'} />;
 					</>
+				)}
+
+				{!isLoading && userDocument ? (
+					<Box
+						sx={{
+							width: '50%',
+							height: '220px',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							justifyContent: 'center',
+							margin: '10px auto',
+							padding: '10px',
+						}}
+					>
+						<Typography
+							component='p'
+							fontSize='1.1em'
+							fontWeight='bold'
+							color='text.primary'
+							sx={{
+								width: '100%',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							{`별점분포`}
+						</Typography>
+						<Chart />
+					</Box>
+				) : (
+					<></>
 				)}
 			</Box>
 		</>
