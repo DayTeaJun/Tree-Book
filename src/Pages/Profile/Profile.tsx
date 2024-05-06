@@ -178,14 +178,14 @@ export default function Profile() {
 						<Box
 							sx={{
 								width: '50%',
-								height: '200px',
+								height: '265px',
 								display: 'flex',
 								flexDirection: 'column',
 								margin: '0 auto',
 								padding: '20px',
 							}}
 						>
-							<Chart />
+							<Chart userDocument={userDocument.ratingBook} />
 						</Box>
 					) : (
 						<></>
