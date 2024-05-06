@@ -174,22 +174,50 @@ export default function Profile() {
 							)
 						)}
 					</Box>
-					{!isLoading && userDocument ? (
-						<Box
+					<Box
+						sx={{
+							width: '50%',
+							height: '265px',
+							display: 'flex',
+							flexDirection: 'column',
+							margin: '0 auto',
+							padding: '20px',
+						}}
+					>
+						<Typography
+							component='p'
+							fontSize='1.1em'
+							fontWeight='bold'
+							color='text.primary'
 							sx={{
-								width: '50%',
-								height: '265px',
+								width: '100%',
 								display: 'flex',
-								flexDirection: 'column',
-								margin: '0 auto',
-								padding: '20px',
+								alignItems: 'center',
+								justifyContent: 'center',
+								marginBottom: '10px',
 							}}
 						>
+							{`별점분포`}
+						</Typography>
+						{!isLoading && userDocument?.ratingBook ? (
 							<Chart userDocument={userDocument.ratingBook} />
-						</Box>
-					) : (
-						<></>
-					)}
+						) : (
+							<Box
+								sx={{
+									height: '100%',
+									display: 'flex',
+									flexDirection: 'column',
+									justifyContent: 'center',
+									alignItems: 'center',
+									margin: '0 auto',
+								}}
+							>
+								<Typography component='p'>
+									아직 작성한 리뷰 별점이 없습니다.
+								</Typography>
+							</Box>
+						)}
+					</Box>
 				</Box>
 
 				{!isLoading && userDocument ? (

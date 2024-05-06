@@ -44,21 +44,6 @@ export const Chart = ({ userDocument }: { userDocument: any }) => {
 
 	return (
 		<>
-			<Typography
-				component='p'
-				fontSize='1.1em'
-				fontWeight='bold'
-				color='text.primary'
-				sx={{
-					width: '100%',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-					marginBottom: '10px',
-				}}
-			>
-				{`별점분포`}
-			</Typography>
 			<Box
 				sx={{
 					height: '80%',
