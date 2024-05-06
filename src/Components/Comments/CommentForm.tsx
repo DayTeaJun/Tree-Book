@@ -10,7 +10,6 @@ import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { Raiting } from '../Rating/Rating';
-import { FirestoreDocument } from '../../Types/firestoreType';
 import { getUser } from '../../Api/Firebase/getUser';
 
 export function CommentForm({
@@ -86,11 +85,19 @@ export function CommentForm({
 				const ratingUserTotal = userData.ratingBook
 					? userData.ratingBook[ratingNumber]
 					: 0;
-				const ratingBook = {
-					...userData?.ratingBook,
-					[rating]: (ratingNumberTotal ?? 0) + 1,
-					[ratingNumber]: (ratingUserTotal ?? 0) - 1,
-				};
+				let ratingBook;
+				if (rating === ratingNumber) {
+					ratingBook = {
+						...userData?.ratingBook,
+					};
+				} else {
+					ratingBook = {
+						...userData?.ratingBook,
+						[rating]: (ratingNumberTotal ?? 0) + 1,
+						[ratingNumber]: (ratingUserTotal ?? 0) - 1,
+					};
+				}
+
 				await setDoc(doc(collection(appFirestore, 'user'), user.uid), {
 					...userData,
 					ratingBook,
