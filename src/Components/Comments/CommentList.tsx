@@ -90,10 +90,34 @@ export function CommentList({
 							color: 'text.secondary',
 						}}
 					>
-						아직 등록된 댓글이 없습니다! 첫번째 댓글을 남겨주세요!
+						아직 등록된 리뷰가 없습니다! 첫번째 리뷰를 남겨주세요!
 					</Typography>
 				</Box>
 			)}
+			{commentData?.findIndex(
+				(item) => item.displayName === user?.displayName
+			) !== -1 &&
+				comments?.length === 1 && (
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							padding: '50px 0',
+						}}
+					>
+						<Typography
+							component='p'
+							fontSize='1.2em'
+							fontWeight='bold'
+							sx={{
+								color: 'text.secondary',
+							}}
+						>
+							다른 유저의 등록된 리뷰가 아직 없습니다!
+						</Typography>
+					</Box>
+				)}
 		</>
 	);
 }
