@@ -44,8 +44,8 @@ export const Chart = ({ userDocument }: { userDocument: any }) => {
 		(_, index) => userDocument[index + 1] || 0
 	);
 	const maxValue = Math.max(...ratingArray);
-	const ratingMax = ratingArray.indexOf(maxValue);
-	console.log(ratingArray);
+	const ratingMax = ratingArray.indexOf(maxValue) + 1;
+	console.log(maxValue);
 
 	return (
 		<>
