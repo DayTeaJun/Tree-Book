@@ -40,7 +40,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 				avg = sum / Object.keys(ratingBy).length;
 			}
 		}
-		return Math.floor(avg);
+		return avg;
 	}
 
 	return (
@@ -120,6 +120,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 											width: 'calc(90% - 140px)',
 											display: 'flex',
 											flexDirection: 'column',
+											gap: '3px',
 										}}
 									>
 										<Typography
@@ -140,23 +141,6 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 										>
 											{item.title}
 										</Typography>
-										{item.ratingBy && (
-											<>
-												<Box sx={{ display: 'flex' }}>
-													{Array.from({
-														length: sumRatings(item.ratingBy) as number,
-													}).map((_, index) => (
-														<StarIcon key={index} fontSize='small' />
-													))}
-													{Array.from({
-														length: (5 -
-															(sumRatings(item.ratingBy) ?? 0)) as number,
-													}).map((_, index) => (
-														<StarOutlineIcon key={index} fontSize='small' />
-													))}
-												</Box>
-											</>
-										)}
 										<Typography
 											component='p'
 											fontSize={'0.9em'}
@@ -172,6 +156,31 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 												? item.authors.join(' | ')
 												: item.authors}
 										</Typography>
+										{item.ratingBy && (
+											<>
+												<Box
+													sx={{
+														display: 'flex',
+														alignItems: 'center',
+														gap: '5px',
+													}}
+												>
+													<StarIcon sx={{ fontSize: '1em' }} />
+													<Typography
+														component='p'
+														fontSize={'0.9em'}
+														fontWeight={'bold'}
+														sx={{
+															color: 'text.secondary',
+														}}
+													>
+														{`${(sumRatings(item.ratingBy) ?? 0).toFixed(1)} (${
+															Object.keys(item.ratingBy).length
+														})`}
+													</Typography>
+												</Box>
+											</>
+										)}
 									</Box>
 									<Typography
 										fontSize={'0.9em'}
