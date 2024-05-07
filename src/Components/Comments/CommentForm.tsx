@@ -71,7 +71,7 @@ export function CommentForm({
 					rating: rating,
 					fixedComment: true,
 				});
-				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 					...likedBook[0],
 					...item,
 					ratingBy,
@@ -102,7 +102,7 @@ export function CommentForm({
 					...userData,
 					ratingBook,
 				});
-				queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+				queryClient.invalidateQueries({ queryKey: ['likedBook'] });
 				queryClient.invalidateQueries({ queryKey: ['comment'] });
 				setIsCommentEdit(false);
 
@@ -120,7 +120,7 @@ export function CommentForm({
 				if (likedBook) {
 					const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
 					const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
-					await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+					await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 						...likedBook[0],
 						...item,
 						ratingBy,
@@ -137,7 +137,7 @@ export function CommentForm({
 						...userData,
 						ratingBook,
 					});
-					queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+					queryClient.invalidateQueries({ queryKey: ['likedBook'] });
 				}
 				enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 			}

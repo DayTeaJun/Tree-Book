@@ -19,7 +19,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const [like, setLike] = useState<boolean | undefined>(likedUser);
 	const [number, setNumber] = useState<number | undefined>();
 	const queryClient = useQueryClient();
-	const { addDocument } = useFirestore('LikedBook', isbn);
+	const { addDocument } = useFirestore('likedBook', isbn);
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
@@ -91,7 +91,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const addMutation = useMutation({
 		mutationFn: addDocument,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+			queryClient.invalidateQueries({ queryKey: ['likedBook'] });
 		},
 		onError: (error) => {
 			enqueueSnackbar('즐겨찾기가 오류로 인해 실패하였습니다.', {

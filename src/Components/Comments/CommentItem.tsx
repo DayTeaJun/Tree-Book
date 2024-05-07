@@ -45,15 +45,15 @@ export const CommentItem = ({
 			delete ratingBy[user.uid];
 
 			if (commentTotalNumber <= 1) {
-				await updateDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+				await updateDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 					commentTotalNumber: deleteField(),
 				});
-				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 					...documents[0],
 					ratingBy,
 				});
 			} else {
-				await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 					...documents[0],
 					commentTotalNumber: commentTotalNumber - 1,
 					ratingBy,
@@ -68,7 +68,7 @@ export const CommentItem = ({
 		mutationFn: deleteComment,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['comment'] });
-			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+			queryClient.invalidateQueries({ queryKey: ['likedBook'] });
 			enqueueSnackbar('댓글이 삭제되었습니다.', { variant: 'success' });
 		},
 		onError: (error) => {

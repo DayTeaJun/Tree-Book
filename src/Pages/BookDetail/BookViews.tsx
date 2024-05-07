@@ -17,8 +17,8 @@ export const BookViews = ({ item }: { item: BookData }) => {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ['LikedBook', isbn],
-		queryFn: () => getDocuments('LikedBook', isbn),
+		queryKey: ['likedBook', isbn],
+		queryFn: () => getDocuments('likedBook', isbn),
 		refetchOnWindowFocus: false,
 	});
 
@@ -26,12 +26,12 @@ export const BookViews = ({ item }: { item: BookData }) => {
 		if (documents) {
 			const views = documents[0]?.views ?? 0;
 
-			await setDoc(doc(collection(appFirestore, 'LikedBook'), isbn), {
+			await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 				...documents[0],
 				...item,
 				views: views + 1,
 			});
-			queryClient.invalidateQueries({ queryKey: ['LikedBook'] });
+			queryClient.invalidateQueries({ queryKey: ['likedBook'] });
 		}
 	};
 

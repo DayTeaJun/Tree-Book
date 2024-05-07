@@ -9,7 +9,7 @@ import { Box, Typography } from '@mui/material';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 	const fetchLiked = async (uid: string) => {
-		const LikesRef = collection(appFirestore, 'LikedBook');
+		const LikesRef = collection(appFirestore, 'likedBook');
 		const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
 
 		const likedQuerySnapshot = await getDocs(likedQuery);
