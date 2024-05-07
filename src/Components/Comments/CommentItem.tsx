@@ -73,12 +73,12 @@ export const CommentItem = ({
 			});
 
 			if (commentTotalNumber <= 1) {
-				await updateDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
-					commentTotalNumber: deleteField(),
-				});
 				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 					...documents[0],
 					ratingBy,
+				});
+				await updateDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
+					commentTotalNumber: deleteField(),
 				});
 			} else {
 				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
