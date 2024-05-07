@@ -126,9 +126,12 @@ export function CommentForm({
 						ratingBy,
 						commentTotalNumber: commentTotalNumber + 1,
 					});
-					const ratingTotalNumber = userData.ratingBook
-						? userData.ratingBook[rating]
-						: 0;
+					const ratingTotalNumber =
+						(userData.ratingBook &&
+							(userData.ratingBook[rating]
+								? userData.ratingBook[rating]
+								: 0)) ??
+						0;
 					const ratingBook = {
 						...userData?.ratingBook,
 						[rating]: ratingTotalNumber + 1,
