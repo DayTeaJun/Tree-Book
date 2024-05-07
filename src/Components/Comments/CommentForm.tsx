@@ -113,16 +113,16 @@ export function CommentForm({
 
 				enqueueSnackbar('댓글이 수정되었습니다.', { variant: 'success' });
 			} else {
-				mutation.mutate({
-					...item,
-					comments,
-					book,
-					displayName,
-					id,
-					photoURL,
-					rating,
-				});
 				if (likedBook) {
+					mutation.mutate({
+						...item,
+						comments,
+						book,
+						displayName,
+						id,
+						photoURL,
+						rating,
+					});
 					const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
 					const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
 					await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
@@ -146,8 +146,8 @@ export function CommentForm({
 						ratingBook,
 					});
 					queryClient.invalidateQueries({ queryKey: ['likedBook'] });
+					enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 				}
-				enqueueSnackbar('댓글이 등록되었습니다.', { variant: 'success' });
 			}
 		} else {
 			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
