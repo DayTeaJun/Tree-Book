@@ -32,11 +32,15 @@ export const Chart = ({ userDocument }: { userDocument: any }) => {
 	const theme = useTheme() as any;
 
 	const ratingValues = Object.values(userDocument) as Array<number>;
-	const sum = ratingValues.reduce((sum, current) => sum + current, 0);
-	const ratingAvg = sum / ratingValues.length;
+	const ratingSum = ratingValues.reduce((acc, current) => acc + current, 0);
+	const ratingAvg =
+		Object.entries(userDocument).reduce(
+			(acc, [key, value]) => acc + parseInt(key) * (value as number),
+			0
+		) / ratingSum;
 
 	const ratingArray = Array.from(
-		{ length: 6 },
+		{ length: 5 },
 		(_, index) => userDocument[index] || 0
 	);
 	const maxValue = Math.max(...ratingArray);
@@ -53,7 +57,7 @@ export const Chart = ({ userDocument }: { userDocument: any }) => {
 				<Bar
 					options={options}
 					data={{
-						labels: ['0', '1', '2', '3', '4', '5'],
+						labels: ['1', '2', '3', '4', '5'],
 						datasets: [
 							{
 								label: '별점 분포',
@@ -66,7 +70,6 @@ export const Chart = ({ userDocument }: { userDocument: any }) => {
 			</Box>
 			<Box
 				sx={{
-					width: '100%',
 					display: 'flex',
 					justifyContent: 'space-around',
 				}}
@@ -93,7 +96,7 @@ export const Chart = ({ userDocument }: { userDocument: any }) => {
 					}}
 				>
 					<Typography component='p' fontSize='1.1em' fontWeight='bold'>
-						{sum}
+						{ratingSum}
 					</Typography>
 					<Typography component='p' fontSize='0.7em'>
 						별점 개수
