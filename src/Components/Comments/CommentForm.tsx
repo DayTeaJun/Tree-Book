@@ -56,6 +56,11 @@ export function CommentForm({
 
 	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();
+		if (ratingValue === 0) {
+			return enqueueSnackbar('별점 1점 이상 입력해주세요!', {
+				variant: 'error',
+			});
+		}
 
 		if (user && userData) {
 			const rating = ratingValue ?? 0;
