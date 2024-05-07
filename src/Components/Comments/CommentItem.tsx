@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
 import { FirestoreDocument } from '../../Types/firestoreType';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import {
 	collection,
@@ -20,6 +20,7 @@ import { CommentItemType } from '../../Types/componentType';
 import { elapsedTime } from '../../Utils/date';
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { getUser } from '../../Api/Firebase/getUser';
 
 export const CommentItem = ({
 	index,
@@ -38,11 +39,38 @@ export const CommentItem = ({
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
 
+	const {
+		data: userData,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['user', isbn],
+		queryFn: () => user && getUser('user', user?.displayName as string),
+	});
+
 	const deleteComment = async (uid: string) => {
-		if (documents && user) {
+		if (documents && user && userData) {
 			const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
 			const ratingBy = { ...documents[0].ratingBy };
 			delete ratingBy[user.uid];
+
+			const ratingNumber = documents[0].ratingBy
+				? documents[0].ratingBy[user.uid]
+				: 0;
+			const ratingUserTotal = userData.ratingBook
+				? userData.ratingBook[ratingNumber]
+				: 0;
+			const ratingBook = {
+				...userData?.ratingBook,
+				[ratingNumber]: (ratingUserTotal ?? 0) - 1,
+			};
+			if (ratingUserTotal <= 1) {
+				delete ratingBook[ratingNumber];
+			}
+			await setDoc(doc(collection(appFirestore, 'user'), user.uid), {
+				...userData,
+				ratingBook,
+			});
 
 			if (commentTotalNumber <= 1) {
 				await updateDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
