@@ -4,6 +4,7 @@ import errorImg from '../../Assets/No-img.svg';
 import BookLikes from '../../Components/Books/BookLikes';
 import { useParams } from 'react-router-dom';
 import { FirestoreDocument } from '../../Types/firestoreType';
+import { Chart } from '../../Components/Rating/Chart';
 
 export const BookDetailItem = ({
 	item,
@@ -54,132 +55,143 @@ export const BookDetailItem = ({
 						likedBook={likedBook}
 					/>
 				</Box>
+				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+					<Typography component='h2' fontWeight='bold' fontSize='1.5em'>
+						{item.title}
+					</Typography>
 
-				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
 					<Box
 						sx={{
 							display: 'flex',
 							justifyContent: 'space-between',
-							alignItems: 'center',
-							gap: '20px',
+							height: '180px',
 						}}
 					>
-						<Typography
-							component='h2'
-							fontWeight='bold'
-							fontSize='1.5em'
-							sx={{ marginBottom: '5px' }}
-						>
-							{item.title}
-						</Typography>
-					</Box>
-					<Typography component='dl' sx={{ display: 'flex' }}>
-						<Typography
-							component='dt'
-							sx={{
-								flexShrink: 0,
-								width: '80px',
-								color: 'text.secondary',
-							}}
-						>
-							작가
-						</Typography>
-						<Typography component='dd'>
-							{item.authors.length !== 0
-								? item.authors.length > 1
-									? item.authors.join(' | ')
-									: item.authors
-								: '미상'}
-						</Typography>
-					</Typography>
-					<Typography component='dl' sx={{ display: 'flex' }}>
-						<Typography
-							component='dt'
-							sx={{
-								flexShrink: 0,
-								width: '80px',
-								color: 'text.secondary',
-							}}
-						>
-							출판사
-						</Typography>
-						<Typography component='dd'>
-							{item.publisher !== (undefined || '') ? item.publisher : '미상'}
-						</Typography>
-					</Typography>
+						<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+							<Typography component='dl' sx={{ display: 'flex' }}>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									작가
+								</Typography>
+								<Typography component='dd'>
+									{item.authors.length !== 0
+										? item.authors.length > 1
+											? item.authors.join(' | ')
+											: item.authors
+										: '미상'}
+								</Typography>
+							</Typography>
+							<Typography component='dl' sx={{ display: 'flex' }}>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									출판사
+								</Typography>
+								<Typography component='dd'>
+									{item.publisher !== (undefined || '')
+										? item.publisher
+										: '미상'}
+								</Typography>
+							</Typography>
 
-					<Typography component='dl' sx={{ display: 'flex' }}>
+							<Typography component='dl' sx={{ display: 'flex' }}>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									판매가
+								</Typography>
+								<Typography component='dd'>
+									{item.price.toLocaleString('ko-KR')}원
+								</Typography>
+							</Typography>
+							<Typography component='dl' sx={{ display: 'flex' }}>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									ISBN
+								</Typography>
+								<Typography component='dd'>{item.isbn}</Typography>
+							</Typography>
+							<Typography component='dl' sx={{ display: 'flex' }}>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									출판일
+								</Typography>
+								<Typography component='dd'>
+									{item.datetime.substr(0, 10).replaceAll('-', '. ')}
+								</Typography>
+							</Typography>
+						</Box>
+						{likedBook && likedBook[0].ratingBy && (
+							<Box
+								sx={{
+									width: '50%',
+									height: '100%',
+									borderRadius: '5px',
+									border: 'solid 3px',
+									borderColor: 'background.btn',
+									padding: '30px',
+								}}
+							>
+								<Chart chartRating={likedBook[0].ratingBy} props='BookDetail' />
+							</Box>
+						)}
+					</Box>
+					{item.contents !== (undefined || '') ? (
 						<Typography
-							component='dt'
+							component='dl'
 							sx={{
-								flexShrink: 0,
-								width: '80px',
-								color: 'text.secondary',
+								display: 'flex',
+								flexDirection: 'column',
+								gap: '10px',
 							}}
 						>
-							판매가
+							<Typography
+								component='dt'
+								fontWeight='bold'
+								fontSize='1.2em'
+								sx={{
+									borderBottom: '1px solid',
+									paddingBottom: '10px',
+									color: 'text.secondary',
+								}}
+							>
+								책소개
+							</Typography>
+							<Typography component='dd'>{item.contents}...</Typography>
 						</Typography>
-						<Typography component='dd'>
-							{item.price.toLocaleString('ko-KR')}원
-						</Typography>
-					</Typography>
-					<Typography component='dl' sx={{ display: 'flex' }}>
-						<Typography
-							component='dt'
-							sx={{
-								flexShrink: 0,
-								width: '80px',
-								color: 'text.secondary',
-							}}
-						>
-							ISBN
-						</Typography>
-						<Typography component='dd'>{item.isbn}</Typography>
-					</Typography>
-					<Typography component='dl' sx={{ display: 'flex' }}>
-						<Typography
-							component='dt'
-							sx={{
-								flexShrink: 0,
-								width: '80px',
-								color: 'text.secondary',
-							}}
-						>
-							출판일
-						</Typography>
-						<Typography component='dd'>
-							{item.datetime.substr(0, 10).replaceAll('-', '. ')}
-						</Typography>
-					</Typography>
+					) : (
+						<></>
+					)}
 				</Box>
 			</Box>
-			{item.contents !== (undefined || '') ? (
-				<Typography
-					component='dl'
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						margin: '20px 0',
-						gap: '10px',
-					}}
-				>
-					<Typography
-						component='dt'
-						fontWeight='bold'
-						fontSize='1.2em'
-						sx={{
-							borderBottom: '1px solid',
-							paddingBottom: '10px',
-							color: 'text.secondary',
-						}}
-					>
-						책소개
-					</Typography>
-					<Typography component='dd'>{item.contents}...</Typography>
-				</Typography>
-			) : (
-				<></>
-			)}
 		</>
 	);
 };

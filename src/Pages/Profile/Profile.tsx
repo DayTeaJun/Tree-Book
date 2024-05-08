@@ -200,7 +200,7 @@ export default function Profile() {
 							{`별점분포`}
 						</Typography>
 						{!isLoading && userDocument?.ratingBook ? (
-							<Chart userDocument={userDocument.ratingBook} />
+							<Chart chartRating={userDocument.ratingBook} props='profile' />
 						) : (
 							<Box
 								sx={{

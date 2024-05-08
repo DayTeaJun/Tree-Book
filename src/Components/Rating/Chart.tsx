@@ -28,25 +28,42 @@ export const options = {
 	},
 };
 
-export const Chart = ({ userDocument }: { userDocument: any }) => {
+export const Chart = ({
+	chartRating,
+	props,
+}: {
+	chartRating: any;
+	props: string;
+}) => {
 	const theme = useTheme() as any;
+	console.log(chartRating);
 
-	const ratingValues = Object.values(userDocument) as Array<number>;
-	const ratingSum = ratingValues.reduce((acc, current) => acc + current, 0);
-	const ratingAvg =
-		Object.entries(userDocument).reduce(
-			(acc, [key, value]) => acc + parseInt(key) * (value as number),
-			0
-		) / ratingSum;
+	const ratingValues = Object.values(chartRating) as Array<number>;
+	let ratingSum;
+	let ratingAvg;
+	let ratingArray;
+	if (props === 'profile') {
+		ratingSum = ratingValues.reduce((acc, cur) => acc + cur, 0);
+		ratingAvg =
+			Object.entries(chartRating).reduce(
+				(acc, [key, value]) => acc + parseInt(key) * (value as number),
+				0
+			) / ratingSum;
 
-	const ratingArray = Array.from(
-		{ length: 5 },
-		(_, index) => userDocument[index + 1] || 0
-	);
+		ratingArray = Array.from(
+			{ length: 5 },
+			(_, index) => chartRating[index + 1] || 0
+		);
+	} else {
+		ratingSum = Object.keys(chartRating).length;
+		ratingAvg = ratingValues.reduce((acc, cur) => acc + cur, 0) / ratingSum;
+		ratingArray = Array.from({ length: 6 }, (_, index) => {
+			const values = ratingValues.filter((value) => value === index);
+			return values.reduce((acc, cur) => (acc as number) + 1, 0);
+		}).splice(1);
+	}
 	const maxValue = Math.max(...ratingArray);
 	const ratingMax = ratingArray.indexOf(maxValue) + 1;
-	console.log(maxValue);
-
 	return (
 		<>
 			<Box
