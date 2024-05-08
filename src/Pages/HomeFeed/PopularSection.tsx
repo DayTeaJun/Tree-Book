@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { getBestcomments } from '../../Api/Firebase/getBestComments';
+import { getBestcomments } from '../../Api/Firebase/getBestBook';
 import { BookData } from '../../Types/bookType';
 import { useNavigate } from 'react-router-dom';
 import errorImg from '../../Assets/No-img.svg';
@@ -9,7 +9,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 interface PopularSectionProps {
-	props: 'commentTotalNumber' | 'views';
+	props: 'ratingBy' | 'views';
 }
 
 export const PopularSection = ({ props }: PopularSectionProps) => {
@@ -55,7 +55,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 			>
 				{`${props === 'views' ? '많이 찾고 있는 책들' : '리뷰가 많은 책들'}`}
 			</Typography>
-			{props === 'commentTotalNumber' ? (
+			{props === 'ratingBy' ? (
 				<Box
 					component='ul'
 					sx={{

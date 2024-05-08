@@ -45,7 +45,7 @@ export default function HomeFeed() {
 						paddingTop: '20px',
 					}}
 				>
-					<PopularSection props='commentTotalNumber' />
+					<PopularSection props='ratingBy' />
 					<PopularSection props='views' />
 				</Box>
 			</Box>
