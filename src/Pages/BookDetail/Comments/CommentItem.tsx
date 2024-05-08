@@ -226,85 +226,98 @@ export const CommentItem = ({
 								}}
 							/>
 
-							<CommentLike uid={commentData.uid} item={commentData} />
-						</Box>
-					</Box>
-					{(user && user.uid) !== commentData.id ? (
-						<Box
-							component='button'
-							sx={{
-								height: '30px',
-								padding: '0 20px',
-								fontSize: '1em',
-								fontWeight: 'bold',
-								border: 'none',
-								borderRadius: '5px',
-								backgroundColor: 'background.book',
-								color: 'text.primary',
-								flexShrink: 0,
-								cursor: 'pointer',
-								'&:hover': {
-									backgroundColor: 'background.hover',
-								},
-							}}
-							onClick={() =>
-								enqueueSnackbar('신고 접수되었습니다!', {
-									variant: 'success',
-								})
-							}
-						>
-							신고
-						</Box>
-					) : (
-						<Box sx={{ display: 'flex', gap: '10px' }}>
-							{setIsCommentEdit && (
-								<Box
-									component='button'
-									sx={{
-										width: '75px',
-										height: '30px',
-										padding: '0 20px',
-										fontSize: '1em',
-										fontWeight: 'bold',
-										border: 'none',
-										borderRadius: '5px',
-										backgroundColor: 'background.book',
-										color: 'text.primary',
-										cursor: 'pointer',
-										'&:hover': {
-											backgroundColor: 'background.hover',
-										},
-									}}
-									type='button'
-									onClick={() => setIsCommentEdit(true)}
-								>
-									수정
-								</Box>
-							)}
-							<Box
-								component='button'
-								sx={{
-									width: '75px',
-									height: '30px',
-									fontSize: '1em',
-									fontWeight: 'bold',
-									border: 'none',
-									borderRadius: '5px',
-									backgroundColor: 'background.book',
-									color: 'text.primary',
-									cursor: 'pointer',
-									'&:hover': {
-										backgroundColor: 'background.hover',
-									},
-								}}
-								type='button'
-								onClick={() => commentData.uid && handleDel(commentData.uid)}
-							>
-								삭제
+							<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+								<CommentLike uid={commentData.uid} item={commentData} />
+								{(user && user.uid) !== commentData.id ? (
+									<Box
+										component='button'
+										sx={{
+											height: '30px',
+											padding: '0 20px',
+											fontSize: '1em',
+											fontWeight: 'bold',
+											border: 'none',
+											borderRadius: '5px',
+											backgroundColor: 'background.book',
+											color: 'text.primary',
+											flexShrink: 0,
+											cursor: 'pointer',
+											'&:hover': {
+												backgroundColor: 'background.hover',
+											},
+										}}
+										onClick={() =>
+											enqueueSnackbar('신고 접수되었습니다!', {
+												variant: 'success',
+											})
+										}
+									>
+										신고
+									</Box>
+								) : (
+									<Box sx={{ display: 'flex', gap: '10px' }}>
+										{setIsCommentEdit && (
+											<Box
+												component='button'
+												sx={{
+													width: '75px',
+													height: '30px',
+													padding: '0 20px',
+													fontSize: '1em',
+													fontWeight: 'bold',
+													border: 'none',
+													borderRadius: '5px',
+													backgroundColor: 'background.book',
+													color: 'text.primary',
+													cursor: 'pointer',
+													'&:hover': {
+														backgroundColor: 'background.hover',
+													},
+												}}
+												type='button'
+												onClick={() => setIsCommentEdit(true)}
+											>
+												수정
+											</Box>
+										)}
+										<Box
+											component='button'
+											sx={{
+												width: '75px',
+												height: '30px',
+												fontSize: '1em',
+												fontWeight: 'bold',
+												border: 'none',
+												borderRadius: '5px',
+												backgroundColor: 'background.book',
+												color: 'text.primary',
+												cursor: 'pointer',
+												'&:hover': {
+													backgroundColor: 'background.hover',
+												},
+											}}
+											type='button'
+											onClick={() =>
+												commentData.uid && handleDel(commentData.uid)
+											}
+										>
+											삭제
+										</Box>
+									</Box>
+								)}
 							</Box>
 						</Box>
-					)}
+					</Box>
 				</Box>
+				{(user && user.uid) !== commentData.id && (
+					<Divider
+						sx={{
+							backgroundColor: 'background.btn',
+							width: '100%',
+							marginTop: '10px',
+						}}
+					/>
+				)}
 			</Box>
 			{isOpenModal && (
 				<Modal

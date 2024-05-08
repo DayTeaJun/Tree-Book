@@ -19,7 +19,7 @@ export function CommentList({
 	const [commentData, setCommentData] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const [currentPage, setCurrentPage] = useState(1);
-	const commentsPerPage = 4;
+	const commentsPerPage = 5;
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
@@ -66,7 +66,7 @@ export function CommentList({
 							</Fragment>
 						)
 				)}
-			{comments && comments.length > 4 && (
+			{comments && comments.length > 5 && (
 				<Paginaition
 					page={currentPage}
 					handlePageChange={handlePageChange}
