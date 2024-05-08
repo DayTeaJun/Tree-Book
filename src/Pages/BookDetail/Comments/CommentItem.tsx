@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
-import { FirestoreDocument } from '../../Types/firestoreType';
+import { FirestoreDocument } from '../../../Types/firestoreType';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
+import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
 import {
 	collection,
 	deleteField,
@@ -13,14 +13,14 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
-import { appFirestore } from '../../Firebase/config';
-import { M } from '../Modal/modal.style';
-import { Modal } from '../Modal/Modal';
-import { CommentItemType } from '../../Types/componentType';
-import { elapsedTime } from '../../Utils/date';
+import { appFirestore } from '../../../Firebase/config';
+import { M } from '../../../Components/Modal/modal.style';
+import { Modal } from '../../../Components/Modal/Modal';
+import { CommentItemType } from '../../../Types/componentType';
+import { elapsedTime } from '../../../Utils/date';
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import { getUser } from '../../Api/Firebase/getUser';
+import { getUser } from '../../../Api/Firebase/getUser';
 
 export const CommentItem = ({
 	index,

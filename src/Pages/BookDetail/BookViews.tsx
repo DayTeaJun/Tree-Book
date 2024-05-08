@@ -6,7 +6,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { BookDetailItem } from './BookDetailItem';
 import { BookSimilar } from './BookSimilar';
-import { Comment } from '../../Components/Comments/Comment';
+import { Comment } from './Comments/Comment';
 
 export const BookViews = ({ item }: { item: BookData }) => {
 	const queryClient = useQueryClient();

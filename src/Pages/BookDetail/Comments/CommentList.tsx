@@ -1,7 +1,7 @@
-import { useAuthContext } from '../../Context/useAuthContext';
+import { useAuthContext } from '../../../Context/useAuthContext';
 import { Fragment, useEffect, useState } from 'react';
-import { FirestoreDocument } from '../../Types/firestoreType';
-import { Paginaition } from '../Pagination/Pagination';
+import { FirestoreDocument } from '../../../Types/firestoreType';
+import { Paginaition } from '../../../Components/Pagination/Pagination';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 

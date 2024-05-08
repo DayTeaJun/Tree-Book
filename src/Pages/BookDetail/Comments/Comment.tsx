@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { getDocuments } from '../../Api/Firebase/getDocuments';
+import { getDocuments } from '../../../Api/Firebase/getDocuments';
 import { CommentForm } from './CommentForm';
-import { BookData } from '../../Types/bookType';
-import Loading from '../LoadingSpinner/Loading';
+import { BookData } from '../../../Types/bookType';
+import Loading from '../../../Components/LoadingSpinner/Loading';
 import { CommentList } from './CommentList';
-import { useAuthContext } from '../../Context/useAuthContext';
+import { useAuthContext } from '../../../Context/useAuthContext';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
-import { FirestoreDocument } from '../../Types/firestoreType';
+import { FirestoreDocument } from '../../../Types/firestoreType';
 import { Fragment, useState } from 'react';
-import { DropdownMenu } from '../Dropdown/DropdownMenu';
+import { DropdownMenu } from '../../../Components/Dropdown/DropdownMenu';
 
 export const Comment = ({
 	item,
