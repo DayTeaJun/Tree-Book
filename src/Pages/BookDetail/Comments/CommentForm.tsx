@@ -206,6 +206,11 @@ export function CommentForm({
 						name='content'
 						value={comments}
 						inputProps={{ maxLength: 300 }}
+						onKeyDown={(event) => {
+							if (event.key == 'Enter') {
+								handleSubmit(event);
+							}
+						}}
 						onChange={handleData}
 					/>
 					<Box
