@@ -6,21 +6,14 @@ import { useSnackbar } from 'notistack';
 import { FirestoreDocument } from '../../../Types/firestoreType';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
-import {
-	collection,
-	deleteField,
-	doc,
-	setDoc,
-	updateDoc,
-} from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../../Firebase/config';
 import { M } from '../../../Components/Modal/modal.style';
 import { Modal } from '../../../Components/Modal/Modal';
 import { CommentItemType } from '../../../Types/componentType';
 import { elapsedTime } from '../../../Utils/date';
-import StarIcon from '@mui/icons-material/Star';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { getUser } from '../../../Api/Firebase/getUser';
+import { StarRating } from '../../../Components/Rating/Rating';
 
 export const CommentItem = ({
 	index,
@@ -186,19 +179,8 @@ export const CommentItem = ({
 									</Typography>
 								</Box>
 
-								{(commentData.rating && commentData.rating === 0) || (
-									<Box sx={{ display: 'flex' }}>
-										{Array.from({ length: commentData.rating as number }).map(
-											(_, index) => (
-												<StarIcon key={index} fontSize='small' />
-											)
-										)}
-										{Array.from({
-											length: (5 - (commentData.rating ?? 0)) as number,
-										}).map((_, index) => (
-											<StarOutlineIcon key={index} fontSize='small' />
-										))}
-									</Box>
+								{commentData.rating && (
+									<StarRating rating={commentData.rating} />
 								)}
 							</Box>
 							<Divider

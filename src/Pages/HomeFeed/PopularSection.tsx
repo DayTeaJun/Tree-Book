@@ -7,6 +7,7 @@ import errorImg from '../../Assets/No-img.svg';
 import BookItem from '../../Components/Books/BookItem';
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { avgRating } from '../../Utils/CalRating';
 
 interface PopularSectionProps {
 	props: 'ratingBy' | 'views';
@@ -30,18 +31,6 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 			isbn.split(' ')[0] === '' ? isbn.split(' ')[1] : isbn.split(' ')[0];
 		navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
 	};
-
-	function sumRatings(ratingBy: { [key: string]: number }) {
-		let sum = 0;
-		let avg = 0;
-		for (const userId in ratingBy) {
-			if (ratingBy.hasOwnProperty(userId)) {
-				sum += ratingBy[userId];
-				avg = sum / Object.keys(ratingBy).length;
-			}
-		}
-		return avg;
-	}
 
 	return (
 		<>
@@ -174,7 +163,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 															color: 'text.secondary',
 														}}
 													>
-														{`${(sumRatings(item.ratingBy) ?? 0).toFixed(1)} (${
+														{`${(avgRating(item.ratingBy) ?? 0).toFixed(1)} (${
 															Object.keys(item.ratingBy).length
 														})`}
 													</Typography>

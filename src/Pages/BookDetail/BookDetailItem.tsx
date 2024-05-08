@@ -5,13 +5,16 @@ import BookLikes from '../../Components/Books/BookLikes';
 import { useParams } from 'react-router-dom';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Chart } from '../../Components/Rating/Chart';
+import { avgRating } from '../../Utils/CalRating';
+import StarIcon from '@mui/icons-material/Star';
+import { StarRating } from '../../Components/Rating/Rating';
 
 export const BookDetailItem = ({
 	item,
 	likedBook,
 }: {
 	item: BookData;
-	likedBook?: FirestoreDocument[];
+	likedBook: FirestoreDocument[];
 }) => {
 	const { id, search, page } = useParams<{
 		id: string;
@@ -54,8 +57,37 @@ export const BookDetailItem = ({
 						page={page}
 						likedBook={likedBook}
 					/>
+					{likedBook && likedBook[0] && likedBook[0].ratingBy !== undefined && (
+						<Box
+							sx={{
+								width: '80%',
+								margin: '0 auto',
+								display: 'flex',
+								gap: '5px',
+								flexDirection: 'column',
+								color: 'background.mark',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<StarRating
+								rating={Math.floor(avgRating(likedBook[0].ratingBy) ?? 0)}
+							/>
+
+							<Typography
+								component='p'
+								fontSize='1em'
+								fontWeight='bold'
+								sx={{ display: 'flex', alignItems: 'center' }}
+							>
+								{`${(avgRating(likedBook[0].ratingBy) ?? 0).toFixed(1)} (${
+									Object.keys(likedBook[0].ratingBy).length
+								}명)`}
+							</Typography>
+						</Box>
+					)}
 				</Box>
-				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
 					<Typography component='h2' fontWeight='bold' fontSize='1.5em'>
 						{item.title}
 					</Typography>
@@ -149,20 +181,26 @@ export const BookDetailItem = ({
 								</Typography>
 							</Typography>
 						</Box>
-						{likedBook && likedBook[0].ratingBy && (
-							<Box
-								sx={{
-									width: '50%',
-									height: '100%',
-									borderRadius: '5px',
-									border: 'solid 3px',
-									borderColor: 'background.btn',
-									padding: '30px',
-								}}
-							>
-								<Chart chartRating={likedBook[0].ratingBy} props='BookDetail' />
-							</Box>
-						)}
+						{likedBook &&
+							likedBook.length > 0 &&
+							likedBook[0] &&
+							likedBook[0].ratingBy !== undefined && (
+								<Box
+									sx={{
+										width: '50%',
+										height: '100%',
+										borderRadius: '5px',
+										border: 'solid 3px',
+										borderColor: 'background.btn',
+										padding: '30px',
+									}}
+								>
+									<Chart
+										chartRating={likedBook[0].ratingBy}
+										props='BookDetail'
+									/>
+								</Box>
+							)}
 					</Box>
 					{item.contents !== (undefined || '') ? (
 						<Typography
@@ -185,7 +223,20 @@ export const BookDetailItem = ({
 							>
 								책소개
 							</Typography>
-							<Typography component='dd'>{item.contents}...</Typography>
+							<Typography
+								component='dd'
+								sx={{
+									whiteSpace: 'normal',
+									textOverflow: 'ellipsis',
+									display: '-webkit-box',
+									WebkitLineClamp: 3,
+									WebkitBoxOrient: 'vertical',
+									wordBreak: 'keep-all',
+									overflow: 'hidden',
+								}}
+							>
+								{item.contents}...
+							</Typography>
 						</Typography>
 					) : (
 						<></>

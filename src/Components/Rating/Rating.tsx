@@ -1,5 +1,7 @@
 import { Box, Rating, Typography } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 export const Raiting = ({
 	ratingValue,
@@ -31,6 +33,21 @@ export const Raiting = ({
 					setRatingValue(newValue);
 				}}
 			/>
+		</Box>
+	);
+};
+
+export const StarRating = ({ rating }: { rating: number }) => {
+	return (
+		<Box sx={{ display: 'flex' }}>
+			{Array.from({ length: rating }).map((_, index) => (
+				<StarIcon key={index} fontSize='small' />
+			))}
+			{Array.from({
+				length: 5 - (rating ?? 0),
+			}).map((_, index) => (
+				<StarOutlineIcon key={index} fontSize='small' />
+			))}
 		</Box>
 	);
 };
