@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { useParams } from 'react-router-dom';
 import BookItem from '../../Components/Books/BookItem';
-import { Paginaition } from '../../Components/Pagination/Pagination';
 import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { CustomPaginaition } from '../../Components/Pagination/Pagination';
 
 export default function Search() {
 	const { searchView, page } = useParams<{
@@ -71,7 +71,7 @@ export default function Search() {
 				)}
 			</Box>
 			{!isLoading && books.documents.length > 0 && (
-				<Paginaition
+				<CustomPaginaition
 					page={page}
 					searchView={searchView}
 					totalPage={Math.ceil(books.meta.pageable_count / 16)}

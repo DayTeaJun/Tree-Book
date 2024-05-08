@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
 import { FirestoreDocument } from './firestoreType';
 import { User } from 'firebase/auth';
 import { InputValueType } from './userType';
@@ -22,6 +22,7 @@ export interface PaginaitionType {
 	handlePageChange?: (newPage: number) => void;
 	totalPage?: number;
 	count?: number | null;
+	menuRef?: RefObject<HTMLDivElement> | null;
 }
 
 export interface LoadingType {

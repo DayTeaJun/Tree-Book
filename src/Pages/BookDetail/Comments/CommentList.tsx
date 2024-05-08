@@ -1,7 +1,7 @@
 import { useAuthContext } from '../../../Context/useAuthContext';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, RefObject, useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../../Types/firestoreType';
-import { Paginaition } from '../../../Components/Pagination/Pagination';
+import { CustomPaginaition } from '../../../Components/Pagination/Pagination';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 
@@ -10,11 +10,13 @@ export function CommentList({
 	documents,
 	comments,
 	sorted,
+	menuRef,
 }: {
 	isbn: string;
 	documents?: FirestoreDocument[];
 	comments?: FirestoreDocument[];
 	sorted: string;
+	menuRef?: RefObject<HTMLDivElement> | null;
 }) {
 	const [commentData, setCommentData] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
@@ -67,7 +69,8 @@ export function CommentList({
 						)
 				)}
 			{comments && comments.length > 5 && (
-				<Paginaition
+				<CustomPaginaition
+					menuRef={menuRef}
 					page={currentPage}
 					handlePageChange={handlePageChange}
 					count={comments && Math.ceil(comments.length / commentsPerPage)}

@@ -3,12 +3,13 @@ import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PaginaitionType } from '../../Types/componentType';
 
-export const Paginaition = ({
+export const CustomPaginaition = ({
 	searchView,
 	page,
 	handlePageChange,
 	totalPage,
 	count,
+	menuRef,
 }: PaginaitionType) => {
 	const navigate = useNavigate();
 	const pageNumber: number = parseInt(page as string, 10);
@@ -17,6 +18,9 @@ export const Paginaition = ({
 			navigate(`/search/${searchView}/${page}`);
 		} else if (handlePageChange) {
 			handlePageChange(page);
+		}
+		if (menuRef && menuRef.current) {
+			menuRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
 

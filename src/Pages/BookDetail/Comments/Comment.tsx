@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../Context/useAuthContext';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 import { FirestoreDocument } from '../../../Types/firestoreType';
-import { Fragment, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { DropdownMenu } from '../../../Components/Dropdown/DropdownMenu';
 
 export const Comment = ({
@@ -23,6 +23,7 @@ export const Comment = ({
 	const [isCommentEdit, setIsCommentEdit] = useState(false);
 	const [isDropdown, setIsDropdown] = useState(false);
 	const [sorted, setSorted] = useState<string>('latest');
+	const menuRef = useRef<HTMLDivElement>(null);
 
 	const {
 		data: commentData,
@@ -100,6 +101,7 @@ export const Comment = ({
 						gap: '10px',
 						padding: '20px 0',
 					}}
+					ref={menuRef}
 				>
 					<Box
 						sx={{
@@ -127,6 +129,7 @@ export const Comment = ({
 						documents={likedBook}
 						comments={commentData}
 						sorted={sorted}
+						menuRef={menuRef}
 					/>
 				</Box>
 			) : (
