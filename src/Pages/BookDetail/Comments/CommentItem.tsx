@@ -6,7 +6,13 @@ import { useSnackbar } from 'notistack';
 import { FirestoreDocument } from '../../../Types/firestoreType';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import {
+	collection,
+	deleteField,
+	doc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 import { appFirestore } from '../../../Firebase/config';
 import { M } from '../../../Components/Modal/modal.style';
 import { Modal } from '../../../Components/Modal/Modal';
@@ -59,6 +65,7 @@ export const CommentItem = ({
 			if (ratingUserTotal <= 1) {
 				delete ratingBook[ratingNumber];
 			}
+
 			await setDoc(doc(collection(appFirestore, 'user'), user.uid), {
 				...userData,
 				ratingBook,
@@ -68,6 +75,12 @@ export const CommentItem = ({
 				...documents[0],
 				ratingBy,
 			});
+
+			if (Object.keys(ratingBy).length === 0) {
+				await updateDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
+					ratingBy: deleteField(),
+				});
+			}
 
 			await deleteDocument(uid);
 		}
