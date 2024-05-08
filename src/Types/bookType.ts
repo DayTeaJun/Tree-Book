@@ -20,7 +20,6 @@ export interface BookData {
 	page?: string;
 	comments?: string;
 	createdTime?: Timestamp;
-	commentTotalNumber: number;
 	rating?: number;
 	ratingBy?: { [key: string]: number };
 }

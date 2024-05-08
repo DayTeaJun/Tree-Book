@@ -182,17 +182,6 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 											</>
 										)}
 									</Box>
-									<Typography
-										fontSize={'0.9em'}
-										sx={{
-											width: '5%',
-											flexShrink: 0,
-											color: 'text.secondary',
-											marginLeft: 'auto',
-										}}
-									>
-										[{item.commentTotalNumber ? item.commentTotalNumber : 0}]
-									</Typography>
 								</Box>
 							</Box>
 						))}

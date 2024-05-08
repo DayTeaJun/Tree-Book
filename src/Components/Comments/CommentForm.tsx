@@ -123,13 +123,11 @@ export function CommentForm({
 						photoURL,
 						rating,
 					});
-					const commentTotalNumber = likedBook[0]?.commentTotalNumber ?? 0;
 					const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
 					await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 						...likedBook[0],
 						...item,
 						ratingBy,
-						commentTotalNumber: commentTotalNumber + 1,
 					});
 					const ratingTotalNumber =
 						(userData.ratingBook &&

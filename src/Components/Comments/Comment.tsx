@@ -112,8 +112,8 @@ export const Comment = ({
 					>
 						<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
 							리뷰{' '}
-							{likedBook && likedBook[0]?.commentTotalNumber
-								? `${likedBook[0]?.commentTotalNumber}개`
+							{likedBook && likedBook[0]?.ratingBy
+								? `${Object.keys(likedBook[0]?.ratingBy).length}개`
 								: null}
 						</Typography>
 						<DropdownMenu

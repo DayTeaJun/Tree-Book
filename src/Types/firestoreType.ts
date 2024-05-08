@@ -29,7 +29,6 @@ export interface FirestoreDocument {
 	intro?: string;
 	search?: string;
 	page?: string;
-	commentTotalNumber?: number;
 	views?: number;
 	fixedComment?: boolean;
 	rating?: number;

@@ -50,7 +50,6 @@ export const CommentItem = ({
 
 	const deleteComment = async (uid: string) => {
 		if (documents && user && userData) {
-			const commentTotalNumber = documents[0]?.commentTotalNumber ?? 0;
 			const ratingBy = { ...documents[0].ratingBy };
 			delete ratingBy[user.uid];
 
@@ -72,21 +71,10 @@ export const CommentItem = ({
 				ratingBook,
 			});
 
-			if (commentTotalNumber <= 1) {
-				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
-					...documents[0],
-					ratingBy,
-				});
-				await updateDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
-					commentTotalNumber: deleteField(),
-				});
-			} else {
-				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
-					...documents[0],
-					commentTotalNumber: commentTotalNumber - 1,
-					ratingBy,
-				});
-			}
+			await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
+				...documents[0],
+				ratingBy,
+			});
 
 			await deleteDocument(uid);
 		}
