@@ -7,6 +7,7 @@ import { Box, Divider, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import errorImg from '../../Assets/No-img.svg';
 import { CustomPaginaition } from '../../Components/Pagination/Pagination';
+import { SearchSkeleton } from './Search.skeleton';
 
 export default function Search() {
 	const { searchView, page } = useParams<{
@@ -27,22 +28,6 @@ export default function Search() {
 		navigate(`/search/${searchView}/${page}/${id}`, { state: { isbn } });
 	};
 
-	if (isLoading) {
-		return (
-			<Box
-				component='section'
-				sx={{
-					display: 'flex',
-					justifyContent: 'center',
-					width: '100%',
-					padding: '20px 0',
-					gap: '20px',
-					flexWrap: 'wrap',
-				}}
-			></Box>
-		);
-	}
-
 	return (
 		<>
 			<Helmet>
@@ -62,7 +47,9 @@ export default function Search() {
 					padding: '20px 0',
 				}}
 			>
-				{books.documents &&
+				{isLoading && Array.from({ length: 10 }).map((_) => <SearchSkeleton />)}
+				{!isLoading &&
+					books.documents &&
 					(books.documents as BookData[]).map(
 						(item: BookData, index: number) => (
 							<Box
@@ -153,6 +140,7 @@ export default function Search() {
 							</Box>
 						)
 					)}
+
 				{!isLoading && books.documents.length === 0 && (
 					<p>검색 결과가 없습니다.</p>
 				)}
