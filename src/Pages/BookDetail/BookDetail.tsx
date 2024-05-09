@@ -25,7 +25,7 @@ export default function BookDetail() {
 				? getBooks(search, 1, page, 'isbn')
 				: pathname.indexOf('/publisher') !== -1
 				? getBooks(search, 10, page, 'publisher')
-				: getBooks(search, 16, page, 'title')),
+				: getBooks(search, 10, page, 'title')),
 		enabled: !!search,
 		refetchOnWindowFocus: false,
 	});
