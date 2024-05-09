@@ -13,15 +13,19 @@ export function CommentList({
 	menuRef,
 }: {
 	isbn: string;
-	documents?: FirestoreDocument[];
-	comments?: FirestoreDocument[];
+	documents: FirestoreDocument[];
+	comments: FirestoreDocument[];
 	sorted: string;
-	menuRef?: RefObject<HTMLDivElement> | null;
+	menuRef: RefObject<HTMLDivElement> | null;
 }) {
 	const [commentData, setCommentData] = useState<FirestoreDocument[]>([]);
 	const { user } = useAuthContext();
 	const [currentPage, setCurrentPage] = useState(1);
 	const commentsPerPage = 5;
+	const commentLength =
+		comments?.findIndex((item) => item.displayName === user?.displayName) !== -1
+			? comments?.length - 1
+			: comments?.length;
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage);
@@ -68,12 +72,12 @@ export function CommentList({
 							</Fragment>
 						)
 				)}
-			{comments && comments.length > 5 && (
+			{comments && commentLength > 5 && (
 				<CustomPaginaition
 					menuRef={menuRef}
 					page={currentPage}
 					handlePageChange={handlePageChange}
-					count={comments && Math.ceil(comments.length / commentsPerPage)}
+					count={comments && Math.ceil(commentLength / commentsPerPage)}
 				/>
 			)}
 			{comments?.length === 0 && (

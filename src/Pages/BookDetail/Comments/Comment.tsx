@@ -124,13 +124,15 @@ export const Comment = ({
 							setSorted={setSorted}
 						/>
 					</Box>
-					<CommentList
-						isbn={isbn}
-						documents={likedBook}
-						comments={commentData}
-						sorted={sorted}
-						menuRef={menuRef}
-					/>
+					{commentData && (
+						<CommentList
+							isbn={isbn}
+							documents={likedBook}
+							comments={commentData}
+							sorted={sorted}
+							menuRef={menuRef}
+						/>
+					)}
 				</Box>
 			) : (
 				<Loading />
