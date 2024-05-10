@@ -60,13 +60,13 @@ export default function Profile() {
 				<Box
 					sx={{
 						width: '100%',
-						display: `${isDownMD ? 'column' : 'flex'}`,
+						display: 'flex',
 						gap: '10px',
 					}}
 				>
 					<Box
 						sx={{
-							width: `${isDownMD ? '100%' : '30%'}`,
+							width: `${isDownMD ? '50%' : '30%'}`,
 							minHeight: '255px',
 							padding: '10px',
 							display: 'flex',
