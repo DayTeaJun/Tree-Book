@@ -8,6 +8,7 @@ import errorImg from '../../Assets/No-img.svg';
 import { CustomPaginaition } from '../../Components/Pagination/Pagination';
 import { SearchSkeleton } from './Search.skeleton';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { SearchInput } from './SearchInput';
 
 export default function Search() {
 	const { searchView, page } = useParams<{
@@ -30,19 +31,23 @@ export default function Search() {
 	};
 
 	return (
-		<Box
-			sx={{
-				width: '100%',
-				padding: `${isDownMD && '0 10px'}`,
-			}}
-		>
+		<>
 			<Helmet>
-				<title>"{searchView}" 검색 결과 - TreeBook</title>
+				<title>{`${
+					searchView !== ' '
+						? searchView + ' - TreeBook'
+						: '검색 페이지 - TreeBook'
+				}`}</title>
 			</Helmet>
-			<Typography component='h1' fontSize='1.5em' fontWeight='bold'>
-				{`"${searchView}" 의 검색 결과`}
-			</Typography>
-			<Divider sx={{ margin: '5px 0' }} />
+			{isDownMD && <SearchInput />}
+			{searchView !== ' ' && (
+				<>
+					<Typography component='h1' fontSize='1.5em' fontWeight='bold'>
+						{`"${searchView}" 의 검색 결과`}
+					</Typography>
+					<Divider sx={{ margin: '5px 0' }} />
+				</>
+			)}
 			<Box
 				component='ul'
 				sx={{
@@ -53,7 +58,10 @@ export default function Search() {
 					padding: '20px 0',
 				}}
 			>
-				{isLoading && Array.from({ length: 10 }).map((_) => <SearchSkeleton />)}
+				{isLoading &&
+					Array.from({ length: 10 }).map((_, index) => (
+						<SearchSkeleton key={index} />
+					))}
 				{!isLoading &&
 					books.documents &&
 					(books.documents as BookData[]).map(
@@ -147,7 +155,7 @@ export default function Search() {
 						)
 					)}
 
-				{!isLoading && books.documents.length === 0 && (
+				{searchView !== ' ' && !isLoading && books.documents.length === 0 && (
 					<p>검색 결과가 없습니다.</p>
 				)}
 			</Box>
@@ -158,6 +166,6 @@ export default function Search() {
 					totalPage={Math.ceil(books.meta.pageable_count / 10)}
 				/>
 			)}
-		</Box>
+		</>
 	);
 }

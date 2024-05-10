@@ -6,7 +6,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuthContext } from '../../Context/useAuthContext';
 import { useLogout } from '../../Hook/FirebaseHook/useLogout';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export const BottomNav = () => {
@@ -39,7 +38,10 @@ export const BottomNav = () => {
 					홈
 				</Typography>
 			</Link>
-			<Box sx={{ textAlign: 'center', cursor: 'pointer' }}>
+			<Link
+				to={`/search/ /1`}
+				style={{ textAlign: 'center', cursor: 'pointer' }}
+			>
 				<SearchIcon fontSize='medium' sx={{ color: 'text.secondary' }} />
 				<Typography
 					component='p'
@@ -49,7 +51,7 @@ export const BottomNav = () => {
 				>
 					검색
 				</Typography>
-			</Box>
+			</Link>
 			{isAuthReady && user && (
 				<Link
 					to={`/profile/${user.displayName}`}
