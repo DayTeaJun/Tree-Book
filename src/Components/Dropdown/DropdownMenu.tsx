@@ -14,10 +14,8 @@ export const DropdownMenu = ({
 	const handleSort = (sort: string) => {
 		if (sort === 'latest') {
 			setSorted('latest');
-			console.log('latest');
 		} else if (sort === 'popular') {
 			setSorted('popular');
-			console.log('popular');
 		}
 		setIsDropdown(false);
 	};

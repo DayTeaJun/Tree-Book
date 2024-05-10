@@ -234,7 +234,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 											search={item.search}
 											key={item.url}
 											like={item.isbn}
-										></BookItem>
+										/>
 									))}
 							</Box>
 						</Box>

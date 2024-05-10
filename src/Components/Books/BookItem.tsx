@@ -22,7 +22,6 @@ const BookItem = ({
 				like.split(' ')[0] === '' ? like.split(' ')[1] : like.split(' ')[0];
 			navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
 		} else if (publisher) {
-			console.log(publisher);
 			if (publisher.includes('/')) {
 				navigate(`/search/publisher/${publisher.replace('/', '_')}/1/${id}`, {
 					state: { isbn },

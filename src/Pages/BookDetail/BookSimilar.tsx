@@ -51,13 +51,13 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 								}`,
 								paddingBottom: '10px',
 							}}
+							key={index}
 						>
 							<BookItem
 								item={book}
 								page={'1'}
 								id={index}
 								publisher={publisher}
-								key={index}
 							/>
 						</Box>
 					))}

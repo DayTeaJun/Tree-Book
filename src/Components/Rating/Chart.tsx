@@ -36,7 +36,6 @@ export const Chart = ({
 	props: string;
 }) => {
 	const theme = useTheme() as any;
-	console.log(chartRating);
 
 	const ratingValues = Object.values(chartRating) as Array<number>;
 	let ratingSum;
