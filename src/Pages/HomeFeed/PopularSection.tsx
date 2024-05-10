@@ -16,7 +16,6 @@ interface PopularSectionProps {
 export const PopularSection = ({ props }: PopularSectionProps) => {
 	const navigate = useNavigate();
 	const { isDownLG, isDownMD } = useMediaQueries();
-	console.log(isDownMD);
 
 	const {
 		data: likedBooks,

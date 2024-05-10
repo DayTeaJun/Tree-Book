@@ -2,12 +2,12 @@ import { getBooks } from '../../Api/searchApi';
 import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BookItemSkeleton } from '../../Components/Books/BookItem.skeleton';
 import { Box, Divider, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import errorImg from '../../Assets/No-img.svg';
 import { CustomPaginaition } from '../../Components/Pagination/Pagination';
 import { SearchSkeleton } from './Search.skeleton';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export default function Search() {
 	const { searchView, page } = useParams<{
@@ -23,13 +23,19 @@ export default function Search() {
 	});
 
 	const navigate = useNavigate();
+	const { isDownLG, isDownMD } = useMediaQueries();
 
 	const onMoveBookDetail = (id: number, isbn: string) => {
 		navigate(`/search/${searchView}/${page}/${id}`, { state: { isbn } });
 	};
 
 	return (
-		<>
+		<Box
+			sx={{
+				width: '100%',
+				padding: `${isDownMD && '0 10px'}`,
+			}}
+		>
 			<Helmet>
 				<title>"{searchView}" 검색 결과 - TreeBook</title>
 			</Helmet>
@@ -56,7 +62,7 @@ export default function Search() {
 								component='li'
 								key={index}
 								sx={{
-									width: 'calc((100% - 20px) / 2)',
+									width: `${isDownMD ? '100%' : 'calc((100% - 20px) / 2)'}`,
 									height: '120px',
 									display: 'flex',
 									color: 'text.primary',
@@ -152,6 +158,6 @@ export default function Search() {
 					totalPage={Math.ceil(books.meta.pageable_count / 10)}
 				/>
 			)}
-		</>
+		</Box>
 	);
 }
