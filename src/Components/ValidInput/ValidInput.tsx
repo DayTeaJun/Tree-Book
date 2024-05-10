@@ -131,6 +131,7 @@ export default function ValidInput({
 					label='비밀번호를 설정해주세요.'
 					type='password'
 					id='password'
+					autoComplete='off'
 					onChange={handleData}
 				/>
 			</Grid>
