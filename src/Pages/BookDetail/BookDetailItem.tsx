@@ -8,6 +8,7 @@ import { Chart } from '../../Components/Rating/Chart';
 import { avgRating } from '../../Utils/CalRating';
 import StarIcon from '@mui/icons-material/Star';
 import { StarRating } from '../../Components/Rating/Rating';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export const BookDetailItem = ({
 	item,
@@ -22,17 +23,26 @@ export const BookDetailItem = ({
 		page: string;
 	}>();
 
+	const { isDownMD } = useMediaQueries();
+
 	return (
 		<>
 			<Box
 				component='section'
-				sx={{ display: 'flex', gap: '20px', padding: '20px 0' }}
+				sx={{ width: '100%', display: 'flex', gap: '20px', padding: '20px 0' }}
 				key={item.url}
 			>
-				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+				<Box
+					sx={{
+						width: `${isDownMD ? '30%' : '15%'}`,
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '20px',
+					}}
+				>
 					<Box
 						sx={{
-							width: '150px',
+							width: '100%',
 							flexShrink: 1,
 							textAlign: 'center',
 							borderRadius: '10px',
@@ -49,6 +59,52 @@ export const BookDetailItem = ({
 							<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
 						)}
 					</Box>
+					{isDownMD && (
+						<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+							<Typography
+								component='dl'
+								sx={{ display: 'flex', flexDirection: 'column' }}
+							>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									작가
+								</Typography>
+								<Typography component='dd'>
+									{item.authors.length !== 0
+										? item.authors.length > 1
+											? item.authors.join(' | ')
+											: item.authors
+										: '미상'}
+								</Typography>
+							</Typography>
+							<Typography
+								component='dl'
+								sx={{ display: 'flex', flexDirection: 'column' }}
+							>
+								<Typography
+									component='dt'
+									sx={{
+										flexShrink: 0,
+										width: '80px',
+										color: 'text.secondary',
+									}}
+								>
+									출판사
+								</Typography>
+								<Typography component='dd'>
+									{item.publisher !== (undefined || '')
+										? item.publisher
+										: '미상'}
+								</Typography>
+							</Typography>
+						</Box>
+					)}
 
 					<BookLikes
 						item={item}
@@ -87,7 +143,14 @@ export const BookDetailItem = ({
 						</Box>
 					)}
 				</Box>
-				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+				<Box
+					sx={{
+						width: `${isDownMD ? 'calc(70% - 20px)' : 'calc(85% - 20px)'}`,
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '8px',
+					}}
+				>
 					<Typography component='h2' fontWeight='bold' fontSize='1.5em'>
 						{item.title}
 					</Typography>
@@ -95,102 +158,113 @@ export const BookDetailItem = ({
 					<Box
 						sx={{
 							display: 'flex',
-							justifyContent: 'space-between',
-							height: '180px',
+							flexDirection: `${isDownMD && 'column'}`,
+							gap: `${isDownMD && '10px'}`,
+							justifyContent: `${!isDownMD && 'space-between'}`,
+							height: `${!isDownMD && '180px'}`,
 						}}
 					>
-						<Box sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-							<Typography component='dl' sx={{ display: 'flex' }}>
-								<Typography
-									component='dt'
-									sx={{
-										flexShrink: 0,
-										width: '80px',
-										color: 'text.secondary',
-									}}
-								>
-									작가
+						{!isDownMD && (
+							<Box
+								sx={{
+									width: '50%',
+									display: 'flex',
+									flexDirection: 'column',
+									gap: '8px',
+								}}
+							>
+								<Typography component='dl' sx={{ display: 'flex' }}>
+									<Typography
+										component='dt'
+										sx={{
+											flexShrink: 0,
+											width: '80px',
+											color: 'text.secondary',
+										}}
+									>
+										작가
+									</Typography>
+									<Typography component='dd'>
+										{item.authors.length !== 0
+											? item.authors.length > 1
+												? item.authors.join(' | ')
+												: item.authors
+											: '미상'}
+									</Typography>
 								</Typography>
-								<Typography component='dd'>
-									{item.authors.length !== 0
-										? item.authors.length > 1
-											? item.authors.join(' | ')
-											: item.authors
-										: '미상'}
+								<Typography component='dl' sx={{ display: 'flex' }}>
+									<Typography
+										component='dt'
+										sx={{
+											flexShrink: 0,
+											width: '80px',
+											color: 'text.secondary',
+										}}
+									>
+										출판사
+									</Typography>
+									<Typography component='dd'>
+										{item.publisher !== (undefined || '')
+											? item.publisher
+											: '미상'}
+									</Typography>
 								</Typography>
-							</Typography>
-							<Typography component='dl' sx={{ display: 'flex' }}>
-								<Typography
-									component='dt'
-									sx={{
-										flexShrink: 0,
-										width: '80px',
-										color: 'text.secondary',
-									}}
-								>
-									출판사
-								</Typography>
-								<Typography component='dd'>
-									{item.publisher !== (undefined || '')
-										? item.publisher
-										: '미상'}
-								</Typography>
-							</Typography>
 
-							<Typography component='dl' sx={{ display: 'flex' }}>
-								<Typography
-									component='dt'
-									sx={{
-										flexShrink: 0,
-										width: '80px',
-										color: 'text.secondary',
-									}}
-								>
-									판매가
+								<Typography component='dl' sx={{ display: 'flex' }}>
+									<Typography
+										component='dt'
+										sx={{
+											flexShrink: 0,
+											width: '80px',
+											color: 'text.secondary',
+										}}
+									>
+										판매가
+									</Typography>
+									<Typography component='dd'>
+										{item.price.toLocaleString('ko-KR')}원
+									</Typography>
 								</Typography>
-								<Typography component='dd'>
-									{item.price.toLocaleString('ko-KR')}원
+								<Typography component='dl' sx={{ display: 'flex' }}>
+									<Typography
+										component='dt'
+										sx={{
+											flexShrink: 0,
+											width: '80px',
+											color: 'text.secondary',
+										}}
+									>
+										ISBN
+									</Typography>
+									<Typography component='dd'>{item.isbn}</Typography>
 								</Typography>
-							</Typography>
-							<Typography component='dl' sx={{ display: 'flex' }}>
-								<Typography
-									component='dt'
-									sx={{
-										flexShrink: 0,
-										width: '80px',
-										color: 'text.secondary',
-									}}
-								>
-									ISBN
+								<Typography component='dl' sx={{ display: 'flex' }}>
+									<Typography
+										component='dt'
+										sx={{
+											flexShrink: 0,
+											width: '80px',
+											color: 'text.secondary',
+										}}
+									>
+										출판일
+									</Typography>
+									<Typography component='dd'>
+										{item.datetime.substr(0, 10).replaceAll('-', '. ')}
+									</Typography>
 								</Typography>
-								<Typography component='dd'>{item.isbn}</Typography>
-							</Typography>
-							<Typography component='dl' sx={{ display: 'flex' }}>
-								<Typography
-									component='dt'
-									sx={{
-										flexShrink: 0,
-										width: '80px',
-										color: 'text.secondary',
-									}}
-								>
-									출판일
-								</Typography>
-								<Typography component='dd'>
-									{item.datetime.substr(0, 10).replaceAll('-', '. ')}
-								</Typography>
-							</Typography>
-						</Box>
+							</Box>
+						)}
 						{likedBook &&
 							likedBook.length > 0 &&
 							likedBook[0] &&
 							likedBook[0].ratingBy !== undefined && (
 								<Box
 									sx={{
-										width: '50%',
+										width: `${isDownMD ? 'calc(100%)' : '50%'}`,
 										height: '100%',
 										borderRadius: '5px',
-										border: 'solid 3px',
+										border: `${!isDownMD && 'solid 3px'}`,
 										borderColor: 'background.btn',
 										padding: '30px',
 									}}
