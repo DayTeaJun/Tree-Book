@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import errorImg from '../../Assets/No-img.svg';
 import BookItem from '../../Components/Books/BookItem';
 import StarIcon from '@mui/icons-material/Star';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { avgRating } from '../../Utils/CalRating';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 interface PopularSectionProps {
 	props: 'ratingBy' | 'views';
@@ -15,6 +15,8 @@ interface PopularSectionProps {
 
 export const PopularSection = ({ props }: PopularSectionProps) => {
 	const navigate = useNavigate();
+	const { isDownLG, isDownMD } = useMediaQueries();
+	console.log(isDownMD);
 
 	const {
 		data: likedBooks,
@@ -33,13 +35,19 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 	};
 
 	return (
-		<>
+		<Box
+			sx={{
+				width: '100%',
+				padding: `${isDownMD && '0 10px'}`,
+			}}
+		>
 			<Typography
 				component='h2'
 				fontWeight='bold'
 				fontSize='1.5em'
 				sx={{
 					color: 'text.primary',
+					paddingBottom: '10px',
 				}}
 			>
 				{`${props === 'views' ? '많이 찾고 있는 책들' : '리뷰가 많은 책들'}`}
@@ -49,9 +57,10 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 					component='ul'
 					sx={{
 						display: 'flex',
-						flexFlow: 'column wrap',
+						flexDirection: `${isDownLG ? 'column' : 'row'}`,
+						flexFlow: 'wrap',
 						width: '100%',
-						height: '400px',
+						minHeight: '400px',
 					}}
 				>
 					{likedBooks &&
@@ -60,7 +69,11 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 								component='li'
 								key={index}
 								sx={{
-									width: 'calc((100% - 20px) / 3)',
+									width: `${
+										(isDownMD && '100%') ||
+										(isDownLG && 'calc((100% - 20px) / 2)') ||
+										'calc((100% - 20px) / 3)'
+									}`,
 									height: '120px',
 									display: 'flex',
 									color: 'text.primary',
@@ -234,6 +247,6 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 					}
 				</>
 			)}
-		</>
+		</Box>
 	);
 };
