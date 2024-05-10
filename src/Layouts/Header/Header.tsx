@@ -11,6 +11,7 @@ import DarkToggle from './DarkToggle';
 import { Box, Grid, IconButton, Input, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Label } from '../../Styles/Common';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export default function Header() {
 	const [search, setSearch] = useState('');
@@ -18,6 +19,7 @@ export default function Header() {
 	const navigate = useNavigate();
 	const { isAuthReady, user } = useAuthContext();
 	const { error, isPending, logout } = useLogout();
+	const { isDownMD } = useMediaQueries();
 
 	const handleSubmit: FormEventHandler = (e) => {
 		e.preventDefault();
@@ -66,141 +68,145 @@ export default function Header() {
 									Tree Book
 								</Typography>
 							</Link>
-							<Box
-								component='form'
-								sx={{
-									display: 'flex',
-									justifyContent: 'center',
-									'&:focus-within': {
-										backgroundColor: 'background.searchFocus',
-									},
-									padding: '0.5em',
-								}}
-								onSubmit={handleSubmit}
-							>
-								<Label htmlFor='searchTtitle'>도서 검색창</Label>
-
-								<Input
-									id='searchTtitle'
-									type='text'
-									inputRef={inputRef}
-									placeholder='책 이름을 입력해주세요.'
-									inputProps={{
-										style: {
-											textAlign: 'center',
-											color: 'text.primary',
-											fontWeight: 'bold',
-										},
-									}}
-								/>
-								<IconButton type='submit' aria-label='searchButton'>
-									<SearchIcon />
-								</IconButton>
-							</Box>
-							<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-								<DarkToggle />
+							{!isDownMD && (
 								<Box
+									component='form'
 									sx={{
-										height: '100%',
 										display: 'flex',
 										justifyContent: 'center',
-										gap: '0.5em',
+										'&:focus-within': {
+											backgroundColor: 'background.searchFocus',
+										},
 										padding: '0.5em',
 									}}
+									onSubmit={handleSubmit}
 								>
-									{isAuthReady && !user && (
-										<>
-											<Link to='/signup'>
-												<Typography
-													fontSize='1em'
-													fontWeight='bold'
-													color='text.primary'
-													sx={{
-														display: 'flex',
-														alignItems: 'center',
-														gap: '0.2em',
-														padding: '0.5em',
-														borderRadius: '10px',
-														transition: '0.4s',
-														'&:hover': {
-															color: 'text.hover',
-														},
-													}}
-												>
-													회원가입
-													<PortraitIcon />
-												</Typography>
-											</Link>
-											<Link to='/login'>
-												<Typography
-													fontSize='1em'
-													fontWeight='bold'
-													color='text.primary'
-													sx={{
-														display: 'flex',
-														alignItems: 'center',
-														gap: '0.2em',
-														padding: '10px',
-														borderRadius: '0.2em',
-														transition: '0.4s',
-														'&:hover': {
-															color: 'text.hover',
-														},
-													}}
-												>
-													로그인
-													<LoginIcon />
-												</Typography>
-											</Link>
-										</>
-									)}
-									{isAuthReady && user && (
-										<>
-											<Link to={`/profile/${user.displayName}`}>
-												<Typography
-													fontSize='1em'
-													fontWeight='bold'
-													color='text.primary'
-													sx={{
-														display: 'flex',
-														alignItems: 'center',
-														gap: '0.2em',
-														padding: '0.5em',
-														borderRadius: '10px',
-														transition: '0.4s',
-														'&:hover': {
-															color: 'text.hover',
-														},
-													}}
-												>
-													내 프로필
-													<AccountCircleIcon />
-												</Typography>
-											</Link>
-											<Link to='/' onClick={logout}>
-												<Typography
-													fontSize='1em'
-													fontWeight='bold'
-													color='text.primary'
-													sx={{
-														display: 'flex',
-														alignItems: 'center',
-														gap: '0.2em',
-														padding: '10px',
-														borderRadius: '0.2em',
-														transition: '0.4s',
-														'&:hover': {
-															color: 'text.hover',
-														},
-													}}
-												>
-													로그아웃
-													<LogoutIcon />
-												</Typography>
-											</Link>
-										</>
-									)}
+									<Label htmlFor='searchTtitle'>도서 검색창</Label>
+
+									<Input
+										id='searchTtitle'
+										type='text'
+										inputRef={inputRef}
+										placeholder='책 이름을 입력해주세요.'
+										inputProps={{
+											style: {
+												textAlign: 'center',
+												color: 'text.primary',
+												fontWeight: 'bold',
+											},
+										}}
+									/>
+									<IconButton type='submit' aria-label='searchButton'>
+										<SearchIcon />
+									</IconButton>
 								</Box>
+							)}
+							<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+								<DarkToggle />
+								{!isDownMD && (
+									<Box
+										sx={{
+											height: '100%',
+											display: 'flex',
+											justifyContent: 'center',
+											gap: '0.5em',
+											padding: '0.5em',
+										}}
+									>
+										{isAuthReady && !user && (
+											<>
+												<Link to='/signup'>
+													<Typography
+														fontSize='1em'
+														fontWeight='bold'
+														color='text.primary'
+														sx={{
+															display: 'flex',
+															alignItems: 'center',
+															gap: '0.2em',
+															padding: '0.5em',
+															borderRadius: '10px',
+															transition: '0.4s',
+															'&:hover': {
+																color: 'text.hover',
+															},
+														}}
+													>
+														회원가입
+														<PortraitIcon />
+													</Typography>
+												</Link>
+												<Link to='/login'>
+													<Typography
+														fontSize='1em'
+														fontWeight='bold'
+														color='text.primary'
+														sx={{
+															display: 'flex',
+															alignItems: 'center',
+															gap: '0.2em',
+															padding: '10px',
+															borderRadius: '0.2em',
+															transition: '0.4s',
+															'&:hover': {
+																color: 'text.hover',
+															},
+														}}
+													>
+														로그인
+														<LoginIcon />
+													</Typography>
+												</Link>
+											</>
+										)}
+										{isAuthReady && user && (
+											<>
+												<Link to={`/profile/${user.displayName}`}>
+													<Typography
+														fontSize='1em'
+														fontWeight='bold'
+														color='text.primary'
+														sx={{
+															display: 'flex',
+															alignItems: 'center',
+															gap: '0.2em',
+															padding: '0.5em',
+															borderRadius: '10px',
+															transition: '0.4s',
+															'&:hover': {
+																color: 'text.hover',
+															},
+														}}
+													>
+														내 프로필
+														<AccountCircleIcon />
+													</Typography>
+												</Link>
+												<Link to='/' onClick={logout}>
+													<Typography
+														fontSize='1em'
+														fontWeight='bold'
+														color='text.primary'
+														sx={{
+															display: 'flex',
+															alignItems: 'center',
+															gap: '0.2em',
+															padding: '10px',
+															borderRadius: '0.2em',
+															transition: '0.4s',
+															'&:hover': {
+																color: 'text.hover',
+															},
+														}}
+													>
+														로그아웃
+														<LogoutIcon />
+													</Typography>
+												</Link>
+											</>
+										)}
+									</Box>
+								)}
 							</Box>
 						</Box>
 					</Grid>

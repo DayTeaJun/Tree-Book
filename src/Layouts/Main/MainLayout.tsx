@@ -2,8 +2,11 @@ import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
 import { Grid } from '@mui/material';
 import { Footer } from '../Footer/Footer';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { BottomNav } from '../Header/BottomNav';
 
 export default function MainLayout() {
+	const { isDownMD } = useMediaQueries();
 	return (
 		<>
 			<Header />
@@ -14,7 +17,7 @@ export default function MainLayout() {
 				</Grid>
 				<Grid item xs={0} md={1} lg={2} />
 			</Grid>
-			<Footer />
+			{isDownMD ? <BottomNav /> : <Footer />}
 		</>
 	);
 }
