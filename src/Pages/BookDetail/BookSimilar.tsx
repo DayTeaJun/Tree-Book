@@ -3,6 +3,7 @@ import { BookData } from '../../Types/bookType';
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';
 import BookItem from '../../Components/Books/BookItem';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export const BookSimilar = ({ item }: { item: BookData }) => {
 	const publisher = item.publisher;
@@ -11,6 +12,8 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 		queryKey: ['bookSimilar', publisher],
 		queryFn: () => publisher && getBooks(publisher, 10, '1', 'publisher'),
 	});
+
+	const { isDownMD, isDownSM } = useMediaQueries();
 
 	return (
 		<>
@@ -29,24 +32,34 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 			<Box
 				component='section'
 				sx={{
-					display: 'grid',
-					gap: 2,
-					gridTemplateColumns: 'repeat(5, 1fr)',
+					display: 'flex',
+					flexDirection: 'column',
+					flexFlow: 'wrap',
 					width: '100%',
 					padding: '30px 0',
-					marginBottom: '20px',
 				}}
 			>
 				{books &&
 					books.documents.length !== 0 &&
 					books.documents.map((book: BookData, index: number) => (
-						<BookItem
-							item={book}
-							page={'1'}
-							id={index}
-							publisher={publisher}
-							key={index}
-						></BookItem>
+						<Box
+							sx={{
+								width: `${
+									(isDownSM && 'calc((100%) / 2)') ||
+									(isDownMD && 'calc((100%) / 4)') ||
+									'calc((100%) / 5)'
+								}`,
+								paddingBottom: '10px',
+							}}
+						>
+							<BookItem
+								item={book}
+								page={'1'}
+								id={index}
+								publisher={publisher}
+								key={index}
+							/>
+						</Box>
 					))}
 			</Box>
 		</>

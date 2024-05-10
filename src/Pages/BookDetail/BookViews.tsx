@@ -48,7 +48,7 @@ export const BookViews = ({ item }: { item: BookData }) => {
 				<Box sx={{ padding: `${isDownMD && '10px'}` }}>
 					<BookDetailItem item={item} likedBook={documents} />
 					<Comment item={item} likedBook={documents} />
-					{/* <BookSimilar item={item} /> */}
+					<BookSimilar item={item} />
 				</Box>
 			)}
 		</>
