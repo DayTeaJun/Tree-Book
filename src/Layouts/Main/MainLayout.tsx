@@ -8,11 +8,11 @@ export default function MainLayout() {
 		<>
 			<Header />
 			<Grid container flexGrow='1'>
-				<Grid item xs={0} md={2} lg={1} />
-				<Grid item xs={12} md={8} lg={10}>
+				<Grid item xs={0} md={1} lg={2} />
+				<Grid item xs={12} md={10} lg={8}>
 					<Outlet />
 				</Grid>
-				<Grid item xs={0} md={2} lg={1} />
+				<Grid item xs={0} md={1} lg={2} />
 			</Grid>
 			<Footer />
 		</>
