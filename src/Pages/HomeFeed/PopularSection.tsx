@@ -34,12 +34,7 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 	};
 
 	return (
-		<Box
-			sx={{
-				width: '100%',
-				padding: `${isDownMD && '0 10px'}`,
-			}}
-		>
+		<>
 			<Typography
 				component='h2'
 				fontWeight='bold'
@@ -246,6 +241,6 @@ export const PopularSection = ({ props }: PopularSectionProps) => {
 					}
 				</>
 			)}
-		</Box>
+		</>
 	);
 };
