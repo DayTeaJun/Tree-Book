@@ -46,8 +46,8 @@ export default function Header() {
 				}}
 			>
 				<Grid container>
-					<Grid item xs={0} md={3} lg={2} />
-					<Grid item xs={12} md={6} lg={8}>
+					<Grid item xs={0} md={1} lg={2} />
+					<Grid item xs={12} md={10} lg={8}>
 						<Box
 							sx={{
 								display: 'flex',
@@ -204,7 +204,7 @@ export default function Header() {
 							</Box>
 						</Box>
 					</Grid>
-					<Grid item xs={0} md={3} lg={2} />
+					<Grid item xs={0} md={1} lg={2} />
 				</Grid>
 			</Box>
 		</>
