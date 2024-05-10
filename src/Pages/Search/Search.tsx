@@ -23,7 +23,7 @@ export default function Search() {
 	});
 
 	const navigate = useNavigate();
-	const { isDownLG, isDownMD } = useMediaQueries();
+	const { isDownMD } = useMediaQueries();
 
 	const onMoveBookDetail = (id: number, isbn: string) => {
 		navigate(`/search/${searchView}/${page}/${id}`, { state: { isbn } });

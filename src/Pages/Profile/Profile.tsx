@@ -12,12 +12,14 @@ import { enqueueSnackbar } from 'notistack';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Chart } from '../../Components/Rating/Chart';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export default function Profile() {
 	const { user } = useAuthContext();
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();
 	const navigate = useNavigate();
+	const { isDownMD } = useMediaQueries();
 
 	const {
 		data: userDocument,
@@ -55,10 +57,16 @@ export default function Profile() {
 					borderRadius: '15px',
 				}}
 			>
-				<Box sx={{ width: '100%', display: 'flex', gap: '10px' }}>
+				<Box
+					sx={{
+						width: '100%',
+						display: `${isDownMD ? 'column' : 'flex'}`,
+						gap: '10px',
+					}}
+				>
 					<Box
 						sx={{
-							width: '30%',
+							width: `${isDownMD ? '100%' : '30%'}`,
 							minHeight: '255px',
 							padding: '10px',
 							display: 'flex',
