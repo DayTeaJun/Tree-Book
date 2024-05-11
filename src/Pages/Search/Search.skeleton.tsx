@@ -1,12 +1,14 @@
 import { Box, Divider } from '@mui/material';
 import { Shimmer } from '../../Styles/Common';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export const SearchSkeleton = () => {
+	const { isDownMD } = useMediaQueries();
 	return (
 		<Box
 			component='li'
 			sx={{
-				width: 'calc((100% - 20px) / 2)',
+				width: `${isDownMD ? '100%' : 'calc((100% - 20px) / 2)'}`,
 				height: '120px',
 				display: 'flex',
 				color: 'text.primary',
