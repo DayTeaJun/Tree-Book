@@ -2,6 +2,7 @@ import { Box, Pagination } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PaginaitionType } from '../../Types/componentType';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export const CustomPaginaition = ({
 	searchView,
@@ -11,6 +12,7 @@ export const CustomPaginaition = ({
 	count,
 	menuRef,
 }: PaginaitionType) => {
+	const { isDownMD } = useMediaQueries();
 	const navigate = useNavigate();
 	const pageNumber: number = parseInt(page as string, 10);
 	const onPageChange = (e: ChangeEvent<unknown>, page: number) => {
@@ -32,6 +34,7 @@ export const CustomPaginaition = ({
 				count={totalPage || count || 100}
 				showFirstButton
 				showLastButton
+				size={`${isDownMD ? 'small' : 'large'}`}
 			/>
 		</Box>
 	);
