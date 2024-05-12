@@ -4,7 +4,7 @@ import { LoadingType } from '../../Types/componentType';
 const Loading = ({ BackDrop }: LoadingType) => {
 	if (BackDrop) {
 		return (
-			<Backdrop open={true} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+			<Backdrop open={true} sx={{ zIndex: 9999 }}>
 				<CircularProgress />
 			</Backdrop>
 		);
@@ -19,7 +19,7 @@ const Loading = ({ BackDrop }: LoadingType) => {
 					zIndex: 9999,
 				}}
 			>
-				<CircularProgress color='success' />
+				<CircularProgress />
 			</Box>
 		);
 	}

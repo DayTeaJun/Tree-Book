@@ -25,7 +25,7 @@ export default function Router() {
 
 	return (
 		<BrowserRouter basename='/'>
-			<Suspense fallback={<Loading />}>
+			<Suspense fallback={<Loading BackDrop={true} />}>
 				{isAuthReady ? (
 					<Routes>
 						<Route element={<MainLayout />}>

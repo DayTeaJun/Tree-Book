@@ -90,53 +90,50 @@ export const Comment = ({
 			) : (
 				<CommentForm item={item} likedBook={likedBook} />
 			)}
-			{!isLoading ? (
+
+			<Box
+				component='section'
+				sx={{
+					width: '100%',
+					overflow: 'hidden',
+					display: 'felx',
+					flexDirection: 'column',
+					gap: '10px',
+					padding: '20px 0',
+				}}
+				ref={menuRef}
+			>
 				<Box
-					component='section'
 					sx={{
-						width: '100%',
-						overflow: 'hidden',
-						display: 'felx',
-						flexDirection: 'column',
+						borderColor: 'background.content',
+						borderBottom: '1px solid',
+						display: 'flex',
+						paddingBottom: '10px',
 						gap: '10px',
-						padding: '20px 0',
 					}}
-					ref={menuRef}
 				>
-					<Box
-						sx={{
-							borderColor: 'background.content',
-							borderBottom: '1px solid',
-							display: 'flex',
-							paddingBottom: '10px',
-							gap: '10px',
-						}}
-					>
-						<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
-							리뷰{' '}
-							{likedBook && likedBook[0]?.ratingBy
-								? `${Object.keys(likedBook[0]?.ratingBy).length}개`
-								: null}
-						</Typography>
-						<DropdownMenu
-							isDropdown={isDropdown}
-							setIsDropdown={setIsDropdown}
-							setSorted={setSorted}
-						/>
-					</Box>
-					{commentData && (
-						<CommentList
-							isbn={isbn}
-							documents={likedBook}
-							comments={commentData}
-							sorted={sorted}
-							menuRef={menuRef}
-						/>
-					)}
+					<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
+						리뷰{' '}
+						{likedBook && likedBook[0]?.ratingBy
+							? `${Object.keys(likedBook[0]?.ratingBy).length}개`
+							: null}
+					</Typography>
+					<DropdownMenu
+						isDropdown={isDropdown}
+						setIsDropdown={setIsDropdown}
+						setSorted={setSorted}
+					/>
 				</Box>
-			) : (
-				<Loading />
-			)}
+				{commentData && (
+					<CommentList
+						isbn={isbn}
+						documents={likedBook}
+						comments={commentData}
+						sorted={sorted}
+						menuRef={menuRef}
+					/>
+				)}
+			</Box>
 		</>
 	);
 };
