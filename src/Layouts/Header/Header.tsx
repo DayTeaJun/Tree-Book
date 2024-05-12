@@ -103,6 +103,28 @@ export default function Header() {
 							)}
 							<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
 								<DarkToggle />
+								{isDownMD && user && (
+									<Link to='/' onClick={logout}>
+										<Typography
+											fontSize='1em'
+											fontWeight='bold'
+											color='text.primary'
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												gap: '0.2em',
+												padding: '10px',
+												borderRadius: '0.2em',
+												transition: '0.4s',
+												'&:hover': {
+													color: 'text.hover',
+												},
+											}}
+										>
+											<LogoutIcon />
+										</Typography>
+									</Link>
+								)}
 								{!isDownMD && (
 									<Box
 										sx={{

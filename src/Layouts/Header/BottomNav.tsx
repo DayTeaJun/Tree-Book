@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 export const BottomNav = () => {
 	const { isAuthReady, user } = useAuthContext();
-	const { error, isPending, logout } = useLogout();
 
 	return (
 		<Box
@@ -34,6 +33,12 @@ export const BottomNav = () => {
 					fontSize='1em'
 					fontWeight='bold'
 					color='text.secondary'
+					sx={{
+						transition: '0.4s',
+						'&:hover': {
+							color: 'text.hover',
+						},
+					}}
 				>
 					홈
 				</Typography>
@@ -48,6 +53,12 @@ export const BottomNav = () => {
 					fontSize='1em'
 					fontWeight='bold'
 					color='text.secondary'
+					sx={{
+						transition: '0.4s',
+						'&:hover': {
+							color: 'text.hover',
+						},
+					}}
 				>
 					검색
 				</Typography>
@@ -66,29 +77,19 @@ export const BottomNav = () => {
 						fontSize='1em'
 						fontWeight='bold'
 						color='text.secondary'
+						sx={{
+							transition: '0.4s',
+							'&:hover': {
+								color: 'text.hover',
+							},
+						}}
 					>
 						내 프로필
 					</Typography>
 				</Link>
 			)}
 
-			{isAuthReady && user ? (
-				<Link
-					to='/'
-					onClick={logout}
-					style={{ textAlign: 'center', cursor: 'pointer' }}
-				>
-					<LogoutIcon fontSize='medium' sx={{ color: 'text.secondary' }} />
-					<Typography
-						component='p'
-						fontSize='1em'
-						fontWeight='bold'
-						color='text.secondary'
-					>
-						로그아웃
-					</Typography>
-				</Link>
-			) : (
+			{isAuthReady && !user && (
 				<Link to='/login' style={{ textAlign: 'center', cursor: 'pointer' }}>
 					<LoginIcon fontSize='medium' sx={{ color: 'text.secondary' }} />
 					<Typography
@@ -96,6 +97,12 @@ export const BottomNav = () => {
 						fontSize='1em'
 						fontWeight='bold'
 						color='text.secondary'
+						sx={{
+							transition: '0.4s',
+							'&:hover': {
+								color: 'text.hover',
+							},
+						}}
 					>
 						로그인
 					</Typography>
