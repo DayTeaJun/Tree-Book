@@ -1,10 +1,12 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
 import { PopularSection } from './PopularSection';
-import { Footer } from '../../Layouts/Footer/Footer';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export default function HomeFeed() {
+	const { isDownSM } = useMediaQueries();
+
 	return (
 		<>
 			<Helmet>
@@ -16,7 +18,6 @@ export default function HomeFeed() {
 					display: 'flex',
 					flexDirection: 'column',
 					width: '100%',
-					padding: '20px 0',
 					gap: '20px',
 				}}
 			>
@@ -25,12 +26,20 @@ export default function HomeFeed() {
 					sx={{
 						display: 'flex',
 						flexDirection: 'column',
-						gap: '20px',
-						width: '100%',
-						height: '100%',
-						margin: '0 auto',
 					}}
 				>
+					{isDownSM && (
+						<Typography
+							component='h2'
+							fontWeight='bold'
+							fontSize='1.5em'
+							sx={{
+								color: 'text.primary',
+							}}
+						>
+							유저들의 책 베스트
+						</Typography>
+					)}
 					<BestBook />
 				</Box>
 

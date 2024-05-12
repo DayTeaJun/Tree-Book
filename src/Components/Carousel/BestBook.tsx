@@ -4,6 +4,7 @@ import Carousel from 'react-material-ui-carousel';
 import { useQuery } from '@tanstack/react-query';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 const BestBook = () => {
 	const navigate = useNavigate();
@@ -24,15 +25,19 @@ const BestBook = () => {
 		navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
 	};
 
+	const { isDownSM } = useMediaQueries();
+
 	return (
 		<Carousel
 			animation='slide'
 			duration={1000}
-			height='300px'
+			height={`${isDownSM ? '280px' : '300px'}`}
+			autoPlay={false}
 			sx={{
 				width: '100%',
 				margin: '0 auto',
 			}}
+			navButtonsAlwaysVisible={true}
 		>
 			{likedBooks &&
 				(likedBooks as BookData[]).map((item: BookData, index: number) => (
@@ -42,6 +47,7 @@ const BestBook = () => {
 							width: '100%',
 							height: '100%',
 							display: 'flex',
+							flexDirection: `${isDownSM ? 'column' : 'row'}`,
 							padding: '30px 70px',
 							boxShadow: 'none',
 							borderRadius: '0',
@@ -54,78 +60,86 @@ const BestBook = () => {
 							sx={{
 								display: 'flex',
 								flexDirection: 'column',
-								justifyContent: 'space-between',
+								justifyContent: `${!isDownSM && 'space-between'}`,
 								width: '70%',
 							}}
 						>
-							<Box
-								sx={{
-									backgroundColor: 'background.book',
-									padding: '2px 8px',
-									borderRadius: '5px',
-									display: 'inline-block',
-									width: 'fit-content',
-									marginBottom: '-30px',
-								}}
-							>
-								<Typography
-									component='p'
-									fontSize='1em'
-									fontWeight='bold'
-									color='text.primary'
-								>
-									Best
-								</Typography>
-							</Box>
-							<Typography
-								component='h3'
-								fontSize='1.5em'
-								fontWeight='bold'
-								sx={{
-									whiteSpace: 'nowrap',
-									overflow: 'hidden',
-									textOverflow: 'ellipsis',
-									textDecoration: 'underline',
-									textDecorationColor: '#ccc',
-									textUnderlinePosition: 'under',
-								}}
-							>
-								{item.title}
-							</Typography>
-							<Typography
-								component='p'
-								fontSize='1.1em'
-								fontWeight='bold'
-								sx={{
-									whiteSpace: 'normal',
-									textOverflow: 'ellipsis',
-									display: '-webkit-box',
-									WebkitLineClamp: 2,
-									WebkitBoxOrient: 'vertical',
-									wordBreak: 'keep-all',
-									overflow: 'hidden',
-								}}
-							>
-								{item.contents.length > 1 ? `『 ${item.contents} 』` : ''}
-							</Typography>
-							<Typography
-								component='p'
-								fontSize={'1.1em'}
-								fontWeight={'bold'}
-								sx={{
-									color: 'text.secondary',
-								}}
-							>
-								{item.authors.length > 1
-									? item.authors.join(' | ')
-									: item.authors}
-								{item.authors.length !== 0 && ' | '}
-								{item.publisher}
-							</Typography>
+							{!isDownSM && (
+								<>
+									<Box
+										sx={{
+											backgroundColor: 'background.book',
+											padding: '2px 8px',
+											borderRadius: '5px',
+											display: 'inline-block',
+											width: 'fit-content',
+											marginBottom: '-30px',
+										}}
+									>
+										<Typography
+											component='p'
+											fontSize='1em'
+											fontWeight='bold'
+											color='text.primary'
+										>
+											Best
+										</Typography>
+									</Box>
+
+									<Typography
+										component='h3'
+										fontSize='1.5em'
+										fontWeight='bold'
+										sx={{
+											whiteSpace: 'nowrap',
+											overflow: 'hidden',
+											textOverflow: 'ellipsis',
+											textDecoration: 'underline',
+											textDecorationColor: '#ccc',
+											textUnderlinePosition: 'under',
+										}}
+									>
+										{item.title}
+									</Typography>
+									<Typography
+										component='p'
+										fontSize='1.1em'
+										fontWeight='bold'
+										sx={{
+											whiteSpace: 'normal',
+											textOverflow: 'ellipsis',
+											display: '-webkit-box',
+											WebkitLineClamp: 2,
+											WebkitBoxOrient: 'vertical',
+											wordBreak: 'keep-all',
+											overflow: 'hidden',
+										}}
+									>
+										{item.contents.length > 1 ? `『 ${item.contents} 』` : ''}
+									</Typography>
+
+									<Typography
+										component='p'
+										fontSize={'1.1em'}
+										fontWeight={'bold'}
+										sx={{
+											color: 'text.secondary',
+										}}
+									>
+										{item.authors.length > 1
+											? item.authors.join(' | ')
+											: item.authors}
+										{item.authors.length !== 0 && ' | '}
+										{item.publisher}
+									</Typography>
+								</>
+							)}
 						</Box>
+
 						<Box
 							sx={{
-								marginLeft: 'auto',
+								marginLeft: `${!isDownSM && 'auto'}`,
+								margin: `${isDownSM && '0 auto'}`,
 							}}
 						>
 							<img
