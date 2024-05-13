@@ -51,7 +51,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 							minHeight: '216px',
 							width: '100%',
 							display: 'flex',
-							gap: '10px',
+							gap: '20px',
 							overflowX: 'auto',
 							overflowY: 'hidden',
 							padding: '10px 0',
@@ -75,6 +75,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 									search={item.search}
 									key={item.url}
 									like={item.isbn}
+									profile={uid}
 								></BookItem>
 							))
 						) : (

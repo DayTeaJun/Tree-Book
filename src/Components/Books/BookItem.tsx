@@ -3,8 +3,8 @@ import errorImg from '../../Assets/No-img.svg';
 import { BookItemProps } from '../../Types/bookType';
 import { Box, Divider, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { StarRating } from '../Rating/Rating';
+import { avgRating } from '../../Utils/CalRating';
 
 const BookItem = ({
 	item,
@@ -14,6 +14,7 @@ const BookItem = ({
 	like,
 	comment,
 	publisher,
+	profile,
 }: BookItemProps) => {
 	const navigate = useNavigate();
 	const isbn = item.isbn;
@@ -127,52 +128,34 @@ const BookItem = ({
 	return (
 		<Box
 			sx={{
-				width: '140px',
-				position: 'relative',
+				width: '125px',
 				borderRadius: '5px',
-				padding: '10px',
-				backgroundColor: 'background.hover',
 				cursor: 'pointer',
-				'&:hover': {
-					transform: 'translateY(-0.5em)',
-					transition: 'transform 0.5s',
-					boxShadow:
-						'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
-				},
 			}}
 			onClick={onMoveBookDetail}
 		>
 			<Box
 				sx={{
-					width: '120px',
-					textAlign: 'center',
-					borderRadius: '10px',
+					width: '125px',
 				}}
 			>
 				{item.thumbnail ? (
-					<img src={item.thumbnail} alt={`책 ${item.title}의 이미지`} />
+					<img
+						style={{
+							borderRadius: '5px',
+							boxShadow:
+								'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
+						}}
+						src={item.thumbnail}
+						alt={`책 ${item.title}의 이미지`}
+					/>
 				) : (
 					<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
 				)}
 				<Box
 					sx={{
-						position: 'absolute',
-						left: 0,
-						bottom: 0,
-						width: '100%',
-						height: '100%',
-						borderRadius: '5px',
 						display: 'flex',
 						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
-						gap: '5px',
-						padding: '15px',
-						opacity: '0',
-						'&:hover': {
-							backgroundColor: 'background.hover',
-							opacity: '0.9',
-						},
 					}}
 				>
 					<Typography
@@ -181,27 +164,27 @@ const BookItem = ({
 						fontWeight={'bold'}
 						sx={{
 							width: '100%',
-							textAlign: 'center',
 							color: 'text.primary',
 							marginTop: '5px',
-							whiteSpace: 'normal',
-							textOverflow: 'ellipsis',
-							display: '-webkit-box',
-							WebkitLineClamp: 4,
-							WebkitBoxOrient: 'vertical',
-							wordBreak: 'keep-all',
+							whiteSpace: 'nowrap',
 							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+							'&:hover': {
+								textDecoration: 'underline',
+								textDecorationColor: '#ccc',
+								textUnderlinePosition: 'under',
+							},
 						}}
 					>
 						{item.title}
 					</Typography>
+
 					<Typography
 						component='p'
 						fontSize={'0.9em'}
 						fontWeight={'bold'}
 						sx={{
 							width: '100%',
-							textAlign: 'center',
 							color: 'text.secondary',
 							whiteSpace: 'nowrap',
 							overflow: 'hidden',
@@ -210,6 +193,31 @@ const BookItem = ({
 					>
 						{item.authors.length > 1 ? item.authors.join(' | ') : item.authors}
 					</Typography>
+					{!profile && (
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								gap: '5px',
+							}}
+						>
+							<StarIcon sx={{ fontSize: '1em' }} />
+							<Typography
+								component='p'
+								fontSize={'0.9em'}
+								fontWeight={'bold'}
+								sx={{
+									color: 'text.secondary',
+								}}
+							>
+								{item.ratingBy
+									? `${(avgRating(item.ratingBy) ?? 0).toFixed(1)} (${
+											Object.keys(item.ratingBy).length
+									  })`
+									: '0.0 (0)'}
+							</Typography>
+						</Box>
+					)}
 				</Box>
 			</Box>
 		</Box>
