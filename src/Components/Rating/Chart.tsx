@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 
 ChartJS.register(Title, Tooltip, ...registerables);
 
-export const options = {
+const options = {
 	responsive: true,
 	maintainAspectRatio: false,
 	plugins: {
@@ -41,6 +41,7 @@ export const Chart = ({
 	let ratingSum;
 	let ratingAvg;
 	let ratingArray;
+
 	if (props === 'profile') {
 		ratingSum = ratingValues.reduce((acc, cur) => acc + cur, 0);
 		ratingAvg =
@@ -61,8 +62,10 @@ export const Chart = ({
 			return values.reduce((acc, cur) => (acc as number) + 1, 0);
 		}).splice(1);
 	}
+
 	const maxValue = Math.max(...ratingArray);
 	const ratingMax = ratingArray.indexOf(maxValue) + 1;
+
 	return (
 		<>
 			<Box

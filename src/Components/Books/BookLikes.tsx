@@ -3,8 +3,6 @@ import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useFirestore } from '../../Hook/FirebaseHook/useFirestore';
 import { timestamp } from '../../Firebase/config';
 import { useSnackbar } from 'notistack';

@@ -4,6 +4,7 @@ import { BookItemProps } from '../../Types/bookType';
 import { Box, Divider, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { StarRating } from '../Rating/Rating';
 
 const BookItem = ({
 	item,
@@ -76,18 +77,7 @@ const BookItem = ({
 					>
 						{item.title}
 					</Typography>
-					{(item.rating && item.rating === 0) || (
-						<Box sx={{ display: 'flex' }}>
-							{Array.from({ length: item.rating as number }).map((_, index) => (
-								<StarIcon key={index} fontSize='small' />
-							))}
-							{Array.from({
-								length: (5 - (item.rating ?? 0)) as number,
-							}).map((_, index) => (
-								<StarOutlineIcon key={index} fontSize='small' />
-							))}
-						</Box>
-					)}
+					{item.rating && <StarRating rating={item.rating} />}
 				</Box>
 
 				<Divider
