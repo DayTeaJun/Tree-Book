@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ModalType } from '../../Types/componentType';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export const Modal = ({
 	setIsOpenModal,
@@ -19,6 +20,7 @@ export const Modal = ({
 			setIsOpenModal(false);
 		}
 	};
+	const { isDownMD } = useMediaQueries();
 
 	return (
 		<Box sx={{ display: isOpen ? 'block' : 'none' }}>
@@ -39,8 +41,9 @@ export const Modal = ({
 					top: '50%',
 					left: '50%',
 					transform: 'translate(-50%,-50%)',
-					padding: '3em 4em',
+					padding: `${isDownMD ? '1em' : '2em'}`,
 					backgroundColor: 'background.default',
+					borderRadius: '10px',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
@@ -50,7 +53,12 @@ export const Modal = ({
 				}}
 			>
 				<>{children}</>
-				<Box sx={{ display: 'flex', gap: '3em', marginTop: '1em' }}>
+				<Box
+					sx={{
+						display: 'flex',
+						gap: `${isDownMD ? '2em' : '3em'}`,
+					}}
+				>
 					<Box
 						component='button'
 						sx={{
@@ -59,10 +67,10 @@ export const Modal = ({
 							backgroundColor: 'background.btn',
 							color: '#fff',
 							gap: '1em',
-							fontSize: '1.1em',
+							fontSize: `${isDownMD ? '0.8em' : '1.1em'}`,
 							fontWeight: 'bold',
 							border: 'none',
-							padding: '1em 2em',
+							padding: `${isDownMD ? '8px' : '12px 16px'}`,
 							cursor: 'pointer',
 							'&:hover': { backgroundColor: 'background.btnhover' },
 						}}
@@ -78,10 +86,10 @@ export const Modal = ({
 							backgroundColor: 'background.btn',
 							color: '#fff',
 							gap: '1em',
-							fontSize: '1.1em',
+							fontSize: `${isDownMD ? '0.8em' : '1.1em'}`,
 							fontWeight: 'bold',
 							border: 'none',
-							padding: '1em 2em',
+							padding: `${isDownMD ? '8px' : '12px 16px'}`,
 							cursor: 'pointer',
 							'&:hover': { backgroundColor: 'background.btnhover' },
 						}}

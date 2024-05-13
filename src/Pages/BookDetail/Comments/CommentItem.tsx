@@ -20,6 +20,7 @@ import { CommentItemType } from '../../../Types/componentType';
 import { elapsedTime } from '../../../Utils/date';
 import { getUser } from '../../../Api/Firebase/getUser';
 import { StarRating } from '../../../Components/Rating/Rating';
+import { useMediaQueries } from '../../../Hook/useMediaQueries';
 
 export const CommentItem = ({
 	index,
@@ -37,6 +38,7 @@ export const CommentItem = ({
 	const { deleteDocument } = useFirestore('comment');
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
+	const { isDownMD } = useMediaQueries();
 
 	const {
 		data: userData,
@@ -338,7 +340,9 @@ export const CommentItem = ({
 					isOpen={isOpenModal}
 					mutationFn={() => mutation.mutate(commentUid)}
 				>
-					<M.H2>작성하신 댓글을 삭제하시겠습니까?</M.H2>
+					<M.P style={{ fontSize: `${isDownMD && '1em'}` }}>
+						작성하신 댓글을 삭제하시겠습니까?
+					</M.P>
 				</Modal>
 			)}
 		</>

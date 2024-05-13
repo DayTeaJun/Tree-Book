@@ -25,6 +25,7 @@ import { useWithdrawal } from '../../Hook/FirebaseHook/userWithdrawal';
 import { Label } from '../../Styles/Common';
 import { Helmet } from 'react-helmet-async';
 import { useSnackbar } from 'notistack';
+import { useMediaQueries } from '../../Hook/useMediaQueries';
 
 export default function ProfileEdit() {
 	const { user } = useAuthContext();
@@ -40,6 +41,7 @@ export default function ProfileEdit() {
 	const { withDrawal } = useWithdrawal();
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const { enqueueSnackbar } = useSnackbar();
+	const { isDownMD } = useMediaQueries();
 
 	const validCheck = async () => {
 		const Query = query(userRef, where('displayName', '==', displayName));
@@ -359,9 +361,15 @@ export default function ProfileEdit() {
 					isOpen={isOpenModal}
 					promise={withDrawal}
 				>
-					<M.H2>정말로 계정을 삭제하시겠습니까?</M.H2>
-					<M.P>계정을 삭제하면 복구할 수 없습니다.</M.P>
-					<M.P>(등록한 댓글 및 좋아요 기록은 자동으로 삭제되지 않습니다.)</M.P>
+					<M.P style={{ fontSize: `${isDownMD && '1em'}` }}>
+						정말로 계정을 삭제하시겠습니까?
+					</M.P>
+					<M.Span style={{ fontSize: `${isDownMD && '0.8em'}` }}>
+						계정을 삭제하면 복구할 수 없습니다.
+					</M.Span>
+					<M.Span style={{ fontSize: `${isDownMD && '0.8em'}` }}>
+						(등록한 댓글 및 좋아요 기록은 자동으로 삭제되지 않습니다.)
+					</M.Span>
 				</Modal>
 			)}
 		</>
