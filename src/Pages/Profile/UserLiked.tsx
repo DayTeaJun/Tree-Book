@@ -3,28 +3,18 @@ import { appFirestore } from '../../Firebase/config';
 import { BookData } from '../../Types/bookType';
 import BookItem from '../../Components/Books/BookItem';
 import { UserLikedProps } from '../../Types/userType';
-import { UserLikedSkeleton } from './UserLiked.skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
+import { getProfileData } from '../../Api/Firebase/getProifleData';
 
 const UserLiked = ({ uid, displayName }: UserLikedProps) => {
-	const fetchLiked = async (uid: string) => {
-		const LikesRef = collection(appFirestore, 'likedBook');
-		const likedQuery = query(LikesRef, where('likeBy.' + uid, '==', true));
-
-		const likedQuerySnapshot = await getDocs(likedQuery);
-		const result = likedQuerySnapshot.docs.map((doc) => doc.data());
-		result.sort((a, b) => b.createdTime.seconds - a.createdTime.seconds);
-		return result;
-	};
-
 	const {
 		data: userBooks,
 		isLoading,
 		error,
 	} = useQuery({
 		queryKey: ['userBooks', uid],
-		queryFn: () => fetchLiked(uid ?? ''),
+		queryFn: () => getProfileData(uid ?? '', 'likedBook'),
 	});
 
 	return (
