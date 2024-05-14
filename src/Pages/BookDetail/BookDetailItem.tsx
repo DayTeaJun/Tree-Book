@@ -23,7 +23,7 @@ export const BookDetailItem = ({
 		page: string;
 	}>();
 
-	const { isDownMD } = useMediaQueries();
+	const { isDownMD, isDownSM } = useMediaQueries();
 
 	return (
 		<>
@@ -255,26 +255,43 @@ export const BookDetailItem = ({
 								</Typography>
 							</Box>
 						)}
-						{likedBook &&
+
+						<Box
+							sx={{
+								width: `${isDownMD ? 'calc(100%)' : '50%'}`,
+								height: '100%',
+								minHeight: `${isDownMD ? '275px' : ''}`,
+								borderRadius: '5px',
+								border: 'solid 3px',
+								borderColor: 'background.btn',
+								padding: '30px',
+							}}
+						>
+							{likedBook &&
 							likedBook.length > 0 &&
 							likedBook[0] &&
-							likedBook[0].ratingBy !== undefined && (
-								<Box
+							likedBook[0].ratingBy !== undefined ? (
+								<Chart chartRating={likedBook[0].ratingBy} props='BookDetail' />
+							) : (
+								<Typography
+									component='p'
+									fontSize={`${isDownSM ? '1em' : '1.2em'}`}
+									fontWeight='bold'
 									sx={{
-										width: `${isDownMD ? 'calc(100%)' : '50%'}`,
 										height: '100%',
-										borderRadius: '5px',
-										border: `${!isDownMD && 'solid 3px'}`,
-										borderColor: 'background.btn',
-										padding: '30px',
+										color: 'text.secondary',
+										textAlign: 'center',
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center',
 									}}
 								>
-									<Chart
-										chartRating={likedBook[0].ratingBy}
-										props='BookDetail'
-									/>
-								</Box>
+									아직 등록된 별점이 없습니다!
+									<br />
+									첫번째 별점를 등록해주세요!
+								</Typography>
 							)}
+						</Box>
 					</Box>
 					{item.contents !== (undefined || '') ? (
 						<Typography
