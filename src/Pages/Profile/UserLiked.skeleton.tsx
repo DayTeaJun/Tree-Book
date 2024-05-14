@@ -11,6 +11,7 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 				display: 'flex',
 				flexDirection: 'column',
 				gap: '10px',
+				padding: '10px',
 			}}
 		>
 			<Box
@@ -53,16 +54,15 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 				<Box
 					sx={{
 						width: '100%',
-						minHeight: '228px',
+						minHeight: '216px',
 						display: 'flex',
-						padding: '1em 0',
-						gap: '10px',
+						gap: '20px',
 						overflowX: 'auto',
 						overflowY: 'hidden',
+						padding: '10px 0',
 						'&::-webkit-scrollbar': {
 							height: '10px',
 							borderRadius: '6px',
-							backgroundColor: 'background.book',
 						},
 						'&::-webkit-scrollbar-thumb': {
 							backgroundColor: 'background.hover',
@@ -70,7 +70,7 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 						},
 					}}
 				>
-					{Array.from({ length: 5 }).map((_, index) => (
+					{Array.from({ length: 10 }).map((_, index) => (
 						<BookItemSkeleton key={index} />
 					))}
 				</Box>

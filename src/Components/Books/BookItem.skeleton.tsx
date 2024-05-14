@@ -25,7 +25,6 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 				width: '140px',
 				height: '200px',
 				borderRadius: '5px',
-				padding: '10px',
 				flexShrink: '0',
 				backgroundColor: 'background.book',
 			}}
