@@ -20,6 +20,7 @@ export default function HomeFeed() {
 					flexDirection: 'column',
 					width: '100%',
 					gap: '20px',
+					paddingBottom: '20px',
 				}}
 			>
 				<Box
@@ -48,6 +49,7 @@ export default function HomeFeed() {
 					component='section'
 					sx={{
 						display: 'flex',
+						flexDirection: 'column',
 						width: '100%',
 						height: '100%',
 						gap: '20px',

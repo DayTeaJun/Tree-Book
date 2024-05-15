@@ -2,14 +2,17 @@ import { Box, Paper, Typography } from '@mui/material';
 import { BookData } from '../../Types/bookType';
 import Carousel from 'react-material-ui-carousel';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { getBestcomments } from '../../Api/Firebase/getBestBook';
-import BookItem from '../Books/BookItem';
+import StarIcon from '@mui/icons-material/Star';
+import errorImg from '../../Assets/No-img.svg';
+import { useNavigate } from 'react-router-dom';
+import { avgRating } from '../../Utils/CalRating';
 
 const BestView = () => {
+	const navigate = useNavigate();
 	const { isDownSM, isDownMD } = useMediaQueries();
-	const itemsPerPage = isDownSM ? 2 : isDownMD ? 4 : 5;
+	const itemsPerPage = isDownSM ? 3 : isDownMD ? 4 : 6;
 
 	const {
 		data: likedBooks,
@@ -17,7 +20,7 @@ const BestView = () => {
 		error,
 	} = useQuery({
 		queryKey: ['homeFeedLikedBooks'],
-		queryFn: () => getBestcomments('likedBook', 'views', 20),
+		queryFn: () => getBestcomments('likedBook', 'views', 12),
 	});
 
 	const chunkArray = (arr: BookData[], chunkSize: number) => {
@@ -30,6 +33,12 @@ const BestView = () => {
 
 	const chunkedLikedBooks =
 		likedBooks && chunkArray(likedBooks as any, itemsPerPage);
+
+	const onMoveBookDetail = (isbn: string) => {
+		const likeIsbn =
+			isbn.split(' ')[0] === '' ? isbn.split(' ')[1] : isbn.split(' ')[0];
+		navigate(`/search/like/${likeIsbn}/1/0`, { state: { isbn } });
+	};
 
 	return (
 		<>
@@ -46,13 +55,13 @@ const BestView = () => {
 			<Carousel
 				animation='slide'
 				duration={1000}
-				height={`${isDownSM ? '280px' : '300px'}`}
 				autoPlay={false}
 				sx={{
 					width: '100%',
-					margin: '0 auto',
 				}}
 				navButtonsAlwaysVisible={true}
+				cycleNavigation={false}
+				indicators={false}
 			>
 				{chunkedLikedBooks &&
 					chunkedLikedBooks.map((_, index: number) => (
@@ -63,26 +72,113 @@ const BestView = () => {
 								height: '100%',
 								display: 'flex',
 								alignItems: 'center',
-								justifyContent: 'center',
 								gap: '20px',
 								boxShadow: 'none',
 								borderRadius: '0',
 								background: 'inherit',
 								cursor: 'pointer',
-								paddingTop: '20px',
+								padding: '0 30px',
 							}}
 						>
 							{chunkedLikedBooks &&
 								(chunkedLikedBooks[index] as BookData[]).map(
 									(item: BookData, index: number) => (
-										<BookItem
-											item={item}
-											page={item.page}
-											id={item.id}
-											search={item.search}
-											key={item.url}
-											like={item.isbn}
-										/>
+										<Box
+											sx={{
+												width: isDownSM
+													? 'calc((100% - 40px) / 3)'
+													: isDownMD
+													? 'calc((100% - 60px) / 4)'
+													: 'calc((100% - 100px) / 6)',
+												borderRadius: '5px',
+												cursor: 'pointer',
+											}}
+											key={index}
+											onClick={() => onMoveBookDetail(item.isbn)}
+										>
+											{item.thumbnail ? (
+												<img
+													style={{
+														borderRadius: '5px',
+														boxShadow:
+															'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
+													}}
+													src={item.thumbnail}
+													alt={`책 ${item.title}의 이미지`}
+												/>
+											) : (
+												<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
+											)}
+											<Box
+												sx={{
+													display: 'flex',
+													flexDirection: 'column',
+												}}
+											>
+												<Typography
+													component='h2'
+													fontSize={'1em'}
+													fontWeight={'bold'}
+													sx={{
+														width: '100%',
+														color: 'text.primary',
+														marginTop: '5px',
+														whiteSpace: 'nowrap',
+														overflow: 'hidden',
+														textOverflow: 'ellipsis',
+														'&:hover': {
+															textDecoration: 'underline',
+															textDecorationColor: '#ccc',
+															textUnderlinePosition: 'under',
+														},
+													}}
+												>
+													{item.title}
+												</Typography>
+
+												<Typography
+													component='p'
+													fontSize={'0.9em'}
+													fontWeight={'bold'}
+													sx={{
+														width: '100%',
+														color: 'text.secondary',
+														whiteSpace: 'nowrap',
+														overflow: 'hidden',
+														textOverflow: 'ellipsis',
+													}}
+												>
+													{item.authors.length > 0
+														? item.authors.length > 1
+															? item.authors.join(' | ')
+															: item.authors[0]
+														: '　'}
+												</Typography>
+												<Box
+													sx={{
+														display: 'flex',
+														alignItems: 'center',
+														gap: '5px',
+													}}
+												>
+													<StarIcon sx={{ fontSize: '1em' }} />
+													<Typography
+														component='p'
+														fontSize={'0.9em'}
+														fontWeight={'bold'}
+														sx={{
+															color: 'text.secondary',
+														}}
+													>
+														{item.ratingBy
+															? `${(avgRating(item.ratingBy) ?? 0).toFixed(
+																	1
+															  )} (${Object.keys(item.ratingBy).length})`
+															: '0.0 (0)'}
+													</Typography>
+												</Box>
+											</Box>
+										</Box>
 									)
 								)}
 						</Paper>
