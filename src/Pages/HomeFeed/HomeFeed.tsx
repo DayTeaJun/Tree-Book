@@ -3,6 +3,7 @@ import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
 import { PopularSection } from './PopularSection';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
+import BestView from '../../Components/Carousel/BestView';
 
 export default function HomeFeed() {
 	const { isDownSM } = useMediaQueries();
@@ -55,7 +56,8 @@ export default function HomeFeed() {
 					}}
 				>
 					<PopularSection props='ratingBy' />
-					<PopularSection props='views' />
+					{/* <PopularSection props='views' /> */}
+					<BestView />
 				</Box>
 			</Box>
 		</>
