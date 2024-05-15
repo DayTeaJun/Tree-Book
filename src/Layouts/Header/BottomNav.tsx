@@ -24,6 +24,7 @@ export const BottomNav = () => {
 				padding: '10px 0',
 				borderTop: '1px solid',
 				borderColor: 'text.secondary',
+				zIndex: 99,
 			}}
 		>
 			<Link to='/' style={{ textAlign: 'center', cursor: 'pointer' }}>
