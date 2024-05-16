@@ -1,5 +1,3 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { appFirestore } from '../../Firebase/config';
 import { UserLikedProps } from '../../Types/userType';
 import BookItem from '../../Components/Books/BookItem';
 import { useQuery } from '@tanstack/react-query';
@@ -24,7 +22,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 					component='section'
 					sx={{
 						width: '100%',
-						minHeight: '346px',
+						minHeight: '350px',
 						display: 'flex',
 						flexDirection: 'column',
 						gap: '10px',
@@ -50,14 +48,13 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 					<Box
 						sx={{
 							width: '100%',
-							height: '290px',
+							height: '289px',
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'center',
 							gap: '10px',
 							overflowY: 'auto',
 							overflowX: 'hidden',
-
 							'&::-webkit-scrollbar': {
 								width: '10px',
 								borderRadius: '6px',

@@ -47,7 +47,6 @@ export default function Profile() {
 				component='main'
 				sx={{
 					width: '100%',
-					height: '100%',
 					display: 'flex',
 					flexDirection: 'column',
 					overflow: 'hidden',
