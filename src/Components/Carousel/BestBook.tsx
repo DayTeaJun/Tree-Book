@@ -16,7 +16,6 @@ const BestBook = () => {
 	} = useQuery({
 		queryKey: ['bestBook'],
 		queryFn: () => getLikedBooks('best'),
-		refetchOnMount: true,
 	});
 
 	const onMoveBookDetail = (isbn: string) => {

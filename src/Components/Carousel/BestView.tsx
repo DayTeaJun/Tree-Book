@@ -69,7 +69,7 @@ const BestView = () => {
 							key={index}
 							sx={{
 								width: '100%',
-								height: '100%',
+								minHeight: isDownSM ? '220px' : isDownMD ? '260px' : '250px',
 								display: 'flex',
 								alignItems: 'center',
 								gap: '20px',
