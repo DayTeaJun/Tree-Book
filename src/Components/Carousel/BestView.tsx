@@ -54,7 +54,7 @@ const BestView = () => {
 			</Typography>
 			<Carousel
 				animation='slide'
-				duration={1000}
+				duration={500}
 				autoPlay={false}
 				sx={{
 					width: '100%',
