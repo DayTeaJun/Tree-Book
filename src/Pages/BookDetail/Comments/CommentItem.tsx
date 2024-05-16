@@ -73,6 +73,12 @@ export const CommentItem = ({
 				ratingBook,
 			});
 
+			if (Object.keys(ratingBook).length === 0) {
+				await updateDoc(doc(collection(appFirestore, 'user'), user.uid), {
+					ratingBook: deleteField(),
+				});
+			}
+
 			await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 				...documents[0],
 				ratingBy,
