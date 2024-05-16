@@ -7,6 +7,7 @@
 </p>
 <h4 align="center">📚Tree Book - 책들의 나무📚</h4>
 <h5 align="center">배포 링크 : <a href="https://tree-book.vercel.app">Tree-Book-책들의-나무</a></h5>
+<h5 align="center">게스트 ID/PW : gkfnck@naver.com / 123123</h5>
 
 <br>
 
@@ -21,7 +22,7 @@
 
 ## 기술 스택
 
-| Typescript | React |  MUI   |  ReactQuery   | Firebase |
+| TypeScript | React |  MUI   |  ReactQuery   | Firebase |
 | :--------: | :--------: | :------: | :-----: |:-----: |
 | <img src="https://github.com/DayTeaJun/Tree-Book/assets/108723143/700d2f5b-1d7a-46e5-b9a1-45be06aaaa21" width="100"> | <img src="https://github.com/DayTeaJun/Tree-Book/assets/108723143/d0e812c5-bc5a-4738-983a-63d3cda83e70" width="100"> | <img src="https://github.com/DayTeaJun/Tree-Book/assets/108723143/26fdfde4-44be-446e-ad95-6c96215e02b4" width="100"> | <img src="https://github.com/DayTeaJun/Tree-Book/assets/108723143/0f05751e-bf00-4ef5-98de-ba07a793f658" width="100"> | <img src="https://github.com/DayTeaJun/Tree-Book/assets/108723143/90a3980d-d02d-4ea8-b32f-f9434655377d" width="100"> |
 
