@@ -11,7 +11,7 @@ export interface AuthContextProps {
 type AuthAction =
 	| { type: 'login'; payload: User }
 	| { type: 'logout' }
-	| { type: 'isAuthReady'; payload: User; isAuthReady?: boolean };
+	| { type: 'isAuthReady'; payload: User | null; isAuthReady?: boolean };
 
 const authReducer = (
 	state: AuthContextProps,
@@ -49,7 +49,7 @@ const AuthContextProvider = ({ children }: Props) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(appAuth, (user) => {
-			user && dispatch({ type: 'isAuthReady', payload: user });
+			dispatch({ type: 'isAuthReady', payload: user });
 		});
 		return unsubscribe;
 	}, []);
