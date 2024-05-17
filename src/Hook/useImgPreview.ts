@@ -1,18 +1,18 @@
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 export function ImgPreview() {
-	const [imageSrc, setImageSrc]: any = useState(null);
-	const [imgUrl, setImgUrl] = useState(null);
+	const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
+	const [imgUrl, setImgUrl] = useState<File | null>(null);
 	const { enqueueSnackbar } = useSnackbar();
 
-	const onUpload = (e: any) => {
+	const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
 		const fileRegex = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
-		const file = e.target.files[0];
+		const file = e.target.files?.[0];
 
 		if (file) {
-			const fileEx = '.' + file.name.split('.').pop().toLowerCase();
-			if (fileRegex.test(fileEx)) {
+			const fileEx = '.' + file.name.split('.').pop()?.toLowerCase();
+			if (fileEx && fileRegex.test(fileEx)) {
 				setImgUrl(file);
 				const reader = new FileReader();
 				reader.readAsDataURL(file);

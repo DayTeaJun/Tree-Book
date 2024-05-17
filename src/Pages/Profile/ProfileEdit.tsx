@@ -176,7 +176,11 @@ export default function ProfileEdit() {
 								objectFit: 'cover',
 								flexShrink: 0,
 							}}
-							src={(imgUrl && imageSrc) || (user && user.photoURL) || persImg}
+							src={
+								(typeof imageSrc === 'string' && imageSrc) ||
+								(user && user.photoURL) ||
+								persImg
+							}
 							alt={'프로필 이미지 사진입니다.'}
 						/>
 						<ImageSearchIcon

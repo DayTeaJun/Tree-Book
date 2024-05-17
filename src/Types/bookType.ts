@@ -22,6 +22,7 @@ export interface BookData {
 	createdTime?: Timestamp;
 	rating?: number;
 	ratingBy?: { [key: string]: number };
+	likeBy?: { [key: string]: boolean };
 }
 
 export interface SerachParams {

@@ -28,14 +28,22 @@ const options = {
 	},
 };
 
+interface Palette {
+	palette: {
+		background: {
+			hover: string;
+		};
+	};
+}
+
 export const Chart = ({
 	chartRating,
 	props,
 }: {
-	chartRating: any;
+	chartRating: { [key: string]: number };
 	props: string;
 }) => {
-	const theme = useTheme() as any;
+	const theme = useTheme() as Palette;
 
 	const ratingValues = Object.values(chartRating) as Array<number>;
 	let ratingSum;

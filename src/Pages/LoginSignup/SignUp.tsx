@@ -69,7 +69,7 @@ export default function SignUp() {
 										flexShrink: 0,
 										borderRadius: '50%',
 									}}
-									src={(imgUrl && imageSrc) || temImg}
+									src={(typeof imageSrc === 'string' && imageSrc) || temImg}
 									alt={'프로필 이미지 등록'}
 								/>
 								<ImageSearchIcon

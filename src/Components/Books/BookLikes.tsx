@@ -12,8 +12,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const { user } = useAuthContext();
 	const isbn = item.isbn;
-	const { likeBy }: any = item;
-	const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
+	const { likeBy } = item;
+	const likedUser = user ? likeBy && likeBy[user.uid] === true : false;
 	const [like, setLike] = useState<boolean | undefined>(likedUser);
 	const [number, setNumber] = useState<number | undefined>();
 	const queryClient = useQueryClient();

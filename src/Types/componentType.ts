@@ -17,12 +17,12 @@ export interface ValidInputProps {
 }
 
 export interface PaginaitionType {
-	page?: string | number;
-	searchView?: string;
+	page: string | number;
 	handlePageChange?: (newPage: number) => void;
-	totalPage?: number;
 	count?: number | null;
 	menuRef?: RefObject<HTMLDivElement> | null;
+	totalPage?: number;
+	searchView?: string;
 }
 
 export interface LoadingType {
@@ -39,14 +39,6 @@ export interface CommentItemType {
 }
 
 export interface CommentType {
-	item?: FirestoreDocument;
-	book?: string;
-	comments?: string;
-	createdTime?: string;
-	displayName?: string;
-	id?: string;
-	isbn?: string;
-	photoURL?: string;
+	item: FirestoreDocument;
 	uid?: string;
-	likeBy?: { [key: string]: boolean };
 }

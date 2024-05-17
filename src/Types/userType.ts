@@ -1,7 +1,7 @@
 import { Timestamp } from 'firebase/firestore';
 
 export interface UserLikedProps {
-	uid?: string;
+	uid: string;
 	displayName?: string | null;
 }
 
@@ -9,8 +9,8 @@ export interface SignupType {
 	email: string;
 	password: string;
 	displayName: string;
+	intro: string;
 	imgUrl?: Blob;
-	intro?: string;
 }
 
 export interface LoginType {
@@ -23,15 +23,4 @@ export interface InputValueType {
 	password: string;
 	displayName: string;
 	intro: string;
-}
-
-export interface UserProfileType {
-	createdTime: Timestamp;
-	displayName: string;
-	email: string;
-	intro: string;
-	password: string;
-	photoURL: string;
-	uid: string;
-	ratingBook?: any;
 }

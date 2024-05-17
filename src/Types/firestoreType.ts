@@ -1,7 +1,7 @@
-import { DocumentReference, Timestamp } from 'firebase/firestore';
+import { DocumentData, DocumentReference, Timestamp } from 'firebase/firestore';
 
 export interface StoreState {
-	document: DocumentReference | null;
+	document: DocumentReference<DocumentData> | null;
 	isPending: boolean;
 	error: string | null;
 	success: boolean;
@@ -9,8 +9,8 @@ export interface StoreState {
 
 export type StoreAction =
 	| { type: 'isPending' }
-	| { type: 'addDoc'; payload: DocumentReference }
-	| { type: 'deleteDoc'; payload: DocumentReference }
+	| { type: 'addDoc'; payload: DocumentReference<DocumentData> }
+	| { type: 'deleteDoc'; payload: null }
 	| { type: 'error'; payload: string };
 
 export interface FirestoreDocument {

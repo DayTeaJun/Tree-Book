@@ -12,7 +12,7 @@ import { useSnackbar } from 'notistack';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useAuthContext();
-	const { likeBy }: any = item;
+	const { likeBy } = item;
 	const [likeAlready, setLikeAlready] = useState(false);
 	const { addDocument } = useFirestore('comment', uid);
 	const commentRef = doc(collection(appFirestore, 'comment'), uid);
@@ -20,8 +20,10 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
-		const likedUser = user ? likeBy && likeBy[user!.uid] === true : false;
-		setLikeAlready(likedUser);
+		const likedUser = user ? likeBy && likeBy[user.uid] === true : false;
+		if (likedUser) {
+			setLikeAlready(likedUser);
+		}
 	}, [item]);
 
 	const mutation = useMutation({

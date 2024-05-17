@@ -1,4 +1,6 @@
 import {
+	DocumentData,
+	DocumentReference,
 	addDoc,
 	collection,
 	deleteDoc,
@@ -37,7 +39,7 @@ const storeReducer = (state: StoreState, action: StoreAction) => {
 		case 'deleteDoc':
 			return {
 				isPending: false,
-				document: action.payload,
+				document: null,
 				success: true,
 				error: null,
 			};
@@ -69,11 +71,10 @@ export const useFirestore = (
 	const addDocument = async (docs: FirestoreDocument) => {
 		dispatch({ type: 'isPending' });
 		try {
-			let docRef;
+			let docRef: DocumentReference<DocumentData>;
 			if (name) {
-				docRef = (await setDoc(doc(colRef, name), {
-					...docs,
-				})) as any;
+				docRef = doc(colRef, name);
+				await setDoc(docRef, { ...docs });
 			} else {
 				const createdTime = timestamp.fromDate(new Date());
 				docRef = await addDoc(colRef, {
@@ -93,8 +94,8 @@ export const useFirestore = (
 	const deleteDocument = async (id: string) => {
 		dispatch({ type: 'isPending' });
 		try {
-			const docRef = (await deleteDoc(doc(colRef, id))) as any;
-			dispatch({ type: 'deleteDoc', payload: docRef });
+			await deleteDoc(doc(colRef, id));
+			dispatch({ type: 'deleteDoc', payload: null });
 		} catch (error) {
 			const firebaseError = error as FirebaseError;
 			dispatch({ type: 'error', payload: firebaseError.message });

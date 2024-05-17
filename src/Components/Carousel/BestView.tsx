@@ -8,6 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import errorImg from '../../Assets/No-img.svg';
 import { useNavigate } from 'react-router-dom';
 import { avgRating } from '../../Utils/CalRating';
+import { FirestoreDocument } from '../../Types/firestoreType';
 
 const BestView = () => {
 	const navigate = useNavigate();
@@ -23,7 +24,7 @@ const BestView = () => {
 		queryFn: () => getBestcomments('likedBook', 'views', 12),
 	});
 
-	const chunkArray = (arr: BookData[], chunkSize: number) => {
+	const chunkArray = (arr: FirestoreDocument[], chunkSize: number) => {
 		const chunkedArray = [];
 		for (let i = 0; i < arr.length; i += chunkSize) {
 			chunkedArray.push(arr.slice(i, i + chunkSize));
@@ -31,8 +32,7 @@ const BestView = () => {
 		return chunkedArray;
 	};
 
-	const chunkedLikedBooks =
-		likedBooks && chunkArray(likedBooks as any, itemsPerPage);
+	const chunkedLikedBooks = likedBooks && chunkArray(likedBooks, itemsPerPage);
 
 	const onMoveBookDetail = (isbn: string) => {
 		const likeIsbn =

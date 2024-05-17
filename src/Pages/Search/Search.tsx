@@ -159,7 +159,7 @@ export default function Search() {
 					<p>검색 결과가 없습니다.</p>
 				)}
 			</Box>
-			{!isLoading && books.documents.length > 0 && (
+			{page && !isLoading && books.documents.length > 0 && (
 				<CustomPaginaition
 					page={page}
 					searchView={searchView}

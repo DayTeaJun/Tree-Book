@@ -49,7 +49,7 @@ const AuthContextProvider = ({ children }: Props) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(appAuth, (user) => {
-			dispatch({ type: 'isAuthReady', payload: user! });
+			user && dispatch({ type: 'isAuthReady', payload: user });
 		});
 		return unsubscribe;
 	}, []);
