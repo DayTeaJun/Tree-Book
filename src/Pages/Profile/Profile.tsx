@@ -191,23 +191,35 @@ export default function Profile() {
 							padding: '20px',
 						}}
 					>
-						<Typography
-							component='p'
-							fontSize='1.1em'
-							fontWeight='bold'
-							color='text.primary'
-							sx={{
-								width: '100%',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-								marginBottom: '10px',
-							}}
-						>
-							{`별점분포`}
-						</Typography>
-						{!isLoading && userDocument?.ratingBook ? (
-							<Chart chartRating={userDocument.ratingBook} props='profile' />
+						{isLoading ? (
+							<Box
+								sx={{
+									width: '100%',
+									height: '100%',
+									overflow: 'hidden',
+								}}
+							>
+								<Shimmer />
+							</Box>
+						) : !isLoading && userDocument?.ratingBook ? (
+							<>
+								<Typography
+									component='p'
+									fontSize='1.1em'
+									fontWeight='bold'
+									color='text.primary'
+									sx={{
+										width: '100%',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										marginBottom: '10px',
+									}}
+								>
+									{`별점분포`}
+								</Typography>
+								<Chart chartRating={userDocument.ratingBook} props='profile' />
+							</>
 						) : (
 							<Box
 								sx={{
