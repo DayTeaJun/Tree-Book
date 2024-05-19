@@ -56,6 +56,7 @@ const BestView = () => {
 				animation='slide'
 				duration={500}
 				autoPlay={false}
+				height={`${!isLoading ? '300px' : ''}`}
 				sx={{
 					width: '100%',
 				}}
@@ -63,7 +64,32 @@ const BestView = () => {
 				cycleNavigation={false}
 				indicators={false}
 			>
-				{chunkedLikedBooks &&
+				{isLoading ? (
+					<Paper
+						sx={{
+							width: '100%',
+							height: '100%',
+							display: 'flex',
+							flexDirection: `${isDownSM ? 'column' : 'row'}`,
+							padding: '30px 70px',
+							boxShadow: 'none',
+							borderRadius: '0',
+							background: 'inherit',
+							cursor: 'pointer',
+						}}
+					>
+						<Box
+							sx={{
+								width: '100%',
+								height: '100%',
+								overflow: 'hidden',
+								backgroundColor: 'background.book',
+								padding: '30px 70px',
+							}}
+						></Box>
+					</Paper>
+				) : (
+					chunkedLikedBooks &&
 					chunkedLikedBooks.map((_, index: number) => (
 						<Paper
 							key={index}
@@ -182,7 +208,8 @@ const BestView = () => {
 									)
 								)}
 						</Paper>
-					))}
+					))
+				)}
 			</Carousel>
 		</>
 	);
