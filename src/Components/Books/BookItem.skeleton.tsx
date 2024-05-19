@@ -12,6 +12,7 @@ export const BookItemSkeleton = ({ comment }: Skeleton) => {
 					overflow: 'hidden',
 					borderRadius: '5px',
 					flexShrink: '0',
+					backgroundColor: 'background.book',
 				}}
 			>
 				<Shimmer />

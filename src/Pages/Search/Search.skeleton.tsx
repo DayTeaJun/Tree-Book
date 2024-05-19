@@ -34,6 +34,7 @@ export const SearchSkeleton = () => {
 						borderRadius: '5px',
 						overflow: 'hidden',
 						flexShrink: 0,
+						backgroundColor: 'background.book',
 					}}
 				>
 					<Shimmer />
@@ -49,10 +50,22 @@ export const SearchSkeleton = () => {
 						overflow: 'hidden',
 					}}
 				>
-					<Box sx={{ height: '25px', overflow: 'hidden' }}>
+					<Box
+						sx={{
+							height: '25px',
+							overflow: 'hidden',
+							backgroundColor: 'background.book',
+						}}
+					>
 						<Shimmer />
 					</Box>
-					<Box sx={{ height: '20px', overflow: 'hidden' }}>
+					<Box
+						sx={{
+							height: '20px',
+							overflow: 'hidden',
+							backgroundColor: 'background.book',
+						}}
+					>
 						<Shimmer />
 					</Box>
 					<Divider sx={{ margin: '5px 0' }} />

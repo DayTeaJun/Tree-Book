@@ -20,6 +20,7 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 					height: '18px',
 					overflow: 'hidden',
 					margin: '0 auto',
+					backgroundColor: 'background.book',
 				}}
 			>
 				<Shimmer />
