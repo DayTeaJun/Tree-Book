@@ -8,6 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { avgRating } from '../../Utils/CalRating';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { SearchSkeleton } from '../Search/Search.skeleton';
+import { PopularSectionSkeleton } from './PopularSection.skeleton';
 
 export const PopularSection = () => {
 	const navigate = useNavigate();
@@ -51,130 +52,134 @@ export const PopularSection = () => {
 					minHeight: '400px',
 				}}
 			>
-				{likedBooks &&
-					(likedBooks as BookData[]).map((item: BookData, index: number) => (
-						<Box
-							component='li'
-							key={index}
-							sx={{
-								width: `${
-									(isDownMD && '100%') ||
-									(isDownLG && 'calc((100% - 20px) / 2)') ||
-									'calc((100% - 20px) / 3)'
-								}`,
-								height: '120px',
-								display: 'flex',
-								color: 'text.primary',
-								fontWeight: 'bold',
-								paddingRight: '20px',
-								marginBottom: '10px',
-							}}
-						>
+				{isLoading
+					? Array.from({ length: 9 }).map((_, index) => (
+							<PopularSectionSkeleton key={index} />
+					  ))
+					: likedBooks &&
+					  (likedBooks as BookData[]).map((item: BookData, index: number) => (
 							<Box
+								component='li'
+								key={index}
 								sx={{
-									width: '100%',
-									height: '100%',
+									width: `${
+										(isDownMD && '100%') ||
+										(isDownLG && 'calc((100% - 20px) / 2)') ||
+										'calc((100% - 20px) / 3)'
+									}`,
+									height: '120px',
 									display: 'flex',
-									alignItems: 'center',
-									gap: '20px',
+									color: 'text.primary',
+									fontWeight: 'bold',
+									paddingRight: '20px',
+									marginBottom: '10px',
 								}}
 							>
-								<Typography
-									fontWeight='bold'
-									fontSize='1.1em'
-									sx={{ width: '5%', flexShrink: 0 }}
-								>
-									{index + 1}
-								</Typography>
 								<Box
 									sx={{
-										width: '80px',
-										borderRadius: '5px',
-										cursor: 'pointer',
-										overflow: 'hidden',
-										flexShrink: 0,
-									}}
-									onClick={() => onMoveBookDetail(item.isbn)}
-								>
-									{item.thumbnail ? (
-										<img
-											src={item.thumbnail}
-											alt={`책 ${item.title}의 이미지`}
-										/>
-									) : (
-										<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
-									)}
-								</Box>
-								<Box
-									sx={{
-										width: 'calc(90% - 140px)',
+										width: '100%',
+										height: '100%',
 										display: 'flex',
-										flexDirection: 'column',
-										gap: '3px',
+										alignItems: 'center',
+										gap: '20px',
 									}}
 								>
 									<Typography
+										fontWeight='bold'
 										fontSize='1.1em'
-										fontWeight={'bold'}
+										sx={{ width: '5%', flexShrink: 0 }}
+									>
+										{index + 1}
+									</Typography>
+									<Box
 										sx={{
-											overflow: 'hidden',
-											textOverflow: 'ellipsis',
+											width: '80px',
+											borderRadius: '5px',
 											cursor: 'pointer',
-											whiteSpace: 'nowrap',
-											'&:hover': {
-												textDecoration: 'underline',
-												textDecorationColor: '#ccc',
-												textUnderlinePosition: 'under',
-											},
+											overflow: 'hidden',
+											flexShrink: 0,
 										}}
 										onClick={() => onMoveBookDetail(item.isbn)}
 									>
-										{item.title}
-									</Typography>
-									<Typography
-										component='p'
-										fontSize={'0.9em'}
-										fontWeight={'bold'}
+										{item.thumbnail ? (
+											<img
+												src={item.thumbnail}
+												alt={`책 ${item.title}의 이미지`}
+											/>
+										) : (
+											<img src={errorImg} alt={`책 ${item.title}의 이미지`} />
+										)}
+									</Box>
+									<Box
 										sx={{
-											color: 'text.secondary',
-											whiteSpace: 'nowrap',
-											overflow: 'hidden',
-											textOverflow: 'ellipsis',
+											width: 'calc(90% - 140px)',
+											display: 'flex',
+											flexDirection: 'column',
+											gap: '3px',
 										}}
 									>
-										{item.authors.length > 1
-											? item.authors.join(' | ')
-											: item.authors}
-									</Typography>
-									{item.ratingBy && (
-										<>
-											<Box
-												sx={{
-													display: 'flex',
-													alignItems: 'center',
-													gap: '5px',
-												}}
-											>
-												<StarIcon sx={{ fontSize: '1em' }} />
-												<Typography
-													component='p'
-													fontSize={'0.9em'}
-													fontWeight={'bold'}
+										<Typography
+											fontSize='1.1em'
+											fontWeight={'bold'}
+											sx={{
+												overflow: 'hidden',
+												textOverflow: 'ellipsis',
+												cursor: 'pointer',
+												whiteSpace: 'nowrap',
+												'&:hover': {
+													textDecoration: 'underline',
+													textDecorationColor: '#ccc',
+													textUnderlinePosition: 'under',
+												},
+											}}
+											onClick={() => onMoveBookDetail(item.isbn)}
+										>
+											{item.title}
+										</Typography>
+										<Typography
+											component='p'
+											fontSize={'0.9em'}
+											fontWeight={'bold'}
+											sx={{
+												color: 'text.secondary',
+												whiteSpace: 'nowrap',
+												overflow: 'hidden',
+												textOverflow: 'ellipsis',
+											}}
+										>
+											{item.authors.length > 1
+												? item.authors.join(' | ')
+												: item.authors}
+										</Typography>
+										{item.ratingBy && (
+											<>
+												<Box
 													sx={{
-														color: 'text.secondary',
+														display: 'flex',
+														alignItems: 'center',
+														gap: '5px',
 													}}
 												>
-													{`${(avgRating(item.ratingBy) ?? 0).toFixed(1)} (${
-														Object.keys(item.ratingBy).length
-													})`}
-												</Typography>
-											</Box>
-										</>
-									)}
+													<StarIcon sx={{ fontSize: '1em' }} />
+													<Typography
+														component='p'
+														fontSize={'0.9em'}
+														fontWeight={'bold'}
+														sx={{
+															color: 'text.secondary',
+														}}
+													>
+														{`${(avgRating(item.ratingBy) ?? 0).toFixed(1)} (${
+															Object.keys(item.ratingBy).length
+														})`}
+													</Typography>
+												</Box>
+											</>
+										)}
+									</Box>
 								</Box>
 							</Box>
-						</Box>
-					))}
+					  ))}
 			</Box>
 		</>
 	);
