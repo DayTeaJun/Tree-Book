@@ -5,8 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
-import { Shimmer } from '../../Styles/Common';
-import { CarouselSkeleton } from './Carousel.skeleton';
+import { BestBookSkeleton } from './BestBook.skeleton';
 
 const BestBook = () => {
 	const navigate = useNavigate();
@@ -40,8 +39,8 @@ const BestBook = () => {
 			}}
 			navButtonsAlwaysVisible={true}
 		>
-			{!isLoading ? (
-				<CarouselSkeleton />
+			{isLoading ? (
+				<BestBookSkeleton />
 			) : (
 				likedBooks &&
 				(likedBooks as BookData[]).map((item: BookData, index: number) => (

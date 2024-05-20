@@ -9,6 +9,7 @@ import errorImg from '../../Assets/No-img.svg';
 import { useNavigate } from 'react-router-dom';
 import { avgRating } from '../../Utils/CalRating';
 import { FirestoreDocument } from '../../Types/firestoreType';
+import { BestViewSkeleton } from './BestView.skeleton';
 
 const BestView = () => {
 	const navigate = useNavigate();
@@ -65,29 +66,7 @@ const BestView = () => {
 				indicators={false}
 			>
 				{isLoading ? (
-					<Paper
-						sx={{
-							width: '100%',
-							height: '100%',
-							display: 'flex',
-							flexDirection: `${isDownSM ? 'column' : 'row'}`,
-							padding: '30px 70px',
-							boxShadow: 'none',
-							borderRadius: '0',
-							background: 'inherit',
-							cursor: 'pointer',
-						}}
-					>
-						<Box
-							sx={{
-								width: '100%',
-								height: '100%',
-								overflow: 'hidden',
-								backgroundColor: 'background.book',
-								padding: '30px 70px',
-							}}
-						></Box>
-					</Paper>
+					<BestViewSkeleton />
 				) : (
 					chunkedLikedBooks &&
 					chunkedLikedBooks.map((_, index: number) => (
