@@ -12,6 +12,8 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 				flexDirection: 'column',
 				gap: '10px',
 				padding: '10px',
+				backgroundColor: 'background.content',
+				borderRadius: '5px',
 			}}
 		>
 			<Box
@@ -33,7 +35,6 @@ export const UserLikedSkeleton = ({ comment }: Skeleton) => {
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'center',
-						padding: '1em 0',
 						gap: '10px',
 						overflowY: 'auto',
 						overflowX: 'hidden',

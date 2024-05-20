@@ -214,6 +214,7 @@ export default function Profile() {
 										alignItems: 'center',
 										justifyContent: 'center',
 										marginBottom: '10px',
+										borderRadius: '5px',
 									}}
 								>
 									{`별점분포`}
@@ -253,7 +254,7 @@ export default function Profile() {
 				) : (
 					<>
 						<UserLikedSkeleton />
-						<UserLikedSkeleton comment={'comment'} />;
+						<UserLikedSkeleton comment={'comment'} />
 					</>
 				)}
 			</Box>
