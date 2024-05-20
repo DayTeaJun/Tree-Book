@@ -9,11 +9,10 @@ import errorImg from '../../Assets/No-img.svg';
 import { useNavigate } from 'react-router-dom';
 import { avgRating } from '../../Utils/CalRating';
 import { FirestoreDocument } from '../../Types/firestoreType';
-import { BestViewSkeleton } from './BestView.skeleton';
 
 const BestView = () => {
 	const navigate = useNavigate();
-	const { isDownSM, isDownMD } = useMediaQueries();
+	const { isDownSM, isDownMD, isDownLG } = useMediaQueries();
 	const itemsPerPage = isDownSM ? 3 : isDownMD ? 4 : 6;
 
 	const {
@@ -57,7 +56,12 @@ const BestView = () => {
 				animation='slide'
 				duration={500}
 				autoPlay={false}
-				height={`${!isLoading ? '300px' : ''}`}
+				height={
+					(isDownSM && '250px') ||
+					(isDownMD && '350px') ||
+					(isDownLG && '300px') ||
+					'350px'
+				}
 				sx={{
 					width: '100%',
 				}}
@@ -66,7 +70,29 @@ const BestView = () => {
 				indicators={false}
 			>
 				{isLoading ? (
-					<BestViewSkeleton />
+					<Paper
+						sx={{
+							width: '100%',
+							height: '100%',
+							display: 'flex',
+							flexDirection: `${isDownSM ? 'column' : 'row'}`,
+							padding: '30px 70px',
+							boxShadow: 'none',
+							borderRadius: '0',
+							background: 'inherit',
+							cursor: 'pointer',
+						}}
+					>
+						<Box
+							sx={{
+								width: '100%',
+								height: '100%',
+								overflow: 'hidden',
+								backgroundColor: 'background.book',
+								padding: '30px 70px',
+							}}
+						></Box>
+					</Paper>
 				) : (
 					chunkedLikedBooks &&
 					chunkedLikedBooks.map((_, index: number) => (
