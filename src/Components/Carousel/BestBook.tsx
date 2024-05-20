@@ -6,6 +6,7 @@ import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { Shimmer } from '../../Styles/Common';
+import { CarouselSkeleton } from './Carousel.skeleton';
 
 const BestBook = () => {
 	const navigate = useNavigate();
@@ -39,30 +40,8 @@ const BestBook = () => {
 			}}
 			navButtonsAlwaysVisible={true}
 		>
-			{isLoading ? (
-				<Paper
-					sx={{
-						width: '100%',
-						height: 'calc(100% + 18px)',
-						display: 'flex',
-						flexDirection: `${isDownSM ? 'column' : 'row'}`,
-						padding: '30px 70px',
-						boxShadow: 'none',
-						borderRadius: '0',
-						background: 'inherit',
-						cursor: 'pointer',
-					}}
-				>
-					<Box
-						sx={{
-							width: '100%',
-							height: '100%',
-							overflow: 'hidden',
-							backgroundColor: 'background.book',
-							padding: '30px 70px',
-						}}
-					/>
-				</Paper>
+			{!isLoading ? (
+				<CarouselSkeleton />
 			) : (
 				likedBooks &&
 				(likedBooks as BookData[]).map((item: BookData, index: number) => (

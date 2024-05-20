@@ -12,21 +12,31 @@ export const a11y = css`
 `;
 
 export const Shimmer = styled.div`
-	width: 50%;
+	width: 100%;
 	height: 100%;
-	background-color: #e0e0e0;
-	box-shadow: 0 0 30px 30px #e0e0e0;
-	animation: loading 3s infinite;
-	@keyframes loading {
+	background-color: #f2f2f2;
+	position: relative;
+
+	@keyframes skeleton-gradient {
 		0% {
-			transform: translateX(-50%);
+			background-color: rgba(97, 97, 97, 0.5);
 		}
 		50% {
-			transform: translateX(100%);
+			background-color: rgba(97, 97, 97, 0.8);
 		}
 		100% {
-			transform: translate(250%);
+			background-color: rgba(97, 97, 97, 0.5);
 		}
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		animation: skeleton-gradient 1.5s infinite ease-in-out;
 	}
 `;
 
