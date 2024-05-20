@@ -122,11 +122,11 @@ MUI의 **Pagination**을 이용하여 한번에 로드하지 않고 페이지별
 계정 삭제 기능은 **Firebase Authentication**에 등록된 계정과 **Cloud Firestore**에 저장된 유저DB를 삭제할 수 있습니다. 
 
 ### Skeleton UI
-|검색 페이지|프로필|
-|:---:|:---:|
-|![searchSkeleton](https://github.com/DayTeaJun/Tree-Book/assets/108723143/8f9dc237-c026-4af0-b798-575c388db4ba)|![profileSkeleton](https://github.com/DayTeaJun/Tree-Book/assets/108723143/809f815a-1cf5-41a7-8297-28c94cf2bb9a)|
+|홈피드|검색 페이지|프로필|
+|:---:|:---:|:---:|
+|![homefeedSkeleton](https://github.com/DayTeaJun/Tree-Book/assets/108723143/dda7da71-02ff-4d33-b819-2ab386d78670)|![searchSkeleton](https://github.com/DayTeaJun/Tree-Book/assets/108723143/ce0700b9-272c-41f9-94f4-61f44c032f5b)|![profileSkeleton](https://github.com/DayTeaJun/Tree-Book/assets/108723143/53965d85-ff17-42df-999a-9128e2083072)|
 
-데이터가 한번에 많이 들어올 수 있는 페이지에서는 페이지 로딩 시 **Skeleton UI**를 이용하여,
+데이터가 한번에 많이 들어올 수 있는 페이지에서는 페이지 로딩 시 **Skeleton UI**를 구현하여,
 
 사용자에게 어떤 형식으로 페이지가 보여질지 미리 예측할 수 있도록 구현하였습니다.
 
