@@ -42,9 +42,16 @@ const BestView = () => {
 	};
 
 	return (
-		<>
+		<Box
+			component='section'
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '20px',
+			}}
+		>
 			<Typography
-				component='h2'
+				component='p'
 				fontWeight='bold'
 				fontSize='1.5em'
 				sx={{
@@ -76,6 +83,7 @@ const BestView = () => {
 					chunkedLikedBooks &&
 					chunkedLikedBooks.map((_, index: number) => (
 						<Paper
+							component='ul'
 							key={index}
 							sx={{
 								width: '100%',
@@ -94,6 +102,7 @@ const BestView = () => {
 								(chunkedLikedBooks[index] as BookData[]).map(
 									(item: BookData, index: number) => (
 										<Box
+											component='li'
 											sx={{
 												width: isDownSM
 													? 'calc((100% - 40px) / 3)'
@@ -195,7 +204,7 @@ const BestView = () => {
 					))
 				)}
 			</Carousel>
-		</>
+		</Box>
 	);
 };
 

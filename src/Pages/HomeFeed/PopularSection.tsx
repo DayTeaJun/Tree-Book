@@ -7,7 +7,6 @@ import errorImg from '../../Assets/No-img.svg';
 import StarIcon from '@mui/icons-material/Star';
 import { avgRating } from '../../Utils/CalRating';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
-import { SearchSkeleton } from '../Search/Search.skeleton';
 import { PopularSectionSkeleton } from './PopularSection.skeleton';
 
 export const PopularSection = () => {
@@ -30,9 +29,16 @@ export const PopularSection = () => {
 	};
 
 	return (
-		<>
+		<Box
+			component='section'
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: '20px',
+			}}
+		>
 			<Typography
-				component='h2'
+				component='p'
 				fontWeight='bold'
 				fontSize='1.5em'
 				sx={{
@@ -181,6 +187,6 @@ export const PopularSection = () => {
 							</Box>
 					  ))}
 			</Box>
-		</>
+		</Box>
 	);
 };
