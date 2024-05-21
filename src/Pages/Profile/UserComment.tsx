@@ -32,7 +32,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 					}}
 				>
 					<Typography
-						component='h3'
+						component='p'
 						fontSize='1.1em'
 						fontWeight='bold'
 						color='text.primary'
@@ -46,6 +46,7 @@ export const UserComment = ({ uid }: UserLikedProps) => {
 						작성한 코멘트 목록
 					</Typography>
 					<Box
+						component='ul'
 						sx={{
 							width: '100%',
 							height: '289px',

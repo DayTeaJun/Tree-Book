@@ -39,6 +39,7 @@ const BookItem = ({
 	if (comment) {
 		return (
 			<Box
+				component='li'
 				onClick={onMoveBookDetail}
 				sx={{
 					display: 'flex',
@@ -127,6 +128,7 @@ const BookItem = ({
 
 	return (
 		<Box
+			component='li'
 			sx={{
 				width: '125px',
 				borderRadius: '5px',

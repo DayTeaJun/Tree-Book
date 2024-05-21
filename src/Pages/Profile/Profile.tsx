@@ -57,6 +57,7 @@ export default function Profile() {
 				}}
 			>
 				<Box
+					component='section'
 					sx={{
 						width: '100%',
 						display: 'flex',
@@ -64,6 +65,7 @@ export default function Profile() {
 					}}
 				>
 					<Box
+						component='section'
 						sx={{
 							width: `${isDownMD ? '50%' : '30%'}`,
 							minHeight: '255px',
@@ -182,6 +184,7 @@ export default function Profile() {
 						)}
 					</Box>
 					<Box
+						component='section'
 						sx={{
 							width: '50%',
 							height: '265px',

@@ -33,7 +33,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 					}}
 				>
 					<Typography
-						component='h3'
+						component='p'
 						fontSize='1.1em'
 						fontWeight='bold'
 						color='text.primary'
@@ -47,6 +47,7 @@ const UserLiked = ({ uid, displayName }: UserLikedProps) => {
 						{`${displayName}님의 즐겨찾기한 책들`}
 					</Typography>
 					<Box
+						component='ul'
 						sx={{
 							minHeight: '216px',
 							width: '100%',
