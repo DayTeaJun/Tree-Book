@@ -31,7 +31,7 @@ export default function Search() {
 	};
 
 	return (
-		<>
+		<Box component='main'>
 			<Helmet>
 				<title>{`${
 					searchView !== ' '
@@ -166,6 +166,6 @@ export default function Search() {
 					totalPage={Math.ceil(books.meta.pageable_count / 10)}
 				/>
 			)}
-		</>
+		</Box>
 	);
 }
