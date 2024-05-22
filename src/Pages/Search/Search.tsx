@@ -9,26 +9,36 @@ import { CustomPaginaition } from '../../Components/Pagination/Pagination';
 import { SearchSkeleton } from './Search.skeleton';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { SearchInput } from './SearchInput';
+import { useSnackbar } from 'notistack';
 
 export default function Search() {
+	const navigate = useNavigate();
+	const { isDownMD } = useMediaQueries();
+	const { enqueueSnackbar } = useSnackbar();
+
 	const { searchView, page } = useParams<{
 		searchView: string;
 		page: string;
 	}>();
 
-	const { data: books, isLoading } = useQuery({
+	const {
+		data: books,
+		isLoading,
+		error,
+	} = useQuery({
 		queryKey: ['books', searchView, page],
 		queryFn: () => getBooks(searchView || '', 10, page),
 		enabled: !!searchView,
 		refetchOnWindowFocus: false,
 	});
 
-	const navigate = useNavigate();
-	const { isDownMD } = useMediaQueries();
-
 	const onMoveBookDetail = (id: number, isbn: string) => {
 		navigate(`/search/${searchView}/${page}/${id}`, { state: { isbn } });
 	};
+
+	if (error) {
+		enqueueSnackbar('프로필 변경에 실패하였습니다.', { variant: 'error' });
+	}
 
 	return (
 		<Box component='main'>

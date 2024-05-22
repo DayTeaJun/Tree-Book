@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { BookViews } from './BookViews';
 import Loading from '../../Components/LoadingSpinner/Loading';
+import { useSnackbar } from 'notistack';
 
 export default function BookDetail() {
 	const { id, search, page } = useParams<{
@@ -16,8 +17,13 @@ export default function BookDetail() {
 	}>();
 	const [item, setItem] = useState<BookData>();
 	const { pathname } = useLocation();
+	const { enqueueSnackbar } = useSnackbar();
 
-	const { data: books, isLoading } = useQuery({
+	const {
+		data: books,
+		isLoading,
+		error,
+	} = useQuery({
 		queryKey: ['bookDetail', page, search, id],
 		queryFn: () =>
 			search &&
@@ -41,6 +47,10 @@ export default function BookDetail() {
 
 	if (isLoading) {
 		return <Loading />;
+	}
+
+	if (error) {
+		enqueueSnackbar('프로필 변경에 실패하였습니다.', { variant: 'error' });
 	}
 
 	return (

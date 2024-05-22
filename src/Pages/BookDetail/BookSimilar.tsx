@@ -4,16 +4,25 @@ import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';
 import BookItem from '../../Components/Books/BookItem';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { useSnackbar } from 'notistack';
 
 export const BookSimilar = ({ item }: { item: BookData }) => {
+	const { isDownMD, isDownSM } = useMediaQueries();
+	const { enqueueSnackbar } = useSnackbar();
 	const publisher = item.publisher;
 
-	const { data: books, isLoading } = useQuery({
+	const {
+		data: books,
+		isLoading,
+		error,
+	} = useQuery({
 		queryKey: ['bookSimilar', publisher],
 		queryFn: () => publisher && getBooks(publisher, 10, '1', 'publisher'),
 	});
 
-	const { isDownMD, isDownSM } = useMediaQueries();
+	if (error) {
+		enqueueSnackbar('프로필 변경에 실패하였습니다.', { variant: 'error' });
+	}
 
 	return (
 		<>
