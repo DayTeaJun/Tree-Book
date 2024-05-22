@@ -124,15 +124,17 @@ export const Comment = ({
 						setSorted={setSorted}
 					/>
 				</Box>
-				{commentData && (
-					<CommentList
-						isbn={isbn}
-						documents={likedBook}
-						comments={commentData}
-						sorted={sorted}
-						menuRef={menuRef}
-					/>
-				)}
+				<Box component='ul'>
+					{commentData && (
+						<CommentList
+							isbn={isbn}
+							documents={likedBook}
+							comments={commentData}
+							sorted={sorted}
+							menuRef={menuRef}
+						/>
+					)}
+				</Box>
 			</Box>
 		</>
 	);

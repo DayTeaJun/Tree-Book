@@ -44,19 +44,17 @@ export default function BookDetail() {
 	}
 
 	return (
-		<>
-			<Box component='main' sx={{ display: 'flex', flexDirection: 'column' }}>
-				{item && !isLoading ? (
-					<>
-						<Helmet>
-							<title>{item.title} - TreeBook</title>
-						</Helmet>
-						<BookViews item={item} />
-					</>
-				) : (
-					<>{item && <h2>not found</h2>}</>
-				)}
-			</Box>
-		</>
+		<Box component='main' sx={{ display: 'flex', flexDirection: 'column' }}>
+			{item && !isLoading ? (
+				<>
+					<Helmet>
+						<title>{item.title} - TreeBook</title>
+					</Helmet>
+					<BookViews item={item} />
+				</>
+			) : (
+				<>{item && <h2>not found</h2>}</>
+			)}
+		</Box>
 	);
 }

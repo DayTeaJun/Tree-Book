@@ -117,6 +117,7 @@ export const CommentItem = ({
 	return (
 		<>
 			<Box
+				component='li'
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',

@@ -52,6 +52,7 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 								paddingBottom: '10px',
 							}}
 							key={index}
+							component='ul'
 						>
 							<BookItem
 								item={book}
