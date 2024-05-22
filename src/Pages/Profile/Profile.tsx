@@ -7,7 +7,7 @@ import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { getUser } from '../../Api/Firebase/getUser';
-import { Shimmer } from '../../Styles/Common';
+import { H1, Shimmer } from '../../Styles/Common';
 import { enqueueSnackbar } from 'notistack';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -42,7 +42,7 @@ export default function Profile() {
 					{`${userDocument && userDocument.displayName}님의 프로필 - TreeBook`}
 				</title>
 			</Helmet>
-
+			<H1>{userDocument && userDocument.displayName}님의 프로필 페이지</H1>
 			<Box
 				component='main'
 				sx={{

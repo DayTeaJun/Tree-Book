@@ -43,3 +43,7 @@ export const Shimmer = styled.div`
 export const Label = styled.label`
 	${a11y}
 `;
+
+export const H1 = styled.h1`
+	${a11y}
+`;

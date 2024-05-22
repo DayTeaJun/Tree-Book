@@ -151,7 +151,7 @@ export const BookDetailItem = ({
 						gap: '8px',
 					}}
 				>
-					<Typography component='h2' fontWeight='bold' fontSize='1.5em'>
+					<Typography component='h1' fontWeight='bold' fontSize='1.5em'>
 						{item.title}
 					</Typography>
 
