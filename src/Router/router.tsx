@@ -7,8 +7,9 @@ import {
 } from 'react-router-dom';
 
 import { Suspense, lazy } from 'react';
-import { useAuthContext } from '../Context/useAuthContext';
 import { NotFound } from '../Pages/NotFound/NotFound';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Redux/store';
 
 const HomeFeed = lazy(() => import('../Pages/HomeFeed/HomeFeed'));
 const BookDetail = lazy(() => import('../Pages/BookDetail/BookDetail'));
@@ -21,7 +22,8 @@ const SignUp = lazy(() => import('../Pages/LoginSignup/SignUp'));
 const Search = lazy(() => import('../Pages/Search/Search'));
 
 export default function Router() {
-	const { isAuthReady, user } = useAuthContext();
+	const { user, isAuthReady } = useSelector((state: RootState) => state.user);
+	console.log(isAuthReady);
 
 	return (
 		<BrowserRouter basename='/'>

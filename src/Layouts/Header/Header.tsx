@@ -1,6 +1,5 @@
 import { FormEventHandler, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../Context/useAuthContext';
 import { useLogout } from '../../Hook/FirebaseHook/useLogout';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -12,12 +11,14 @@ import { Box, Grid, IconButton, Input, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Label } from '../../Styles/Common';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
 
 export default function Header() {
 	const [search, setSearch] = useState('');
 	const inputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
-	const { isAuthReady, user } = useAuthContext();
+	const { user, isAuthReady } = useSelector((state: RootState) => state.user);
 	const { error, isPending, logout } = useLogout();
 	const { isDownMD } = useMediaQueries();
 

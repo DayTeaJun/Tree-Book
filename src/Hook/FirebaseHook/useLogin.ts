@@ -1,14 +1,15 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { appAuth } from '../../Firebase/config';
-import { useAuthContext } from '../../Context/useAuthContext';
 import { LoginType } from '../../Types/userType';
 import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import { loginAuth } from '../../Redux/authSlice';
 
 export const useLogin = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);
-	const { dispatch } = useAuthContext();
+	const dispatch = useDispatch();
 	const { enqueueSnackbar } = useSnackbar();
 
 	const login = async ({ email, password }: LoginType) => {
@@ -26,7 +27,7 @@ export const useLogin = () => {
 				enqueueSnackbar('로그인이 실패하였습니다', { variant: 'error' });
 				throw new Error('로그인 실패');
 			}
-			dispatch({ type: 'login', payload: user });
+			dispatch(loginAuth(user));
 			enqueueSnackbar('로그인되었습니다.', { variant: 'success' });
 			setError(null);
 			setIsPending(false);

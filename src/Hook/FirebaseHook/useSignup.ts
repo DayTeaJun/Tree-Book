@@ -6,17 +6,17 @@ import {
 	storage,
 	timestamp,
 } from '../../Firebase/config';
-import { useAuthContext } from '../../Context/useAuthContext';
-import { AuthContextProps } from '../../Context/AuthContext';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { SignupType } from '../../Types/userType';
 import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import { loginAuth } from '../../Redux/authSlice';
 
 export const useSignup = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isPending, setIsPending] = useState(false);
-	const { dispatch } = useAuthContext() as AuthContextProps;
+	const dispatch = useDispatch();
 	const { enqueueSnackbar } = useSnackbar();
 
 	const signup = async ({
@@ -73,7 +73,7 @@ export const useSignup = () => {
 					});
 					enqueueSnackbar('회원가입이 성공하였습니다.', { variant: 'success' });
 					await updateProfile(appAuth.currentUser, { displayName, photoURL });
-					dispatch({ type: 'login', payload: user });
+					dispatch(loginAuth(user));
 					setError(null);
 					setIsPending(false);
 				} catch (error) {
