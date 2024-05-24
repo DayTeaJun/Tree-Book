@@ -20,7 +20,7 @@ export function CommentForm({
 	setIsCommentEdit,
 }: BookLikesProps) {
 	const [comments, setComments] = useState('');
-	const { addDocument, response } = useFirestore('comment');
+	const { addDocument } = useFirestore('comment');
 	const { user } = useSelector((state: RootState) => state.user);
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
@@ -152,12 +152,6 @@ export function CommentForm({
 			enqueueSnackbar('로그인이 필요합니다!', { variant: 'error' });
 		}
 	};
-
-	useEffect(() => {
-		if (response.success) {
-			setComments('');
-		}
-	}, [response.success]);
 
 	useEffect(() => {
 		if (preComment?.comments) {
