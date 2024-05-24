@@ -7,7 +7,6 @@ import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { BookViews } from './BookViews';
 import Loading from '../../Components/LoadingSpinner/Loading';
-import { useSnackbar } from 'notistack';
 
 export default function BookDetail() {
 	const { id, search, page } = useParams<{

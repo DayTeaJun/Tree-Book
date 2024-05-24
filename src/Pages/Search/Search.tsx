@@ -14,7 +14,6 @@ import { useSnackbar } from 'notistack';
 export default function Search() {
 	const navigate = useNavigate();
 	const { isDownMD } = useMediaQueries();
-	const { enqueueSnackbar } = useSnackbar();
 
 	const { searchView, page } = useParams<{
 		searchView: string;
@@ -35,10 +34,6 @@ export default function Search() {
 	const onMoveBookDetail = (id: number, isbn: string) => {
 		navigate(`/search/${searchView}/${page}/${id}`, { state: { isbn } });
 	};
-
-	if (error) {
-		enqueueSnackbar('프로필 변경에 실패하였습니다.', { variant: 'error' });
-	}
 
 	return (
 		<Box component='main'>
