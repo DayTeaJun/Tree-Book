@@ -1,10 +1,18 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Switch from '@mui/material/Switch';
-import { useDarkMode } from '../../Context/MuiContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
+import { toggleDarkMode } from '../../Redux/DarkModeSlice';
 
 export default function DarkToggle() {
-	const { mode, toggleDarkMode } = useDarkMode();
+	const dispatch = useDispatch();
+	const { mode } = useSelector((state: RootState) => state.darkMode);
+
+	const handleDarkMode = () => {
+		dispatch(toggleDarkMode());
+	};
+
 	return (
 		<Switch
 			inputProps={{
@@ -38,7 +46,7 @@ export default function DarkToggle() {
 			icon={<LightModeIcon />}
 			checkedIcon={<DarkModeIcon />}
 			checked={mode === 'dark'}
-			onChange={toggleDarkMode}
+			onChange={handleDarkMode}
 		/>
 	);
 }
