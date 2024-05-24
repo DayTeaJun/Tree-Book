@@ -1,9 +1,10 @@
-import { useAuthContext } from '../../../Context/useAuthContext';
 import { Fragment, RefObject, useEffect, useState } from 'react';
 import { FirestoreDocument } from '../../../Types/firestoreType';
 import { CustomPaginaition } from '../../../Components/Pagination/Pagination';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Redux/store';
 
 export function CommentList({
 	isbn,
@@ -19,7 +20,7 @@ export function CommentList({
 	menuRef: RefObject<HTMLDivElement> | null;
 }) {
 	const [commentData, setCommentData] = useState<FirestoreDocument[]>([]);
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const [currentPage, setCurrentPage] = useState(1);
 	const commentsPerPage = 5;
 	const commentLength =

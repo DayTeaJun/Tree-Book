@@ -1,7 +1,6 @@
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../../../Context/useAuthContext';
 import { collection, deleteField, doc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../../Firebase/config';
 import { CommentType } from '../../../Types/componentType';
@@ -9,9 +8,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
 import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
 import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Redux/store';
 
 export const CommentLike = ({ uid, item }: CommentType) => {
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const { likeBy } = item;
 	const [likeAlready, setLikeAlready] = useState(false);
 	const { addDocument } = useFirestore('comment', uid);

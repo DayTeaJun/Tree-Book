@@ -1,5 +1,4 @@
 import { BookLikesProps } from '../../Types/bookType';
-import { useAuthContext } from '../../Context/useAuthContext';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Box, Typography } from '@mui/material';
@@ -8,9 +7,11 @@ import { timestamp } from '../../Firebase/config';
 import { useSnackbar } from 'notistack';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
 
 const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const isbn = item.isbn;
 	const { likeBy } = item;
 	const likedUser = user ? likeBy && likeBy[user.uid] === true : false;

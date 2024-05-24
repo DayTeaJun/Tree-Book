@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
-import { useAuthContext } from '../../../Context/useAuthContext';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../../Types/bookType';
@@ -11,6 +10,8 @@ import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../../Firebase/config';
 import { Raiting } from '../../../Components/Rating/Rating';
 import { getUser } from '../../../Api/Firebase/getUser';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Redux/store';
 
 export function CommentForm({
 	item,
@@ -20,7 +21,7 @@ export function CommentForm({
 }: BookLikesProps) {
 	const [comments, setComments] = useState('');
 	const { addDocument, response } = useFirestore('comment');
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
 	const [ratingValue, setRatingValue] = useState<number | null>(0);

@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { getDocuments } from '../../../Api/Firebase/getDocuments';
 import { CommentForm } from './CommentForm';
 import { BookData } from '../../../Types/bookType';
-import Loading from '../../../Components/LoadingSpinner/Loading';
 import { CommentList } from './CommentList';
-import { useAuthContext } from '../../../Context/useAuthContext';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 import { FirestoreDocument } from '../../../Types/firestoreType';
 import { Fragment, useRef, useState } from 'react';
 import { DropdownMenu } from '../../../Components/Dropdown/DropdownMenu';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Redux/store';
 
 export const Comment = ({
 	item,
@@ -19,7 +19,7 @@ export const Comment = ({
 	likedBook: FirestoreDocument[];
 }) => {
 	const isbn = item.isbn;
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const [isCommentEdit, setIsCommentEdit] = useState(false);
 	const [isDropdown, setIsDropdown] = useState(false);
 	const [sorted, setSorted] = useState<string>('latest');

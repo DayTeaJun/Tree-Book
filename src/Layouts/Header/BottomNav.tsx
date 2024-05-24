@@ -2,14 +2,13 @@ import { Box, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useAuthContext } from '../../Context/useAuthContext';
-import { useLogout } from '../../Hook/FirebaseHook/useLogout';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
 
 export const BottomNav = () => {
-	const { isAuthReady, user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 
 	return (
 		<Box
@@ -64,7 +63,7 @@ export const BottomNav = () => {
 					검색
 				</Typography>
 			</Link>
-			{isAuthReady && user && (
+			{user && (
 				<Link
 					to={`/profile/${user.displayName}`}
 					style={{ textAlign: 'center', cursor: 'pointer' }}
@@ -90,7 +89,7 @@ export const BottomNav = () => {
 				</Link>
 			)}
 
-			{isAuthReady && !user && (
+			{!user && (
 				<Link to='/login' style={{ textAlign: 'center', cursor: 'pointer' }}>
 					<LoginIcon fontSize='medium' sx={{ color: 'text.secondary' }} />
 					<Typography
