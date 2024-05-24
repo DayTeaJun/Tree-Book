@@ -1,4 +1,3 @@
-import { useAuthContext } from '../../Context/useAuthContext';
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { appAuth, storage } from '../../Firebase/config';
 import { updateProfile } from 'firebase/auth';
@@ -26,9 +25,11 @@ import { Label } from '../../Styles/Common';
 import { Helmet } from 'react-helmet-async';
 import { useSnackbar } from 'notistack';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
 
 export default function ProfileEdit() {
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const location = useLocation();
 	const [displayName, setDisplayName] = useState(user?.displayName || '');
 	const [userIntro, setUserIntro] = useState(location.state.intro || '');

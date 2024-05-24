@@ -13,9 +13,11 @@ import { UserLikedSkeleton } from './UserLiked.skeleton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Chart } from '../../Components/Rating/Chart';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
 
 export default function Profile() {
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const userId = useParams().userProfile || '';
 	const { userProfile } = useParams();
 	const navigate = useNavigate();
