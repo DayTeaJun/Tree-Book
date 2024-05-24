@@ -17,7 +17,6 @@ export default function BookDetail() {
 	}>();
 	const [item, setItem] = useState<BookData>();
 	const { pathname } = useLocation();
-	const { enqueueSnackbar } = useSnackbar();
 
 	const {
 		data: books,
@@ -47,10 +46,6 @@ export default function BookDetail() {
 
 	if (isLoading) {
 		return <Loading />;
-	}
-
-	if (error) {
-		enqueueSnackbar('프로필 변경에 실패하였습니다.', { variant: 'error' });
 	}
 
 	return (
