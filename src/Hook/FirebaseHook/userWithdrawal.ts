@@ -1,17 +1,26 @@
 import { deleteUser } from 'firebase/auth';
-import { useAuthContext } from '../../Context/useAuthContext';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { useSnackbar } from 'notistack';
+import { RootState } from '../../Redux/store';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const useWithdrawal = () => {
-	const { user } = useAuthContext();
+	const { user } = useSelector((state: RootState) => state.user);
 	const { enqueueSnackbar } = useSnackbar();
+	const navigate = useNavigate();
 
 	const withDrawal = async () => {
 		try {
 			if (!user) {
-				return;
+				enqueueSnackbar(
+					'로그인하지 않은 상태에서는 계정 삭제가 불가능 합니다!',
+					{
+						variant: 'error',
+					}
+				);
+				return navigate('/');
 			}
 			const uid = user.uid;
 			const userRef = doc(collection(appFirestore, 'user'), uid);

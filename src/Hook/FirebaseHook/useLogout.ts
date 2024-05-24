@@ -1,7 +1,6 @@
 import { signOut } from 'firebase/auth';
 import { useState } from 'react';
 import { appAuth } from '../../Firebase/config';
-import { useAuthContext } from '../../Context/useAuthContext';
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import { logoutAuth } from '../../Redux/authSlice';

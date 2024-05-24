@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAuthContext } from '../../Context/useAuthContext';
 import UserLiked from './UserLiked';
 import { useQuery } from '@tanstack/react-query';
 import { UserComment } from './UserComment';
