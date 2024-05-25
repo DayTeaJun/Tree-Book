@@ -235,6 +235,18 @@ export function CommentForm({
 								gap: '20px',
 							}}
 						>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={checked}
+										onChange={() => setChecked(!checked)}
+										inputProps={{
+											'aria-label': '스포일러 체크박스',
+										}}
+									/>
+								}
+								label='스포일러가 있습니다.'
+							/>
 							{preComment && setIsCommentEdit && (
 								<Box
 									component='button'
@@ -257,18 +269,7 @@ export function CommentForm({
 									취소
 								</Box>
 							)}
-							<FormControlLabel
-								control={
-									<Checkbox
-										checked={checked}
-										onChange={() => setChecked(!checked)}
-										inputProps={{
-											'aria-label': '스포일러 체크박스',
-										}}
-									/>
-								}
-								label='스포일러가 있습니다.'
-							/>
+
 							<Box
 								component='button'
 								sx={{
