@@ -23,6 +23,7 @@ export interface BookData {
 	rating?: number;
 	ratingBy?: { [key: string]: number };
 	likeBy?: { [key: string]: boolean };
+	checked?: boolean;
 }
 
 export interface SerachParams {

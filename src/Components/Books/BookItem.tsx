@@ -101,7 +101,7 @@ const BookItem = ({
 						textDecorationLine: 'none',
 					}}
 				>
-					{comment}
+					{item?.checked ? '《 스포일러가 포함된 리뷰입니다. 》' : comment}
 				</Typography>
 				<Divider
 					sx={{
