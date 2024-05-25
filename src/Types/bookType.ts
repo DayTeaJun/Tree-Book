@@ -24,6 +24,7 @@ export interface BookData {
 	ratingBy?: { [key: string]: number };
 	likeBy?: { [key: string]: boolean };
 	checked?: boolean;
+	displayName?: string;
 }
 
 export interface SerachParams {

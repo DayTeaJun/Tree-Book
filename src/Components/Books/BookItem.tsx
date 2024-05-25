@@ -5,6 +5,8 @@ import { Box, Divider, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { StarRating } from '../Rating/Rating';
 import { avgRating } from '../../Utils/CalRating';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Redux/store';
 
 const BookItem = ({
 	item,
@@ -16,6 +18,7 @@ const BookItem = ({
 	publisher,
 	profile,
 }: BookItemProps) => {
+	const { user } = useSelector((state: RootState) => state.user);
 	const navigate = useNavigate();
 	const isbn = item.isbn;
 	const onMoveBookDetail = () => {
@@ -101,7 +104,9 @@ const BookItem = ({
 						textDecorationLine: 'none',
 					}}
 				>
-					{item?.checked ? '《 스포일러가 포함된 리뷰입니다. 》' : comment}
+					{user?.displayName !== item.displayName && item?.checked
+						? '《 스포일러가 포함된 리뷰입니다. 》'
+						: comment}
 				</Typography>
 				<Divider
 					sx={{
