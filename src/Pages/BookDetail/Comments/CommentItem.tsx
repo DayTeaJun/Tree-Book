@@ -21,6 +21,7 @@ import { elapsedTime } from '../../../Utils/date';
 import { getUser } from '../../../Api/Firebase/getUser';
 import { StarRating } from '../../../Components/Rating/Rating';
 import { useMediaQueries } from '../../../Hook/useMediaQueries';
+import WarningIcon from '@mui/icons-material/Warning';
 
 export const CommentItem = ({
 	index,
@@ -39,6 +40,7 @@ export const CommentItem = ({
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
 	const { isDownMD } = useMediaQueries();
+	const [ckecked, setChecked] = useState(commentData.checked ?? false);
 
 	const {
 		data: userData,
@@ -212,35 +214,71 @@ export const CommentItem = ({
 								}}
 							/>
 
-							<Box>
-								<Typography component='p' fontSize='1em' color='text.primary'>
-									{expandedComment[index]
-										? commentData.comments
-										: commentData.comments && commentData.comments.length > 100
-										? `${commentData.comments?.substring(0, 100)}...`
-										: commentData.comments}
-								</Typography>
-
-								{commentData.comments && commentData.comments.length > 120 && (
-									<Typography
-										width='100%'
-										component='span'
-										fontSize='0.8em'
-										color='text.secondary'
+							{commentData.displayName !== user?.displayName && ckecked ? (
+								<Box
+									sx={{
+										width: '100%',
+										display: 'flex',
+										flexDirection: 'column',
+										justifyContent: 'center',
+										alignItems: 'center',
+										gap: '10px',
+									}}
+								>
+									<Box
+										sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+									>
+										<WarningIcon /> 스포일러가 있는 리뷰입니다.
+									</Box>
+									<Box
+										component='button'
 										sx={{
+											background: 'inherit',
+											border: 'none',
+											color: 'text.secondary',
+											display: 'flex',
+											alignItems: 'center',
+											gap: '5px',
 											cursor: 'pointer',
 										}}
-										onClick={() => {
-											setExpandedComment({
-												...expandedComment,
-												[index]: !expandedComment[index],
-											});
-										}}
+										onClick={() => setChecked(!ckecked)}
 									>
-										{!expandedComment[index] ? '더보기' : '간략히'}
+										<Typography component='p'>리뷰 보기 》</Typography>
+									</Box>
+								</Box>
+							) : (
+								<Box>
+									<Typography component='p' fontSize='1em' color='text.primary'>
+										{expandedComment[index]
+											? commentData.comments
+											: commentData.comments &&
+											  commentData.comments.length > 100
+											? `${commentData.comments?.substring(0, 100)}...`
+											: commentData.comments}
 									</Typography>
-								)}
-							</Box>
+
+									{commentData.comments &&
+										commentData.comments.length > 120 && (
+											<Typography
+												width='100%'
+												component='span'
+												fontSize='0.8em'
+												color='text.secondary'
+												sx={{
+													cursor: 'pointer',
+												}}
+												onClick={() => {
+													setExpandedComment({
+														...expandedComment,
+														[index]: !expandedComment[index],
+													});
+												}}
+											>
+												{!expandedComment[index] ? '더보기' : '간략히'}
+											</Typography>
+										)}
+								</Box>
+							)}
 							<Divider
 								sx={{
 									width: '100%',

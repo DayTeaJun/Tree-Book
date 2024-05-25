@@ -33,4 +33,5 @@ export interface FirestoreDocument {
 	fixedComment?: boolean;
 	rating?: number;
 	ratingBy?: { [key: string]: number };
+	checked?: boolean;
 }

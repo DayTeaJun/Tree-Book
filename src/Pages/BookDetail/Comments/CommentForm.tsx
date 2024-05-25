@@ -3,7 +3,13 @@ import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../../Types/bookType';
-import { Box, TextField, Typography } from '@mui/material';
+import {
+	Box,
+	Checkbox,
+	FormControlLabel,
+	TextField,
+	Typography,
+} from '@mui/material';
 import { Label } from '../../../Styles/Common';
 import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
@@ -20,6 +26,7 @@ export function CommentForm({
 	setIsCommentEdit,
 }: BookLikesProps) {
 	const [comments, setComments] = useState('');
+	const [checked, setChecked] = useState(false);
 	const { addDocument } = useFirestore('comment');
 	const { user } = useSelector((state: RootState) => state.user);
 	const queryClient = useQueryClient();
@@ -76,6 +83,7 @@ export function CommentForm({
 					comments: comments,
 					rating: rating,
 					fixedComment: true,
+					checked: checked,
 				});
 				await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
 					...likedBook[0],
@@ -123,6 +131,7 @@ export function CommentForm({
 						id,
 						photoURL,
 						rating,
+						checked,
 					});
 					const ratingBy = { ...likedBook[0]?.ratingBy, [user.uid]: rating };
 					await setDoc(doc(collection(appFirestore, 'likedBook'), isbn), {
@@ -158,6 +167,9 @@ export function CommentForm({
 			setComments(preComment.comments);
 			if (preComment?.rating) {
 				setRatingValue(preComment.rating);
+			}
+			if (preComment?.checked) {
+				setChecked(preComment.checked);
 			}
 		}
 	}, []);
@@ -245,6 +257,18 @@ export function CommentForm({
 									취소
 								</Box>
 							)}
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={checked}
+										onChange={() => setChecked(!checked)}
+										inputProps={{
+											'aria-label': '스포일러 체크박스',
+										}}
+									/>
+								}
+								label='스포일러가 있습니다.'
+							/>
 							<Box
 								component='button'
 								sx={{
