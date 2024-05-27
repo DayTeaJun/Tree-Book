@@ -161,7 +161,9 @@ export default function Search() {
 					)}
 
 				{searchView !== ' ' && !isLoading && books.documents.length === 0 && (
-					<p>검색 결과가 없습니다.</p>
+					<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
+						검색 결과가 없습니다.
+					</Typography>
 				)}
 			</Box>
 			{page && !isLoading && books.documents.length > 0 && (

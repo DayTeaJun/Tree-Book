@@ -23,7 +23,6 @@ const Search = lazy(() => import('../Pages/Search/Search'));
 
 export default function Router() {
 	const { user, isAuthReady } = useSelector((state: RootState) => state.user);
-	console.log(isAuthReady);
 
 	return (
 		<BrowserRouter basename='/'>
