@@ -38,14 +38,22 @@ export function CommentList({
 		const endIndex = startIndex + commentsPerPage;
 		if (comments)
 			if (sorted === 'latest') {
-				commentLists = comments.sort(
-					(a, b) => b.createdTime!.seconds - a.createdTime!.seconds
-				);
+				commentLists = comments.sort((a, b) => {
+					const secondA = a.createdTime ? a.createdTime.seconds : 0;
+					const secondB = b.createdTime ? b.createdTime.seconds : 0;
+					return secondB - secondA;
+				});
 			} else if (sorted === 'popular') {
 				commentLists = comments.sort((a, b) => {
 					const likeByA = a.likeBy ? Object.keys(a.likeBy).length : 0;
 					const likeByB = b.likeBy ? Object.keys(b.likeBy).length : 0;
 					return likeByB - likeByA;
+				});
+			} else if (sorted === 'rating') {
+				commentLists = comments.sort((a, b) => {
+					const ratingA = a.rating ? a.rating : 0;
+					const ratingB = b.rating ? b.rating : 0;
+					return ratingB - ratingA;
 				});
 			}
 		const displayedComments =

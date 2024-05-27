@@ -16,6 +16,8 @@ export const DropdownMenu = ({
 			setSorted('latest');
 		} else if (sort === 'popular') {
 			setSorted('popular');
+		} else if (sort === 'rating') {
+			setSorted('rating');
 		}
 		setIsDropdown(false);
 	};
@@ -96,6 +98,24 @@ export const DropdownMenu = ({
 						>
 							<Typography component='p' fontSize='1em' fontWeight='bold'>
 								인기 리뷰순
+							</Typography>
+						</Box>
+						<Box
+							component='button'
+							sx={{
+								border: 'none',
+								backgroundColor: 'background.book',
+								padding: '10px',
+								color: 'inherit',
+								cursor: 'pointer',
+								'&:hover': {
+									backgroundColor: 'background.hover',
+								},
+							}}
+							onClick={() => handleSort('rating')}
+						>
+							<Typography component='p' fontSize='1em' fontWeight='bold'>
+								별점 높은순
 							</Typography>
 						</Box>
 					</Box>
