@@ -22,13 +22,15 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
-		const likedUser =
-			user && likeBy && likeBy[user.uid] === true ? true : false;
-		if (likedUser) {
+		if (user && likeBy) {
+			const likedUser = !!likeBy[user.uid];
 			setLikeAlready(likedUser);
+			setLikedNumber(Object.keys(likeBy).length);
+		} else {
+			setLikeAlready(false);
+			setLikedNumber(0);
 		}
-		if (likeBy) setLikedNumber(Object.keys(likeBy).length);
-	}, [item]);
+	}, [user, likeBy]);
 
 	const mutation = useMutation({
 		mutationFn: addDocument,
@@ -46,8 +48,8 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 			if (item && uid) {
 				let likeBy;
 				if (!likeAlready) {
-					setLikeAlready(true);
 					setLikedNumber(likedNumber + 1);
+					setLikeAlready(true);
 					likeBy = { ...item.likeBy, [user.uid]: true };
 					mutation.mutate({ ...item, likeBy });
 					enqueueSnackbar('좋아요가 등록되었습니다.', { variant: 'success' });
@@ -99,7 +101,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					fontWeight='bold'
 					color='text.primary'
 				>
-					{likeBy && likedNumber !== 0 ? likedNumber : null}
+					{likedNumber !== 0 ? likedNumber : null}
 				</Typography>
 			</Box>
 		</>
