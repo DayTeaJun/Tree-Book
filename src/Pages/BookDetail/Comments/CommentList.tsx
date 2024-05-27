@@ -61,7 +61,7 @@ export function CommentList({
 		if (displayedComments) {
 			setCommentData(displayedComments);
 		}
-	}, [comments, currentPage, sorted]);
+	}, [currentPage, sorted]);
 
 	return (
 		<>

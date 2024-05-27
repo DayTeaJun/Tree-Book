@@ -15,16 +15,19 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 	const { user } = useSelector((state: RootState) => state.user);
 	const { likeBy } = item;
 	const [likeAlready, setLikeAlready] = useState(false);
+	const [likedNumber, setLikedNumber] = useState(0);
 	const { addDocument } = useFirestore('comment', uid);
 	const commentRef = doc(collection(appFirestore, 'comment'), uid);
 	const queryClient = useQueryClient();
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
-		const likedUser = user ? likeBy && likeBy[user.uid] === true : false;
+		const likedUser =
+			user && likeBy && likeBy[user.uid] === true ? true : false;
 		if (likedUser) {
 			setLikeAlready(likedUser);
 		}
+		if (likeBy) setLikedNumber(Object.keys(likeBy).length);
 	}, [item]);
 
 	const mutation = useMutation({
@@ -43,11 +46,14 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 			if (item && uid) {
 				let likeBy;
 				if (!likeAlready) {
-					likeBy = { ...item.likeBy, [user.uid]: true };
 					setLikeAlready(true);
+					setLikedNumber(likedNumber + 1);
+					likeBy = { ...item.likeBy, [user.uid]: true };
 					mutation.mutate({ ...item, likeBy });
 					enqueueSnackbar('좋아요가 등록되었습니다.', { variant: 'success' });
 				} else if (likeAlready) {
+					setLikedNumber(likedNumber - 1);
+					setLikeAlready(false);
 					likeBy = { ...item.likeBy };
 					delete likeBy[user.uid];
 					if (Object.keys(likeBy).length === 0) {
@@ -93,9 +99,7 @@ export const CommentLike = ({ uid, item }: CommentType) => {
 					fontWeight='bold'
 					color='text.primary'
 				>
-					{likeBy &&
-						Object.keys(likeBy).length !== 0 &&
-						Object.keys(likeBy).length}
+					{likeBy && likedNumber !== 0 ? likedNumber : null}
 				</Typography>
 			</Box>
 		</>
