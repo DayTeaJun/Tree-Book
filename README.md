@@ -29,7 +29,7 @@
 <br>
 
 ## 🏛 아키텍처
-![개인프젝 아키텍처](https://github.com/DayTeaJun/Tree-Book/assets/108723143/42588024-8d93-4879-bae8-66535dfa11c2)
+![개인프젝](https://github.com/DayTeaJun/Tree-Book/assets/108723143/ae3d3b31-30aa-47a3-be49-f6dc2e6968b4)
 
 ## ✨ 기능
 
