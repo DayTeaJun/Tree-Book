@@ -1,5 +1,5 @@
 import { Box, Divider, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
@@ -40,7 +40,7 @@ export const CommentItem = ({
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	const [commentUid, setCommentUid] = useState('');
 	const { isDownMD } = useMediaQueries();
-	const [ckecked, setChecked] = useState(commentData.checked ?? false);
+	const [ckecked, setChecked] = useState(false);
 
 	const {
 		data: userData,
@@ -50,6 +50,10 @@ export const CommentItem = ({
 		queryKey: ['user', isbn],
 		queryFn: () => user && getUser('user', user?.displayName as string),
 	});
+
+	useEffect(() => {
+		setChecked(commentData.checked ?? false);
+	}, [commentData]);
 
 	const deleteComment = async (uid: string) => {
 		if (documents && user && userData) {
