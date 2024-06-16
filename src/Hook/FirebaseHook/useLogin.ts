@@ -8,14 +8,12 @@ import { loginAuth } from '../../Redux/authSlice';
 
 export const useLogin = () => {
 	const [error, setError] = useState<string | null>(null);
-	const [isPending, setIsPending] = useState(false);
 	const dispatch = useDispatch();
 	const { enqueueSnackbar } = useSnackbar();
 
 	const login = async ({ email, password }: LoginType) => {
 		try {
 			setError(null);
-			setIsPending(true);
 			const userCreadential = await signInWithEmailAndPassword(
 				appAuth,
 				email,
@@ -30,11 +28,9 @@ export const useLogin = () => {
 			dispatch(loginAuth(user));
 			enqueueSnackbar('로그인되었습니다.', { variant: 'success' });
 			setError(null);
-			setIsPending(false);
 		} catch (error) {
 			setError((error as Error).message);
-			setIsPending(false);
 		}
 	};
-	return { error, isPending, login };
+	return { error, login };
 };

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Footer } from '../Footer/Footer';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { BottomNav } from '../Header/BottomNav';

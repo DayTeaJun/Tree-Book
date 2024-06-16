@@ -19,7 +19,7 @@ export default function Header() {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
 	const { user, isAuthReady } = useSelector((state: RootState) => state.user);
-	const { error, isPending, logout } = useLogout();
+	const { logout } = useLogout();
 	const { isDownMD } = useMediaQueries();
 
 	const handleSubmit: FormEventHandler = (e) => {

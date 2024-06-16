@@ -6,11 +6,7 @@ import { Box, Typography } from '@mui/material';
 import { getProfileData } from '../../Api/Firebase/getProifleData';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
-	const {
-		data: userBooks,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: userBooks, isLoading } = useQuery({
 		queryKey: ['userComment', uid],
 		queryFn: () => getProfileData(uid ?? '', 'comment'),
 	});

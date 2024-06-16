@@ -1,5 +1,4 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { useState } from 'react';
 import {
 	appAuth,
 	appFirestore,
@@ -14,8 +13,6 @@ import { useDispatch } from 'react-redux';
 import { loginAuth } from '../../Redux/authSlice';
 
 export const useSignup = () => {
-	const [error, setError] = useState<string | null>(null);
-	const [isPending, setIsPending] = useState(false);
 	const dispatch = useDispatch();
 	const { enqueueSnackbar } = useSnackbar();
 
@@ -27,9 +24,6 @@ export const useSignup = () => {
 		imgUrl,
 	}: SignupType) => {
 		try {
-			setError(null);
-			setIsPending(true);
-
 			const userCreadential = await createUserWithEmailAndPassword(
 				appAuth,
 				email,
@@ -74,19 +68,13 @@ export const useSignup = () => {
 					enqueueSnackbar('회원가입이 성공하였습니다.', { variant: 'success' });
 					await updateProfile(appAuth.currentUser, { displayName, photoURL });
 					dispatch(loginAuth(user));
-					setError(null);
-					setIsPending(false);
 				} catch (error) {
 					enqueueSnackbar('회원가입이 실패하였습니다.', { variant: 'error' });
-					setError((error as Error).message);
-					setIsPending(false);
 				}
 			}
 		} catch (error) {
 			enqueueSnackbar('회원가입이 실패하였습니다.', { variant: 'error' });
-			setError((error as Error).message);
-			setIsPending(false);
 		}
 	};
-	return { error, isPending, signup };
+	return { signup };
 };

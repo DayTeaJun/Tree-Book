@@ -14,7 +14,7 @@ import { Box, Grid } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
 export default function SignUp() {
-	const { error, isPending, signup } = useSignup();
+	const { signup } = useSignup();
 	const { imageSrc, imgUrl, onUpload } = ImgPreview();
 	const [inputValue, setInputValue] = useState<InputValueType>({
 		email: '',

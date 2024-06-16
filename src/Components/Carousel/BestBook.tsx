@@ -10,11 +10,7 @@ import { BestBookSkeleton } from './BestBook.skeleton';
 const BestBook = () => {
 	const navigate = useNavigate();
 
-	const {
-		data: likedBooks,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: likedBooks, isLoading } = useQuery({
 		queryKey: ['bestBook'],
 		queryFn: () => getLikedBooks('best'),
 	});

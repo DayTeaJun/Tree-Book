@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet-async';
 export default function SignIn() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { error, isPending, login } = useLogin();
+	const { error, login } = useLogin();
 
 	const handleData = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.id === 'email') {

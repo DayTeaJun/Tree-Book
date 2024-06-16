@@ -22,16 +22,12 @@ export default function Profile() {
 	const navigate = useNavigate();
 	const { isDownMD } = useMediaQueries();
 
-	const {
-		data: userDocument,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: userDocument, isLoading } = useQuery({
 		queryKey: ['user', userProfile],
 		queryFn: () => getUser('user', userProfile ?? ''),
 	});
 
-	if (!isLoading && userDocument == undefined) {
+	if (!isLoading && userDocument === undefined) {
 		enqueueSnackbar('존재하지 않는 프로필입니다!', { variant: 'error' });
 		navigate('/');
 	}

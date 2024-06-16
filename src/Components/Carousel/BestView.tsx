@@ -16,11 +16,7 @@ const BestView = () => {
 	const { isDownSM, isDownMD, isDownLG } = useMediaQueries();
 	const itemsPerPage = isDownSM ? 3 : isDownMD ? 4 : 6;
 
-	const {
-		data: likedBooks,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: likedBooks, isLoading } = useQuery({
 		queryKey: ['homeFeedLikedBooks'],
 		queryFn: () => getBestcomments('likedBook', 'views', 12),
 	});

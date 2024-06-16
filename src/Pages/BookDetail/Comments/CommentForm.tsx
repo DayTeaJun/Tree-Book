@@ -53,11 +53,7 @@ export function CommentForm({
 		},
 	});
 
-	const {
-		data: userData,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: userData } = useQuery({
 		queryKey: ['user', isbn],
 		queryFn: () => user && getUser('user', user?.displayName as string),
 	});

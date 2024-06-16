@@ -13,11 +13,7 @@ export const PopularSection = () => {
 	const navigate = useNavigate();
 	const { isDownLG, isDownMD } = useMediaQueries();
 
-	const {
-		data: likedBooks,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: likedBooks, isLoading } = useQuery({
 		queryKey: ['homeFeedLikedBooks', 'ratingBy'],
 		queryFn: () => getBestcomments('likedBook', 'ratingBy', 9),
 	});

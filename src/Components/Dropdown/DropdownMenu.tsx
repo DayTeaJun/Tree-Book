@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import SortIcon from '@mui/icons-material/Sort';
 import { Box, Typography } from '@mui/material';
 

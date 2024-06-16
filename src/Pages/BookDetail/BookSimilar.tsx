@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { BookData } from '../../Types/bookType';
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../../Api/searchApi';

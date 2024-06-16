@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Chart } from '../../Components/Rating/Chart';
 import { avgRating } from '../../Utils/CalRating';
-import StarIcon from '@mui/icons-material/Star';
 import { StarRating } from '../../Components/Rating/Rating';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 

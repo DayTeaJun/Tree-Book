@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import BestBook from '../../Components/Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
 import { PopularSection } from './PopularSection';
