@@ -35,39 +35,41 @@ export default function ValidInput({
 		}
 	};
 
-	const validCheck = useCallback(
-		async (checkField: string) => {
+	useEffect(() => {
+		if (debounceEmail.length > 0) {
 			const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-			if (checkField === 'email' && !emailRegex.test(debounceEmail)) {
+			if (!emailRegex.test(debounceEmail)) {
 				setValidEmail('잘못된 이메일 형식입니다.');
-				return;
-			}
-
-			const queryField = checkField === 'email' ? debounceEmail : debounceName;
-			const Query = query(userRef, where(checkField, '==', queryField));
-			const querySnapshot = await getDocs(Query);
-
-			if (querySnapshot.docs.length > 0) {
-				if (checkField === 'email') setValidEmail('중복된 이메일입니다.');
-				else if (checkField === 'displayName')
-					setValidName('중복된 닉네임입니다.');
 			} else {
-				if (checkField === 'email') setValidEmail('사용 가능한 이메일입니다.');
-				else if (checkField === 'displayName')
-					setValidName('사용 가능한 닉네임입니다.');
+				const Query = query(userRef, where('email', '==', debounceEmail));
+				getDocs(Query).then((querySnapshot) => {
+					if (querySnapshot.docs.length > 0) {
+						setValidEmail('중복된 이메일입니다.');
+					} else {
+						setValidEmail('사용 가능한 이메일입니다.');
+					}
+				});
 			}
-		},
-		[debounceEmail, debounceName, userRef]
-	);
+		} else {
+			setValidEmail('');
+		}
+	}, [debounceEmail, userRef]);
 
 	useEffect(() => {
-		if (debounceEmail.length > 0) validCheck('email');
-		else setValidEmail('');
-
-		if (debounceName.length > 0) validCheck('displayName');
-		else setValidName('');
-	}, [debounceEmail, debounceName, validCheck]);
+		if (debounceName.length > 0) {
+			const Query = query(userRef, where('displayName', '==', debounceName));
+			getDocs(Query).then((querySnapshot) => {
+				if (querySnapshot.docs.length > 0) {
+					setValidName('중복된 닉네임입니다.');
+				} else {
+					setValidName('사용 가능한 닉네임입니다.');
+				}
+			});
+		} else {
+			setValidName('');
+		}
+	}, [debounceName, userRef]);
 
 	useEffect(() => {
 		if (
