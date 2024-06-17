@@ -9,11 +9,7 @@ export const BookSimilar = ({ item }: { item: BookData }) => {
 	const { isDownMD, isDownSM } = useMediaQueries();
 	const publisher = item.publisher;
 
-	const {
-		data: books,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: books } = useQuery({
 		queryKey: ['bookSimilar', publisher],
 		queryFn: () => publisher && getBooks(publisher, 10, '1', 'publisher'),
 	});
