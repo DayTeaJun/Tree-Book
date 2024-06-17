@@ -44,24 +44,25 @@ export default function ProfileEdit() {
 	const { enqueueSnackbar } = useSnackbar();
 	const { isDownMD } = useMediaQueries();
 
-	const validCheck = async () => {
-		const Query = query(userRef, where('displayName', '==', displayName));
-		const querySnapshot = await getDocs(Query);
-		if (
-			!(user && user.displayName === displayName) &&
-			querySnapshot.docs.length > 0
-		) {
-			setValidName('중복된 닉네임입니다.');
-		} else if (displayName.length === 0) {
-			setValidName('닉네임을 입력해주세요.');
-		} else {
-			setValidName('');
-		}
-	};
-
 	useEffect(() => {
-		validCheck();
-	}, [debounceName]);
+		if (debounceName.length > 0) {
+			const Query = query(userRef, where('displayName', '==', debounceName));
+			getDocs(Query).then((querySnapshot) => {
+				if (
+					!(user && user.displayName === debounceName) &&
+					querySnapshot.docs.length > 0
+				) {
+					setValidName('중복된 닉네임입니다.');
+				} else if (user && user.displayName === debounceName) {
+					setValidName('');
+				} else {
+					setValidName('사용 가능한 닉네임입니다.');
+				}
+			});
+		} else {
+			setValidName('변경할 닉네임을 입력해주세요.');
+		}
+	}, [debounceName, userRef, user]);
 
 	const handleEdit = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.id === 'nickNameEdit') {
