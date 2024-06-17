@@ -31,7 +31,7 @@ export const getBestcomments = async (
 
 	const documentSnapshot = await getDocs(documentQuery);
 	let result: FirestoreDocument[] = [];
-	documentSnapshot.docs.map((doc) => {
+	documentSnapshot.docs.forEach((doc) => {
 		const data = doc.data();
 		result.push({
 			...data,

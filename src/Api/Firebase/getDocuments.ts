@@ -10,7 +10,7 @@ export const getDocuments = async (transaction: string, isbn: string) => {
 
 	const documentSnapshot = await getDocs(documentQuery);
 	let result: FirestoreDocument[] = [];
-	documentSnapshot.docs.map((doc) => {
+	documentSnapshot.docs.forEach((doc) => {
 		const data = doc.data();
 		result.push({
 			...data,
