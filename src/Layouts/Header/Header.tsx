@@ -33,7 +33,7 @@ export default function Header() {
 			navigate(`/search/${search}/1`);
 			setSearch('');
 		}
-	}, [search]);
+	}, [search, navigate]);
 
 	return (
 		<>
