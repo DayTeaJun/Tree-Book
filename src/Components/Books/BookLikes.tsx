@@ -23,31 +23,32 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 
 	useEffect(() => {
 		if (likedBook) {
-			const like = likedBook[0];
-			const likedNumber = like?.likeBy
-				? Object.values(like.likeBy).filter((like) => like === true).length
+			const isLike = likedBook[0];
+			const likedNumber = isLike?.likeBy
+				? Object.values(isLike.likeBy).filter((likeBy) => likeBy === true)
+						.length
 				: 0;
 			setNumber(likedNumber);
 			if (user) {
 				const isUser =
-					like.likeBy &&
-					like.likeBy[user.uid as keyof typeof like.likeBy] === true;
+					isLike.likeBy &&
+					isLike.likeBy[user.uid as keyof typeof isLike.likeBy] === true;
 				setLike(isUser);
-			} else {
-				setLike(false);
-				setNumber(0);
 			}
+		} else {
+			setLike(false);
+			setNumber(0);
 		}
 	}, [likedBook, user]);
 
 	const handleLikes = async () => {
 		if (user && likedBook) {
-			const likedUser = likedBook.find((book) => book.isbn === isbn);
+			const isLike = likedBook[0];
 			const uid = user.uid;
 			let likeBy;
 			const createdTime = timestamp.fromDate(new Date());
 			if (!like) {
-				likeBy = { ...likedUser?.likeBy, [uid]: !like };
+				likeBy = { ...isLike?.likeBy, [uid]: !like };
 				addMutation.mutate({
 					...item,
 					...likedBook[0],
@@ -62,7 +63,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 					enqueueSnackbar('즐겨찾기가 등록되었습니다.', { variant: 'success' });
 				}
 			} else {
-				likeBy = { ...likedUser?.likeBy };
+				likeBy = { ...isLike?.likeBy };
 				delete likeBy[uid];
 				addMutation.mutate({
 					...item,
