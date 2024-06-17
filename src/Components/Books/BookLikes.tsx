@@ -23,23 +23,25 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 
 	useEffect(() => {
 		if (likedBook) {
-			const isLike = likedBook[0];
-			const likedNumber = isLike?.likeBy
-				? Object.values(isLike.likeBy).filter((likeBy) => likeBy === true)
-						.length
-				: 0;
-			setNumber(likedNumber);
-			if (user) {
-				const isUser =
-					isLike.likeBy &&
-					isLike.likeBy[user.uid as keyof typeof isLike.likeBy] === true;
-				setLike(isUser);
+			if (likedUser) {
+				const isLike = likedBook[0];
+				const likedNumber = isLike?.likeBy
+					? Object.values(isLike.likeBy).filter((likeBy) => likeBy === true)
+							.length
+					: 0;
+				setNumber(likedNumber);
+				if (user) {
+					const isUser =
+						isLike.likeBy &&
+						isLike.likeBy[user.uid as keyof typeof isLike.likeBy] === true;
+					setLike(isUser);
+				}
+			} else {
+				setLike(false);
+				setNumber(0);
 			}
-		} else {
-			setLike(false);
-			setNumber(0);
 		}
-	}, [likedBook, user]);
+	}, [likedBook, user, likedUser]);
 
 	const handleLikes = async () => {
 		if (user && likedBook) {
