@@ -13,35 +13,30 @@ import { RootState } from '../../Redux/store';
 const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const { user } = useSelector((state: RootState) => state.user);
 	const isbn = item.isbn;
-	const { likeBy } = item;
-	const likedUser = user ? likeBy && likeBy[user.uid] === true : false;
-	const [like, setLike] = useState<boolean | undefined>(likedUser);
-	const [number, setNumber] = useState<number | undefined>();
+	const isLike = likedBook && likedBook[0];
+	const likedUser =
+		user && isLike ? isLike.likeBy && isLike.likeBy[user.uid] === true : false;
+	const likedNumber = isLike?.likeBy
+		? Object.values(isLike.likeBy).filter((likeBy) => likeBy === true).length
+		: 0;
+	const [like, setLike] = useState<boolean | undefined>(likedUser || false);
+	const [number, setNumber] = useState<number | undefined>(likedNumber || 0);
 	const queryClient = useQueryClient();
 	const { addDocument } = useFirestore('likedBook', isbn);
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
 		if (likedBook) {
-			if (likedUser) {
-				const isLike = likedBook[0];
-				const likedNumber = isLike?.likeBy
-					? Object.values(isLike.likeBy).filter((likeBy) => likeBy === true)
-							.length
-					: 0;
-				setNumber(likedNumber);
-				if (user) {
-					const isUser =
-						isLike.likeBy &&
-						isLike.likeBy[user.uid as keyof typeof isLike.likeBy] === true;
-					setLike(isUser);
-				}
+			if (likedUser && user && isLike) {
+				const isUser =
+					isLike.likeBy &&
+					isLike.likeBy[user.uid as keyof typeof isLike.likeBy] === true;
+				setLike(isUser);
 			} else {
 				setLike(false);
-				setNumber(0);
 			}
 		}
-	}, [likedBook, user, likedUser]);
+	}, [likedBook, user, likedUser, isLike]);
 
 	const handleLikes = async () => {
 		if (user && likedBook) {
@@ -49,6 +44,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 			const uid = user.uid;
 			let likeBy;
 			const createdTime = timestamp.fromDate(new Date());
+			setLike(!like);
 			if (!like) {
 				likeBy = { ...isLike?.likeBy, [uid]: !like };
 				addMutation.mutate({
