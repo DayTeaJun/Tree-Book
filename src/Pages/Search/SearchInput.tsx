@@ -18,9 +18,8 @@ export const SearchInput = () => {
 	useEffect(() => {
 		if (search !== '') {
 			navigate(`/search/${search}/1`);
-			setSearch('');
 		}
-	}, [search]);
+	}, [search, navigate]);
 
 	return (
 		<Box

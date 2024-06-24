@@ -6,7 +6,7 @@ import { CommentList } from './CommentList';
 import { Box, Typography } from '@mui/material';
 import { CommentItem } from './CommentItem';
 import { FirestoreDocument } from '../../../Types/firestoreType';
-import { Fragment, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { DropdownMenu } from '../../../Components/Dropdown/DropdownMenu';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Redux/store';
@@ -25,11 +25,7 @@ export const Comment = ({
 	const [sorted, setSorted] = useState<string>('latest');
 	const menuRef = useRef<HTMLDivElement>(null);
 
-	const {
-		data: commentData,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: commentData } = useQuery({
 		queryKey: ['comment', isbn],
 		queryFn: () => getDocuments('comment', isbn),
 	});
@@ -43,7 +39,11 @@ export const Comment = ({
 					{commentData?.map(
 						(commentData, index) =>
 							commentData.displayName === user?.displayName && (
-								<Fragment key={index}>
+								<Box
+									component='section'
+									sx={{ minHeight: '250px' }}
+									key={index}
+								>
 									<Typography
 										fontSize='1.2em'
 										fontWeight='bold'
@@ -83,7 +83,7 @@ export const Comment = ({
 											/>
 										)
 									)}
-								</Fragment>
+								</Box>
 							)
 					)}
 				</>

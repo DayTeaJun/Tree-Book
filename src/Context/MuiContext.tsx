@@ -1,5 +1,5 @@
 import { IconButton, ThemeProvider, createTheme } from '@mui/material';
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import getDesignTokens from '../themes/palette';
 import { SnackbarKey, SnackbarProvider, useSnackbar } from 'notistack';
 import CloseIcon from '@mui/icons-material/Close';

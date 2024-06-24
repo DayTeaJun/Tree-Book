@@ -37,7 +37,7 @@ export default function BookDetail() {
 			);
 			setItem(item);
 		}
-	}, [books]);
+	}, [books, id]);
 
 	if (isLoading) {
 		return <Loading />;

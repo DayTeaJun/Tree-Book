@@ -168,7 +168,7 @@ export function CommentForm({
 				setChecked(preComment.checked);
 			}
 		}
-	}, []);
+	}, [preComment]);
 
 	return (
 		<>
@@ -210,7 +210,7 @@ export function CommentForm({
 						value={comments}
 						inputProps={{ maxLength: 300 }}
 						onKeyDown={(event) => {
-							if (event.key == 'Enter') {
+							if (event.key === 'Enter') {
 								handleSubmit(event);
 							}
 						}}

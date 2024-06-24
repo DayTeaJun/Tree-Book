@@ -13,45 +13,40 @@ import { RootState } from '../../Redux/store';
 const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 	const { user } = useSelector((state: RootState) => state.user);
 	const isbn = item.isbn;
-	const { likeBy } = item;
-	const likedUser = user ? likeBy && likeBy[user.uid] === true : false;
-	const [like, setLike] = useState<boolean | undefined>(likedUser);
-	const [number, setNumber] = useState<number | undefined>();
+	const isLike = likedBook && likedBook[0];
+	const likedUser =
+		user && isLike ? isLike.likeBy && isLike.likeBy[user.uid] === true : false;
+	const likedNumber = isLike?.likeBy
+		? Object.values(isLike.likeBy).filter((likeBy) => likeBy === true).length
+		: 0;
+	const [like, setLike] = useState<boolean | undefined>(likedUser || false);
+	const [number, setNumber] = useState<number | undefined>(likedNumber || 0);
 	const queryClient = useQueryClient();
 	const { addDocument } = useFirestore('likedBook', isbn);
 	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
 		if (likedBook) {
-			const likedUser = likedBook.find((book) => book.isbn === isbn);
-			if (likedUser) {
-				const likedNumber = likedUser?.likeBy
-					? Object.values(likedUser.likeBy).filter((like) => like === true)
-							.length
-					: 0;
-				setNumber(likedNumber);
-				if (user) {
-					const isUser =
-						likedUser.likeBy &&
-						likedUser.likeBy[user.uid as keyof typeof likedUser.likeBy] ===
-							true;
-					setLike(isUser);
-				}
+			if (likedUser && user && isLike) {
+				const isUser =
+					isLike.likeBy &&
+					isLike.likeBy[user.uid as keyof typeof isLike.likeBy] === true;
+				setLike(isUser);
 			} else {
 				setLike(false);
-				setNumber(0);
 			}
 		}
-	}, [likedBook, isbn, user]);
+	}, [likedBook, user, likedUser, isLike]);
 
 	const handleLikes = async () => {
 		if (user && likedBook) {
-			const likedUser = likedBook.find((book) => book.isbn === isbn);
+			const isLike = likedBook[0];
 			const uid = user.uid;
 			let likeBy;
 			const createdTime = timestamp.fromDate(new Date());
+			setLike(!like);
 			if (!like) {
-				likeBy = { ...likedUser?.likeBy, [uid]: !like };
+				likeBy = { ...isLike?.likeBy, [uid]: !like };
 				addMutation.mutate({
 					...item,
 					...likedBook[0],
@@ -66,7 +61,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 					enqueueSnackbar('즐겨찾기가 등록되었습니다.', { variant: 'success' });
 				}
 			} else {
-				likeBy = { ...likedUser?.likeBy };
+				likeBy = { ...isLike?.likeBy };
 				delete likeBy[uid];
 				addMutation.mutate({
 					...item,

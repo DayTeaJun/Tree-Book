@@ -12,11 +12,7 @@ export const BookViews = ({ item }: { item: BookData }) => {
 	const queryClient = useQueryClient();
 	const isbn = item && item?.isbn;
 
-	const {
-		data: documents,
-		isLoading,
-		error,
-	} = useQuery({
+	const { data: documents } = useQuery({
 		queryKey: ['likedBook', isbn],
 		queryFn: () => getDocuments('likedBook', isbn),
 		refetchOnWindowFocus: false,
@@ -37,6 +33,7 @@ export const BookViews = ({ item }: { item: BookData }) => {
 
 	useEffect(() => {
 		handleView();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

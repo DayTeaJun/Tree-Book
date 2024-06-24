@@ -29,6 +29,7 @@ export const useLogin = () => {
 			enqueueSnackbar('로그인되었습니다.', { variant: 'success' });
 			setError(null);
 		} catch (error) {
+			enqueueSnackbar('로그인이 실패하였습니다', { variant: 'error' });
 			setError((error as Error).message);
 		}
 	};
