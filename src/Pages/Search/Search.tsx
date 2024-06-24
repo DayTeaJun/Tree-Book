@@ -9,7 +9,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Divider, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { CustomPaginaition } from '../../Components/Pagination/Pagination';
-import { SearchSkeleton } from './Search.skeleton';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { SearchInput } from './SearchInput';
 import SearchItem from './SearchItem';
@@ -79,11 +78,6 @@ export default function Search() {
 					padding: '20px 0',
 				}}
 			>
-				{/* {isLoading &&
-					Array.from({ length: 10 }).map((_, index) => (
-						<SearchSkeleton key={index} />
-					))} */}
-
 				{!isLoading &&
 					books.documents &&
 					(books.documents as BookData[]).map(

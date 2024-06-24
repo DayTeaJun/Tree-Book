@@ -42,7 +42,7 @@ const BookLikes = ({ item, id, search, page, likedBook }: BookLikesProps) => {
 				setNumber(0);
 			}
 		}
-	}, [likedBook]);
+	}, [likedBook, isbn, user]);
 
 	const handleLikes = async () => {
 		if (user && likedBook) {
