@@ -1,5 +1,9 @@
 import { getBooks } from '../../Api/searchApi';
-import { useQuery } from '@tanstack/react-query';
+import {
+	keepPreviousData,
+	useQuery,
+	useQueryClient,
+} from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Divider, Typography } from '@mui/material';
@@ -9,10 +13,12 @@ import { SearchSkeleton } from './Search.skeleton';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { SearchInput } from './SearchInput';
 import SearchItem from './SearchItem';
+import { useEffect } from 'react';
 
 export default function Search() {
 	const navigate = useNavigate();
 	const { isDownMD } = useMediaQueries();
+	const queryClient = useQueryClient();
 
 	const { searchView, page } = useParams<{
 		searchView: string;
@@ -24,7 +30,22 @@ export default function Search() {
 		queryFn: () => getBooks(searchView || '', 10, page),
 		enabled: !!searchView,
 		refetchOnWindowFocus: false,
+		staleTime: 60000,
+		placeholderData: keepPreviousData,
 	});
+
+	useEffect(() => {
+		if (books && books.meta && books.meta.pageable_count && page) {
+			const totalPages = Math.ceil(books.meta.pageable_count / 10);
+			if (Number(page) < totalPages) {
+				const nextPage = Number(page) + 1;
+				queryClient.prefetchQuery({
+					queryKey: ['books', searchView, nextPage],
+					queryFn: () => getBooks(searchView || '', 10, String(nextPage)),
+				});
+			}
+		}
+	}, [page, queryClient, searchView, books]);
 
 	const onMoveBookDetail = (id: number, isbn: string) => {
 		navigate(`/search/${searchView}/${page}/${id}`, { state: { isbn } });
@@ -58,10 +79,10 @@ export default function Search() {
 					padding: '20px 0',
 				}}
 			>
-				{isLoading &&
+				{/* {isLoading &&
 					Array.from({ length: 10 }).map((_, index) => (
 						<SearchSkeleton key={index} />
-					))}
+					))} */}
 
 				{!isLoading &&
 					books.documents &&
