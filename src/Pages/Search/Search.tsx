@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Divider, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { CustomPaginaition } from '../../Components/Pagination/Pagination';
+import { SearchSkeleton } from './Search.skeleton';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { SearchInput } from './SearchInput';
 import SearchItem from './SearchItem';
@@ -36,11 +37,13 @@ export default function Search() {
 	useEffect(() => {
 		if (books && books.meta && books.meta.pageable_count && page) {
 			const totalPages = Math.ceil(books.meta.pageable_count / 10);
-			if (Number(page) < totalPages) {
-				const nextPage = Number(page) + 1;
+			const pageNumber = Number(page);
+
+			if (pageNumber < totalPages) {
+				const nextPage = String(pageNumber + 1);
 				queryClient.prefetchQuery({
 					queryKey: ['books', searchView, nextPage],
-					queryFn: () => getBooks(searchView || '', 10, String(nextPage)),
+					queryFn: () => getBooks(searchView || '', 10, nextPage),
 				});
 			}
 		}
@@ -78,18 +81,21 @@ export default function Search() {
 					padding: '20px 0',
 				}}
 			>
-				{!isLoading &&
-					books.documents &&
-					(books.documents as BookData[]).map(
-						(item: BookData, index: number) => (
-							<SearchItem
-								onMoveBookDetail={onMoveBookDetail}
-								item={item}
-								index={index}
-								key={index}
-							/>
-						)
-					)}
+				{isLoading
+					? Array.from({ length: 10 }).map((_, index) => (
+							<SearchSkeleton key={index} />
+					  ))
+					: books.documents &&
+					  (books.documents as BookData[]).map(
+							(item: BookData, index: number) => (
+								<SearchItem
+									onMoveBookDetail={onMoveBookDetail}
+									item={item}
+									index={index}
+									key={index}
+								/>
+							)
+					  )}
 
 				{searchView !== ' ' && !isLoading && books.documents.length === 0 && (
 					<Typography component='h2' fontSize='1.2em' fontWeight='bold'>
