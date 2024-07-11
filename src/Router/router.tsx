@@ -1,10 +1,4 @@
-import {
-	BrowserRouter,
-	Navigate,
-	Outlet,
-	Route,
-	Routes,
-} from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { Suspense, lazy } from 'react';
 import { NotFound } from '../Pages/NotFound/NotFound';
@@ -44,7 +38,7 @@ export default function Router() {
 							/>
 							<Route path='/' element={<HomeFeed />} />
 
-							<Route path='/search/' element={<Outlet />}>
+							<Route path='/search/'>
 								<Route path=':searchView/:page' element={<Search />} />
 								<Route path=':search/:page/:id' element={<BookDetail />} />
 								<Route path='like/:search/:page/:id' element={<BookDetail />} />

@@ -7,8 +7,11 @@ export const getUser = async (transaction: string, displayName: string) => {
 		where('displayName', '==', displayName)
 	);
 
-	const documentSnapshot = await getDocs(userQuery);
-	const result = documentSnapshot.docs[0].data();
-
-	return result;
+	try {
+		const documentSnapshot = await getDocs(userQuery);
+		const result = documentSnapshot.docs[0].data();
+		return result;
+	} catch (error) {
+		console.log(error);
+	}
 };

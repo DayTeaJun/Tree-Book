@@ -28,23 +28,26 @@ export const getBestcomments = async (
 			limit(limitNumber)
 		);
 	}
-
-	const documentSnapshot = await getDocs(documentQuery);
-	let result: FirestoreDocument[] = [];
-	documentSnapshot.docs.forEach((doc) => {
-		const data = doc.data();
-		result.push({
-			...data,
-			uid: doc.id,
+	try {
+		const documentSnapshot = await getDocs(documentQuery);
+		let result: FirestoreDocument[] = [];
+		documentSnapshot.docs.forEach((doc) => {
+			const data = doc.data();
+			result.push({
+				...data,
+				uid: doc.id,
+			});
 		});
-	});
-	if (props === 'ratingBy') {
-		result.sort(
-			(a, b) =>
-				Object.keys(b.ratingBy as { [key: string]: number }).length -
-				Object.keys(a.ratingBy as { [key: string]: number }).length
-		);
-	}
+		if (props === 'ratingBy') {
+			result.sort(
+				(a, b) =>
+					Object.keys(b.ratingBy as { [key: string]: number }).length -
+					Object.keys(a.ratingBy as { [key: string]: number }).length
+			);
+		}
 
-	return result;
+		return result;
+	} catch (error) {
+		console.log(error);
+	}
 };

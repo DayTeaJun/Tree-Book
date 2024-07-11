@@ -8,15 +8,19 @@ export const getDocuments = async (transaction: string, isbn: string) => {
 		where('isbn', '==', isbn)
 	);
 
-	const documentSnapshot = await getDocs(documentQuery);
-	let result: FirestoreDocument[] = [];
-	documentSnapshot.docs.forEach((doc) => {
-		const data = doc.data();
-		result.push({
-			...data,
-			uid: doc.id,
+	try {
+		const documentSnapshot = await getDocs(documentQuery);
+		let result: FirestoreDocument[] = [];
+		documentSnapshot.docs.forEach((doc) => {
+			const data = doc.data();
+			result.push({
+				...data,
+				uid: doc.id,
+			});
 		});
-	});
 
-	return result;
+		return result;
+	} catch (error) {
+		console.log(error);
+	}
 };

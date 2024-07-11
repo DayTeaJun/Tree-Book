@@ -11,8 +11,12 @@ export const getProfileData = async (uid: string, props: string) => {
 		likedQuery = query(LikesRef, where('id', '==', uid));
 	}
 
-	const likedQuerySnapshot = await getDocs(likedQuery);
-	const result = likedQuerySnapshot.docs.map((doc) => doc.data());
-	result.sort((a, b) => b.createdTime.seconds - a.createdTime.seconds);
-	return result;
+	try {
+		const likedQuerySnapshot = await getDocs(likedQuery);
+		const result = likedQuerySnapshot.docs.map((doc) => doc.data());
+		result.sort((a, b) => b.createdTime.seconds - a.createdTime.seconds);
+		return result;
+	} catch (error) {
+		console.log(error);
+	}
 };
