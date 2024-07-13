@@ -10,16 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import { avgRating } from '../../Utils/CalRating';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { BestViewSkeleton } from './BestView.skeleton';
+import { useBestViewQuery } from '../../Hook/QueryHook/getBookQuery';
 
 const BestView = () => {
 	const navigate = useNavigate();
 	const { isDownSM, isDownMD, isDownLG } = useMediaQueries();
 	const itemsPerPage = isDownSM ? 3 : isDownMD ? 4 : 6;
 
-	const { data: likedBooks, isLoading } = useQuery({
-		queryKey: ['homeFeedLikedBooks'],
-		queryFn: () => getBestcomments('likedBook', 'views', 12),
-	});
+	const { data: likedBooks, isLoading } = useBestViewQuery();
 
 	const chunkArray = (arr: FirestoreDocument[], chunkSize: number) => {
 		const chunkedArray = [];

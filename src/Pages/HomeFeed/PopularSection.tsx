@@ -1,6 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import { getBestcomments } from '../../Api/Firebase/getBestBook';
 import { BookData } from '../../Types/bookType';
 import { useNavigate } from 'react-router-dom';
 import errorImg from '../../Assets/No-img.svg';
@@ -8,15 +6,13 @@ import StarIcon from '@mui/icons-material/Star';
 import { avgRating } from '../../Utils/CalRating';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { PopularSectionSkeleton } from './PopularSection.skeleton';
+import { useBestCommentQuery } from '../../Hook/QueryHook/getBookQuery';
 
 export const PopularSection = () => {
 	const navigate = useNavigate();
 	const { isDownLG, isDownMD } = useMediaQueries();
 
-	const { data: likedBooks, isLoading } = useQuery({
-		queryKey: ['homeFeedLikedBooks', 'ratingBy'],
-		queryFn: () => getBestcomments('likedBook', 'ratingBy', 9),
-	});
+	const { data: likedBooks, isLoading } = useBestCommentQuery();
 
 	const onMoveBookDetail = (isbn: string) => {
 		const likeIsbn =

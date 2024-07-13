@@ -1,19 +1,15 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { BookData } from '../../Types/bookType';
 import Carousel from 'react-material-ui-carousel';
-import { useQuery } from '@tanstack/react-query';
-import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { BestBookSkeleton } from './BestBook.skeleton';
+import { useLikedBookQuery } from '../../Hook/QueryHook/getBookQuery';
 
 const BestBook = () => {
 	const navigate = useNavigate();
 
-	const { data: likedBooks, isLoading } = useQuery({
-		queryKey: ['bestBook'],
-		queryFn: () => getLikedBooks('best'),
-	});
+	const { data: likedBooks, isLoading } = useLikedBookQuery();
 
 	const onMoveBookDetail = (isbn: string) => {
 		const likeIsbn =
