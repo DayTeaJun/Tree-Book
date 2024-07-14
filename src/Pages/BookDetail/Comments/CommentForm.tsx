@@ -18,6 +18,7 @@ import { Raiting } from '../../../Components/Rating/Rating';
 import { getUser } from '../../../Api/Firebase/getUser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Redux/store';
+import { useGetUserQuery } from '../../../Hook/QueryHook/getUserQuery';
 
 export function CommentForm({
 	item,
@@ -53,10 +54,7 @@ export function CommentForm({
 		},
 	});
 
-	const { data: userData } = useQuery({
-		queryKey: ['user', isbn],
-		queryFn: () => user && getUser('user', user?.displayName as string),
-	});
+	const { data: userData } = useGetUserQuery(displayName);
 
 	const handleSubmit: FormEventHandler = async (e) => {
 		e.preventDefault();

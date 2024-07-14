@@ -1,11 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import UserLiked from './UserLiked';
-import { useQuery } from '@tanstack/react-query';
 import { UserComment } from './UserComment';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { getUser } from '../../Api/Firebase/getUser';
 import { H1, Shimmer } from '../../Styles/Common';
 import { enqueueSnackbar } from 'notistack';
 import { UserLikedSkeleton } from './UserLiked.skeleton';
@@ -14,6 +12,7 @@ import { Chart } from '../../Components/Rating/Chart';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Redux/store';
+import { useGetUserQuery } from '../../Hook/QueryHook/getUserQuery';
 
 export default function Profile() {
 	const { user } = useSelector((state: RootState) => state.user);
@@ -22,10 +21,7 @@ export default function Profile() {
 	const navigate = useNavigate();
 	const { isDownMD } = useMediaQueries();
 
-	const { data: userDocument, isLoading } = useQuery({
-		queryKey: ['user', userProfile],
-		queryFn: () => getUser('user', userProfile ?? ''),
-	});
+	const { data: userDocument, isLoading } = useGetUserQuery(userProfile);
 
 	if (!isLoading && userDocument === undefined) {
 		enqueueSnackbar('존재하지 않는 프로필입니다!', { variant: 'error' });

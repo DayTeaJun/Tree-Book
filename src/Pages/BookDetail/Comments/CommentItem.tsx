@@ -22,6 +22,7 @@ import { getUser } from '../../../Api/Firebase/getUser';
 import { StarRating } from '../../../Components/Rating/Rating';
 import { useMediaQueries } from '../../../Hook/useMediaQueries';
 import WarningIcon from '@mui/icons-material/Warning';
+import { useGetUserQuery } from '../../../Hook/QueryHook/getUserQuery';
 
 export const CommentItem = ({
 	index,
@@ -41,12 +42,9 @@ export const CommentItem = ({
 	const [commentUid, setCommentUid] = useState('');
 	const { isDownMD } = useMediaQueries();
 	const [ckecked, setChecked] = useState(false);
+	const displayName = (user && user.displayName) || '';
 
-	const { data: userData } = useQuery({
-		queryKey: ['user', isbn],
-		queryFn: () => user && getUser('user', user?.displayName as string),
-	});
-
+	const { data: userData } = useGetUserQuery(displayName);
 	useEffect(() => {
 		setChecked(commentData.checked ?? false);
 	}, [commentData]);
