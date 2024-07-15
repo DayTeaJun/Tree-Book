@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { BookViews } from './BookViews';
 import Loading from '../../Components/LoadingSpinner/Loading';
+import { useBookDetail } from '../../Hook/QueryHook/getBookQuery';
 
 export default function BookDetail() {
 	const { id, search, page } = useParams<{
@@ -17,18 +18,12 @@ export default function BookDetail() {
 	const [item, setItem] = useState<BookData>();
 	const { pathname } = useLocation();
 
-	const { data: books, isLoading } = useQuery({
-		queryKey: ['bookDetail', page, search, id],
-		queryFn: () =>
-			search &&
-			(pathname.indexOf('/like') !== -1
-				? getBooks(search, 1, page, 'isbn')
-				: pathname.indexOf('/publisher') !== -1
-				? getBooks(search, 10, page, 'publisher')
-				: getBooks(search, 10, page, 'title')),
-		enabled: !!search,
-		refetchOnWindowFocus: false,
-	});
+	const { data: books, isLoading } = useBookDetail(
+		page ?? '1',
+		search ?? '',
+		id ?? '',
+		pathname
+	);
 
 	useEffect(() => {
 		if (books) {

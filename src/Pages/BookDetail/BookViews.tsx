@@ -1,22 +1,18 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
-import { getDocuments } from '../../Api/Firebase/getDocuments';
 import { useEffect } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { appFirestore } from '../../Firebase/config';
 import { BookDetailItem } from './BookDetailItem';
 import { BookSimilar } from './BookSimilar';
 import { Comment } from './Comments/Comment';
+import { useBookViews } from '../../Hook/QueryHook/getBookQuery';
 
 export const BookViews = ({ item }: { item: BookData }) => {
 	const queryClient = useQueryClient();
 	const isbn = item && item?.isbn;
 
-	const { data: documents } = useQuery({
-		queryKey: ['likedBook', isbn],
-		queryFn: () => getDocuments('likedBook', isbn),
-		refetchOnWindowFocus: false,
-	});
+	const { data: documents } = useBookViews(isbn);
 
 	const handleView = async () => {
 		if (documents) {
