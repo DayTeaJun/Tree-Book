@@ -1,15 +1,11 @@
 import { UserLikedProps } from '../../Types/userType';
 import BookItem from '../../Components/Books/BookItem';
-import { useQuery } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { Box, Typography } from '@mui/material';
-import { getProfileData } from '../../Api/Firebase/getProifleData';
+import { useGetProfileCommentQuery } from '../../Hook/QueryHook/getUserQuery';
 
 export const UserComment = ({ uid }: UserLikedProps) => {
-	const { data: userBooks } = useQuery({
-		queryKey: ['userComment', uid],
-		queryFn: () => getProfileData(uid ?? '', 'comment'),
-	});
+	const { data: userBooks } = useGetProfileCommentQuery(uid);
 
 	return (
 		<>
