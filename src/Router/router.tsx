@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 import { NotFound } from '../Pages/NotFound/NotFound';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Redux/store';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const HomeFeed = lazy(() => import('../Pages/HomeFeed/HomeFeed'));
 const BookDetail = lazy(() => import('../Pages/BookDetail/BookDetail'));

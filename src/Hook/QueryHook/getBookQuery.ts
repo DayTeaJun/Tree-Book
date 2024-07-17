@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getBestcomments } from '../../Api/Firebase/getBestBook';
 import { getLikedBooks } from '../../Api/Firebase/getLikedBooks';
 import { getBooks } from '../../Api/searchApi';
@@ -63,6 +63,18 @@ export function useBookViews(isbn: string) {
 		queryKey: ['likedBook', isbn],
 		queryFn: () => getDocuments('likedBook', isbn),
 		refetchOnWindowFocus: false,
+	});
+	return { data, isLoading, error };
+}
+
+export function useBookSearch(searchView: string, page: string) {
+	const { data, isLoading, error } = useQuery({
+		queryKey: ['books', searchView, page],
+		queryFn: () => getBooks(searchView || '', 10, page),
+		enabled: !!searchView,
+		refetchOnWindowFocus: false,
+		staleTime: 60000,
+		placeholderData: keepPreviousData,
 	});
 	return { data, isLoading, error };
 }

@@ -1,9 +1,5 @@
 import { getBooks } from '../../Api/searchApi';
-import {
-	keepPreviousData,
-	useQuery,
-	useQueryClient,
-} from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { BookData } from '../../Types/bookType';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Divider, Typography } from '@mui/material';
@@ -14,6 +10,7 @@ import { useMediaQueries } from '../../Hook/useMediaQueries';
 import { SearchInput } from './SearchInput';
 import SearchItem from './SearchItem';
 import { useEffect } from 'react';
+import { useBookSearch } from '../../Hook/QueryHook/getBookQuery';
 
 export default function Search() {
 	const navigate = useNavigate();
@@ -25,14 +22,10 @@ export default function Search() {
 		page: string;
 	}>();
 
-	const { data: books, isLoading } = useQuery({
-		queryKey: ['books', searchView, page],
-		queryFn: () => getBooks(searchView || '', 10, page),
-		enabled: !!searchView,
-		refetchOnWindowFocus: false,
-		staleTime: 60000,
-		placeholderData: keepPreviousData,
-	});
+	const { data: books, isLoading } = useBookSearch(
+		searchView || '',
+		page || '1'
+	);
 
 	useEffect(() => {
 		if (books && books.meta && books.meta.pageable_count && page) {
