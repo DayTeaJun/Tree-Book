@@ -10,6 +10,7 @@ import { useRef, useState } from 'react';
 import { DropdownMenu } from '../../../Components/Dropdown/DropdownMenu';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Redux/store';
+import { useCommentList } from '../../../Hook/QueryHook/getCommentQuery';
 
 export const Comment = ({
 	item,
@@ -25,10 +26,7 @@ export const Comment = ({
 	const [sorted, setSorted] = useState<string>('latest');
 	const menuRef = useRef<HTMLDivElement>(null);
 
-	const { data: commentData } = useQuery({
-		queryKey: ['comment', isbn],
-		queryFn: () => getDocuments('comment', isbn),
-	});
+	const { data: commentData } = useCommentList(isbn);
 
 	return (
 		<>
