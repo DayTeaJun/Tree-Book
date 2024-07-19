@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
 import { useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { BookLikesProps } from '../../../Types/bookType';
 import {
 	Box,
@@ -15,7 +15,6 @@ import { useSnackbar } from 'notistack';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { appFirestore } from '../../../Firebase/config';
 import { Raiting } from '../../../Components/Rating/Rating';
-import { getUser } from '../../../Api/Firebase/getUser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Redux/store';
 import { useGetUserQuery } from '../../../Hook/QueryHook/getUserQuery';

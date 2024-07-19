@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
-import { getBooks } from '../../Api/searchApi';
 import { BookData } from '../../Types/bookType';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';

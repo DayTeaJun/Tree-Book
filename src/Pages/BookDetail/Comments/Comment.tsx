@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { getDocuments } from '../../../Api/Firebase/getDocuments';
 import { CommentForm } from './CommentForm';
 import { BookData } from '../../../Types/bookType';
 import { CommentList } from './CommentList';

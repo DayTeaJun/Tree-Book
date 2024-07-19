@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CommentLike } from './CommentLike';
 import { useSnackbar } from 'notistack';
 import { FirestoreDocument } from '../../../Types/firestoreType';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFirestore } from '../../../Hook/FirebaseHook/useFirestore';
 import {
 	collection,
@@ -18,7 +18,6 @@ import { M } from '../../../Components/Modal/modal.style';
 import { Modal } from '../../../Components/Modal/Modal';
 import { CommentItemType } from '../../../Types/componentType';
 import { elapsedTime } from '../../../Utils/date';
-import { getUser } from '../../../Api/Firebase/getUser';
 import { StarRating } from '../../../Components/Rating/Rating';
 import { useMediaQueries } from '../../../Hook/useMediaQueries';
 import WarningIcon from '@mui/icons-material/Warning';

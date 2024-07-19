@@ -1,9 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { BookData } from '../../Types/bookType';
 import Carousel from 'react-material-ui-carousel';
-import { useQuery } from '@tanstack/react-query';
 import { useMediaQueries } from '../../Hook/useMediaQueries';
-import { getBestcomments } from '../../Api/Firebase/getBestBook';
 import StarIcon from '@mui/icons-material/Star';
 import errorImg from '../../Assets/No-img.svg';
 import { useNavigate } from 'react-router-dom';
