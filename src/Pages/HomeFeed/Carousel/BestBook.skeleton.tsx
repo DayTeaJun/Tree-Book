@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
-import { Shimmer } from '../../Styles/Common';
-import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { Shimmer } from '../../../Styles/Common';
+import { useMediaQueries } from '../../../Hook/useMediaQueries';
 
 export const BestBookSkeleton = () => {
 	const { isDownSM } = useMediaQueries();

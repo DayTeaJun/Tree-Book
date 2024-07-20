@@ -1,10 +1,10 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { BookData } from '../../Types/bookType';
+import { BookData } from '../../../Types/bookType';
 import Carousel from 'react-material-ui-carousel';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { useMediaQueries } from '../../../Hook/useMediaQueries';
 import { BestBookSkeleton } from './BestBook.skeleton';
-import { useLikedBookQuery } from '../../Hook/QueryHook/getBookQuery';
+import { useLikedBookQuery } from '../../../Hook/QueryHook/getBookQuery';
 
 const BestBook = () => {
 	const navigate = useNavigate();

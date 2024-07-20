@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { BookData } from '../../Types/bookType';
 import errorImg from '../../Assets/No-img.svg';
-import BookLikes from '../../Components/Books/BookLikes';
+import BookLikes from './BookLikes';
 import { useParams } from 'react-router-dom';
 import { FirestoreDocument } from '../../Types/firestoreType';
 import { Chart } from '../../Components/Rating/Chart';

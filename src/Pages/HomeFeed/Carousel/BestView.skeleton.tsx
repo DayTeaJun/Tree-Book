@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
-import { useMediaQueries } from '../../Hook/useMediaQueries';
-import { Shimmer } from '../../Styles/Common';
+import { useMediaQueries } from '../../../Hook/useMediaQueries';
+import { Shimmer } from '../../../Styles/Common';
 
 export const BestViewSkeleton = () => {
 	const { isDownSM, isDownMD } = useMediaQueries();

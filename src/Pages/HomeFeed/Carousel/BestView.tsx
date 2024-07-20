@@ -1,14 +1,14 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { BookData } from '../../Types/bookType';
+import { BookData } from '../../../Types/bookType';
 import Carousel from 'react-material-ui-carousel';
-import { useMediaQueries } from '../../Hook/useMediaQueries';
+import { useMediaQueries } from '../../../Hook/useMediaQueries';
 import StarIcon from '@mui/icons-material/Star';
-import errorImg from '../../Assets/No-img.svg';
+import errorImg from '../../../Assets/No-img.svg';
 import { useNavigate } from 'react-router-dom';
-import { avgRating } from '../../Utils/CalRating';
-import { FirestoreDocument } from '../../Types/firestoreType';
+import { avgRating } from '../../../Utils/CalRating';
+import { FirestoreDocument } from '../../../Types/firestoreType';
 import { BestViewSkeleton } from './BestView.skeleton';
-import { useBestViewQuery } from '../../Hook/QueryHook/getBookQuery';
+import { useBestViewQuery } from '../../../Hook/QueryHook/getBookQuery';
 
 const BestView = () => {
 	const navigate = useNavigate();

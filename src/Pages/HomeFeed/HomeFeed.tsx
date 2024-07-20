@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
-import BestBook from '../../Components/Carousel/BestBook';
+import BestBook from './Carousel/BestBook';
 import { Helmet } from 'react-helmet-async';
 import { PopularSection } from './PopularSection';
-import BestView from '../../Components/Carousel/BestView';
+import BestView from './Carousel/BestView';
 import { H1 } from '../../Styles/Common';
 
 export default function HomeFeed() {
